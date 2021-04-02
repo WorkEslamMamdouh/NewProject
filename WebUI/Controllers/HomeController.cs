@@ -1,0 +1,106 @@
+﻿using WebUI.Filter;
+using WebUI.Models;
+using Inv.WebUI.Tools;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
+
+namespace WebUI.Controllers
+{
+
+    [AuthorizeUserAttribute()]
+    public class HomeController : Controller
+    {
+
+
+
+        //    GET: Home
+        public ActionResult HomeIndex()
+        {
+
+            //Session["ErrorUrl"] = "";//Url.Action("LoginIndex", "Login");
+            //SessionManager.SessionRecord.CompanyNameAr = "";
+
+            //Session["SystemProperties"] = SessionManager.SessionRecord;
+
+            return View("HomeIndex");
+        }
+
+        public ActionResult AdminIndex()
+        {
+
+
+            return View();
+        }
+        public ActionResult HomeIndexPackage()
+        {
+
+
+            return View("HomeIndex");
+        }
+
+        //public JsonResult GetSystemProperties()
+        //{
+        //    SessionRecord jsonObject = (SessionRecord)Session["SystemProperties"];
+        //    string data = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObject, Newtonsoft.Json.Formatting.Indented);
+        //    return Shared.JsonObject(data);
+        //}
+
+        public ActionResult Logout()
+        {
+
+            //SessionManager.Me = null;
+            //SessionManager.ModelCount = 0;
+            //SessionManager.PageIndex = 0;
+            //SessionManager.SessionRecord = null;
+
+            return RedirectToAction("Loginindex", "Login");
+        }
+
+        public ViewResult Help()
+        {
+
+            return View();
+        }
+
+
+        public ActionResult OpenView(String ModuleCode)
+        {
+
+
+            if (ModuleCode == "ImagPopUp")
+            {
+                return PartialView("~/Views/Shared/ImagePopup.cshtml");
+
+            }
+            if (ModuleCode == "Messages_screen")
+            {
+                return PartialView("~/Views/Shared/Messages_screen.cshtml");
+            }
+            if (ModuleCode == "ImagePopupiupload")
+            {
+                return PartialView("~/Views/Shared/ImagePopupiupload.cshtml");
+            }
+
+            return PartialView("");
+
+        }
+
+        #region Open Pages 
+
+        public ActionResult SlsTrSalesIndex()
+        {
+            return View("~/Views/Sales/SlsTrSalesIndex.cshtml");
+        }
+
+
+
+        #endregion  Open Pages 
+
+    }
+}
