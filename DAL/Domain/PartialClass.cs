@@ -26,4 +26,9 @@ namespace DAL.Domain
 
     }
 
+    public partial class PRODUCT : SecurityandUpdateFlagClass
+    {
+
+    }
+
 }

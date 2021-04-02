@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using WebUl.DAL.Repository;
 
-namespace BLL.Services.Login
+namespace BLL.Services.Item
 {
-   public class LoginServices : ILoginServices
+   public class ItemServices : IItemServices
     {
         private readonly IUnitOfWork unitOfWork;
 
-        public LoginServices(IUnitOfWork _unitOfWork)
+        public ItemServices(IUnitOfWork _unitOfWork)
         {
 
             this.unitOfWork = _unitOfWork;
@@ -22,45 +22,45 @@ namespace BLL.Services.Login
 
 
         #region Nationality Services
-        public LoginPage GetById(int id)
+        public PRODUCT GetById(int id)
         {
 
-            return unitOfWork.Repository<LoginPage>().GetById(id);
+            return unitOfWork.Repository<PRODUCT>().GetById(id);
 
         }
 
-        public List<LoginPage> GetAll()
+        public List<PRODUCT> GetAll()
         {
-            return unitOfWork.Repository<LoginPage>().GetAll();
+            return unitOfWork.Repository<PRODUCT>().GetAll();
         }
 
-        public List<LoginPage> GetAll(Expression<Func<LoginPage, bool>> predicate)
+        public List<PRODUCT> GetAll(Expression<Func<PRODUCT, bool>> predicate)
         {
-            return unitOfWork.Repository<LoginPage>().Get(predicate);
+            return unitOfWork.Repository<PRODUCT>().Get(predicate);
         }
 
-        public LoginPage Insert(LoginPage entity)
+        public PRODUCT Insert(PRODUCT entity)
         {
-            var memb = unitOfWork.Repository<LoginPage>().Insert(entity);
+            var memb = unitOfWork.Repository<PRODUCT>().Insert(entity);
             unitOfWork.Save();
             return memb;
         }
 
-        public LoginPage Update(LoginPage entity)
+        public PRODUCT Update(PRODUCT entity)
         {
 
-            var memb = unitOfWork.Repository<LoginPage>().Update(entity);
+            var memb = unitOfWork.Repository<PRODUCT>().Update(entity);
             unitOfWork.Save();
             return memb;
         }
 
         public void Delete(int id)
         {
-            unitOfWork.Repository<LoginPage>().Delete(id);
+            unitOfWork.Repository<PRODUCT>().Delete(id);
             unitOfWork.Save();
         }
 
-        public void UpdateList(List<LoginPage> Lstservice)
+        public void UpdateList(List<PRODUCT> Lstservice)
         {
 
             var insertedRecord = Lstservice.Where(x => x.StatusFlag == "i");
@@ -68,16 +68,16 @@ namespace BLL.Services.Login
             var deletedRecord = Lstservice.Where(x => x.StatusFlag == "d");
 
             if (updatedRecord.Count() > 0)
-                unitOfWork.Repository<LoginPage>().Update(updatedRecord);
+                unitOfWork.Repository<PRODUCT>().Update(updatedRecord);
 
             if (insertedRecord.Count() > 0)
-                unitOfWork.Repository<LoginPage>().Insert(insertedRecord);
+                unitOfWork.Repository<PRODUCT>().Insert(insertedRecord);
 
 
             if (deletedRecord.Count() > 0)
             {
                 foreach (var entity in deletedRecord)
-                    unitOfWork.Repository<LoginPage>().Delete(entity.ID_User);
+                    unitOfWork.Repository<PRODUCT>().Delete(entity.PRODUCT_ID);
             }
 
             unitOfWork.Save();

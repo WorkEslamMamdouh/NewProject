@@ -534,18 +534,20 @@
         </div>
     </div>
 
-    @Scripts.Render("~/Bundles/AppScript2")
-
     @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>*@
-    @Scripts.Render("~/Bundles/AppScript3")
+
+
     <div id="caret_script" style="display:none!important">
     </div>
     @*<script src="http://code.jquery.com/jquery-1.8.0.js"></script>*@
     @*<script src="~/Scripts/jquery-3.1.1.js"></script>*@
     @*<script src="~/Scripts/jquery-3.1.1.js"></script>*@
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
+    @Scripts.Render("~/Bundles/AppScript2")
+    @Scripts.Render("~/Bundles/AppScript3")
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     @Scripts.Render("~/Bundles/AppScript4")
+
 
     <style>
         .mCS_no_scrollbar {

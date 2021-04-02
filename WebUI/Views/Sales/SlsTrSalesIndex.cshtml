@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<script src="~/Style_design/js/vendor/jquery-3.4.1.js"></script>
+
 <style>
     .style_pading_lepel {
         /*padding-top: 10px;*/
@@ -854,105 +854,12 @@
         </div>
 
     </div>
+
 </div>
-
-
-
-<script>
-    //var theThing = document.querySelector("#thing");
-    //var container = document.querySelector("#contentContainer");
-
-    //container.addEventListener('click', function (event) {
-    //    var x = event.clientX;
-    //    var y = event.clientY;
-    //    // x = 1150
-    //    // y = 461
-    //    //alert(x);
-    //    //alert(y);
-    //    if (x < 1150 && y < 461) {
-
-    //        var ball = document.querySelector("#thing");
-    //        ball.style.position = "absolute";
-    //        ball.style.left = `${x}px`;
-    //        ball.style.top = `${y}px`;
-
-    //    }
-    //    else if (x > 1150 && y < 461) {
-    //        //right
-    //        x = x - 100;
-    //        var ball = document.querySelector("#thing");
-    //        ball.style.position = "absolute";
-    //        ball.style.left = `${x}px`;
-    //        ball.style.top = `${y}px`;
-
-    //    }
-    //    else if (x < 1150 && y > 461) {
-    //        //bottom
-    //        y = y - 100;
-    //        var ball = document.querySelector("#thing");
-    //        ball.style.position = "absolute";
-    //        ball.style.left = `${x}px`;
-    //        ball.style.top = `${y}px`;
-    //    }
-    //    else if (x > 1150 && y > 461) {
-    //        //right and bottom
-    //        x = x - 100;
-    //        y = y - 100;
-    //        var ball = document.querySelector("#thing");
-    //        ball.style.position = "absolute";
-    //        ball.style.left = `${x}px`;
-    //        ball.style.top = `${y}px`;
-    //    }
-
-    //})
-</script>
-
-<script>
-    $(document).ready(function () {
-
-        // Initialize select2
-        $("#ddlCustomer").select2();
-        //$("#ddlSalesman").select2();
-        $("#ddlStore").select2();
-        // $("#ddlCashType").select2();
-        $("#ddlCashBox").select2();
-
-        // Read selected option
-        $('#but_read').click(function () {
-            var username = $('#ddlCustomer option:selected').text();
-            var userid = $('#ddlCustomer').val();
-
-            //var username = $('#ddlSalesman option:selected').text();
-            //var userid = $('#ddlSalesman').val();
-
-            var username = $('#ddlStore option:selected').text();
-            var userid = $('#ddlStore').val();
-
-            //var username = $('#ddlCashType option:selected').text();
-            //var userid = $('#ddlCashType').val();
-
-            var username = $('#ddlCashBox option:selected').text();
-            var userid = $('#ddlCashBox').val();
-
-            $('#result').html("id : " + userid + ", name : " + username);
-        });
-    });
-</script>
-<script>
-    $('#lepnotifications').on('click', function () {
-        $('#divnotifications').toggleClass('showdiv');
-        $('#spanlepnotifications').toggleClass('fa-caret-left');
-        $('#spanlepnotifications').toggleClass('fa-caret-down');
-
-    });
-
-</script>
-
-
-@Scripts.Render("~/Bundles/ClientApp")
-@*@Scripts.Render("~/Bundles/AppScript2")*@
+@Scripts.Render("~/Bundles/AppScript2")
+@Scripts.Render("~/Bundles/AppScript3")
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+@Scripts.Render("~/Bundles/AppScript4")
 <script src="~/ClientApp/JsGrid.js"></script>
-
 <script src="~/ClientApp/Sales/SlsTrSales.js"></script>
-
 

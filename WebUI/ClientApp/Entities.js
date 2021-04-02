@@ -286,6 +286,20 @@ var LoginPage = (function (_super) {
     }
     return LoginPage;
 }(SecurityClass));
+var PRODUCT = (function (_super) {
+    __extends(PRODUCT, _super);
+    function PRODUCT() {
+        var _this = _super.call(this) || this;
+        _this.PRODUCT_ID = 0;
+        _this.PRODUCT_NAME = "";
+        _this.PRODUCT_QET = 0;
+        _this.PRODUCT_Purchasing_price;
+        _this.PRODUCT_PRICE;
+        _this.ID_CAT = 0;
+        return _this;
+    }
+    return PRODUCT;
+}(SecurityClass));
 var Table_Hagz = (function (_super) {
     __extends(Table_Hagz, _super);
     function Table_Hagz() {

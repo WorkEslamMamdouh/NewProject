@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Item\IItemServices.cs" />
+    <Compile Include="Services\Item\ItemServices.cs" />
     <Compile Include="Services\Login\LoginServices.cs" />
     <Compile Include="Services\Login\ILoginServices.cs" />
     <Compile Include="Services\insert_Table\insert_TableServices.cs" />

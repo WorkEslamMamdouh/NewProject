@@ -6,8 +6,9 @@ $(document).ready(() => {
 namespace SlsTrSales {
 
     ////system varables
-    var SysSession: SystemSession = GetSystemSession();
+    //var SysSession: SystemSession = GetSystemSession();
     var sys: SystemTools = new SystemTools();
+    var FamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
     ////debugger
     //var compcode: Number;
     //var vatType: number;
@@ -19,7 +20,6 @@ namespace SlsTrSales {
     //var CashDetailsAr: Array<string> = new Array<string>();
     //var CashDetailsEn: Array<string> = new Array<string>();
     //var CashboxDetails: Array<A_RecPay_D_CashBox> = new Array<A_RecPay_D_CashBox>();
-    //var FamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
     //var CategoryDetails: Array<I_D_Category> = new Array<I_D_Category>();
     //var storeDetails: Array<G_STORE> = new Array<G_STORE>();
     //var ItemDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
@@ -139,7 +139,6 @@ namespace SlsTrSales {
     //var New_ItemFamilyID;
     //var storeCode;
     //var Num_Add_List = 0;
-    //var class_input;
     //var List: Array<I_Sls_TR_InvoiceItems> = new Array<I_Sls_TR_InvoiceItems>();
     //var List_MinUnitPrice: Array<I_Sls_TR_InvoiceItems> = new Array<I_Sls_TR_InvoiceItems>();
     //var Model: I_Sls_TR_InvoiceItems = new I_Sls_TR_InvoiceItems();
@@ -154,6 +153,10 @@ namespace SlsTrSales {
     //var txtCommission_Basket: HTMLInputElement;
     ////----------------------------------------------------------------Eslam------------
 
+    var class_input;
+    var PRODUCT_NAME;
+    var ItemFamilyID;
+    var IDPlus = 0;
 
 
     export function InitalizeComponent() {
@@ -467,17 +470,17 @@ namespace SlsTrSales {
     function DisplayItems(ItemList: Array<PRODUCT>) {
         for (var i = 0; i < ItemList.length; i++) {
 
-            if (ItemList[i].CatID == 1) {
+            if (ItemList[i].ID_CAT == 1) {
                 class_input = "input_fruits";
-            } else if (ItemList[i].CatID == 2) {
+            } else if (ItemList[i].ID_CAT == 2) {
 
                 class_input = "input_greens";
             } else {
 
                 class_input = "input_blue";
             }
-            PRODUCT_NAME = ItemList[i].DescA;
-            ItemFamilyID = ItemList[i].ItemFamilyID;
+            PRODUCT_NAME = ItemList[i].PRODUCT_NAME;
+            ItemFamilyID = ItemList[i].PRODUCT_ID;
             IDPlus = i;
             AddBut();
         }
@@ -530,20 +533,20 @@ namespace SlsTrSales {
             document.getElementById("li_input" + IDPlus + "").appendChild(div);
         }
 
-        $('#input' + IDPlus).click(Open_Menu);
+        //$('#input' + IDPlus).click(Open_Menu);
 
 
     }
     function blur_but() {
 
-        if (ID_input != null) {
+        //if (ID_input != null) {
 
-            ID_input.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
+        //    ID_input.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
 
 
-        }
-        div_menu.setAttribute('style', 'display:none;');
-        $('#thing').removeClass("zoomIn");
+        //}
+        //div_menu.setAttribute('style', 'display:none;');
+        //$('#thing').removeClass("zoomIn");
         //$('#thing').removeClass("zoomIn");
         //$('#thing').toggleClass("zoom");
     }
