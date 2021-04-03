@@ -97,7 +97,7 @@ namespace HomeComponent {
         }
 
         Language(); 
-        GetBackgroundImage(); 
+        //GetBackgroundImage(); 
         // GetNotificationData();
         //Notifications_Message()
        
@@ -502,7 +502,8 @@ namespace HomeComponent {
         }); 
     }
     //By Muhammad Rajab
-    export function Language() { 
+    export function Language() {
+        debugger
          if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
 
 

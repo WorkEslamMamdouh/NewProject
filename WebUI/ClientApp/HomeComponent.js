@@ -80,7 +80,7 @@ var HomeComponent;
             $('#hLoggedName').html(localStorage.getItem('Inv1_Login_Data'));
         }
         Language();
-        GetBackgroundImage();
+        //GetBackgroundImage(); 
         // GetNotificationData();
         //Notifications_Message()
         // Apply user and company privilages 
@@ -436,6 +436,7 @@ var HomeComponent;
     }
     //By Muhammad Rajab
     function Language() {
+        debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
             RemoveStyleSheet("bootstrap-rtl");
             RemoveStyleSheet("responsive_AR");

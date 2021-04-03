@@ -25,6 +25,7 @@
     @Styles.Render("~/Bundles/AppStyle2")
 
     @*<script src="http://code.jquery.com/jquery-3.3.1.js"></script>*@
+    <script src="http://code.jquery.com/jquery-3.0.0.js"></script>
 
     <style>
         .dropdown-menu {
@@ -494,7 +495,7 @@
         </div>
     </div>
 
-    <input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />
+    @*<input type="hidden" id="GetActionUrl" name="name" value="@Url.Action("GetActionUrl","ClientTools")" />*@
     <input type="hidden" id="ModelPreview" name="name" value="" />
     <input type="hidden" id="SearchControlName" name="name" value="" />
     <div class="modal fade messagealert" id="MessageBoxDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -545,8 +546,8 @@
 
     @Scripts.Render("~/Bundles/AppScript2")
     @Scripts.Render("~/Bundles/AppScript3")
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    @Scripts.Render("~/Bundles/AppScript4")
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript4")*@
 
 
     <style>

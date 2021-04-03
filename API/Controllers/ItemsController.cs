@@ -1,6 +1,6 @@
 ﻿using API.Models;
 using BLL.Services.Item;
-using DAL.Domain; 
+using DAL.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,27 +18,19 @@ using Newtonsoft.Json;
 namespace API.Controllers
 {
     [EnableCorsAttribute("*", "*", "*")]
-    public class GetItemController : BaseController
+    public class ItemsController : BaseController
     {
-
-        insert_Table_Result context = new insert_Table_Result();
-
-        //insert_Table_Result insert_Table = new insert_Table_Result();
-
-        //private insert_Table_Result db = new insert_Table_Result();
-
-        protected SamahEntities db = UnitOfWork.context(BuildConnectionString());
-
+         
         private readonly IItemServices ItemServices;
 
-        public GetItemController(IItemServices _ItemServices)
+        public ItemsController(IItemServices _IItemServices)
         {
-            this.ItemServices = _ItemServices;
+            ItemServices = _IItemServices;
 
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(int CompCode)
         {
             if (ModelState.IsValid)
             {

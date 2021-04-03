@@ -6,7 +6,7 @@ $(document).ready(() => {
 namespace SlsTrSales {
 
     ////system varables
-    //var SysSession: SystemSession = GetSystemSession();
+    var SysSession: SystemSession = GetSystemSession();
     var sys: SystemTools = new SystemTools();
     var FamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
     ////debugger
@@ -160,7 +160,7 @@ namespace SlsTrSales {
 
 
     export function InitalizeComponent() {
-
+        debugger
         $('#cont').toggleClass('colapsdivcont');
         //$("body").toggleClass("mini-navbar");
         $('#sidebar').toggleClass('active');
@@ -453,10 +453,30 @@ namespace SlsTrSales {
     //    });
     //}
     function Display_But() {
+        debugger
+
+        //let userCode = SysSession.CurrentEnvironment.UserCode;
+        //Ajax.Callsync({
+        //    type: "GET",
+        //    url: sys.apiUrl("Login", "open_and_close_Login"),
+        //    data: { UserName: userCode, password: '619', Open_Login: 0 },
+        //    success: (d) => {
+        //        debugger;
+        //        var res = d;
+        //        if (res.IsSuccess == true) {
+        //            debugger
+        //            var result = res.Response;
+        //            window.open(Url.Action("LoginIndex", "Login"), "_self");
+        //            localStorage.removeItem("Inv1_Login_Data");
+        //            return;
+        //        }
+        //    }
+        //});
+
         Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("GetItem", "GetAll"),
-            data: { },
+            type: "GET",
+            url: sys.apiUrl("Items", "GetAll"),
+            data: { CompCode:1 },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -466,6 +486,8 @@ namespace SlsTrSales {
                 }
             }
         });
+
+   
     }
     function DisplayItems(ItemList: Array<PRODUCT>) {
         for (var i = 0; i < ItemList.length; i++) {

@@ -90,7 +90,7 @@ namespace WebUI
             bundles.Add(new ScriptBundle("~/Bundles/AppScript2")
               .Include("~/Style_design/js/vendor/jquery-3.4.1.js",
                 "~/Style_design/js/vendor/jquery-1.11.3.min.js",
-                
+                   "~/js/my_js.js",
                 "~/Style_design/js/bootstrap.min.js",
                 "~/Style_design/js/jquery.meanmenu.js",
                 "~/Style_design/js/jquery.mCustomScrollbar.concat.min.js",
@@ -108,7 +108,8 @@ namespace WebUI
                 "~/ClientApp/Entities.js",
                 "~/ClientApp/Shared.js",
                 "~/ClientApp/App.js",
-             
+              "~/ClientApp/JsGrid.js",
+                "~/Scripts/jsgrid/jsgrid.js",
                 "~/ClientApp/SystemTools.js",
                 "~/ClientApp/CustomEntities.js",
                 "~/ClientApp/MessageBox.js",

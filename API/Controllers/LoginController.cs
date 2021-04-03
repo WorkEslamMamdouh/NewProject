@@ -21,13 +21,6 @@ namespace API.Controllers
     public class LoginController : BaseController
     {
 
-        insert_Table_Result context = new insert_Table_Result();
-
-        //insert_Table_Result insert_Table = new insert_Table_Result();
-
-        //private insert_Table_Result db = new insert_Table_Result();
-
-        protected SamahEntities db = UnitOfWork.context(BuildConnectionString());
 
         private readonly ILoginServices LoginService;
 

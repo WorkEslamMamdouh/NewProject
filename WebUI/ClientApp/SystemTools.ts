@@ -11,7 +11,7 @@ class SystemTools {
     //public SysSession: SystemSession; 
 
     public apiUrl(controller: string, action: string) {
-
+        debugger
 
         var apiUrl = $("#GetAPIUrl").val() + controller + "/" + action;
         return (apiUrl);
