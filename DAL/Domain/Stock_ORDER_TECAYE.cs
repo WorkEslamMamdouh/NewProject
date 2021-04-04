@@ -21,7 +21,5 @@ namespace DAL.Domain
         public Nullable<decimal> Total_Price_One_Part { get; set; }
         public string Notes_Order { get; set; }
         public Nullable<int> ID_Order_Tecaye { get; set; }
-    
-        public virtual ORDER_TECAYE ORDER_TECAYE { get; set; }
     }
 }

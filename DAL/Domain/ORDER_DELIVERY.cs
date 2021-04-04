@@ -14,12 +14,6 @@ namespace DAL.Domain
     
     public partial class ORDER_DELIVERY
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ORDER_DELIVERY()
-        {
-            this.Stok_ORDER_DELIVERY = new HashSet<Stok_ORDER_DELIVERY>();
-        }
-    
         public int ID_ORDER_Delivery { get; set; }
         public Nullable<int> EMPLOYEE_ID { get; set; }
         public Nullable<int> Namber_Order_Delivery { get; set; }
@@ -31,11 +25,5 @@ namespace DAL.Domain
         public string Name_Pilot { get; set; }
         public Nullable<bool> Confirmation { get; set; }
         public Nullable<int> Num_Day { get; set; }
-    
-        public virtual CUSTOMER CUSTOMER { get; set; }
-        public virtual EMPLOYEE EMPLOYEE { get; set; }
-        public virtual Table_two_days Table_two_days { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
     }
 }

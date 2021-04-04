@@ -14,18 +14,9 @@ namespace DAL.Domain
     
     public partial class Settings_Report
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Settings_Report()
-        {
-            this.Report_Parameters = new HashSet<Report_Parameters>();
-        }
-    
         public int ID_Report { get; set; }
         public string ID_Button_Print { get; set; }
         public string Name_Report { get; set; }
         public string Name_Stored_Report { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Report_Parameters> Report_Parameters { get; set; }
     }
 }

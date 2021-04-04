@@ -256,228 +256,6 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="id_User_sales" Type="int" Nullable="false" />
           <Property Name="id_Settings" Type="int" />
         </EntityType>
-        <Association Name="FK_EMPLOYEE_LoginPage1">
-          <End Role="LoginPage" Type="Self.LoginPage" Multiplicity="0..1" />
-          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoginPage">
-              <PropertyRef Name="ID_User" />
-            </Principal>
-            <Dependent Role="EMPLOYEE">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EMPLOYEE_Type_EMPLOYEE">
-          <End Role="Type_EMPLOYEE" Type="Self.Type_EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Type_EMPLOYEE">
-              <PropertyRef Name="id_Type_EMPLOYEE" />
-            </Principal>
-            <Dependent Role="EMPLOYEE">
-              <PropertyRef Name="id_Type_EMPLOYEE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ITEME_STORE">
-          <End Role="STORE" Type="Self.STORE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ITEME" Type="Self.ITEME" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="STORE">
-              <PropertyRef Name="ID_STORE" />
-            </Principal>
-            <Dependent Role="ITEME">
-              <PropertyRef Name="ID_STORE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_CUSTOMER">
-          <End Role="CUSTOMER" Type="Self.CUSTOMER" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_DELIVERY" Type="Self.ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CUSTOMER">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_EMPLOYEE">
-          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_DELIVERY" Type="Self.ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_Table_two_days">
-          <End Role="Table_two_days" Type="Self.Table_two_days" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_DELIVERY" Type="Self.ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Table_two_days">
-              <PropertyRef Name="Num_Day" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="Num_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_SOFRA_EMPLOYEE">
-          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_SOFRA" Type="Self.ORDER_SOFRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_SOFRA">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_SOFRA_SOFRA">
-          <End Role="SOFRA" Type="Self.SOFRA" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_SOFRA" Type="Self.ORDER_SOFRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SOFRA">
-              <PropertyRef Name="SOFRA_ID" />
-            </Principal>
-            <Dependent Role="ORDER_SOFRA">
-              <PropertyRef Name="SOFRA_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_TECAYE_EMPLOYEE">
-          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_TECAYE" Type="Self.ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_TECAYE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_TECAYE_Table_two_days">
-          <End Role="Table_two_days" Type="Self.Table_two_days" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ORDER_TECAYE" Type="Self.ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Table_two_days">
-              <PropertyRef Name="Num_Day" />
-            </Principal>
-            <Dependent Role="ORDER_TECAYE">
-              <PropertyRef Name="Num_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PRODUCT_CATEGRES1">
-          <End Role="CATEGRES" Type="Self.CATEGRES" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CATEGRES">
-              <PropertyRef Name="ID_CAT" />
-            </Principal>
-            <Dependent Role="PRODUCT">
-              <PropertyRef Name="ID_CAT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Report_Parameters_Settings_Report">
-          <End Role="Settings_Report" Type="Self.Settings_Report" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Report_Parameters" Type="Self.Report_Parameters" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Settings_Report">
-              <PropertyRef Name="ID_Report" />
-            </Principal>
-            <Dependent Role="Report_Parameters">
-              <PropertyRef Name="ID_Report" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Settings_LoginPage">
-          <End Role="LoginPage" Type="Self.LoginPage" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Settings" Type="Self.Settings" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoginPage">
-              <PropertyRef Name="ID_User" />
-            </Principal>
-            <Dependent Role="Settings">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_ORDER_TECAYE_ORDER_TECAYE">
-          <End Role="ORDER_TECAYE" Type="Self.ORDER_TECAYE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Stock_ORDER_TECAYE" Type="Self.Stock_ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ORDER_TECAYE">
-              <PropertyRef Name="ID_Order_Tecaye" />
-            </Principal>
-            <Dependent Role="Stock_ORDER_TECAYE">
-              <PropertyRef Name="ID_Order_Tecaye" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY">
-          <End Role="ORDER_DELIVERY" Type="Self.ORDER_DELIVERY" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Stok_ORDER_DELIVERY" Type="Self.Stok_ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ORDER_DELIVERY">
-              <PropertyRef Name="ID_ORDER_Delivery" />
-            </Principal>
-            <Dependent Role="Stok_ORDER_DELIVERY">
-              <PropertyRef Name="FK_ORDER_Delivery" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_sales_Settings">
-          <End Role="Settings" Type="Self.Settings" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="User_sales" Type="Self.User_sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Settings">
-              <PropertyRef Name="id_Settings" />
-            </Principal>
-            <Dependent Role="User_sales">
-              <PropertyRef Name="id_Settings" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="Add_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_name" Type="nvarchar" Mode="In" />
           <Parameter Name="passwrd" Type="nvarchar" Mode="In" />
@@ -726,70 +504,6 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <EntitySet Name="Table_two_days" EntityType="Self.Table_two_days" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="Self.Type_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_sales" EntityType="Self.User_sales" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_EMPLOYEE_LoginPage1" Association="Self.FK_EMPLOYEE_LoginPage1">
-            <End Role="LoginPage" EntitySet="LoginPage" />
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EMPLOYEE_Type_EMPLOYEE" Association="Self.FK_EMPLOYEE_Type_EMPLOYEE">
-            <End Role="Type_EMPLOYEE" EntitySet="Type_EMPLOYEE" />
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ITEME_STORE" Association="Self.FK_ITEME_STORE">
-            <End Role="STORE" EntitySet="STORE" />
-            <End Role="ITEME" EntitySet="ITEME" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_CUSTOMER" Association="Self.FK_ORDER_DELIVERY_CUSTOMER">
-            <End Role="CUSTOMER" EntitySet="CUSTOMER" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_EMPLOYEE" Association="Self.FK_ORDER_DELIVERY_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_Table_two_days" Association="Self.FK_ORDER_DELIVERY_Table_two_days">
-            <End Role="Table_two_days" EntitySet="Table_two_days" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_SOFRA_EMPLOYEE" Association="Self.FK_ORDER_SOFRA_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
-            <End Role="ORDER_SOFRA" EntitySet="ORDER_SOFRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_SOFRA_SOFRA" Association="Self.FK_ORDER_SOFRA_SOFRA">
-            <End Role="SOFRA" EntitySet="SOFRA" />
-            <End Role="ORDER_SOFRA" EntitySet="ORDER_SOFRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_TECAYE_EMPLOYEE" Association="Self.FK_ORDER_TECAYE_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_TECAYE_Table_two_days" Association="Self.FK_ORDER_TECAYE_Table_two_days">
-            <End Role="Table_two_days" EntitySet="Table_two_days" />
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PRODUCT_CATEGRES1" Association="Self.FK_PRODUCT_CATEGRES1">
-            <End Role="CATEGRES" EntitySet="CATEGRES" />
-            <End Role="PRODUCT" EntitySet="PRODUCT" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Report_Parameters_Settings_Report" Association="Self.FK_Report_Parameters_Settings_Report">
-            <End Role="Settings_Report" EntitySet="Settings_Report" />
-            <End Role="Report_Parameters" EntitySet="Report_Parameters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Settings_LoginPage" Association="Self.FK_Settings_LoginPage">
-            <End Role="LoginPage" EntitySet="LoginPage" />
-            <End Role="Settings" EntitySet="Settings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_ORDER_TECAYE_ORDER_TECAYE" Association="Self.FK_Stock_ORDER_TECAYE_ORDER_TECAYE">
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-            <End Role="Stock_ORDER_TECAYE" EntitySet="Stock_ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY" Association="Self.FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY">
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-            <End Role="Stok_ORDER_DELIVERY" EntitySet="Stok_ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_sales_Settings" Association="Self.FK_User_sales_Settings">
-            <End Role="Settings" EntitySet="Settings" />
-            <End Role="User_sales" EntitySet="User_sales" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -815,93 +529,6 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="cheak" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <EntitySet Name="CATEGRES" EntityType="SamahModel.CATEGRE" />
-          <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
-          <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
-          <EntitySet Name="ITEMEs" EntityType="SamahModel.ITEME" />
-          <EntitySet Name="LoginPages" EntityType="SamahModel.LoginPage" />
-          <EntitySet Name="Message_Chat" EntityType="SamahModel.Message_Chat" />
-          <EntitySet Name="ORDER_DELIVERY" EntityType="SamahModel.ORDER_DELIVERY" />
-          <EntitySet Name="ORDER_SOFRA" EntityType="SamahModel.ORDER_SOFRA" />
-          <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
-          <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
-          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
-          <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
-          <EntitySet Name="Send_Message" EntityType="SamahModel.Send_Message" />
-          <EntitySet Name="Settings" EntityType="SamahModel.Setting" />
-          <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
-          <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
-          <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
-          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
-          <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
-          <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
-          <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
-          <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
-          <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
-          <AssociationSet Name="FK_PRODUCT_CATEGRES1" Association="SamahModel.FK_PRODUCT_CATEGRES1">
-            <End Role="CATEGRE" EntitySet="CATEGRES" />
-            <End Role="PRODUCT" EntitySet="PRODUCTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_CUSTOMER" Association="SamahModel.FK_ORDER_DELIVERY_CUSTOMER">
-            <End Role="CUSTOMER" EntitySet="CUSTOMERs" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EMPLOYEE_LoginPage1" Association="SamahModel.FK_EMPLOYEE_LoginPage1">
-            <End Role="LoginPage" EntitySet="LoginPages" />
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EMPLOYEE_Type_EMPLOYEE" Association="SamahModel.FK_EMPLOYEE_Type_EMPLOYEE">
-            <End Role="Type_EMPLOYEE" EntitySet="Type_EMPLOYEE" />
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_EMPLOYEE" Association="SamahModel.FK_ORDER_DELIVERY_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_SOFRA_EMPLOYEE" Association="SamahModel.FK_ORDER_SOFRA_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-            <End Role="ORDER_SOFRA" EntitySet="ORDER_SOFRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_TECAYE_EMPLOYEE" Association="SamahModel.FK_ORDER_TECAYE_EMPLOYEE">
-            <End Role="EMPLOYEE" EntitySet="EMPLOYEEs" />
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ITEME_STORE" Association="SamahModel.FK_ITEME_STORE">
-            <End Role="STORE" EntitySet="STOREs" />
-            <End Role="ITEME" EntitySet="ITEMEs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Settings_LoginPage" Association="SamahModel.FK_Settings_LoginPage">
-            <End Role="LoginPage" EntitySet="LoginPages" />
-            <End Role="Setting" EntitySet="Settings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_DELIVERY_Table_two_days" Association="SamahModel.FK_ORDER_DELIVERY_Table_two_days">
-            <End Role="Table_two_days" EntitySet="Table_two_days" />
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY" Association="SamahModel.FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY">
-            <End Role="ORDER_DELIVERY" EntitySet="ORDER_DELIVERY" />
-            <End Role="Stok_ORDER_DELIVERY" EntitySet="Stok_ORDER_DELIVERY" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_SOFRA_SOFRA" Association="SamahModel.FK_ORDER_SOFRA_SOFRA">
-            <End Role="SOFRA" EntitySet="SOFRAs" />
-            <End Role="ORDER_SOFRA" EntitySet="ORDER_SOFRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ORDER_TECAYE_Table_two_days" Association="SamahModel.FK_ORDER_TECAYE_Table_two_days">
-            <End Role="Table_two_days" EntitySet="Table_two_days" />
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stock_ORDER_TECAYE_ORDER_TECAYE" Association="SamahModel.FK_Stock_ORDER_TECAYE_ORDER_TECAYE">
-            <End Role="ORDER_TECAYE" EntitySet="ORDER_TECAYE" />
-            <End Role="Stock_ORDER_TECAYE" EntitySet="Stock_ORDER_TECAYE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Report_Parameters_Settings_Report" Association="SamahModel.FK_Report_Parameters_Settings_Report">
-            <End Role="Settings_Report" EntitySet="Settings_Report" />
-            <End Role="Report_Parameters" EntitySet="Report_Parameters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_sales_Settings" Association="SamahModel.FK_User_sales_Settings">
-            <End Role="Setting" EntitySet="Settings" />
-            <End Role="User_sales" EntitySet="User_sales" />
-          </AssociationSet>
           <FunctionImport Name="Add_Emp">
             <Parameter Name="user_name" Mode="In" Type="String" />
             <Parameter Name="passwrd" Mode="In" Type="String" />
@@ -1125,7 +752,30 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="Open_Login" Mode="In" Type="Boolean" />
           </FunctionImport>
-        </EntityContainer>
+          <EntitySet Name="CATEGRES" EntityType="SamahModel.CATEGRE" />
+          <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
+          <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
+          <EntitySet Name="ITEMEs" EntityType="SamahModel.ITEME" />
+          <EntitySet Name="LoginPages" EntityType="SamahModel.LoginPage" />
+          <EntitySet Name="Message_Chat" EntityType="SamahModel.Message_Chat" />
+          <EntitySet Name="ORDER_DELIVERY" EntityType="SamahModel.ORDER_DELIVERY" />
+          <EntitySet Name="ORDER_SOFRA" EntityType="SamahModel.ORDER_SOFRA" />
+          <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
+          <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
+          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
+          <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
+          <EntitySet Name="Send_Message" EntityType="SamahModel.Send_Message" />
+          <EntitySet Name="Settings" EntityType="SamahModel.Setting" />
+          <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
+          <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
+          <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
+          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
+          <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
+          <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
+          <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
+          <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
+          <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
+          </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="Num" Nullable="true" />
@@ -1156,491 +806,6 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Type="Boolean" Name="cheak" Nullable="true" />
           <Property Type="String" Name="StatusFlag" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="CATEGRE">
-          <Key>
-            <PropertyRef Name="ID_CAT" />
-          </Key>
-          <Property Name="ID_CAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_CAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PRODUCTs" Relationship="SamahModel.FK_PRODUCT_CATEGRES1" FromRole="CATEGRE" ToRole="PRODUCT" />
-        </EntityType>
-        <EntityType Name="CUSTOMER">
-          <Key>
-            <PropertyRef Name="CUSTOMER_ID" />
-          </Key>
-          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ORDER_DELIVERY" Relationship="SamahModel.FK_ORDER_DELIVERY_CUSTOMER" FromRole="CUSTOMER" ToRole="ORDER_DELIVERY" />
-        </EntityType>
-        <EntityType Name="EMPLOYEE">
-          <Key>
-            <PropertyRef Name="EMPLOYEE_ID" />
-          </Key>
-          <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMPLOYEE_PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_User" Type="Int32" />
-          <Property Name="id_Type_EMPLOYEE" Type="Int32" />
-          <NavigationProperty Name="LoginPage" Relationship="SamahModel.FK_EMPLOYEE_LoginPage1" FromRole="EMPLOYEE" ToRole="LoginPage" />
-          <NavigationProperty Name="Type_EMPLOYEE" Relationship="SamahModel.FK_EMPLOYEE_Type_EMPLOYEE" FromRole="EMPLOYEE" ToRole="Type_EMPLOYEE" />
-          <NavigationProperty Name="ORDER_DELIVERY" Relationship="SamahModel.FK_ORDER_DELIVERY_EMPLOYEE" FromRole="EMPLOYEE" ToRole="ORDER_DELIVERY" />
-          <NavigationProperty Name="ORDER_SOFRA" Relationship="SamahModel.FK_ORDER_SOFRA_EMPLOYEE" FromRole="EMPLOYEE" ToRole="ORDER_SOFRA" />
-          <NavigationProperty Name="ORDER_TECAYE" Relationship="SamahModel.FK_ORDER_TECAYE_EMPLOYEE" FromRole="EMPLOYEE" ToRole="ORDER_TECAYE" />
-        </EntityType>
-        <EntityType Name="ITEME">
-          <Key>
-            <PropertyRef Name="ID_Iteme" />
-          </Key>
-          <Property Name="ID_Iteme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type_Iteme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="QONTTE_Iteme" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Pirce_Iteme" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DATE_Iteme" Type="DateTime" Precision="3" />
-          <Property Name="DATE_Expir_Iteme" Type="DateTime" Precision="3" />
-          <Property Name="Supplier_Iteme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_STORE" Type="Int32" />
-          <NavigationProperty Name="STORE" Relationship="SamahModel.FK_ITEME_STORE" FromRole="ITEME" ToRole="STORE" />
-        </EntityType>
-        <EntityType Name="LoginPage">
-          <Key>
-            <PropertyRef Name="ID_User" />
-          </Key>
-          <Property Name="ID_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WepFormLoad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Open_Login" Type="Boolean" />
-          <NavigationProperty Name="EMPLOYEEs" Relationship="SamahModel.FK_EMPLOYEE_LoginPage1" FromRole="LoginPage" ToRole="EMPLOYEE" />
-          <NavigationProperty Name="Settings" Relationship="SamahModel.FK_Settings_LoginPage" FromRole="LoginPage" ToRole="Setting" />
-        </EntityType>
-        <EntityType Name="Message_Chat">
-          <Key>
-            <PropertyRef Name="id_Message" />
-          </Key>
-          <Property Name="id_Message" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Send_Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Date_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Text_Send" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_ORDER_Delivery" />
-          </Key>
-          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Namber_Order_Delivery" Type="Int32" />
-          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_ID" Type="Int32" />
-          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Tax" Type="Double" />
-          <Property Name="type_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Pilot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Confirmation" Type="Boolean" />
-          <Property Name="Num_Day" Type="Int32" />
-          <NavigationProperty Name="CUSTOMER" Relationship="SamahModel.FK_ORDER_DELIVERY_CUSTOMER" FromRole="ORDER_DELIVERY" ToRole="CUSTOMER" />
-          <NavigationProperty Name="EMPLOYEE" Relationship="SamahModel.FK_ORDER_DELIVERY_EMPLOYEE" FromRole="ORDER_DELIVERY" ToRole="EMPLOYEE" />
-          <NavigationProperty Name="Table_two_days" Relationship="SamahModel.FK_ORDER_DELIVERY_Table_two_days" FromRole="ORDER_DELIVERY" ToRole="Table_two_days" />
-          <NavigationProperty Name="Stok_ORDER_DELIVERY" Relationship="SamahModel.FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY" FromRole="ORDER_DELIVERY" ToRole="Stok_ORDER_DELIVERY" />
-        </EntityType>
-        <EntityType Name="ORDER_SOFRA">
-          <Key>
-            <PropertyRef Name="ID_ORDER_SOFRA" />
-          </Key>
-          <Property Name="ID_ORDER_SOFRA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QONTTE_ORDER_SOFRA" Type="Int32" />
-          <Property Name="TAX_ORDER_SOFRA" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SERVICE_ORDER_SOFRA" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SOFRA_ID" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Namber_Order_Sofra" Type="Int32" />
-          <Property Name="Date_Order_Sofra" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="EMPLOYEE" Relationship="SamahModel.FK_ORDER_SOFRA_EMPLOYEE" FromRole="ORDER_SOFRA" ToRole="EMPLOYEE" />
-          <NavigationProperty Name="SOFRA" Relationship="SamahModel.FK_ORDER_SOFRA_SOFRA" FromRole="ORDER_SOFRA" ToRole="SOFRA" />
-        </EntityType>
-        <EntityType Name="ORDER_TECAYE">
-          <Key>
-            <PropertyRef Name="ID_Order_Tecaye" />
-          </Key>
-          <Property Name="ID_Order_Tecaye" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date_Order_Tecaye" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-          <Property Name="Namber_Order_Tecaye" Type="Int32" />
-          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="type_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Num_Day" Type="Int32" />
-          <NavigationProperty Name="EMPLOYEE" Relationship="SamahModel.FK_ORDER_TECAYE_EMPLOYEE" FromRole="ORDER_TECAYE" ToRole="EMPLOYEE" />
-          <NavigationProperty Name="Table_two_days" Relationship="SamahModel.FK_ORDER_TECAYE_Table_two_days" FromRole="ORDER_TECAYE" ToRole="Table_two_days" />
-          <NavigationProperty Name="Stock_ORDER_TECAYE" Relationship="SamahModel.FK_Stock_ORDER_TECAYE_ORDER_TECAYE" FromRole="ORDER_TECAYE" ToRole="Stock_ORDER_TECAYE" />
-        </EntityType>
-        <EntityType Name="Outlet">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Num_Day" Type="Int32" />
-        </EntityType>
-        <EntityType Name="PRODUCT">
-          <Key>
-            <PropertyRef Name="PRODUCT_ID" />
-          </Key>
-          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PRODUCT_QET" Type="Int32" />
-          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_CAT" Type="Int32" />
-          <NavigationProperty Name="CATEGRE" Relationship="SamahModel.FK_PRODUCT_CATEGRES1" FromRole="PRODUCT" ToRole="CATEGRE" />
-        </EntityType>
-        <EntityType Name="Report_Parameters">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Report" Type="Int32" />
-          <Property Name="Parameter_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_8" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Parameter_9" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Settings_Report" Relationship="SamahModel.FK_Report_Parameters_Settings_Report" FromRole="Report_Parameters" ToRole="Settings_Report" />
-        </EntityType>
-        <EntityType Name="Send_Message">
-          <Key>
-            <PropertyRef Name="id_Message" />
-          </Key>
-          <Property Name="id_Message" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Send_Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Date_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Text_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="open_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Setting">
-          <Key>
-            <PropertyRef Name="id_Settings" />
-          </Key>
-          <Property Name="id_Settings" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Notes" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="ID_User" Type="Int32" />
-          <NavigationProperty Name="LoginPage" Relationship="SamahModel.FK_Settings_LoginPage" FromRole="Setting" ToRole="LoginPage" />
-          <NavigationProperty Name="User_sales" Relationship="SamahModel.FK_User_sales_Settings" FromRole="Setting" ToRole="User_sales" />
-        </EntityType>
-        <EntityType Name="Settings_Report">
-          <Key>
-            <PropertyRef Name="ID_Report" />
-          </Key>
-          <Property Name="ID_Report" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Button_Print" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Report" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Stored_Report" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Report_Parameters" Relationship="SamahModel.FK_Report_Parameters_Settings_Report" FromRole="Settings_Report" ToRole="Report_Parameters" />
-        </EntityType>
-        <EntityType Name="SOFRA">
-          <Key>
-            <PropertyRef Name="SOFRA_ID" />
-          </Key>
-          <Property Name="SOFRA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="ORDER_SOFRA" Relationship="SamahModel.FK_ORDER_SOFRA_SOFRA" FromRole="SOFRA" ToRole="ORDER_SOFRA" />
-        </EntityType>
-        <EntityType Name="Stock_ORDER_TECAYE">
-          <Key>
-            <PropertyRef Name="ID_TECAYE" />
-          </Key>
-          <Property Name="ID_TECAYE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Order_Tecaye" Type="Int32" />
-          <NavigationProperty Name="ORDER_TECAYE" Relationship="SamahModel.FK_Stock_ORDER_TECAYE_ORDER_TECAYE" FromRole="Stock_ORDER_TECAYE" ToRole="ORDER_TECAYE" />
-        </EntityType>
-        <EntityType Name="Stok_ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-          <NavigationProperty Name="ORDER_DELIVERY" Relationship="SamahModel.FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY" FromRole="Stok_ORDER_DELIVERY" ToRole="ORDER_DELIVERY" />
-        </EntityType>
-        <EntityType Name="STORE">
-          <Key>
-            <PropertyRef Name="ID_STORE" />
-          </Key>
-          <Property Name="ID_STORE" Type="Int32" Nullable="false" />
-          <Property Name="NAME_STORE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ITEMEs" Relationship="SamahModel.FK_ITEME_STORE" FromRole="STORE" ToRole="ITEME" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Table_two_days">
-          <Key>
-            <PropertyRef Name="Num_Day" />
-          </Key>
-          <Property Name="Num_Day" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="ORDER_DELIVERY" Relationship="SamahModel.FK_ORDER_DELIVERY_Table_two_days" FromRole="Table_two_days" ToRole="ORDER_DELIVERY" />
-          <NavigationProperty Name="ORDER_TECAYE" Relationship="SamahModel.FK_ORDER_TECAYE_Table_two_days" FromRole="Table_two_days" ToRole="ORDER_TECAYE" />
-        </EntityType>
-        <EntityType Name="Type_EMPLOYEE">
-          <Key>
-            <PropertyRef Name="id_Type_EMPLOYEE" />
-          </Key>
-          <Property Name="id_Type_EMPLOYEE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type_EMP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EMPLOYEEs" Relationship="SamahModel.FK_EMPLOYEE_Type_EMPLOYEE" FromRole="Type_EMPLOYEE" ToRole="EMPLOYEE" />
-        </EntityType>
-        <EntityType Name="User_sales">
-          <Key>
-            <PropertyRef Name="id_User_sales" />
-          </Key>
-          <Property Name="id_User_sales" Type="Int32" Nullable="false" />
-          <Property Name="id_Settings" Type="Int32" />
-          <NavigationProperty Name="Setting" Relationship="SamahModel.FK_User_sales_Settings" FromRole="User_sales" ToRole="Setting" />
-        </EntityType>
-        <Association Name="FK_PRODUCT_CATEGRES1">
-          <End Type="SamahModel.CATEGRE" Role="CATEGRE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.PRODUCT" Role="PRODUCT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CATEGRE">
-              <PropertyRef Name="ID_CAT" />
-            </Principal>
-            <Dependent Role="PRODUCT">
-              <PropertyRef Name="ID_CAT" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_CUSTOMER">
-          <End Type="SamahModel.CUSTOMER" Role="CUSTOMER" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_DELIVERY" Role="ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CUSTOMER">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="CUSTOMER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EMPLOYEE_LoginPage1">
-          <End Type="SamahModel.LoginPage" Role="LoginPage" Multiplicity="0..1" />
-          <End Type="SamahModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoginPage">
-              <PropertyRef Name="ID_User" />
-            </Principal>
-            <Dependent Role="EMPLOYEE">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EMPLOYEE_Type_EMPLOYEE">
-          <End Type="SamahModel.Type_EMPLOYEE" Role="Type_EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Type_EMPLOYEE">
-              <PropertyRef Name="id_Type_EMPLOYEE" />
-            </Principal>
-            <Dependent Role="EMPLOYEE">
-              <PropertyRef Name="id_Type_EMPLOYEE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_EMPLOYEE">
-          <End Type="SamahModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_DELIVERY" Role="ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_SOFRA_EMPLOYEE">
-          <End Type="SamahModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_SOFRA" Role="ORDER_SOFRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_SOFRA">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_TECAYE_EMPLOYEE">
-          <End Type="SamahModel.EMPLOYEE" Role="EMPLOYEE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_TECAYE" Role="ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EMPLOYEE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Principal>
-            <Dependent Role="ORDER_TECAYE">
-              <PropertyRef Name="EMPLOYEE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ITEME_STORE">
-          <End Type="SamahModel.STORE" Role="STORE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ITEME" Role="ITEME" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="STORE">
-              <PropertyRef Name="ID_STORE" />
-            </Principal>
-            <Dependent Role="ITEME">
-              <PropertyRef Name="ID_STORE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Settings_LoginPage">
-          <End Type="SamahModel.LoginPage" Role="LoginPage" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.Setting" Role="Setting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoginPage">
-              <PropertyRef Name="ID_User" />
-            </Principal>
-            <Dependent Role="Setting">
-              <PropertyRef Name="ID_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_DELIVERY_Table_two_days">
-          <End Type="SamahModel.Table_two_days" Role="Table_two_days" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_DELIVERY" Role="ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Table_two_days">
-              <PropertyRef Name="Num_Day" />
-            </Principal>
-            <Dependent Role="ORDER_DELIVERY">
-              <PropertyRef Name="Num_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY">
-          <End Type="SamahModel.ORDER_DELIVERY" Role="ORDER_DELIVERY" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.Stok_ORDER_DELIVERY" Role="Stok_ORDER_DELIVERY" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ORDER_DELIVERY">
-              <PropertyRef Name="ID_ORDER_Delivery" />
-            </Principal>
-            <Dependent Role="Stok_ORDER_DELIVERY">
-              <PropertyRef Name="FK_ORDER_Delivery" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_SOFRA_SOFRA">
-          <End Type="SamahModel.SOFRA" Role="SOFRA" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_SOFRA" Role="ORDER_SOFRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SOFRA">
-              <PropertyRef Name="SOFRA_ID" />
-            </Principal>
-            <Dependent Role="ORDER_SOFRA">
-              <PropertyRef Name="SOFRA_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ORDER_TECAYE_Table_two_days">
-          <End Type="SamahModel.Table_two_days" Role="Table_two_days" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.ORDER_TECAYE" Role="ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Table_two_days">
-              <PropertyRef Name="Num_Day" />
-            </Principal>
-            <Dependent Role="ORDER_TECAYE">
-              <PropertyRef Name="Num_Day" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stock_ORDER_TECAYE_ORDER_TECAYE">
-          <End Type="SamahModel.ORDER_TECAYE" Role="ORDER_TECAYE" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.Stock_ORDER_TECAYE" Role="Stock_ORDER_TECAYE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ORDER_TECAYE">
-              <PropertyRef Name="ID_Order_Tecaye" />
-            </Principal>
-            <Dependent Role="Stock_ORDER_TECAYE">
-              <PropertyRef Name="ID_Order_Tecaye" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Report_Parameters_Settings_Report">
-          <End Type="SamahModel.Settings_Report" Role="Settings_Report" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.Report_Parameters" Role="Report_Parameters" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Settings_Report">
-              <PropertyRef Name="ID_Report" />
-            </Principal>
-            <Dependent Role="Report_Parameters">
-              <PropertyRef Name="ID_Report" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_sales_Settings">
-          <End Type="SamahModel.Setting" Role="Setting" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="SamahModel.User_sales" Role="User_sales" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Setting">
-              <PropertyRef Name="id_Settings" />
-            </Principal>
-            <Dependent Role="User_sales">
-              <PropertyRef Name="id_Settings" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="all_The_Gard_Result">
           <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="PRODUCT_Purchasing_price" Nullable="true" Precision="19" />
@@ -1802,266 +967,243 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Type="String" Name="WepFormLoad" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="Open_Login" Nullable="true" />
         </ComplexType>
-      </Schema>
+        <EntityType Name="CATEGRE">
+          <Key>
+            <PropertyRef Name="ID_CAT" />
+          </Key>
+          <Property Name="ID_CAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_CAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CUSTOMER">
+          <Key>
+            <PropertyRef Name="CUSTOMER_ID" />
+          </Key>
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="EMPLOYEE_ID" />
+          </Key>
+          <Property Name="EMPLOYEE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMPLOYEE_PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="Int32" />
+          <Property Name="id_Type_EMPLOYEE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ITEME">
+          <Key>
+            <PropertyRef Name="ID_Iteme" />
+          </Key>
+          <Property Name="ID_Iteme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_Iteme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QONTTE_Iteme" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Pirce_Iteme" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DATE_Iteme" Type="DateTime" Precision="3" />
+          <Property Name="DATE_Expir_Iteme" Type="DateTime" Precision="3" />
+          <Property Name="Supplier_Iteme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_STORE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LoginPage">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WepFormLoad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Open_Login" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Message_Chat">
+          <Key>
+            <PropertyRef Name="id_Message" />
+          </Key>
+          <Property Name="id_Message" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Send_Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text_Send" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_ORDER_Delivery" />
+          </Key>
+          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Namber_Order_Delivery" Type="Int32" />
+          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ID" Type="Int32" />
+          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="type_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Pilot" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Confirmation" Type="Boolean" />
+          <Property Name="Num_Day" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ORDER_SOFRA">
+          <Key>
+            <PropertyRef Name="ID_ORDER_SOFRA" />
+          </Key>
+          <Property Name="ID_ORDER_SOFRA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QONTTE_ORDER_SOFRA" Type="Int32" />
+          <Property Name="TAX_ORDER_SOFRA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SERVICE_ORDER_SOFRA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SOFRA_ID" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Namber_Order_Sofra" Type="Int32" />
+          <Property Name="Date_Order_Sofra" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="ORDER_TECAYE">
+          <Key>
+            <PropertyRef Name="ID_Order_Tecaye" />
+          </Key>
+          <Property Name="ID_Order_Tecaye" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_Order_Tecaye" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Namber_Order_Tecaye" Type="Int32" />
+          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="type_order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Day" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="PRODUCT_ID" />
+          </Key>
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_QET" Type="Int32" />
+          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_CAT" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Report_Parameters">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Report" Type="Int32" />
+          <Property Name="Parameter_1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_6" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_7" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_8" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parameter_9" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Send_Message">
+          <Key>
+            <PropertyRef Name="id_Message" />
+          </Key>
+          <Property Name="id_Message" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Send_Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text_Send" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="open_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="id_Settings" />
+          </Key>
+          <Property Name="id_Settings" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notes" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ID_User" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Settings_Report">
+          <Key>
+            <PropertyRef Name="ID_Report" />
+          </Key>
+          <Property Name="ID_Report" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Button_Print" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Report" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Stored_Report" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SOFRA">
+          <Key>
+            <PropertyRef Name="SOFRA_ID" />
+          </Key>
+          <Property Name="SOFRA_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Stock_ORDER_TECAYE">
+          <Key>
+            <PropertyRef Name="ID_TECAYE" />
+          </Key>
+          <Property Name="ID_TECAYE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Order_Tecaye" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Stok_ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+        </EntityType>
+        <EntityType Name="STORE">
+          <Key>
+            <PropertyRef Name="ID_STORE" />
+          </Key>
+          <Property Name="ID_STORE" Type="Int32" Nullable="false" />
+          <Property Name="NAME_STORE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Table_two_days">
+          <Key>
+            <PropertyRef Name="Num_Day" />
+          </Key>
+          <Property Name="Num_Day" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Type_EMPLOYEE">
+          <Key>
+            <PropertyRef Name="id_Type_EMPLOYEE" />
+          </Key>
+          <Property Name="id_Type_EMPLOYEE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type_EMP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User_sales">
+          <Key>
+            <PropertyRef Name="id_User_sales" />
+          </Key>
+          <Property Name="id_User_sales" Type="Int32" Nullable="false" />
+          <Property Name="id_Settings" Type="Int32" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SamahModelStoreContainer" CdmEntityContainer="SamahEntities">
-          <EntitySetMapping Name="CATEGRES">
-            <EntityTypeMapping TypeName="SamahModel.CATEGRE">
-              <MappingFragment StoreEntitySet="CATEGRES">
-                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CUSTOMERs">
-            <EntityTypeMapping TypeName="SamahModel.CUSTOMER">
-              <MappingFragment StoreEntitySet="CUSTOMER">
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
-                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
-                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
-                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EMPLOYEEs">
-            <EntityTypeMapping TypeName="SamahModel.EMPLOYEE">
-              <MappingFragment StoreEntitySet="EMPLOYEE">
-                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="EMPLOYEE_PHONE" ColumnName="EMPLOYEE_PHONE" />
-                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ITEMEs">
-            <EntityTypeMapping TypeName="SamahModel.ITEME">
-              <MappingFragment StoreEntitySet="ITEME">
-                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
-                <ScalarProperty Name="Supplier_Iteme" ColumnName="Supplier_Iteme" />
-                <ScalarProperty Name="DATE_Expir_Iteme" ColumnName="DATE_Expir_Iteme" />
-                <ScalarProperty Name="DATE_Iteme" ColumnName="DATE_Iteme" />
-                <ScalarProperty Name="Pirce_Iteme" ColumnName="Pirce_Iteme" />
-                <ScalarProperty Name="QONTTE_Iteme" ColumnName="QONTTE_Iteme" />
-                <ScalarProperty Name="Type_Iteme" ColumnName="Type_Iteme" />
-                <ScalarProperty Name="ID_Iteme" ColumnName="ID_Iteme" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LoginPages">
-            <EntityTypeMapping TypeName="SamahModel.LoginPage">
-              <MappingFragment StoreEntitySet="LoginPage">
-                <ScalarProperty Name="Open_Login" ColumnName="Open_Login" />
-                <ScalarProperty Name="WepFormLoad" ColumnName="WepFormLoad" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Message_Chat">
-            <EntityTypeMapping TypeName="SamahModel.Message_Chat">
-              <MappingFragment StoreEntitySet="Message_Chat">
-                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
-                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
-                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
-                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="ORDER_DELIVERY">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
-                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
-                <ScalarProperty Name="type_order" ColumnName="type_order" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
-                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
-                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_SOFRA">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_SOFRA">
-              <MappingFragment StoreEntitySet="ORDER_SOFRA">
-                <ScalarProperty Name="Date_Order_Sofra" ColumnName="Date_Order_Sofra" />
-                <ScalarProperty Name="Namber_Order_Sofra" ColumnName="Namber_Order_Sofra" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
-                <ScalarProperty Name="SERVICE_ORDER_SOFRA" ColumnName="SERVICE_ORDER_SOFRA" />
-                <ScalarProperty Name="TAX_ORDER_SOFRA" ColumnName="TAX_ORDER_SOFRA" />
-                <ScalarProperty Name="QONTTE_ORDER_SOFRA" ColumnName="QONTTE_ORDER_SOFRA" />
-                <ScalarProperty Name="ID_ORDER_SOFRA" ColumnName="ID_ORDER_SOFRA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_TECAYE">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_TECAYE">
-              <MappingFragment StoreEntitySet="ORDER_TECAYE">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="type_order" ColumnName="type_order" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="Namber_Order_Tecaye" ColumnName="Namber_Order_Tecaye" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Date_Order_Tecaye" ColumnName="Date_Order_Tecaye" />
-                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Outlets">
-            <EntityTypeMapping TypeName="SamahModel.Outlet">
-              <MappingFragment StoreEntitySet="Outlet">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUCTs">
-            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
-              <MappingFragment StoreEntitySet="PRODUCT">
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
-                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
-                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Report_Parameters">
-            <EntityTypeMapping TypeName="SamahModel.Report_Parameters">
-              <MappingFragment StoreEntitySet="Report_Parameters">
-                <ScalarProperty Name="Parameter_9" ColumnName="Parameter_9" />
-                <ScalarProperty Name="Parameter_8" ColumnName="Parameter_8" />
-                <ScalarProperty Name="Parameter_7" ColumnName="Parameter_7" />
-                <ScalarProperty Name="Parameter_6" ColumnName="Parameter_6" />
-                <ScalarProperty Name="Parameter_5" ColumnName="Parameter_5" />
-                <ScalarProperty Name="Parameter_4" ColumnName="Parameter_4" />
-                <ScalarProperty Name="Parameter_3" ColumnName="Parameter_3" />
-                <ScalarProperty Name="Parameter_2" ColumnName="Parameter_2" />
-                <ScalarProperty Name="Parameter_1" ColumnName="Parameter_1" />
-                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Send_Message">
-            <EntityTypeMapping TypeName="SamahModel.Send_Message">
-              <MappingFragment StoreEntitySet="Send_Message">
-                <ScalarProperty Name="open_user" ColumnName="open_user" />
-                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
-                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
-                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
-                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="SamahModel.Setting">
-              <MappingFragment StoreEntitySet="Settings">
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settings_Report">
-            <EntityTypeMapping TypeName="SamahModel.Settings_Report">
-              <MappingFragment StoreEntitySet="Settings_Report">
-                <ScalarProperty Name="Name_Stored_Report" ColumnName="Name_Stored_Report" />
-                <ScalarProperty Name="Name_Report" ColumnName="Name_Report" />
-                <ScalarProperty Name="ID_Button_Print" ColumnName="ID_Button_Print" />
-                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SOFRAs">
-            <EntityTypeMapping TypeName="SamahModel.SOFRA">
-              <MappingFragment StoreEntitySet="SOFRA">
-                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stock_ORDER_TECAYE">
-            <EntityTypeMapping TypeName="SamahModel.Stock_ORDER_TECAYE">
-              <MappingFragment StoreEntitySet="Stock_ORDER_TECAYE">
-                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
-                <ScalarProperty Name="ID_TECAYE" ColumnName="ID_TECAYE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="STOREs">
-            <EntityTypeMapping TypeName="SamahModel.STORE">
-              <MappingFragment StoreEntitySet="STORE">
-                <ScalarProperty Name="NAME_STORE" ColumnName="NAME_STORE" />
-                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SamahModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Table_two_days">
-            <EntityTypeMapping TypeName="SamahModel.Table_two_days">
-              <MappingFragment StoreEntitySet="Table_two_days">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Type_EMPLOYEE">
-            <EntityTypeMapping TypeName="SamahModel.Type_EMPLOYEE">
-              <MappingFragment StoreEntitySet="Type_EMPLOYEE">
-                <ScalarProperty Name="Type_EMP" ColumnName="Type_EMP" />
-                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User_sales">
-            <EntityTypeMapping TypeName="SamahModel.User_sales">
-              <MappingFragment StoreEntitySet="User_sales">
-                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
-                <ScalarProperty Name="id_User_sales" ColumnName="id_User_sales" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Add_Emp" FunctionName="SamahModel.Store.Add_Emp" />
           <FunctionImportMapping FunctionImportName="Add_Message_Chat" FunctionName="SamahModel.Store.Add_Message_Chat" />
           <FunctionImportMapping FunctionImportName="Add_Message_open_Uesr" FunctionName="SamahModel.Store.Add_Message_open_Uesr" />
@@ -2340,7 +1482,261 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="CATEGRES">
+            <EntityTypeMapping TypeName="SamahModel.CATEGRE">
+              <MappingFragment StoreEntitySet="CATEGRES">
+                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMERs">
+            <EntityTypeMapping TypeName="SamahModel.CUSTOMER">
+              <MappingFragment StoreEntitySet="CUSTOMER">
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEEs">
+            <EntityTypeMapping TypeName="SamahModel.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="EMPLOYEE_PHONE" ColumnName="EMPLOYEE_PHONE" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEMEs">
+            <EntityTypeMapping TypeName="SamahModel.ITEME">
+              <MappingFragment StoreEntitySet="ITEME">
+                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
+                <ScalarProperty Name="Supplier_Iteme" ColumnName="Supplier_Iteme" />
+                <ScalarProperty Name="DATE_Expir_Iteme" ColumnName="DATE_Expir_Iteme" />
+                <ScalarProperty Name="DATE_Iteme" ColumnName="DATE_Iteme" />
+                <ScalarProperty Name="Pirce_Iteme" ColumnName="Pirce_Iteme" />
+                <ScalarProperty Name="QONTTE_Iteme" ColumnName="QONTTE_Iteme" />
+                <ScalarProperty Name="Type_Iteme" ColumnName="Type_Iteme" />
+                <ScalarProperty Name="ID_Iteme" ColumnName="ID_Iteme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginPages">
+            <EntityTypeMapping TypeName="SamahModel.LoginPage">
+              <MappingFragment StoreEntitySet="LoginPage">
+                <ScalarProperty Name="Open_Login" ColumnName="Open_Login" />
+                <ScalarProperty Name="WepFormLoad" ColumnName="WepFormLoad" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message_Chat">
+            <EntityTypeMapping TypeName="SamahModel.Message_Chat">
+              <MappingFragment StoreEntitySet="Message_Chat">
+                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
+                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
+                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
+                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="ORDER_DELIVERY">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
+                <ScalarProperty Name="type_order" ColumnName="type_order" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_SOFRA">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_SOFRA">
+              <MappingFragment StoreEntitySet="ORDER_SOFRA">
+                <ScalarProperty Name="Date_Order_Sofra" ColumnName="Date_Order_Sofra" />
+                <ScalarProperty Name="Namber_Order_Sofra" ColumnName="Namber_Order_Sofra" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
+                <ScalarProperty Name="SERVICE_ORDER_SOFRA" ColumnName="SERVICE_ORDER_SOFRA" />
+                <ScalarProperty Name="TAX_ORDER_SOFRA" ColumnName="TAX_ORDER_SOFRA" />
+                <ScalarProperty Name="QONTTE_ORDER_SOFRA" ColumnName="QONTTE_ORDER_SOFRA" />
+                <ScalarProperty Name="ID_ORDER_SOFRA" ColumnName="ID_ORDER_SOFRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_TECAYE">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_TECAYE">
+              <MappingFragment StoreEntitySet="ORDER_TECAYE">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="type_order" ColumnName="type_order" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="Namber_Order_Tecaye" ColumnName="Namber_Order_Tecaye" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Date_Order_Tecaye" ColumnName="Date_Order_Tecaye" />
+                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outlets">
+            <EntityTypeMapping TypeName="SamahModel.Outlet">
+              <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
+                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report_Parameters">
+            <EntityTypeMapping TypeName="SamahModel.Report_Parameters">
+              <MappingFragment StoreEntitySet="Report_Parameters">
+                <ScalarProperty Name="Parameter_9" ColumnName="Parameter_9" />
+                <ScalarProperty Name="Parameter_8" ColumnName="Parameter_8" />
+                <ScalarProperty Name="Parameter_7" ColumnName="Parameter_7" />
+                <ScalarProperty Name="Parameter_6" ColumnName="Parameter_6" />
+                <ScalarProperty Name="Parameter_5" ColumnName="Parameter_5" />
+                <ScalarProperty Name="Parameter_4" ColumnName="Parameter_4" />
+                <ScalarProperty Name="Parameter_3" ColumnName="Parameter_3" />
+                <ScalarProperty Name="Parameter_2" ColumnName="Parameter_2" />
+                <ScalarProperty Name="Parameter_1" ColumnName="Parameter_1" />
+                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Send_Message">
+            <EntityTypeMapping TypeName="SamahModel.Send_Message">
+              <MappingFragment StoreEntitySet="Send_Message">
+                <ScalarProperty Name="open_user" ColumnName="open_user" />
+                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
+                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
+                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
+                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="SamahModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings_Report">
+            <EntityTypeMapping TypeName="SamahModel.Settings_Report">
+              <MappingFragment StoreEntitySet="Settings_Report">
+                <ScalarProperty Name="Name_Stored_Report" ColumnName="Name_Stored_Report" />
+                <ScalarProperty Name="Name_Report" ColumnName="Name_Report" />
+                <ScalarProperty Name="ID_Button_Print" ColumnName="ID_Button_Print" />
+                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOFRAs">
+            <EntityTypeMapping TypeName="SamahModel.SOFRA">
+              <MappingFragment StoreEntitySet="SOFRA">
+                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock_ORDER_TECAYE">
+            <EntityTypeMapping TypeName="SamahModel.Stock_ORDER_TECAYE">
+              <MappingFragment StoreEntitySet="Stock_ORDER_TECAYE">
+                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
+                <ScalarProperty Name="ID_TECAYE" ColumnName="ID_TECAYE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOREs">
+            <EntityTypeMapping TypeName="SamahModel.STORE">
+              <MappingFragment StoreEntitySet="STORE">
+                <ScalarProperty Name="NAME_STORE" ColumnName="NAME_STORE" />
+                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SamahModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_two_days">
+            <EntityTypeMapping TypeName="SamahModel.Table_two_days">
+              <MappingFragment StoreEntitySet="Table_two_days">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_EMPLOYEE">
+            <EntityTypeMapping TypeName="SamahModel.Type_EMPLOYEE">
+              <MappingFragment StoreEntitySet="Type_EMPLOYEE">
+                <ScalarProperty Name="Type_EMP" ColumnName="Type_EMP" />
+                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_sales">
+            <EntityTypeMapping TypeName="SamahModel.User_sales">
+              <MappingFragment StoreEntitySet="User_sales">
+                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
+                <ScalarProperty Name="id_User_sales" ColumnName="id_User_sales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

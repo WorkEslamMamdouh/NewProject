@@ -14,22 +14,10 @@ namespace DAL.Domain
     
     public partial class LoginPage
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LoginPage()
-        {
-            this.EMPLOYEEs = new HashSet<EMPLOYEE>();
-            this.Settings = new HashSet<Setting>();
-        }
-    
         public int ID_User { get; set; }
         public string UserName { get; set; }
         public string password { get; set; }
         public string WepFormLoad { get; set; }
         public Nullable<bool> Open_Login { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EMPLOYEE> EMPLOYEEs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Setting> Settings { get; set; }
     }
 }

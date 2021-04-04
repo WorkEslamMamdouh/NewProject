@@ -14,16 +14,7 @@ namespace DAL.Domain
     
     public partial class Type_EMPLOYEE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Type_EMPLOYEE()
-        {
-            this.EMPLOYEEs = new HashSet<EMPLOYEE>();
-        }
-    
         public int id_Type_EMPLOYEE { get; set; }
         public string Type_EMP { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EMPLOYEE> EMPLOYEEs { get; set; }
     }
 }

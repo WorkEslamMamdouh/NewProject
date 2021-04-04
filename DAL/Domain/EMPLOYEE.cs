@@ -14,27 +14,10 @@ namespace DAL.Domain
     
     public partial class EMPLOYEE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EMPLOYEE()
-        {
-            this.ORDER_DELIVERY = new HashSet<ORDER_DELIVERY>();
-            this.ORDER_SOFRA = new HashSet<ORDER_SOFRA>();
-            this.ORDER_TECAYE = new HashSet<ORDER_TECAYE>();
-        }
-    
         public int EMPLOYEE_ID { get; set; }
         public string EMPLOYEE_NAME { get; set; }
         public string EMPLOYEE_PHONE { get; set; }
         public Nullable<int> ID_User { get; set; }
         public Nullable<int> id_Type_EMPLOYEE { get; set; }
-    
-        public virtual LoginPage LoginPage { get; set; }
-        public virtual Type_EMPLOYEE Type_EMPLOYEE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_DELIVERY> ORDER_DELIVERY { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_SOFRA> ORDER_SOFRA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_TECAYE> ORDER_TECAYE { get; set; }
     }
 }

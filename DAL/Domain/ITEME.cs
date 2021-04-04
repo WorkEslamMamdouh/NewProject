@@ -22,7 +22,5 @@ namespace DAL.Domain
         public Nullable<System.DateTime> DATE_Expir_Iteme { get; set; }
         public string Supplier_Iteme { get; set; }
         public Nullable<int> ID_STORE { get; set; }
-    
-        public virtual STORE STORE { get; set; }
     }
 }

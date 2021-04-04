@@ -14,16 +14,7 @@ namespace DAL.Domain
     
     public partial class STORE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public STORE()
-        {
-            this.ITEMEs = new HashSet<ITEME>();
-        }
-    
         public int ID_STORE { get; set; }
         public string NAME_STORE { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ITEME> ITEMEs { get; set; }
     }
 }

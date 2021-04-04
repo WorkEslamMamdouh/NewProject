@@ -16,7 +16,5 @@ namespace DAL.Domain
     {
         public int id_User_sales { get; set; }
         public Nullable<int> id_Settings { get; set; }
-    
-        public virtual Setting Setting { get; set; }
     }
 }

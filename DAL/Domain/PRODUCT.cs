@@ -20,7 +20,5 @@ namespace DAL.Domain
         public Nullable<decimal> PRODUCT_Purchasing_price { get; set; }
         public Nullable<decimal> PRODUCT_PRICE { get; set; }
         public Nullable<int> ID_CAT { get; set; }
-    
-        public virtual CATEGRE CATEGRE { get; set; }
     }
 }

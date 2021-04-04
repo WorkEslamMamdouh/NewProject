@@ -14,16 +14,7 @@ namespace DAL.Domain
     
     public partial class CATEGRE
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CATEGRE()
-        {
-            this.PRODUCTs = new HashSet<PRODUCT>();
-        }
-    
         public int ID_CAT { get; set; }
         public string Name_CAT { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PRODUCT> PRODUCTs { get; set; }
     }
 }

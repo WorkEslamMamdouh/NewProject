@@ -22,8 +22,5 @@ namespace DAL.Domain
         public Nullable<int> EMPLOYEE_ID { get; set; }
         public Nullable<int> Namber_Order_Sofra { get; set; }
         public Nullable<System.DateTime> Date_Order_Sofra { get; set; }
-    
-        public virtual EMPLOYEE EMPLOYEE { get; set; }
-        public virtual SOFRA SOFRA { get; set; }
     }
 }

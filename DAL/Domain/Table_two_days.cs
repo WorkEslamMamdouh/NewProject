@@ -14,19 +14,7 @@ namespace DAL.Domain
     
     public partial class Table_two_days
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Table_two_days()
-        {
-            this.ORDER_DELIVERY = new HashSet<ORDER_DELIVERY>();
-            this.ORDER_TECAYE = new HashSet<ORDER_TECAYE>();
-        }
-    
         public int Num_Day { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_DELIVERY> ORDER_DELIVERY { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_TECAYE> ORDER_TECAYE { get; set; }
     }
 }

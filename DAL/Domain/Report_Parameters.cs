@@ -25,7 +25,5 @@ namespace DAL.Domain
         public string Parameter_7 { get; set; }
         public string Parameter_8 { get; set; }
         public string Parameter_9 { get; set; }
-    
-        public virtual Settings_Report Settings_Report { get; set; }
     }
 }

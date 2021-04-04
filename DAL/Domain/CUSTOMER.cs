@@ -14,19 +14,10 @@ namespace DAL.Domain
     
     public partial class CUSTOMER
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CUSTOMER()
-        {
-            this.ORDER_DELIVERY = new HashSet<ORDER_DELIVERY>();
-        }
-    
         public int CUSTOMER_ID { get; set; }
         public string CUSTOMER_NAME { get; set; }
         public string CUSTOMER_ADDRES { get; set; }
         public string CUSTOMER_ADDRES_2 { get; set; }
         public string PHONE { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ORDER_DELIVERY> ORDER_DELIVERY { get; set; }
     }
 }

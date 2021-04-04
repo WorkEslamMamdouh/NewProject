@@ -14,18 +14,8 @@ namespace DAL.Domain
     
     public partial class Setting
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Setting()
-        {
-            this.User_sales = new HashSet<User_sales>();
-        }
-    
         public int id_Settings { get; set; }
         public string Notes { get; set; }
         public Nullable<int> ID_User { get; set; }
-    
-        public virtual LoginPage LoginPage { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User_sales> User_sales { get; set; }
     }
 }

@@ -5,45 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f43b4e3c63a54233aa65e59cf8539bca" Name="Diagram1">
-        <EntityTypeShape EntityType="SamahModel.CATEGRE" Width="1.5" PointX="12.75" PointY="1.375" />
-        <EntityTypeShape EntityType="SamahModel.CUSTOMER" Width="1.5" PointX="6" PointY="18.5" />
-        <EntityTypeShape EntityType="SamahModel.EMPLOYEE" Width="1.5" PointX="3" PointY="11.125" />
-        <EntityTypeShape EntityType="SamahModel.ITEME" Width="1.5" PointX="10" PointY="1" />
-        <EntityTypeShape EntityType="SamahModel.LoginPage" Width="1.5" PointX="0.75" PointY="11.375" />
-        <EntityTypeShape EntityType="SamahModel.Message_Chat" Width="1.5" PointX="12.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SamahModel.ORDER_DELIVERY" Width="1.5" PointX="8.25" PointY="10.625" />
-        <EntityTypeShape EntityType="SamahModel.ORDER_SOFRA" Width="1.5" PointX="5.25" PointY="11.125" />
-        <EntityTypeShape EntityType="SamahModel.ORDER_TECAYE" Width="1.5" PointX="5.25" PointY="7.125" />
-        <EntityTypeShape EntityType="SamahModel.Outlet" Width="1.5" PointX="12.75" PointY="12.75" />
-        <EntityTypeShape EntityType="SamahModel.PRODUCT" Width="1.5" PointX="15" PointY="1" />
-        <EntityTypeShape EntityType="SamahModel.Report_Parameters" Width="1.5" PointX="7.5" PointY="4.875" />
-        <EntityTypeShape EntityType="SamahModel.Send_Message" Width="1.5" PointX="14.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SamahModel.Setting" Width="1.5" PointX="3" PointY="15.25" />
-        <EntityTypeShape EntityType="SamahModel.Settings_Report" Width="1.5" PointX="9.75" PointY="5.625" />
-        <EntityTypeShape EntityType="SamahModel.SOFRA" Width="1.5" PointX="3" PointY="4.875" />
-        <EntityTypeShape EntityType="SamahModel.Stock_ORDER_TECAYE" Width="1.5" PointX="7.5" PointY="7.25" />
-        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="10.5" PointY="11.25" />
-        <EntityTypeShape EntityType="SamahModel.STORE" Width="1.5" PointX="7.75" PointY="1.5" />
-        <EntityTypeShape EntityType="SamahModel.sysdiagram" Width="1.5" PointX="14.75" PointY="7.75" />
-        <EntityTypeShape EntityType="SamahModel.Table_two_days" Width="1.5" PointX="3" PointY="7.625" />
-        <EntityTypeShape EntityType="SamahModel.Type_EMPLOYEE" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="SamahModel.User_sales" Width="1.5" PointX="5.25" PointY="15.375" />
-        <AssociationConnector Association="SamahModel.FK_PRODUCT_CATEGRES1" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_DELIVERY_CUSTOMER" />
-        <AssociationConnector Association="SamahModel.FK_EMPLOYEE_LoginPage1" />
-        <AssociationConnector Association="SamahModel.FK_EMPLOYEE_Type_EMPLOYEE" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_DELIVERY_EMPLOYEE" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_SOFRA_EMPLOYEE" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_TECAYE_EMPLOYEE" />
-        <AssociationConnector Association="SamahModel.FK_ITEME_STORE" />
-        <AssociationConnector Association="SamahModel.FK_Settings_LoginPage" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_DELIVERY_Table_two_days" />
-        <AssociationConnector Association="SamahModel.FK_Stok_ORDER_DELIVERY_ORDER_DELIVERY" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_SOFRA_SOFRA" />
-        <AssociationConnector Association="SamahModel.FK_ORDER_TECAYE_Table_two_days" />
-        <AssociationConnector Association="SamahModel.FK_Stock_ORDER_TECAYE_ORDER_TECAYE" />
-        <AssociationConnector Association="SamahModel.FK_Report_Parameters_Settings_Report" />
-        <AssociationConnector Association="SamahModel.FK_User_sales_Settings" />
+        <EntityTypeShape EntityType="SamahModel.CATEGRE" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.CUSTOMER" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.EMPLOYEE" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SamahModel.ITEME" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SamahModel.LoginPage" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.Message_Chat" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SamahModel.ORDER_DELIVERY" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.ORDER_SOFRA" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SamahModel.ORDER_TECAYE" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SamahModel.Outlet" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SamahModel.PRODUCT" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.Report_Parameters" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SamahModel.Send_Message" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SamahModel.Setting" Width="1.5" PointX="6.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SamahModel.Settings_Report" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="SamahModel.SOFRA" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SamahModel.Stock_ORDER_TECAYE" Width="1.5" PointX="10.75" PointY="2.75" />
+        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SamahModel.STORE" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SamahModel.sysdiagram" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SamahModel.Table_two_days" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SamahModel.Type_EMPLOYEE" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SamahModel.User_sales" Width="1.5" PointX="4.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
