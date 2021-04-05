@@ -535,7 +535,7 @@ namespace SlsTrSales {
 
     }
     function But_Add_Popu() {
-
+        debugger
         price_One_Product = parseFloat($("#txtPrice").val());
         price_Product = parseFloat($("#txtPrice").val());
         PRODUCT_price = parseFloat($("#txtPrice").val());
@@ -567,7 +567,7 @@ namespace SlsTrSales {
         Total_Price();
     }
     function Add_ROW_IN_Basket() {
-        ////debugger
+        debugger
 
         price_One_Product = parseFloat($("#txtPrice").val());
         price_Product =  parseFloat($("#txtPrice").val());
@@ -575,14 +575,14 @@ namespace SlsTrSales {
         var tttt = 1;
         if (P > -1) {
             for (var i = 1; i < P + 1; i++) {
-                ////debugger
+                debugger
                 var paragraph = document.getElementById('ppp' + i);
                 if (paragraph == null) { } else {
 
 
                     var Saerch = paragraph.getAttribute('data_Name_P');
                     if (Saerch == Name_Product) {
-                        ////debugger
+                        debugger
                         var New_P = paragraph.getAttribute('data-New_P');
                         var QET_P = paragraph.getAttribute('data_QET_P');
                         var New_QET = Number(paragraph.getAttribute('data_QET_P')) + Qet_Product;
@@ -605,7 +605,7 @@ namespace SlsTrSales {
 
         }
         if (tttt == 1) {
-            ////debugger
+            debugger
 
             P += 1
             scro += 80;
@@ -782,7 +782,7 @@ namespace SlsTrSales {
             }
             else {
 
-                P -= 1;
+                //P -= 1;
                
                 //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
                 Num_Item.setAttribute('data_New_QET', P);
