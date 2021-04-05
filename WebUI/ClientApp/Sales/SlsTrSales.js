@@ -77,6 +77,7 @@ var SlsTrSales;
     var btn_Edit_Basket;
     var btn_Approveprice;
     var btn_Exit_Approveprice;
+    var Num_Qty = 0;
     var P = 0;
     var ItemID;
     var PRODUCT_price;
@@ -139,6 +140,7 @@ var SlsTrSales;
         $('#cont').toggleClass('colapsdivcont');
         //$("body").toggleClass("mini-navbar");
         $('#sidebar').toggleClass('active');
+        $('#sidebarCollapse').addClass('display_none');
         InitalizeControls();
         InitializeEvents();
         Display_Category();
@@ -319,15 +321,28 @@ var SlsTrSales;
             document.getElementById("li_input" + IDPlus + "").appendChild(div);
         }
         $('#input' + IDPlus).click(click_but);
+        $('#input' + IDPlus).blur(blur_but);
+        $('#input' + IDPlus).keyup(mousemove_but);
+        $('#input' + IDPlus).mousemove(mousemove_but);
+        $('#input' + IDPlus).mouseleave(mouseleave_but);
     }
     function blur_but() {
-        //if (ID_input != null) {
-        //    ID_input.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
-        //}
-        //div_menu.setAttribute('style', 'display:none;');
-        //$('#thing').removeClass("zoomIn");
-        //$('#thing').removeClass("zoomIn");
-        //$('#thing').toggleClass("zoom");
+    }
+    function mousemove_but() {
+        if (this.getAttribute('data-Qty') > 0) {
+            //this.setAttribute('style', 'background-color: #00ffe23d; zoom:' + zoom_select + ';');
+            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
+            this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
+        }
+        else {
+            //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
+            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
+            this.setAttribute('value', 'Finish');
+        }
+        //this.focus();
+    }
+    function mouseleave_but() {
+        this.setAttribute('value', this.getAttribute('data-Name'));
     }
     function click_but() {
         btn_Add_Basket.setAttribute('style', 'display:block;');
@@ -335,16 +350,21 @@ var SlsTrSales;
         Name_Product = $(this).attr('data-Name');
         OnhandQty = $(this).attr('data-Qty');
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
-        $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
-        $('#Men_popu').attr('style', 'display:block;');
-        $('#Men_popu').attr('class', 'popu animated zoomInLeft');
-        $('#txtQuantity').val('1');
-        $('#txtPrice').val($(this).attr('data-pirce'));
-        ItemID = $(this).attr('data-itemid');
-        PRODUCT_price = $(this).attr('data-pirce');
-        $("#PopupDialog").modal("show");
-        blur_but();
-        Total();
+        if (OnhandQty <= 0) {
+            $(this).val('Finish');
+        }
+        else {
+            $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
+            $('#Men_popu').attr('style', 'display:block;');
+            $('#Men_popu').attr('class', 'popu animated zoomInLeft');
+            $('#txtQuantity').val('1');
+            $('#txtPrice').val($(this).attr('data-pirce'));
+            ItemID = $(this).attr('data-itemid');
+            PRODUCT_price = $(this).attr('data-pirce');
+            $("#PopupDialog").modal("show");
+            blur_but();
+            Total();
+        }
     }
     ////--------------------------------------------------Create_Menu--------------------------------    
     ////--------------------------------------------------Open_Popu--------------------------------
@@ -486,9 +506,11 @@ var SlsTrSales;
             scro += 80;
             var Qet = 1;
             if (CChat.getAttribute('style') != "display: block") {
-                var Ul_Div = document.createElement('ul');
-                Ul_Div.setAttribute('id', 'Ul_Div');
-                document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+                if (document.getElementById("mCSB_3_container").innerHTML == '') {
+                    var Ul_Div = document.createElement('ul');
+                    Ul_Div.setAttribute('id', 'Ul_Div');
+                    document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+                }
             }
             var Li_Ul_Div = document.createElement('ul');
             Li_Ul_Div.setAttribute('id', 'Li_Ul_Div' + P);
@@ -549,6 +571,7 @@ var SlsTrSales;
             //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
             Num_Item.setAttribute('data_New_QET', P);
             New_QET = P;
+            Num_Qty += 1;
         }
         Total_Price();
         Qet_X = P;
@@ -557,10 +580,10 @@ var SlsTrSales;
         var boll = chat.getAttribute('class');
         var hide = ("chat-box-wrap shadow-reset animated zoomInLeft collapse");
         if (hide == boll) {
-            x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>';
+            x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>';
         }
         else {
-            x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>';
+            x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>';
         }
         Num_Add_List += 1;
     }
@@ -590,6 +613,7 @@ var SlsTrSales;
         Ul_Div.setAttribute('id', 'Ul_Div');
         document.getElementById("mCSB_3_container").appendChild(Ul_Div);
         P = 0;
+        Num_Qty = 0;
         //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
         Num_Item.setAttribute('data_New_QET', P);
         x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + P + '</i>';
@@ -618,10 +642,10 @@ var SlsTrSales;
             if (id_Pragraph == null) {
             }
             else {
-                //P -= 1;
+                Num_Qty -= 1;
                 //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
-                Num_Item.setAttribute('data_New_QET', P);
-                x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + P + '</i>';
+                Num_Item.setAttribute('data_New_QET', Num_Qty);
+                x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>';
                 if (P == 0) {
                     CChat.setAttribute('style', 'display: none;');
                     Total_Basket.setAttribute('style', 'display: none;');

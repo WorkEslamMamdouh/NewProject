@@ -1985,18 +1985,18 @@ canvas {
     /* transition: all .4s ease 0s; */
     z-index: 999;
     border: 1px solid #303030;
-    right: 69%;
-    top: 22%;
+    right: 10%;
+    top: 272px;
 }
 
     .chat-box-wrap.collapse.in.castmr {
-        position: fixed;
+        /*position: fixed;
         height: 414px;
-        width: 689px;
+        width: 689px;*/
         /* background: #1c5d75; */
         /* background: linear-gradient(to right, #033865 0%, rgb(22, 124, 162) 100%); */
         /*background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);*/
-        background: linear-gradient(to right, rgba(22, 58, 71, 0.84) 0%, #457198 100%);
+        /*background: linear-gradient(to right, rgba(22, 58, 71, 0.84) 0%, #457198 100%);
         bottom: 90px;
         right: 356px;
         top: 91px;
@@ -2005,7 +2005,7 @@ canvas {
         border: 23px solid #4386da;
         border-radius: 50px;
         padding: 10px;
-        box-shadow: 5px 5px #454242;
+        box-shadow: 5px 5px #454242;*/
     }
 
 .castmr-button {
