@@ -1,14 +1,79 @@
 ﻿
 html, body {
+    /*font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    background: #084261;*/
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    background: #084261;
+    background: linear-gradient(to right, rgb(22, 58, 71) 0%, #e08009 100%);
+    /*background: linear-gradient(-46deg,#457197,#11617f,#098ce0,#163b48);*/
+    background-size: 400% 400%;
+    animation: Gradient 20s ease infinite;
+}
+.titel_Romeo {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);
+    background: linear-gradient(-46deg,#0d485b,#f5174a,#2196f3,#f44336);
+    background-size: 400% 400%;
+    animation: Gradient 20s ease infinite;
+    width: 285px;
+    height: 34px;
+    margin-top: 14px;
+    border-radius: 20px 25px 20px 0px;
+    text-shadow: 2px 2px #100e0e;
+    margin-left: -112px;
+}
+
+.contentGard {
+    width: 90%;
+    margin: auto;
+    gin-top: 10px;
+    margin-top: 10px;
+    left: 80px;
+    /*position: absolute;*/
+    z-index: 555555555;
+    background-color: rgba(255,255,255,0.6);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: 4px 4px 9px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 4px 9px -1px rgba(0,0,0,0.75);
+    box-shadow: 4px 4px 9px -1px rgba(0,0,0,0.75);
+}
+
+.backgroundColors {
+    background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);
+    background: linear-gradient(-46deg,#457197,#11617f,#098ce0,#163b48);
+    background-size: 400% 400%;
+    animation: Gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+html, body.materialdesign {
+    /*background: #ebebeb*/
+    /*background: linear-gradient(to right, rgb(178, 178, 178) 0%, rgb(255, 255, 255) 100%);*/
+    /*background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);*/
 }
 
     html, body.materialdesign {
         /*background: #ebebeb*/
         /*background: linear-gradient(to right, rgb(178, 178, 178) 0%, rgb(255, 255, 255) 100%);*/
-        background-color: white /*linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%)*/;
+        /*background-color: white*/ /*linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%)*/;
     }
 
 /*.floatleft {
@@ -206,7 +271,7 @@ ul {
 .header-top-menu .navbar-nav > li .dropdown-menu {
     border: 0px solid #ccc;
     border: 0px solid rgba(0,0,0,.15);
-    background-color: #1368d2;
+    /*background-color: #1368d2;*/
 }
 
 .header-right-info .navbar-nav > li .dropdown-menu {
@@ -252,7 +317,7 @@ ul {
 }
 
 .header-top-area {
-    background: #1368d2;
+    /*background: #1368d2;*/
 }
 
 .header-top-menu ul.header-top-nav li {
@@ -847,7 +912,7 @@ ul.setting-panel-list li {
 }
 
 .header-top-area {
-    background: #1368d2;
+    /*background: #1368d2;*/
 }
 
 .header-top-menu ul.header-top-nav {
@@ -954,7 +1019,7 @@ ul.setting-panel-list li {
 }
 
 .header-top-area {
-    box-shadow: 0 3px 10px rgba(0,0,0,.1);
+    /*box-shadow: 0 3px 10px rgba(0,0,0,.1);*/
 }
 /*----------------------------------------*/
 /*  8.  Breadcome CSS
@@ -4325,7 +4390,7 @@ ul.profile-contact-menu {
 .fixed-header-top {
     height: 64px;
     position: fixed;
-    background: #1368d2;
+    /*background: #1368d2;*/
     z-index: 999;
     left: 159px;
     right: 0;
@@ -4944,7 +5009,7 @@ ul.breadcome-menu {
 
 .materialdesign .header-top-area, .materialdesign .fixed-header-top {
     /*background: #ff7900!important /*rgba(216,83,30,8)*/
-    background: linear-gradient(to right, #2b2a2a 0%, rgb(22, 124, 162) 100%);
+    /*background: linear-gradient(to right, #2b2a2a 0%, rgb(22, 124, 162) 100%);*/
     /*background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);*/
 }
 /*لون الدف الصغيره اللي بتنل من امنيو اللي فوق*/
