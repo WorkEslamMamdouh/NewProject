@@ -30,5 +30,10 @@ namespace DAL.Domain
     {
 
     }
+    public partial class CATEGRE : SecurityandUpdateFlagClass
+    {
 
+    }
+
+    
 }

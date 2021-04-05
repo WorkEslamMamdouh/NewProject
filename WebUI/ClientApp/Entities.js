@@ -763,6 +763,16 @@ var G_Codes = (function (_super) {
     }
     return G_Codes;
 }(SecurityClass));
+var CATEGRES = (function (_super) {
+    __extends(CATEGRES, _super);
+    function CATEGRES() {
+        var _this = _super.call(this) || this;
+        _this.ID_CAT = 0;
+        _this.Name_CAT = "";
+        return _this;
+    }
+    return CATEGRES;
+}(SecurityClass));
 var KQ_GetAlertNoteLog = (function (_super) {
     __extends(KQ_GetAlertNoteLog, _super);
     function KQ_GetAlertNoteLog() {

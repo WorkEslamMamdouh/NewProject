@@ -4943,8 +4943,8 @@ ul.breadcome-menu {
 }
 
 .materialdesign .header-top-area, .materialdesign .fixed-header-top {
-    background: #ff7900!important /*rgba(216,83,30,8)*/;
-    /*background: linear-gradient(to right, #2b2a2a 0%, rgb(22, 124, 162) 100%);*/
+    /*background: #ff7900!important /*rgba(216,83,30,8)*/
+    background: linear-gradient(to right, #2b2a2a 0%, rgb(22, 124, 162) 100%);
     /*background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);*/
 }
 /*لون الدف الصغيره اللي بتنل من امنيو اللي فوق*/

@@ -20,9 +20,9 @@
 .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li.open .left-menu-dropdown {
     opacity: 1;
     z-index: 9999;
-    margin-right: -182px;
-    margin: 18% 0% 0% 0px 0%;
-    position: initial;
+    /*margin-right: -182px;*/
+    /*margin: 18% 0% 0% 0px 0%;*/
+    /*position: initial;*/
 }
 .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a {
     display: block;

@@ -1141,6 +1141,15 @@ class G_Codes extends SecurityClass {
     public Remarks: string;
 }
 
+class CATEGRES extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_CAT = 0;
+        this.Name_CAT = "";
+    }
+    public ID_CAT: number;
+    public Name_CAT: string;
+}
 
 
 
