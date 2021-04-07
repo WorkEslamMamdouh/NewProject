@@ -389,6 +389,8 @@ var HomeComponent;
         debugger;
         $("#btnHome").click(function () { OpenPage(Modules.Home); });
         $("#btnSlsTrSales").click(function () { OpenPage(Modules.SlsTrSales); });
+        $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
+        $("#btnItems").click(function () { OpenPage(Modules.Items); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
     }
     function Notifications_Message() {

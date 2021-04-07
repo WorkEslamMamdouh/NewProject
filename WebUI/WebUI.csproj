@@ -1148,6 +1148,8 @@
     <Content Include="Views\Sales\SlsTrReturnIndex.cshtml" />
     <Content Include="Views\Sales\SlsTrSalesIndex.cshtml" />
     <Content Include="Views\Sales\SlsTrSalesManagerIndex.cshtml" />
+    <Content Include="Views\Stock\CategoriesIndex.cshtml" />
+    <Content Include="Views\Stock\ItemsIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1213,6 +1215,8 @@
     <TypeScriptCompile Include="ClientApp\Pages\Thesettings\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
+    <TypeScriptCompile Include="ClientApp\stock\Categories.ts" />
+    <TypeScriptCompile Include="ClientApp\stock\Items.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />
     <TypeScriptCompile Include="ClientApp\teamwork\TEAMWORK.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />

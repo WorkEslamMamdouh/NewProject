@@ -447,7 +447,10 @@ namespace HomeComponent {
         $("#btnHome").click(() => { OpenPage(Modules.Home); })
 
 
-        $("#btnSlsTrSales").click(() => { OpenPage(Modules.SlsTrSales); })
+        $("#btnSlsTrSales").click(() => { OpenPage(Modules.SlsTrSales); }) 
+            $("#btnCategories").click(() => { OpenPage(Modules.Categories); }) 
+            $("#btnItems").click(() => { OpenPage(Modules.Items); })
+
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
 
     }

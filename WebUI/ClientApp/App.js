@@ -18,6 +18,8 @@ var TransparentButton = "TransparentButton";
 var Modules = {
     Home: "Home",
     SlsTrSales: "SlsTrSales",
+    Categories: "Categories",
+    Items: "Items",
 };
 var Keys = {
     Enter: "Enter"

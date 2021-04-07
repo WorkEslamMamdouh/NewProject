@@ -1228,9 +1228,13 @@ class CATEGRES extends SecurityClass {
         super();
         this.ID_CAT = 0;
         this.Name_CAT = "";
+        this.StatusFlag = "";
+
     }
     public ID_CAT: number;
     public Name_CAT: string;
+    public StatusFlag: string;
+
 }
 
 

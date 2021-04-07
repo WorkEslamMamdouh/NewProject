@@ -14,6 +14,9 @@ const TransparentButton: string = "TransparentButton";
 var Modules = {
     Home: "Home",
     SlsTrSales: "SlsTrSales",
+    Categories: "Categories",
+    Items: "Items",
+
     //Nationality: "Nationality",
     
 };
