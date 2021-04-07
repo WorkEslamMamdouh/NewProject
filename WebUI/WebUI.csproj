@@ -920,6 +920,7 @@
     <Content Include="Style_design\fonts\fontawesome-webfont.svg" />
     <Content Include="Style_design\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Style_design\Home_Style.css" />
+    <Content Include="Style_design\img\619.png" />
     <Content Include="Style_design\img\chairs-chandelier-design-1579739.jpg" />
     <Content Include="Style_design\img\clear.png" />
     <Content Include="Style_design\img\cropper\1.jpg" />

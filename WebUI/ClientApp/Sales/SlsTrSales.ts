@@ -72,7 +72,7 @@ namespace SlsTrSales {
     //var lblMessage: HTMLLabelElement;
 
     ////global
-    
+
     //var CountItems: number = 0;
     //var PackageCount: number = 0;
     //var CountTotal: number = 0;
@@ -88,12 +88,12 @@ namespace SlsTrSales {
 
     ////----------------------------------------------------------------Eslam------------
 
-   
+
     var btn_Add_Basket: HTMLButtonElement;
     var btn_Edit_Basket: HTMLButtonElement;
     var btn_Approveprice: HTMLButtonElement;
     var btn_Exit_Approveprice: HTMLButtonElement;
-
+    var Num_Qty = 0;
     var P = 0;
     var ItemID;
     var PRODUCT_price;
@@ -101,8 +101,8 @@ namespace SlsTrSales {
     var Qty = 0;
     var PRICE = 0;
 
-  
- 
+
+
 
     var ItemFamilyID;
     var IDPlus = 0;
@@ -151,7 +151,7 @@ namespace SlsTrSales {
     var container: HTMLDivElement = document.querySelector("#contentContainer") as HTMLDivElement;
 
     var num_item_IN_Menu = 0;
-    
+
     ////----------------------------------------------------------------Eslam------------
 
 
@@ -159,7 +159,7 @@ namespace SlsTrSales {
     var CatID;
     var Category_NAME;
     var class_input;
-    
+
     var ItemFamilyID;
     var IDPlus = 0;
 
@@ -169,12 +169,14 @@ namespace SlsTrSales {
         $('#cont').toggleClass('colapsdivcont');
         //$("body").toggleClass("mini-navbar");
         $('#sidebar').toggleClass('active');
+        $('#sidebarCollapse').addClass('display_none');
+
         InitalizeControls();
         InitializeEvents();
         Display_Category();
         Display_But();
 
-      
+
 
     }
     function InitalizeControls() {
@@ -185,16 +187,16 @@ namespace SlsTrSales {
         else {
             document.getElementById('Screen_name').innerHTML = "Sales Invoices";
         }
-         
+
         //------------------------------------------------------------------Eslam---------------------------
         All_item = document.getElementById("All_item") as HTMLButtonElement;
-       
+
         btn_Add_Basket = document.getElementById("btn_Add_Basket") as HTMLButtonElement;
         btn_Edit_Basket = document.getElementById("btn_Edit_Basket") as HTMLButtonElement;
         btn_cancel_Popu = document.getElementById("btn_cancel_Popu") as HTMLButtonElement;
         Finsh_Order = document.getElementById("Finsh_Order") as HTMLButtonElement;
         btn_Exit_Approveprice = document.getElementById("btn_Exit_Approveprice") as HTMLButtonElement;
-         
+
         btnminus_Quantity = document.getElementById("btnminus_Quantity") as HTMLButtonElement;
         btnplus_Quantity = document.getElementById("btnplus_Quantity") as HTMLButtonElement;
         btnminus_price = document.getElementById("btnminus_price") as HTMLButtonElement;
@@ -210,7 +212,7 @@ namespace SlsTrSales {
         txtQuantity = document.getElementById('txtQuantity') as HTMLInputElement;
         txtTotal_Price = document.getElementById('txtTotal_Popu') as HTMLInputElement;
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu') as HTMLInputElement;
-        
+
         //------------------------------------------------------------------Eslam---------------------------
     }
     function InitializeEvents() {
@@ -226,22 +228,21 @@ namespace SlsTrSales {
         btnplus_Quantity.onclick = btnminus_Quantity_onclick;
         btnminus_price.onclick = btnminus_price_onclick;
         btnplus_price.onclick = btnminus_price_onclick;
-         
+
         txtPrice.onkeyup = Total;
         txtQuantity.onkeyup = Total;
         btn_Add_Basket.onclick = But_Add_Popu;
         btn_Edit_Basket.onclick = Edit_ROW_IN_Basket;
         $('.compose-discard-bt').click(Remove_Item_in_Basket);
-       
+
     }
-     
+
     //--------------------------------------------------Display_Category--------------------------------
-    function Display_Category()
-    {
+    function Display_Category() {
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Category", "GetAll"),
-            data: {  CompCode: 1 },
+            data: { CompCode: 1 },
             success: (d) => {
                 ////////debugger;
                 let result = d as BaseResponse;
@@ -296,15 +297,15 @@ namespace SlsTrSales {
 
     }
     //--------------------------------------------------Display_But--------------------------------
- 
+
     function Display_But() {
         debugger
- 
+
 
         Ajax.Callsync({
             type: "GET",
             url: sys.apiUrl("Items", "GetAll"),
-            data: { CompCode:1 },
+            data: { CompCode: 1 },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -315,7 +316,7 @@ namespace SlsTrSales {
             }
         });
 
-   
+
     }
     function DisplayItems(ItemList: Array<PRODUCT>) {
         for (var i = 0; i < ItemList.length; i++) {
@@ -383,7 +384,7 @@ namespace SlsTrSales {
             div.setAttribute('data-Qty', Qty.toString());
             div.setAttribute('data-pirce', PRICE.toString());
             div.setAttribute('data-MinUnitPrice', MinUnitPrice);
-              
+
             div.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
 
             div.setAttribute('class', 'Css_but chat-box-wrap shadow-reset ' + class_input + '');
@@ -393,20 +394,43 @@ namespace SlsTrSales {
 
         $('#input' + IDPlus).click(click_but);
 
+        $('#input' + IDPlus).blur(blur_but);
+        $('#input' + IDPlus).keyup(mousemove_but);
+        $('#input' + IDPlus).mousemove(mousemove_but);
+        $('#input' + IDPlus).mouseleave(mouseleave_but);
 
     }
     function blur_but() {
 
-        //if (ID_input != null) {
+       
+    }
+    function mousemove_but() {
 
-        //    ID_input.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
+        if (this.getAttribute('data-Qty') > 0) {
+
+            //this.setAttribute('style', 'background-color: #00ffe23d; zoom:' + zoom_select + ';');
+            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
+            this.setAttribute('value', '( ' + this.getAttribute('data-pirce') + ' )' + 'ج');
+        }
+        else {
+
+            //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
+            //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
+            this.setAttribute('value', 'Finish');
+            //div.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #ff000094;');
+        }
 
 
-        //}
-        //div_menu.setAttribute('style', 'display:none;');
-        //$('#thing').removeClass("zoomIn");
-        //$('#thing').removeClass("zoomIn");
-        //$('#thing').toggleClass("zoom");
+
+        //this.focus();
+
+    }
+
+    function mouseleave_but() {
+ 
+        this.setAttribute('value', this.getAttribute('data-Name'));
+
+
     }
     function click_but() {
 
@@ -416,25 +440,30 @@ namespace SlsTrSales {
         Name_Product = $(this).attr('data-Name');
         OnhandQty = $(this).attr('data-Qty');
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
+        if (OnhandQty <= 0) {
+            $(this).val('Finish');
+        } else {
 
-        $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
-        $('#Men_popu').attr('style', 'display:block;');
-        $('#Men_popu').attr('class', 'popu animated zoomInLeft');
-        $('#txtQuantity').val('1');
-        $('#txtPrice').val($(this).attr('data-pirce'));
+            $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
+            $('#Men_popu').attr('style', 'display:block;');
+            $('#Men_popu').attr('class', 'popu animated zoomInLeft');
+            $('#txtQuantity').val('1');
+            $('#txtPrice').val($(this).attr('data-pirce'));
 
-        ItemID = $(this).attr('data-itemid')
-        PRODUCT_price = $(this).attr('data-pirce')
+            ItemID = $(this).attr('data-itemid')
+            PRODUCT_price = $(this).attr('data-pirce')
 
 
 
-        $("#PopupDialog").modal("show");
+            $("#PopupDialog").modal("show");
 
-        blur_but();
-        Total();
+            blur_but();
+            Total();
+        }
+
     }
     ////--------------------------------------------------Create_Menu--------------------------------    
-  
+
     ////--------------------------------------------------Open_Popu--------------------------------
     function btnminus_Quantity_onclick() {
         //debugger
@@ -522,7 +551,7 @@ namespace SlsTrSales {
         if (Number($("#txtQuantity").val()) <= OnhandQty) {
             var total = Number($("#txtPrice").val()) * Number($("#txtQuantity").val());
             $("#txtTotal_Popu").val(total);
-     
+
 
         }
         else {
@@ -570,7 +599,7 @@ namespace SlsTrSales {
         debugger
 
         price_One_Product = parseFloat($("#txtPrice").val());
-        price_Product =  parseFloat($("#txtPrice").val());
+        price_Product = parseFloat($("#txtPrice").val());
         Qet_Product = Number(txtQuantity.value);
         var tttt = 1;
         if (P > -1) {
@@ -613,9 +642,12 @@ namespace SlsTrSales {
 
             if (CChat.getAttribute('style') != "display: block") {
 
-                var Ul_Div = document.createElement('ul');
-                Ul_Div.setAttribute('id', 'Ul_Div');
-                document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+                if (document.getElementById("mCSB_3_container").innerHTML == '') {
+                    var Ul_Div = document.createElement('ul');
+                    Ul_Div.setAttribute('id', 'Ul_Div');
+                    document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+                }
+
 
             }
 
@@ -690,6 +722,7 @@ namespace SlsTrSales {
             //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
             Num_Item.setAttribute('data_New_QET', P);
             New_QET = P;
+            Num_Qty += 1
         }
 
 
@@ -697,13 +730,15 @@ namespace SlsTrSales {
 
         Qet_X = P;
 
+
+
         CChat.setAttribute('style', 'display: block;');
         Total_Basket.setAttribute('style', 'display: block;');
 
         var boll = chat.getAttribute('class');
         var hide = ("chat-box-wrap shadow-reset animated zoomInLeft collapse");
-        if (hide == boll) { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>'; }
-        else { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>'; }
+        if (hide == boll) { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>'; }
+        else { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>'; }
 
         Num_Add_List += 1;
     }
@@ -743,6 +778,7 @@ namespace SlsTrSales {
 
 
         P = 0;
+        Num_Qty = 0;
         //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
         Num_Item.setAttribute('data_New_QET', P);
         x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + P + '</i>';
@@ -753,7 +789,7 @@ namespace SlsTrSales {
         totalPirs.setAttribute('All_Total', '0');
         Num_Add_List = 0;
 
-        
+
         ValidationMinUnitPrice = 0;
         Validation_Insert = 0;
 
@@ -782,11 +818,11 @@ namespace SlsTrSales {
             }
             else {
 
-                //P -= 1;
-               
+                Num_Qty -= 1;
+
                 //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
-                Num_Item.setAttribute('data_New_QET', P);
-                x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + P + '</i>';
+                Num_Item.setAttribute('data_New_QET', Num_Qty);
+                x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>';
                 if (P == 0) { CChat.setAttribute('style', 'display: none;'); Total_Basket.setAttribute('style', 'display: none;'); }
 
 
