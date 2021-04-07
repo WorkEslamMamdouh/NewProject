@@ -98,6 +98,16 @@ namespace WebUI.Controllers
             return View("~/Views/Sales/SlsTrSalesIndex.cshtml");
         }
 
+        public ActionResult CategoriesIndex()
+        {
+            return View("~/Views/Stock/CategoriesIndex.cshtml");
+        }
+
+
+        public ActionResult ItemsIndex()
+        {
+            return View("~/Views/Stock/ItemsIndex.cshtml");
+        }
 
 
         #endregion  Open Pages 

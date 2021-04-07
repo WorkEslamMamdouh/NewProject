@@ -769,6 +769,7 @@ var CATEGRES = (function (_super) {
         var _this = _super.call(this) || this;
         _this.ID_CAT = 0;
         _this.Name_CAT = "";
+        _this.StatusFlag = "";
         return _this;
     }
     return CATEGRES;
