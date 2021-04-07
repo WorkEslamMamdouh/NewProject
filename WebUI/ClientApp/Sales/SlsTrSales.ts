@@ -440,10 +440,26 @@ namespace SlsTrSales {
         Name_Product = $(this).attr('data-Name');
         OnhandQty = $(this).attr('data-Qty');
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
+
+        for (var i = 0; i < Num_Add_List + 1; i++) {
+            var prgraph = document.getElementById("ppp" + i);
+            if (prgraph != null) {
+                let Name_Item = prgraph.getAttribute("data_name_p");
+                let Qty = Number(prgraph.getAttribute("data_qet_p"));
+
+                if (Name_Item == Name_Product) {
+                    OnhandQty = OnhandQty - Qty;
+                }
+            }
+        }
+
         if (OnhandQty <= 0) {
             $(this).val('Finish');
         } else {
 
+
+           
+            
             $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
             $('#Men_popu').attr('style', 'display:block;');
             $('#Men_popu').attr('class', 'popu animated zoomInLeft');
@@ -461,6 +477,7 @@ namespace SlsTrSales {
             Total();
         }
 
+        
     }
     ////--------------------------------------------------Create_Menu--------------------------------    
 
@@ -742,28 +759,28 @@ namespace SlsTrSales {
 
         Num_Add_List += 1;
     }
-    //function Show_Basket() {
+    function Show_Basket() {
 
-    //    var CChat = document.getElementById("CChat");
-    //    x.setAttribute('class', '');
-    //    CChat.setAttribute('class', 'Basket');
-    //    CChat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
-    //    chat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('style', '');
+        var CChat = document.getElementById("CChat");
+        x.setAttribute('class', '');
+        CChat.setAttribute('class', 'Basket');
+        CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
+        chat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('style', '');
 
-    //}
-    //function Hide_Basket() {
+    }
+    function Hide_Basket() {
 
-    //    //var CChat = document.getElementById("CChat");
-    //    //x.setAttribute('class', '');
-    //    //CChat.setAttribute('class', 'Basket');
-    //    //CChat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
-    //    chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
-    //    chat.setAttribute('aria-expanded', 'false');
+        var CChat = document.getElementById("CChat");
+        x.setAttribute('class', '');
+        CChat.setAttribute('class', 'Basket');
+        CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
+        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
+        chat.setAttribute('aria-expanded', 'false');
 
-    //}
+    }
     function Remove_Item_in_Basket() {
         ////debugger
 

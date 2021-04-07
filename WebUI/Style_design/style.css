@@ -5,8 +5,8 @@ html, body {
     background: #084261;*/
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    background: linear-gradient(to right, rgb(22, 58, 71) 0%, #e08009 100%);
-    /*background: linear-gradient(-46deg,#457197,#11617f,#098ce0,#163b48);*/
+    /*background: linear-gradient(to right, rgb(22, 58, 71) 0%, #e08009 100%);*/
+    background: linear-gradient(-46deg,#457197,#11617f,#098ce0,#163b48);
     background-size: 400% 400%;
     animation: Gradient 20s ease infinite;
 }

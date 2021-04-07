@@ -350,6 +350,16 @@ var SlsTrSales;
         Name_Product = $(this).attr('data-Name');
         OnhandQty = $(this).attr('data-Qty');
         MinUnitPrice = $(this).attr('data-MinUnitPrice');
+        for (var i = 0; i < Num_Add_List + 1; i++) {
+            var prgraph = document.getElementById("ppp" + i);
+            if (prgraph != null) {
+                var Name_Item = prgraph.getAttribute("data_name_p");
+                var Qty_1 = Number(prgraph.getAttribute("data_qet_p"));
+                if (Name_Item == Name_Product) {
+                    OnhandQty = OnhandQty - Qty_1;
+                }
+            }
+        }
         if (OnhandQty <= 0) {
             $(this).val('Finish');
         }
@@ -587,24 +597,24 @@ var SlsTrSales;
         }
         Num_Add_List += 1;
     }
-    //function Show_Basket() {
-    //    var CChat = document.getElementById("CChat");
-    //    x.setAttribute('class', '');
-    //    CChat.setAttribute('class', 'Basket');
-    //    CChat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
-    //    chat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('style', '');
-    //}
-    //function Hide_Basket() {
-    //    //var CChat = document.getElementById("CChat");
-    //    //x.setAttribute('class', '');
-    //    //CChat.setAttribute('class', 'Basket');
-    //    //CChat.setAttribute('aria-expanded', 'true');
-    //    chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
-    //    chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
-    //    chat.setAttribute('aria-expanded', 'false');
-    //}
+    function Show_Basket() {
+        var CChat = document.getElementById("CChat");
+        x.setAttribute('class', '');
+        CChat.setAttribute('class', 'Basket');
+        CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
+        chat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('style', '');
+    }
+    function Hide_Basket() {
+        var CChat = document.getElementById("CChat");
+        x.setAttribute('class', '');
+        CChat.setAttribute('class', 'Basket');
+        CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
+        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
+        chat.setAttribute('aria-expanded', 'false');
+    }
     function Remove_Item_in_Basket() {
         ////debugger
         var liuu = document.getElementById("Ul_Div");
