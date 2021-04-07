@@ -470,6 +470,66 @@ var G_USER_LOG = (function (_super) {
     }
     return G_USER_LOG;
 }(SecurityClass));
+var ORDER_Master = (function (_super) {
+    __extends(ORDER_Master, _super);
+    function ORDER_Master() {
+        var _this = _super.call(this) || this;
+        _this.UserName = "";
+        _this.Namber_Order_Delivery = 0;
+        _this.Total_All = 0;
+        _this.Date_Order_Delivery = "";
+        _this.Tax = 0;
+        _this.CUSTOMER_ID = 0;
+        _this.type_order = "";
+        _this.Confirmation = false;
+        return _this;
+    }
+    return ORDER_Master;
+}(SecurityClass));
+var ORDER_DELIVERY = (function (_super) {
+    __extends(ORDER_DELIVERY, _super);
+    function ORDER_DELIVERY() {
+        var _this = _super.call(this) || this;
+        _this.ID_ORDER_Delivery = 0;
+        _this.EMPLOYEE_ID = 0;
+        _this.Namber_Order_Delivery = 0;
+        _this.Date_Order_Delivery = "";
+        _this.CUSTOMER_ID = 0;
+        _this.Total_All;
+        _this.Tax = 0;
+        _this.type_order = "";
+        _this.Name_Pilot = "";
+        _this.Confirmation = false;
+        _this.Num_Day = 0;
+        return _this;
+    }
+    return ORDER_DELIVERY;
+}(SecurityClass));
+var SlsInvoiceMasterDetails = (function (_super) {
+    __extends(SlsInvoiceMasterDetails, _super);
+    function SlsInvoiceMasterDetails() {
+        var _this = _super.call(this) || this;
+        _this.I_Sls_TR_Invoice = new ORDER_Master();
+        _this.I_Sls_TR_InvoiceItems = new Array();
+        return _this;
+    }
+    return SlsInvoiceMasterDetails;
+}(SecurityClass));
+var Stok_ORDER_DELIVERY = (function (_super) {
+    __extends(Stok_ORDER_DELIVERY, _super);
+    function Stok_ORDER_DELIVERY() {
+        var _this = _super.call(this) || this;
+        _this.ID_DELIVERY = 0;
+        _this.Name_Product_sell = "";
+        _this.Quantity_sell = 0;
+        _this.price_One_part;
+        _this.Total_Price_One_Part;
+        _this.Notes_Order = "";
+        _this.FK_ORDER_Delivery = 0;
+        return _this;
+    }
+    return Stok_ORDER_DELIVERY;
+}(SecurityClass));
 var G_USER_MODULE = (function (_super) {
     __extends(G_USER_MODULE, _super);
     function G_USER_MODULE() {

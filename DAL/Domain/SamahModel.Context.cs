@@ -459,7 +459,7 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Stock_ORDER_TECAYE", name_Product_sellParameter, quantity_sellParameter, price_One_partParameter, total_Price_One_PartParameter, notes_OrderParameter);
         }
     
-        public virtual int insert_Stok_ORDER_DELIVERY(string name_Product_sell, Nullable<double> quantity_sell, Nullable<decimal> price_One_part, Nullable<decimal> total_Price_One_Part, string notes_Order)
+        public virtual int insert_Stok_ORDER_DELIVERY(string name_Product_sell, Nullable<double> quantity_sell, Nullable<decimal> price_One_part, Nullable<decimal> total_Price_One_Part, string notes_Order, Nullable<int> fK_ORDER_Delivery)
         {
             var name_Product_sellParameter = name_Product_sell != null ?
                 new ObjectParameter("Name_Product_sell", name_Product_sell) :
@@ -481,7 +481,11 @@ namespace DAL.Domain
                 new ObjectParameter("Notes_Order", notes_Order) :
                 new ObjectParameter("Notes_Order", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Stok_ORDER_DELIVERY", name_Product_sellParameter, quantity_sellParameter, price_One_partParameter, total_Price_One_PartParameter, notes_OrderParameter);
+            var fK_ORDER_DeliveryParameter = fK_ORDER_Delivery.HasValue ?
+                new ObjectParameter("FK_ORDER_Delivery", fK_ORDER_Delivery) :
+                new ObjectParameter("FK_ORDER_Delivery", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Stok_ORDER_DELIVERY", name_Product_sellParameter, quantity_sellParameter, price_One_partParameter, total_Price_One_PartParameter, notes_OrderParameter, fK_ORDER_DeliveryParameter);
         }
     
         public virtual int insert_Table_two_days()

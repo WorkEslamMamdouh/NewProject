@@ -277,7 +277,7 @@
     #chat {
         overflow-y: scroll;
     }
-    /* Hide scrollbar for Chrome, Safari and Opera */
+        /* Hide scrollbar for Chrome, Safari and Opera */
         #chat::-webkit-scrollbar {
             display: none;
         }
@@ -290,25 +290,25 @@
         width: 10px;
     }
 
-        /* Track */
-        .krkr::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            background-color: black;
-            /*border-radius: 16px;*/
-            border-top-left-radius: 24px;
-            border-bottom-left-radius: 24px;
-        }
+    /* Track */
+    .krkr::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        background-color: black;
+        /*border-radius: 16px;*/
+        border-top-left-radius: 24px;
+        border-bottom-left-radius: 24px;
+    }
 
-        /* Handle */
-        .krkr::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 16px;
-        }
+    /* Handle */
+    .krkr::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 16px;
+    }
 
-            /* Handle on hover */
-            .krkr::-webkit-scrollbar-thumb:hover {
-                background: #555;
-            }
+        /* Handle on hover */
+        .krkr::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 
     .List_MinUnitPrice_in_poup_pass {
         display: block;
@@ -428,7 +428,7 @@
         background-color: #e3e3e3 !important;
         box-shadow: 0px 4px 6px 0;
     }
- 
+
 
     .Basket {
         position: fixed;
@@ -486,7 +486,7 @@
         color: #fff;
     }*/
     .Style_Category {
-        width: 205px;
+        width: 186px;
         background-color: #2e8f7459;
         margin-left: 15px;
         margin-top: 4px;
@@ -531,21 +531,134 @@
 <link href="~/Style_design/Stylecheckbox.css" rel="stylesheet" />
 
 <div id="Men_Sales_2" class="col-lg-12 margingred  borderred animated zoomInLeft" style=" ">
-    <div class="container-fluid" style="padding-left: 57px;">
+    <div class="container-fluid" style="">
 
         <div class="row">
             <div id="informtionReserved" class="col-lg-13 margingred ">
 
-                
 
-                <div id="div_Category" class="col-lg-12">
+
+                <div id="div_Category" class="col-lg-11">
                     <button id="All_item" type="button" class="btn btn-info Style_Category" style="">
                         جميع الاصناف  <span class="glyphicon glyphicon-download-alt" style="margin-top: -27px;"></span>
                     </button>
 
                 </div>
 
-                <div id="contentContainer" class="col-lg-15" style="left: 15px!important;">
+                <div id="" class="col-lg-1">
+                    <div id="But_Cutomr" title="Customer" class="pull-right adminpro-icon adminpro-user-rounded header-riht-inf castmr-button">
+                        <span class=" " style="font-size: 20px;margin-right: -23px;color: #d7f2ff;">
+                            Customer
+                        </span>
+                    </div>
+                </div>
+
+
+
+                <div id="contentContainer" class="col-lg-15" style="padding-left: 57px!important;">
+
+                    @*<%----------------------------------------------------------------Custmor----------------------------------------------------------------------------%>*@
+
+
+
+                    <div id="div_cutomr" class=" chat-box-wrap shadow-reset animated zoomInLeft collapse " aria-expanded="true">
+
+                        <br />
+                       
+                        <div class="col-lg-12">
+
+                            <div class="col-lg-5">
+                                <input id="idCust" type="hidden" />
+                                <input id="cust_search_phone" class="form-control" type="text" placeholder="بحث" style="margin-top: 13px;">
+                            </div>
+                            <div class="col-lg-1">
+
+                            </div>
+                                <div class="col-lg-6">
+                                    <span class="adminpro-icon adminpro-user-rounded header-riht-inf" style="font-size: 50px; color: #d7f2ff;">
+                                        Customer
+                                    </span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="  col-lg-12" style="  ">
+
+
+                                <div class="col-lg-2">
+                                    <label class="login2 pull-right pull-right-pro" style="color: bisque;">الاسم</label>
+                                </div>
+
+                                <div class="col-lg-8">
+                                    <input id="CUST_NAME" class="form-control" type="text" placeholder="الاسم">
+                                </div>
+
+                            </div>
+
+                            <div class=" col-lg-12" style="display:none">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <label class="login2 pull-right pull-right-pro" style="color: bisque;">   علامة مميزة</label>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <input id="CUST_ADDRES_2" class="form-control" type="text" placeholder="علامة مميزة">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="  col-lg-12" style="margin-left:-133px; margin-top:9px">
+
+                                <div class="col-lg-2">
+                                    <label class="login2 pull-right pull-right-pro" style="color: bisque;">التليفون</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input id="CUST_Phone" class="form-control" type="text" placeholder="التليفون">
+                                </div>
+
+                            </div>
+
+
+                            <div class="  col-lg-12" style="margin-left:-133px;">
+
+                                <div class="col-lg-2">
+                                    <label class="login2 pull-right pull-right-pro" style="color: bisque;">ملاحظات</label>
+                                </div>
+                                <div class="col-lg-8">
+
+                                    @*<%--<input id="CUST_ADDRES" class="form-control" type="text" placeholder="العنوان">--%>*@
+                                    <textarea id="CUST_ADDRES" maxlength="300" style="width: 475px; height: 135px; background-color: #e7dfc1; font-size: 20px; margin-top: 3px; color: #1e63ff;"></textarea>
+                                    @*<%--<asp:textbox id="textCUSTOMER_ADDRES" runat="server" class="form-control" type="text" placeholder="العنوان" name="CUSTOMER_ADDRES"></asp:textbox>--%>*@
+                                </div>
+
+                            </div>
+
+                            <div class="login-input-area col-lg-12">
+
+                                <div class="col-lg-4">
+                                    <input id="Insert_But_Cust" class="btn btn-custon-rounded-two btn-success" type="button" value="Insert" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <input id="update_div_cust" class="btn  btn-primary" type="button" value="update" style="width: 105px; background-color: #acac01" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <input id="hid_div_Customr" class="btn  btn-primary" type="button" value="OK" style="width: 105px" />
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+
+
+                    @*<%---------------------------------------------------------------------------------------------------------------------------------------------------------%>*@
+
                     <ul id="uul" class="" style=" list-style: outside none none;margin: -1px;padding: 0px;">
                         @*<%--__________________________________________________________________________________________________________________--%>*@
 
@@ -645,7 +758,6 @@
 </div>
 @*--------------------------------------------------------Basket-------------------------------*@
 
-
 <div class="modal fade" id="PopupDialog" role="dialog">
     <div class="modal-dialog">
 
@@ -697,38 +809,38 @@
 
                     </div>
                     <div class="col-lg-12">
-                        <div class=" col-lg-2 col-xs-4">
+                        <div class=" col-lg-4 col-xs-4" style="margin-right: 10%;">
 
                         </div>
                         <div class=" col-lg-3 col-xs-4">
-                            <span class="" style="font-size: 15px;font-weight: bold;">
+                            <span class="" style="font-size: 19px;font-weight: bold;">
                                 <span class="">الاجمالي </span>
                             </span>
 
                         </div>
-                        <div class="col-lg-2 col-xs-3">
-                            <span class="" style="font-size: 15px;font-weight: bold;">
-                                <span class="">الضريبه </span>
-                            </span>
-                        </div>
-                        <div class="col-lg-3 col-xs-3">
-                            <span class="" style="font-size: 15px;font-weight: bold;">الاجمالي بعد الضريبة</span>
-                        </div>
+                        @*<div class="col-lg-2 col-xs-3">
+                                <span class="" style="font-size: 15px;font-weight: bold;">
+                                    <span class="">الضريبه </span>
+                                </span>
+                            </div>
+                            <div class="col-lg-3 col-xs-3">
+                                <span class="" style="font-size: 15px;font-weight: bold;">الاجمالي بعد الضريبة</span>
+                            </div>*@
                     </div>
                     <div class="col-lg-12">
 
-                        <div class=" col-lg-2 col-xs-4">
+                        <div class=" col-lg-4 col-xs-4">
 
                         </div>
-                        <div class="col-lg-3 col-xs-3">
-                            <input id="txtTotal_Popu" type="text" class="form-control">
-                        </div>
-                        <div class="col-lg-2 col-xs-3">
-                            <input id="txtTax_Popu" type="text" class="form-control">
-                        </div>
                         <div class="col-lg-4 col-xs-3">
-                            <input id="txtTotAfterTax_Popu" type="text" class="form-control">
+                            <input id="txtTotal_Popu" type="text" disabled class="form-control">
                         </div>
+                        @*<div class="col-lg-2 col-xs-3">
+                                <input id="txtTax_Popu" type="text" class="form-control">
+                            </div>
+                            <div class="col-lg-4 col-xs-3">
+                                <input id="txtTotAfterTax_Popu" type="text" class="form-control">
+                            </div>*@
 
 
 
@@ -773,9 +885,11 @@
             <div id="PopupBody" class=" modal-body col-lg-12 col-xs-12 ">
                 <div id="popu_Passowrd" class="popu animated zoomInLeft" style="display:block;">
                     <div class="col-lg-12">
-                        <h2 id="id_Labol" style="text-align: center;">يجب ادخال الباسور حتي ياتم عملية البيع</h2>
+                        <h2 id="id_Labol" style="text-align: center;">يجب ادخال الباسورد حتي تتم عملية البيع</h2>
 
                     </div>
+
+
 
                     <div class="col-lg-12">
                         <div class="col-lg-2 col-xs-4">

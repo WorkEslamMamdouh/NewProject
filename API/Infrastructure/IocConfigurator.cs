@@ -8,6 +8,7 @@ using BLL.Services.Login;
 using BLL.Services.Item;
 using BLL.Services.Category;
 using BLL.Services.insert_Table;
+using BLL.Services.SlsTrSales;
 using WebUl.DAL.Repository;
 
 namespace Infrastructure
@@ -22,6 +23,7 @@ namespace Infrastructure
             container.RegisterType<ILoginServices, LoginServices>();
             container.RegisterType<IItemServices, ItemServices>();
             container.RegisterType<ICategoryServices, CategoryServices>();
+            container.RegisterType<ISlsTrSalesServices, SlsTrSalesServices>();
 
 
 

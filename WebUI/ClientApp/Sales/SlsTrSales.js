@@ -9,70 +9,29 @@ var SlsTrSales;
     var sys = new SystemTools();
     var FamilyDetails = new Array();
     var CategoryDetails = new Array();
-    ////debugger
-    //var compcode: Number;
-    //var vatType: number;
-    //// var IControl: I_Control = new I_Control();
-    //// Arrays
-    //var CustDetails: Array<A_Rec_D_Customer> = new Array<A_Rec_D_Customer>();
-    //var SalesmanDetails: Array<I_Sls_D_Salesman> = new Array<I_Sls_D_Salesman>();//
-    //var CashDetailsAr: Array<string> = new Array<string>();
-    //var CashDetailsEn: Array<string> = new Array<string>();
-    //var CashboxDetails: Array<A_RecPay_D_CashBox> = new Array<A_RecPay_D_CashBox>();
-    //var storeDetails: Array<G_STORE> = new Array<G_STORE>();
-    //var ItemDetails: Array<IQ_GetItemStoreInfo> = new Array<IQ_GetItemStoreInfo>();
-    //var ItemDetails_New: Array<IQ_GetItemStoreInfo_New> = new Array<IQ_GetItemStoreInfo_New>();
-    //var Item: I_Item = new I_Item();
-    //var InvoiceStatisticDetails: Array<IQ_GetSlsInvoiceStatistic> = new Array<IQ_GetSlsInvoiceStatistic>();
-    //var AD_VatTypeDetails: A_D_VAT_TYPE = new A_D_VAT_TYPE();
-    ////Models
-    //var MasterDetailModel: SlsInvoiceMasterDetails = new SlsInvoiceMasterDetails();
-    //var InvoiceModel: I_Sls_TR_Invoice = new I_Sls_TR_Invoice();
-    //var invoiceItemsModel: Array<I_Sls_TR_InvoiceItems> = new Array<I_Sls_TR_InvoiceItems>();
-    //var invoiceItemSingleModel: I_Sls_TR_InvoiceItems = new I_Sls_TR_InvoiceItems();
-    //// dropdownlists
-    //var ddlCustomer: HTMLSelectElement;
-    //var ddlSalesman: HTMLSelectElement;
-    //var ddlCashType: HTMLSelectElement;
-    //var ddlCashBox: HTMLSelectElement;
-    //var ddlStore: HTMLSelectElement;
-    ////buttons
-    //var btnAddDetails: HTMLButtonElement;
-    //var btnAdd: HTMLButtonElement;
-    //var btnPrntPrice: HTMLButtonElement;
-    //var btnPrint: HTMLButtonElement;
-    //var btnSave: HTMLButtonElement;
-    //var btnBack: HTMLButtonElement;
-    ////Textboxes
-    //var txtDate: HTMLInputElement;
-    //var txtItemCount: HTMLInputElement;
-    //var txtPackageCount: HTMLInputElement;
-    //var txtTotal: HTMLInputElement;
-    //var txtTax: HTMLInputElement;
-    //var txtNet: HTMLInputElement;
-    //var txtCommission: HTMLInputElement;
-    //var txtCustomerName: HTMLInputElement;
-    //var txtCustomerMobile: HTMLInputElement;
-    //var txt_ApprovePass: HTMLInputElement;
-    ////checkbox
-    //var chkActive: HTMLInputElement;
-    ////labels
-    //var lblInvoiceNumber: HTMLLabelElement;
-    //var lblMessage: HTMLLabelElement;
-    ////global
-    //var CountItems: number = 0;
-    //var PackageCount: number = 0;
-    //var CountTotal: number = 0;
-    //var TaxCount: number = 0;
-    //var NetCount: number = 0;
-    //var TypeFlag: boolean = false;
-    //var storeID = 1;
-    //var ddlType_change;
-    //var VatPrc;
-    //var invoiceID;
-    //var Rersour;
-    //var html;
-    ////----------------------------------------------------------------Eslam------------
+    var MasterDetailModel = new SlsInvoiceMasterDetails();
+    var InvoiceModel = new ORDER_Master();
+    var List = new Array();
+    var List_MinUnitPrice = new Array();
+    var Model = new Stok_ORDER_DELIVERY();
+    var div_menu = document.getElementById('thing');
+    var theThing = document.querySelector("#thing");
+    var container = document.querySelector("#contentContainer");
+    var txtPrice;
+    var txtTotal_Price;
+    var txtTotAfterTax_Popu;
+    var txtQuantity;
+    var CChat;
+    var Total_Basket;
+    var ID_input = null;
+    var btn_cancel_Popu;
+    var btnminus_Quantity;
+    var btnplus_Quantity;
+    var btnminus_price;
+    var btnplus_price;
+    var All_item;
+    var Finsh_Order;
+    var txt_ApprovePass;
     var btn_Add_Basket;
     var btn_Edit_Basket;
     var btn_Approveprice;
@@ -88,25 +47,11 @@ var SlsTrSales;
     var IDPlus = 0;
     var zoom_select = 2.4;
     var scro = 0;
-    var CChat;
-    var Total_Basket;
-    var ID_input = null;
-    var btn_cancel_Popu;
-    var btnminus_Quantity;
-    var btnplus_Quantity;
-    var btnminus_price;
-    var btnplus_price;
-    var All_item;
-    var Finsh_Order;
     var Num_Item;
     var x;
     var chat;
     var Qet_X = 0;
     var fouse;
-    var txtPrice;
-    var txtTotal_Price;
-    var txtTotAfterTax_Popu;
-    var txtQuantity;
     var Qet_Product = 0;
     var Name_Product;
     var OnhandQty;
@@ -119,26 +64,31 @@ var SlsTrSales;
     var New_ItemFamilyID;
     var storeCode;
     var Num_Add_List = 0;
-    //var List: Array<I_Sls_TR_InvoiceItems> = new Array<I_Sls_TR_InvoiceItems>();
-    //var List_MinUnitPrice: Array<I_Sls_TR_InvoiceItems> = new Array<I_Sls_TR_InvoiceItems>();
-    //var Model: I_Sls_TR_InvoiceItems = new I_Sls_TR_InvoiceItems();
-    //var ItemDetails_New: Array<IQ_GetItemStoreInfo_New> = new Array<IQ_GetItemStoreInfo_New>();
-    //var Selecteditem: Array<IQ_GetItemStoreInfo_New> = new Array<IQ_GetItemStoreInfo_New>();
-    var div_menu = document.getElementById('thing');
-    var theThing = document.querySelector("#thing");
-    var container = document.querySelector("#contentContainer");
     var num_item_IN_Menu = 0;
-    ////----------------------------------------------------------------Eslam------------
     var CatPlus = 0;
     var CatID;
     var Category_NAME;
     var class_input;
     var ItemFamilyID;
     var IDPlus = 0;
+    //-------------------------------------------------------Customr-----------------------
+    var Insert_But_Cust;
+    var CUST_NAME;
+    var CUST_ADDRES;
+    var CUST_ADDRES_2;
+    var CUST_Phone;
+    var But_Cutomr;
+    var div_cutomr;
+    var hid_div_Customr;
+    var update_div_cust;
+    var cust_search_phone;
+    var idCust;
+    var fouse;
+    var Num_Order;
+    var Success;
     function InitalizeComponent() {
         debugger;
         $('#cont').toggleClass('colapsdivcont');
-        //$("body").toggleClass("mini-navbar");
         $('#sidebar').toggleClass('active');
         $('#sidebarCollapse').addClass('display_none');
         InitalizeControls();
@@ -154,7 +104,6 @@ var SlsTrSales;
         else {
             document.getElementById('Screen_name').innerHTML = "Sales Invoices";
         }
-        //------------------------------------------------------------------Eslam---------------------------
         All_item = document.getElementById("All_item");
         btn_Add_Basket = document.getElementById("btn_Add_Basket");
         btn_Edit_Basket = document.getElementById("btn_Edit_Basket");
@@ -165,6 +114,7 @@ var SlsTrSales;
         btnplus_Quantity = document.getElementById("btnplus_Quantity");
         btnminus_price = document.getElementById("btnminus_price");
         btnplus_price = document.getElementById("btnplus_price");
+        btn_Approveprice = document.getElementById("btn_Approveprice");
         CChat = document.getElementById("CChat");
         Total_Basket = document.getElementById("Total_Basket");
         Num_Item = document.getElementById('Num_Item');
@@ -175,14 +125,27 @@ var SlsTrSales;
         txtQuantity = document.getElementById('txtQuantity');
         txtTotal_Price = document.getElementById('txtTotal_Popu');
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu');
-        //------------------------------------------------------------------Eslam---------------------------
+        txt_ApprovePass = document.getElementById('txt_ApprovePass');
+        //-------------------------------------------------------Customr-----------------------
+        Insert_But_Cust = document.getElementById("Insert_But_Cust");
+        CUST_NAME = document.getElementById("CUST_NAME");
+        CUST_ADDRES = document.getElementById("CUST_ADDRES");
+        CUST_ADDRES_2 = document.getElementById("CUST_ADDRES_2");
+        CUST_Phone = document.getElementById("CUST_Phone");
+        But_Cutomr = document.getElementById("But_Cutomr");
+        div_cutomr = document.getElementById("div_cutomr");
+        hid_div_Customr = document.getElementById("hid_div_Customr");
+        update_div_cust = document.getElementById("update_div_cust");
+        cust_search_phone = document.getElementById("cust_search_phone");
+        idCust = document.getElementById("idCust");
+        fouse = document.getElementById("fouse");
     }
     function InitializeEvents() {
         All_item.onclick = GetAll_item_onclick;
         btn_cancel_Popu.onclick = cancel_Popu_onclick;
-        //Finsh_Order.onclick = Finsh_Order_onclick;
-        //btn_Approveprice.onclick = btn_Approveprice_onclick;
-        //btn_Exit_Approveprice.onclick = btn_Exit_Approveprice_onclick;
+        Finsh_Order.onclick = Finsh_Order_onclick;
+        btn_Approveprice.onclick = btn_Approveprice_onclick;
+        btn_Exit_Approveprice.onclick = btn_Exit_Approveprice_onclick;
         btnminus_Quantity.onclick = btnminus_Quantity_onclick;
         btnplus_Quantity.onclick = btnminus_Quantity_onclick;
         btnminus_price.onclick = btnminus_price_onclick;
@@ -192,6 +155,12 @@ var SlsTrSales;
         btn_Add_Basket.onclick = But_Add_Popu;
         btn_Edit_Basket.onclick = Edit_ROW_IN_Basket;
         $('.compose-discard-bt').click(Remove_Item_in_Basket);
+        //-------------------------------------------------------Customr-----------------------
+        Insert_But_Cust.onclick = add_cust;
+        But_Cutomr.onclick = show_Cutomr;
+        hid_div_Customr.onclick = hide_Custm;
+        update_div_cust.onclick = update_cust;
+        cust_search_phone.onkeyup = get_cust;
     }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
@@ -258,6 +227,7 @@ var SlsTrSales;
         });
     }
     function DisplayItems(ItemList) {
+        debugger;
         for (var i = 0; i < ItemList.length; i++) {
             if (ItemList[i].ID_CAT == 1) {
                 class_input = "input_fruits";
@@ -279,7 +249,7 @@ var SlsTrSales;
         }
     }
     function AddBut() {
-        ////debugger
+        debugger;
         var test_input = document.getElementById("input" + IDPlus);
         if (test_input == null) {
             var ppp = document.createElement('li');
@@ -607,10 +577,10 @@ var SlsTrSales;
         chat.setAttribute('style', '');
     }
     function Hide_Basket() {
-        var CChat = document.getElementById("CChat");
-        x.setAttribute('class', '');
-        CChat.setAttribute('class', 'Basket');
-        CChat.setAttribute('aria-expanded', 'true');
+        //var CChat = document.getElementById("CChat");
+        //x.setAttribute('class', '');
+        //CChat.setAttribute('class', 'Basket');
+        //CChat.setAttribute('aria-expanded', 'true');
         chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
         chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
         chat.setAttribute('aria-expanded', 'false');
@@ -700,381 +670,207 @@ var SlsTrSales;
         $("#PopupDialog").modal("show");
         Total();
     }
-    ////------------------------------------------------------Assign_Get_Data------------------------
-    //function Chanege_Mode_TO_Page_1() {
-    //    Assign_Get_Data();
-    //    $("#div_Data").html('');
-    //    Display_Page_1();
-    //}
-    //function Display_Page_1() {
-    //    storeCode = $("#ddlStore").val();
-    //    for (var i = 0; i < List.length; i++) {
-    //        ////debugger
-    //        let total = (List[i].SoldQty * List[i].Unitprice);
-    //        CountGrid = i;
-    //        BuildControls(CountGrid);
-    //        $("#ddlFamily" + i).removeAttr('disabled');
-    //        $("#ddlFamily" + i).prop("value", List[i].ItemFamilyID);
-    //        //---------------------------------------------------------------------------------------------------------
-    //        $("#ddlItem" + i).removeAttr('disabled');
-    //        var selectedFamily = $("#ddlFamily" + i).val();
-    //        var item = ItemDetails.filter(x => x.ItemFamilyID == Number(selectedFamily) && x.StoreCode == storeCode);
-    //        $('#ddlItem' + i).empty();
-    //        $('#ddlItem' + i).append('<option value="' + null + '">' + "اختر الصنف" + '</option>');
-    //        for (var u = 0; u < item.length; u++) {
-    //            $('#ddlItem' + i).append('<option data-MinUnitPrice="' + item[u].MinUnitPrice + '" data-OnhandQty="' + item[u].OnhandQty + '" value="' + item[u].ItemID + '">' + item[u].Itm_DescA + '</option>');
-    //        }
-    //        $("#ddlItem" + i).prop("value", List[i].ItemID);
-    //        //---------------------------------------------------------------------------------------------------------
-    //        //$("#txt_ID" + i).val(List[i].ItemFamilyID);
-    //        //$("#txt_ID" + i).val(List[i].ItemID);
-    //        $("#txtQuantity" + i).val(List[i].SoldQty);
-    //        $("#txtPrice" + i).val(List[i].Unitprice);
-    //        $("#txtTotal" + i).val(total);
-    //        $("#txtTax" + i).val(List[i].VatAmount);
-    //        $("#txtTotAfterTax" + i).val(List[i].NetAfterVat);
-    //        $("#txt_StatusFlag" + i).val("");
-    //        $("#btn_minus" + i).removeClass("display_none");
-    //        $("#btn_minus" + i).removeAttr("disabled");
-    //    }
-    //    CountGrid += 1;
-    //    ComputeTotals();
-    //    txtItemCount.value = i.toString();
-    //    CountItems = i;
-    //    txtCommission.value = txtCommission_Basket.value;
-    //}
-    //function Assign_Get_Data() {
-    //    var VatAmount = 0;
-    //    List = new Array<I_Sls_TR_InvoiceItems>();
-    //    List_MinUnitPrice = new Array<I_Sls_TR_InvoiceItems>();
-    //    //var StatusFlag: String;
-    //    //debugger;
-    //    ////debugger
-    //    for (var i = 1; i < Num_Add_List + 1; i++) {
-    //        ////debugger
-    //        var prgraph = document.getElementById("ppp" + i);
-    //        if (prgraph != null) {
-    //            Model = new I_Sls_TR_InvoiceItems();
-    //            let Name_Item = prgraph.getAttribute("data_name_p");
-    //            let Item_ID = Number(prgraph.getAttribute("data_itemid"));
-    //            let ItemFamily_ID = Number(prgraph.getAttribute("data_itemfamilyid"));
-    //            let Qty = Number(prgraph.getAttribute("data_qet_p"));
-    //            let Price_Item = Number(prgraph.getAttribute("data_price_p"));
-    //            let Total_Price = Number(prgraph.getAttribute("data_total_price"));
-    //            let total = (Qty * Price_Item);
-    //            let MinPrice = prgraph.getAttribute("data-minunitprice");
-    //            let get_Price_on_seller = document.getElementById("oioo" + prgraph.getAttribute("data-new_p"));
-    //            let Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
-    //            Model.InvoiceItemID = 0;
-    //            Model.ItemID = Number(Item_ID);
-    //            Model.SoldQty = Number(Qty);
-    //            Model.StockSoldQty = Number(Qty);
-    //            Model.NetUnitPrice = Number(Price_Item);
-    //            Model.Unitprice = Number(Price_on_seller);
-    //            Model.VatPrc = VatPrc;//$("#txtTax" + i).val();
-    //            Model.VatAmount = Number(total) * VatPrc / 100;
-    //            Model.ItemTotal = Number(Qty) * Number(Price_Item);
-    //            Model.NetAfterVat = Total_Price;
-    //            Model.ItemFamilyID = ItemFamily_ID;
-    //            Model.MinUnitPrice = Number(MinPrice);
-    //            Model.Name_Item = Name_Item;
-    //            Model.StatusFlag = "i";
-    //            VatAmount += Number(total) * VatPrc / 100;
-    //            List.push(Model);
-    //            MasterDetailModel.I_Sls_TR_Invoice = InvoiceModel;
-    //            MasterDetailModel.I_Sls_TR_InvoiceItems = List;
-    //            if (ValidationMinUnitPrice == 1) {
-    //                //debugger
-    //                if (Number(Price_on_seller) < Number(MinPrice)) {
-    //                    List_MinUnitPrice.push(Model);
-    //                    Validation_Insert = 1;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    InvoiceModel.VatAmount = VatAmount;
-    //    //console.log(List);
-    //}
-    //function Finsh_Order_onclick() {
-    //    if (P != 0) {
-    //        if (!SysSession.CurrentPrivileges.AddNew) return;
-    //        if (!ValidationHeader_On_Chanege())
-    //            return;
-    //        ValidationMinUnitPrice = 1;
-    //        Assign_Get_Data();
-    //        MasterDetailModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-    //        MasterDetailModel.UserCode = SysSession.CurrentEnvironment.UserCode;
-    //        if (Validation_Insert != 1) {
-    //            Insert_Basket();
-    //            Remove_Item_in_Basket();
-    //            ValidationMinUnitPrice = 0;
-    //            Validation_Insert = 0;
-    //            btnChanege_onclick();
-    //            $('#condtionbtn1').removeClass("col-lg-10");
-    //            $('#condtionbtn1').addClass("col-lg-8");
-    //            $('#condtionbtn2').removeClass("col-lg-2");
-    //            $('#condtionbtn2').addClass("col-lg-4");
-    //            $('#btnPrint').removeClass("display_none");
-    //            $('#btnPrntPrice').removeClass("display_none");
-    //            clear();
-    //        }
-    //        else {
-    //            Open_poup_Pass();
-    //        }
-    //    }
-    //    else {
-    //        MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
-    //    }
-    //}
-    //function Insert_Basket() {
-    //    if (ddlCashType.value == "0") { InvoiceModel.IsCash = false; }
-    //    else { InvoiceModel.IsCash = true; }
-    //    if (chkActive.checked == true) { InvoiceModel.Status = 1; }
-    //    else { InvoiceModel.Status = 0; }
-    //    InvoiceModel.CustomerId = Number(ddlCustomer.value);
-    //    InvoiceModel.SalesmanId = Number(ddlSalesman.value);
-    //    InvoiceModel.StoreId = Number(ddlStore.value);
-    //    InvoiceModel.TrDate = txtDate.value;
-    //    InvoiceModel.NetAfterVat = NetCount;
-    //    InvoiceModel.TotalAmount = Number($('#All_Total_Basket').attr('All_Total'));
-    //    InvoiceModel.CustomerName = txtCustomerName.value;
-    //    InvoiceModel.CustomerMobileNo = txtCustomerMobile.value;
-    //    InvoiceModel.InvoiceID = 0;
-    //    InvoiceModel.CompCode = Number(compcode);
-    //    InvoiceModel.CreatedBy = SysSession.CurrentEnvironment.UserCode;
-    //    InvoiceModel.CreatedAt = DateTimeFormat(Date().toString());
-    //    InvoiceModel.VatType = vatType;
-    //    InvoiceModel.CommitionAmount = Number(txtCommission_Basket.value);
-    //    InvoiceModel.TrType = 0 //0 invoice 1 return
-    //    InvoiceModel.SlsInvSrc = 1   // 1 from store 2 from van 
-    //    InvoiceModel.SlsInvType = 1 //  retail 
-    //    Ajax.Callsync({
-    //        type: "POST",
-    //        url: sys.apiUrl("SlsTrSales", "InsertInvoiceMasterDetail"),
-    //        data: JSON.stringify(MasterDetailModel),
-    //        success: (d) => {
-    //            let result = d as BaseResponse;
-    //            if (result.IsSuccess == true) {
-    //                let res = result.Response as I_Sls_TR_Invoice;
-    //                DisplayMassage(" تم اصدار  فاتورة رقم  " + res.TrNo + " ", "Succeed", MessageType.Succeed);
-    //                $('#divCreationPanel').removeClass("display_none");
-    //                $('#txtCreatedBy').prop("value", SysSession.CurrentEnvironment.UserCode);
-    //                $('#txtCreatedAt').prop("value", DateTimeFormat(Date().toString()));
-    //                Hide_Basket();
-    //                //DisplayMassage("تم اصدار  فاتورة رقم " + res.TrNo, "تم");
-    //            } else {
-    //                MessageBox.Show("هناك خطـأ ", "خطاء");
-    //            }
-    //        }
-    //    });
-    //}
-    //function Get_Data_From_Page1() {
-    //    invoiceItemsModel = new Array<I_Sls_TR_InvoiceItems>();
-    //    for (var i = 0; i < CountGrid; i++) {
-    //        invoiceItemSingleModel = new I_Sls_TR_InvoiceItems();
-    //        let New_Item = $("#ddlItem" + i);
-    //        invoiceItemSingleModel.InvoiceItemID = 0;
-    //        invoiceItemSingleModel.ItemID = $("#ddlItem" + i).val();
-    //        invoiceItemSingleModel.ItemFamilyID = $("#ddlFamily" + i).val();
-    //        invoiceItemSingleModel.SoldQty = $('#txtQuantity' + i).val();
-    //        invoiceItemSingleModel.StockSoldQty = $('#txtQuantity' + i).val();
-    //        invoiceItemSingleModel.NetUnitPrice = $("#txtPrice" + i).val();
-    //        invoiceItemSingleModel.Unitprice = $("#txtPrice" + i).val();
-    //        invoiceItemSingleModel.VatPrc = VatPrc;//$("#txtTax" + i).val();
-    //        invoiceItemSingleModel.VatAmount = $("#txtTax" + i).val();
-    //        invoiceItemSingleModel.ItemTotal = invoiceItemSingleModel.Unitprice * invoiceItemSingleModel.SoldQty;
-    //        invoiceItemSingleModel.NetAfterVat = $("#txtTotAfterTax" + i).val();
-    //        invoiceItemSingleModel.Name_ItemFamily = $("#ddlFamily" + i + " option:selected").text();
-    //        invoiceItemSingleModel.Name_Item = $("#ddlItem" + i + " option:selected").text();
-    //        invoiceItemSingleModel.OnhandQty = Number($('option:selected', New_Item).attr('data-OnhandQty'));
-    //        invoiceItemSingleModel.MinUnitPrice = Number($('option:selected', New_Item).attr('data-MinUnitPrice'));
-    //        invoiceItemSingleModel.StatusFlag = "i";
-    //        invoiceItemsModel.push(invoiceItemSingleModel);
-    //    }
-    //    console.log(invoiceItemsModel);
-    //}
-    //function BuildBasket() {
-    //    //storeCode = $("#ddlStore").val();
-    //    P = 0;
-    //    for (var i = 0; i < invoiceItemsModel.length; i++) {
-    //        ////debugger
-    //        Name_Product = invoiceItemsModel[i].Name_Item
-    //        price_One_Product = invoiceItemsModel[i].Unitprice;
-    //        price_Product = invoiceItemsModel[i].NetAfterVat;
-    //        PRODUCT_price = invoiceItemsModel[i].Unitprice;
-    //        Qet_Product = invoiceItemsModel[i].SoldQty;
-    //        ItemID = invoiceItemsModel[i].ItemID;
-    //        New_ItemFamilyID = invoiceItemsModel[i].ItemFamilyID;
-    //        OnhandQty = invoiceItemsModel[i].OnhandQty;
-    //        MinUnitPrice = invoiceItemsModel[i].MinUnitPrice;
-    //        //Qet_Product = Number(txtQuantity.value);
-    //        //PRODUCT_price = parseFloat($("#txtPrice").val());
-    //        if (Name_Product != "") {
-    //            P += 1
-    //            scro += 80;
-    //            var Qet = 1;
-    //            if (CChat.getAttribute('style') != "display: block") {
-    //                var Ul_Div = document.createElement('ul');
-    //                Ul_Div.setAttribute('id', 'Ul_Div');
-    //                document.getElementById("mCSB_3_container").appendChild(Ul_Div);
-    //            }
-    //            var Li_Ul_Div = document.createElement('ul');
-    //            Li_Ul_Div.setAttribute('id', 'Li_Ul_Div' + P);
-    //            Li_Ul_Div.setAttribute('style', 'margin: 14px 0px 0px 0px;');
-    //            document.getElementById("Ul_Div").appendChild(Li_Ul_Div);
-    //            var li1_Div = document.createElement('li');
-    //            li1_Div.setAttribute('id', 'li1_Div' + P);
-    //            document.getElementById("Li_Ul_Div" + P).appendChild(li1_Div);
-    //            var li2_Div = document.createElement('li');
-    //            li2_Div.setAttribute('id', 'li2_Div' + P);
-    //            document.getElementById("Li_Ul_Div" + P).appendChild(li2_Div);
-    //            var divv = document.createElement('div');
-    //            divv.setAttribute('class', 'author-chat');
-    //            divv.setAttribute('id', 'div' + P);
-    //            document.getElementById("li2_Div" + P).appendChild(divv);
-    //            var ppp = document.createElement('p');
-    //            ppp.setAttribute('id', 'ppp' + P);
-    //            ppp.setAttribute('class', 'chat-box-wrap shadow-reset ');
-    //            ppp.setAttribute('style', 'width: 96%;');
-    //            ppp.setAttribute('data_Name_P', Name_Product);
-    //            ppp.setAttribute('data_price_P', PRODUCT_price.toString());
-    //            ppp.setAttribute('data_ItemId', ItemID.toString());
-    //            ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
-    //            ppp.setAttribute('data_QET_P', Qet_Product.toString());
-    //            ppp.setAttribute('data_total_price', price_Product.toString());
-    //            ppp.setAttribute('data-New_P', P.toString());
-    //            ppp.setAttribute('data-MinUnitPrice', MinUnitPrice);
-    //            document.getElementById("div" + P).appendChild(ppp);
-    //            var divvv = document.createElement('input');
-    //            divvv.setAttribute('type', 'text');
-    //            divvv.setAttribute('id', 'comnt' + P);
-    //            divvv.setAttribute('class', 'author-chat alert alert-warning alert-st-three alert-st-bg2');
-    //            divvv.setAttribute('style', 'display: none; margin: -43px 0px -25px 12px;float: left;height: 0px;width: 231px;font-size: 14px;padding: 14px;border-radius: 37px; position: relative;background-color: #a3a3a3;color: white;');
-    //            document.getElementById("div" + P).appendChild(divvv);
-    //            var exit_i = document.createElement('a');
-    //            exit_i.setAttribute('id', 'exit' + P);
-    //            exit_i.setAttribute('class', 'adminpro-icon adminpro-check-icon');
-    //            exit_i.setAttribute('href', '#');
-    //            exit_i.setAttribute('data-id_Nots', 'comnt' + P);
-    //            exit_i.setAttribute('data-id_But_Nots', 'oioo' + P);
-    //            exit_i.setAttribute('data-id_Pragraph', 'ppp' + P);
-    //            exit_i.setAttribute('style', 'display:none;margin: -38px -39px 0px -192px;float: left;height: 0px;width: 231px;font-size: 21px;border-radius: 37px;position: relative;color: #2e617f; padding: 0px;');
-    //            document.getElementById("div" + P).appendChild(exit_i);
-    //            var li2_a = document.createElement('a');
-    //            li2_a.setAttribute('id', 'a');
-    //            li2_a.setAttribute('href', '#');
-    //            li2_a.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInUp fa fa-remove class_ex_liest_chate');
-    //            li2_a.setAttribute('data_Id_Ul', 'Li_Ul_Div' + P);
-    //            li2_a.setAttribute('data_id_Pragraph', 'ppp' + P);
-    //            li2_a.setAttribute('data-x_totel', $(this).attr('data-price'));
-    //            li2_a.setAttribute('data-id_ppp', 'ppp' + P);
-    //            document.getElementById("li1_Div" + P).appendChild(li2_a);
-    //            document.getElementById('ppp' + P).innerHTML = '' + '( ' + Qet_Product + ' )   ' + Name_Product + '  = ' + price_Product + ' <a id="oioo' + P + '"  data-ID-Paragraph="' + P + '" href="#"  data-exit_id="exit' + P + '"  data-ip_div="comnt' + P + '" data-MinUnitPrice="' + MinUnitPrice + '" data-OnhandQty="' + OnhandQty + '" data-Name="' + Name_Product + '" data-price_One="' + price_One_Product + '" data-Qet_Product="' + Qet_Product + '" class="chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit"         style="font-size: 13px;padding: 4px;border-radius: 20px;color: #fdff61;margin: 0px 10px 0px 0px;"           ></a> ';
-    //            var mCSB_3_container = document.getElementById("mCSB_3_container");
-    //            mCSB_3_container.setAttribute('style', 'position: relative; top: -' + scro + 'px; left: 0px;');
-    //            CChat.setAttribute('style', 'display: block');
-    //            $('#Ul_Div li a').click(click_Remove_Item_in_Basket);
-    //            //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
-    //            Num_Item.setAttribute('data_New_QET', P);
-    //            Num_Add_List = P;
-    //        }
-    //    }
-    //    Total_Price();
-    //    Qet_X = P;
-    //    //CChat.setAttribute('style', 'display: block;');
-    //    //Total_Basket.setAttribute('style', 'display: block;');
-    //    var boll = chat.getAttribute('class');
-    //    var hide = ("chat-box-wrap shadow-reset animated zoomInLeft collapse");
-    //    if (hide == boll) { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>'; }
-    //    else { x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Qet_X + '</i>'; }
-    //    Num_Add_List += 1;
-    //}
-    //function Display_Page_2() {
-    //    Get_Data_From_Page1();
-    //    //Remove_Item_in_Basket();
-    //    document.getElementById("mCSB_3_container").innerHTML = "";
-    //    P = 0;
-    //    //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
-    //    Num_Item.setAttribute('data_New_QET', P);
-    //    x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + P + '</i>';
-    //    if (P == 0) { CChat.setAttribute('style', 'display: none;'); Total_Basket.setAttribute('style', 'display: none;'); }
-    //    var totalPirs = document.getElementById('All_Total_Basket');
-    //    totalPirs.innerHTML = '0';
-    //    Num_Add_List = 0;
-    //    BuildBasket();
-    //    txtCommission_Basket.value = txtCommission.value; 
-    //}
+    ////------------------------------------------------------Assign_Get_Data------------------------      
+    function Assign_Get_Data() {
+        List = new Array();
+        List_MinUnitPrice = new Array();
+        InvoiceModel.UserName = SysSession.CurrentEnvironment.UserCode;
+        InvoiceModel.Namber_Order_Delivery = 1;
+        InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
+        InvoiceModel.Date_Order_Delivery = DateTimeFormat(Date().toString());
+        InvoiceModel.Tax = 0;
+        InvoiceModel.CUSTOMER_ID = 9;
+        InvoiceModel.type_order = 'Delivery';
+        InvoiceModel.Confirmation = true;
+        for (var i = 1; i < Num_Add_List + 1; i++) {
+            var prgraph = document.getElementById("ppp" + i);
+            if (prgraph != null) {
+                Model = new Stok_ORDER_DELIVERY();
+                var Name_Item = prgraph.getAttribute("data_name_p");
+                var Item_ID = Number(prgraph.getAttribute("data_itemid"));
+                var ItemFamily_ID = Number(prgraph.getAttribute("data_itemfamilyid"));
+                var Qty_2 = Number(prgraph.getAttribute("data_qet_p"));
+                var Price_Item = Number(prgraph.getAttribute("data_price_p"));
+                var Total_Price_1 = Number(prgraph.getAttribute("data_total_price"));
+                var MinPrice = prgraph.getAttribute("data-minunitprice");
+                var get_Price_on_seller = document.getElementById("oioo" + prgraph.getAttribute("data-new_p"));
+                var Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
+                Model.ID_DELIVERY = 0;
+                Model.Name_Product_sell = Name_Item;
+                Model.Quantity_sell = Number(Qty_2);
+                Model.price_One_part = Number(Price_Item);
+                Model.Total_Price_One_Part = Number(Total_Price_1);
+                Model.Notes_Order = MinPrice;
+                Model.FK_ORDER_Delivery = 0;
+                List.push(Model);
+                MasterDetailModel.I_Sls_TR_Invoice = InvoiceModel;
+                MasterDetailModel.I_Sls_TR_InvoiceItems = List;
+                if (ValidationMinUnitPrice == 1) {
+                    if (Number(Price_on_seller) < Number(MinPrice)) {
+                        List_MinUnitPrice.push(Model);
+                        Validation_Insert = 1;
+                    }
+                }
+            }
+        }
+    }
+    function Finsh_Order_onclick() {
+        if (P != 0) {
+            //if (!SysSession.CurrentPrivileges.AddNew) return;
+            //if (!ValidationHeader_On_Chanege()) return;
+            ValidationMinUnitPrice = 1;
+            Assign_Get_Data();
+            if (Validation_Insert != 1) {
+                Insert_Basket();
+                if (Success == true) {
+                    Remove_Item_in_Basket();
+                    ValidationMinUnitPrice = 0;
+                    Validation_Insert = 0;
+                    FamilyDetails = new Array();
+                    $('#uul').html('');
+                    Display_But();
+                }
+            }
+            else {
+                Open_poup_Pass();
+            }
+        }
+        else {
+            MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
+        }
+    }
+    function Insert_Basket() {
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("SlsTrSales", "InsertInvoiceMasterDetail"),
+            data: JSON.stringify(MasterDetailModel),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var res = result.Response;
+                    MessageBox.Show(" تم اصدار  فاتورة رقم  " + res + " ", "تم");
+                    Success = true;
+                    Hide_Basket();
+                }
+                else {
+                    Success = false;
+                    MessageBox.Show("هناك خطـأ ", "خطاء");
+                }
+            }
+        });
+    }
     ////------------------------------------------------------Poup_Pass------------------------
-    //function Open_poup_Pass() {
-    //    $('#popu_Passowrd').attr('style', 'display:block;');
-    //    $('#popu_Passowrd').attr('class', 'popu animated zoomInLeft');
-    //    txt_ApprovePass.value = "";
-    //    $("#Popup_Passowrd").modal("show");
-    //    var Ul_List = document.getElementById('Ul_List_MinUnitPrice');
-    //    Ul_List.innerHTML = '';
-    //    for (var i = 0; i < List_MinUnitPrice.length; i++) {
-    //        var li_List_MinUnitPrice = document.createElement('li');
-    //        li_List_MinUnitPrice.setAttribute('id', 'li_List_MinUnitPrice' + i);
-    //        li_List_MinUnitPrice.setAttribute('class', 'st_border_li_List_MinUnitPrice');
-    //        Ul_List.appendChild(li_List_MinUnitPrice);
-    //        var id_List = document.getElementById('li_List_MinUnitPrice' + i);
-    //        id_List.innerHTML = '-( ' + List_MinUnitPrice[i].Name_Item + ' ) السعر (' + List_MinUnitPrice[i].Unitprice + ') الحد (0' + List_MinUnitPrice[i].MinUnitPrice + '0)';
-    //    }
-    //}
-    //function btn_Approveprice_onclick() {
-    //    //debugger;
-    //    if (Men_Sales_2.getAttribute('style') == 'display: none;') {
-    //        if (txt_ApprovePass.value == SysSession.CurrentEnvironment.I_Control[0].ExceedMinPricePassword) {
-    //            Insert();
-    //            $('#popu_Passowrd').attr('style', 'display:none;');
-    //            $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
-    //            txt_ApprovePass.value = "";
-    //            $("#Popup_Passowrd").modal("hide");
-    //            $('#condtionbtn1').removeClass("col-lg-10");
-    //            $('#condtionbtn1').addClass("col-lg-8");
-    //            $('#condtionbtn2').removeClass("col-lg-2");
-    //            $('#condtionbtn2').addClass("col-lg-4");
-    //            $('#btnPrint').removeClass("display_none");
-    //            $('#btnPrntPrice').removeClass("display_none");
-    //            clear();
-    //        }
-    //        else {
-    //            MessageBox.Show("لايمكن اعتماد الفاتورة", "خطأ");
-    //            txt_ApprovePass.value = "";
-    //        }
-    //    }
-    //    else {
-    //        if (txt_ApprovePass.value == SysSession.CurrentEnvironment.I_Control[0].ExceedMinPricePassword) {
-    //            Insert_Basket();
-    //            Remove_Item_in_Basket();
-    //            ValidationMinUnitPrice = 0;
-    //            Validation_Insert = 0;
-    //            txtCommission_Basket.value = "0";
-    //            $('#popu_Passowrd').attr('style', 'display:none;');
-    //            $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
-    //            txt_ApprovePass.value = "";
-    //            $("#Popup_Passowrd").modal("hide");
-    //            btnChanege_onclick();
-    //            $('#condtionbtn1').removeClass("col-lg-10");
-    //            $('#condtionbtn1').addClass("col-lg-8");
-    //            $('#condtionbtn2').removeClass("col-lg-2");
-    //            $('#condtionbtn2').addClass("col-lg-4");
-    //            $('#btnPrint').removeClass("display_none");
-    //            $('#btnPrntPrice').removeClass("display_none");
-    //            clear();
-    //        }
-    //        else {
-    //            MessageBox.Show("لايمكن اعتماد الفاتورة", "خطأ");
-    //            txt_ApprovePass.value = "";
-    //        }
-    //    }
-    //}
-    //function btn_Exit_Approveprice_onclick() {
-    //    $('#popu_Passowrd').attr('style', 'display:none;');
-    //    $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
-    //    txt_ApprovePass.value = "";
-    //    $("#Popup_Passowrd").modal("hide");
-    //    Validation_Insert = 0;
-    //}
+    function Open_poup_Pass() {
+        $('#popu_Passowrd').attr('style', 'display:block;');
+        $('#popu_Passowrd').attr('class', 'popu animated zoomInLeft');
+        txt_ApprovePass.value = "";
+        $("#Popup_Passowrd").modal("show");
+        var Ul_List = document.getElementById('Ul_List_MinUnitPrice');
+        Ul_List.innerHTML = '';
+        for (var i = 0; i < List_MinUnitPrice.length; i++) {
+            var li_List_MinUnitPrice = document.createElement('li');
+            li_List_MinUnitPrice.setAttribute('id', 'li_List_MinUnitPrice' + i);
+            li_List_MinUnitPrice.setAttribute('class', 'st_border_li_List_MinUnitPrice');
+            Ul_List.appendChild(li_List_MinUnitPrice);
+            var id_List = document.getElementById('li_List_MinUnitPrice' + i);
+            id_List.innerHTML = '-( ' + List_MinUnitPrice[i].Name_Product_sell + ' ) السعر (' + List_MinUnitPrice[i].price_One_part + ') الحد ( ' + List_MinUnitPrice[i].Notes_Order + ' )';
+        }
+    }
+    function btn_Approveprice_onclick() {
+        //debugger;
+        if (txt_ApprovePass.value == '1234') {
+            Insert_Basket();
+            if (Success == true) {
+                Remove_Item_in_Basket();
+                ValidationMinUnitPrice = 0;
+                Validation_Insert = 0;
+                FamilyDetails = new Array();
+                $('#uul').html('');
+                Display_But();
+                $('#popu_Passowrd').attr('style', 'display:none;');
+                $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
+                txt_ApprovePass.value = "";
+                $("#Popup_Passowrd").modal("hide");
+            }
+        }
+        else {
+            MessageBox.Show("لايمكن اعتماد الفاتورة", "خطأ");
+            txt_ApprovePass.value = "";
+        }
+    }
+    function btn_Exit_Approveprice_onclick() {
+        $('#popu_Passowrd').attr('style', 'display:none;');
+        $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
+        txt_ApprovePass.value = "";
+        $("#Popup_Passowrd").modal("hide");
+        Validation_Insert = 0;
+    }
+    //-------------------------------------------------------Customr-----------------------
+    function show_Cutomr() {
+        debugger;
+        document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomIn collapse in castmr animated shake');
+        document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
+        document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+        cust_search_phone.focus();
+    }
+    function hide_Custm() {
+        //ElWassem.Reservation_CUSTOMER();
+        if (idCust.value == "0" || idCust.value == "") {
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+            CUST_NAME.value = "";
+            CUST_ADDRES.value = "";
+            CUST_ADDRES_2.value = "";
+            CUST_Phone.value = "";
+            cust_search_phone.value = "";
+            idCust.value = "";
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomOut collapse  castmr ');
+            document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
+            document.getElementById("But_Cutomr").setAttribute('style', 'bottom: 40px;right: 25px;height: 40px;width: 40px;background:-moz-linear-gradient(left,rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1) 100%);background:-webkit-gradient(left top,right top,color-stop(0%,rgba(255,127,77,1)),color-stop(100 %, rgba(255, 80, 10, 1)));background:-o-linear-gradient(left, rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1)100%);background:linear-gradient(to right, #03a9f412 0%, #337ab7 100%);z-index: 999;line-height: 40px;text-align:center;border-radius:50%;cursor:pointer;color: #fff;font-size: 30px; ');
+        }
+        else {
+            debugger;
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomOut collapse  castmr ');
+            document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
+            document.getElementById("But_Cutomr").setAttribute('style', 'bottom: 40px;right: 25px;height: 40px;width: 40px;background:-moz-linear-gradient(left,rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1) 100%);background:-webkit-gradient(left top,right top,color-stop(0%,rgba(255,127,77,1)),color-stop(100 %, rgba(255, 80, 10, 1)));background:-o-linear-gradient(left, rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1)100%);background:linear-gradient(to right, #03a9f412 0%, #22e000 100%);z-index: 999;line-height: 40px;text-align:center;border-radius:50%;cursor:pointer;color: #fff;font-size: 30px;margin-right: 359px;');
+        }
+        //fouse.focus();
+    }
+    function add_cust() {
+        debugger;
+        if (CUST_NAME.value == "" || CUST_Phone.value == "") {
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
+            idCust.value = "0";
+        }
+        else {
+        }
+    }
+    function update_cust() {
+        debugger;
+        if (CUST_NAME.value == "" || CUST_Phone.value == "") {
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
+            idCust.value = "0";
+        }
+        else {
+        }
+    }
+    function get_cust() {
+        debugger;
+        if (cust_search_phone.value == "") {
+            CUST_NAME.value = "";
+            CUST_ADDRES.value = "";
+            CUST_ADDRES_2.value = "";
+            CUST_Phone.value = "";
+            idCust.value = "";
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+        }
+        else {
+        }
+    }
 })(SlsTrSales || (SlsTrSales = {}));
 //# sourceMappingURL=SlsTrSales.js.map

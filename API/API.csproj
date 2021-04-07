@@ -243,6 +243,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\SlsTrSalesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Shared\SystemToolsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -252,6 +253,11 @@
     <Compile Include="Infrastructure\APIResolver.cs" />
     <Compile Include="Infrastructure\IocConfigurator.cs" />
     <Compile Include="Models\BaseResponse.cs" />
+    <Compile Include="Models\CustomEntities\SystemEnvironment.cs" />
+    <Compile Include="Models\CustomEntities\ORDER_Master.cs" />
+    <Compile Include="Models\CustomEntities\SystemParameters.cs" />
+    <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
+    <Compile Include="Models\CustomModel\SlsInvoiceMasterDetails.cs" />
     <Compile Include="Models\ResponseResult.cs" />
     <Compile Include="Models\SessionRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

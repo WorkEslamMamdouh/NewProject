@@ -34,6 +34,10 @@ namespace DAL.Domain
     {
 
     }
+    public partial class Stok_ORDER_DELIVERY : SecurityandUpdateFlagClass
+    {
 
-    
+    }
+
+
 }

@@ -661,6 +661,88 @@ class G_USER_LOG extends SecurityClass {
     public COMP_CODE: number;
     public LOG_DATE: string;
 }
+ 
+class ORDER_Master extends SecurityClass {
+    constructor() {
+        super();
+        this.UserName = "";
+        this.Namber_Order_Delivery = 0;
+        this.Total_All = 0;
+        this.Date_Order_Delivery = "";
+        this.Tax = 0; 
+        this.CUSTOMER_ID = 0; 
+        this.type_order = ""; 
+        this.Confirmation = false; 
+    }
+    public UserName: string;
+    public Namber_Order_Delivery: number;
+    public Total_All: any;
+    public Date_Order_Delivery: string;
+    public Tax: number;
+    public CUSTOMER_ID: number;
+    public type_order: string;
+    public Confirmation: boolean;
+     
+}
+
+class ORDER_DELIVERY extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_ORDER_Delivery = 0;
+        this.EMPLOYEE_ID = 0;
+        this.Namber_Order_Delivery = 0;
+        this.Date_Order_Delivery = "";
+        this.CUSTOMER_ID = 0;
+        this.Total_All
+        this.Tax = 0;
+        this.type_order = "";
+        this.Name_Pilot = "";
+        this.Confirmation = false;
+        this.Num_Day = 0;
+    }
+    public ID_ORDER_Delivery: number;
+    public EMPLOYEE_ID: number;
+    public Namber_Order_Delivery: number;
+    public Date_Order_Delivery: string;
+    public CUSTOMER_ID: number;
+    public Total_All: any;
+    public Tax: number;
+    public type_order: string;
+    public Name_Pilot: string;
+    public Confirmation: boolean;
+    public Num_Day: number;
+}
+class SlsInvoiceMasterDetails extends SecurityClass {
+    constructor() {
+        super();
+        this.I_Sls_TR_Invoice = new ORDER_Master();
+        this.I_Sls_TR_InvoiceItems = new Array<Stok_ORDER_DELIVERY>();
+    }
+    public I_Sls_TR_Invoice: ORDER_Master;
+    public I_Sls_TR_InvoiceItems: Array<Stok_ORDER_DELIVERY>;
+
+
+}
+class Stok_ORDER_DELIVERY extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_DELIVERY = 0;
+        this.Name_Product_sell = "";
+        this.Quantity_sell = 0;
+        this.price_One_part
+        this.Total_Price_One_Part
+        this.Notes_Order = "";
+        this.FK_ORDER_Delivery = 0;
+    }
+    public ID_DELIVERY: number;
+    public Name_Product_sell: string;
+    public Quantity_sell: number;
+    public price_One_part: any;
+    public Total_Price_One_Part: any;
+    public Notes_Order: string;
+    public FK_ORDER_Delivery: number;
+}
+
 
 
 class G_USER_MODULE extends SecurityClass {
