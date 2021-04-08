@@ -25,6 +25,7 @@ namespace SlsTrSales {
     var txtQuantity: HTMLInputElement;
     var CChat: HTMLSpanElement;
     var Total_Basket: HTMLSpanElement;
+    var Basket: HTMLSpanElement;
     var ID_input = null;
     var btn_cancel_Popu: HTMLButtonElement;
     var btnminus_Quantity: HTMLButtonElement;
@@ -38,6 +39,7 @@ namespace SlsTrSales {
     var btn_Edit_Basket: HTMLButtonElement;
     var btn_Approveprice: HTMLButtonElement;
     var btn_Exit_Approveprice: HTMLButtonElement;
+    
     var Num_Qty = 0;
     var P = 0;
     var ItemID;
@@ -51,7 +53,7 @@ namespace SlsTrSales {
     var scro = 0; 
     var Num_Item;
     var x;
-    var chat;
+    var chat: HTMLDivElement;
     var Qet_X = 0;
     var fouse; 
     var Qet_Product = 0;
@@ -128,9 +130,10 @@ namespace SlsTrSales {
 
         CChat = document.getElementById("CChat") as HTMLSpanElement;
         Total_Basket = document.getElementById("Total_Basket") as HTMLSpanElement;
+        Basket = document.getElementById("Basket") as HTMLSpanElement;
         Num_Item = document.getElementById('Num_Item');
         x = document.getElementById("x");
-        chat = document.getElementById("chat");
+        chat = document.getElementById("chat") as HTMLDivElement;
         fouse = document.getElementById("fouse");
         txtPrice = document.getElementById('txtPrice') as HTMLInputElement;
         txtQuantity = document.getElementById('txtQuantity') as HTMLInputElement;
@@ -154,6 +157,8 @@ namespace SlsTrSales {
          
     }
     function InitializeEvents() {
+        Basket.onclick = Basket_onclick;
+
         All_item.onclick = GetAll_item_onclick;
 
         btn_cancel_Popu.onclick = cancel_Popu_onclick;
@@ -187,6 +192,7 @@ namespace SlsTrSales {
 
 
     }
+   
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
         Ajax.Callsync({
@@ -708,28 +714,7 @@ namespace SlsTrSales {
 
         Num_Add_List += 1;
     }
-    function Show_Basket() {
-
-        var CChat = document.getElementById("CChat");
-        x.setAttribute('class', '');
-        CChat.setAttribute('class', 'Basket');
-        CChat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
-        chat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('style', '');
-
-    }
-    function Hide_Basket() {
-
-        //var CChat = document.getElementById("CChat");
-        //x.setAttribute('class', '');
-        //CChat.setAttribute('class', 'Basket');
-        //CChat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
-        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
-        chat.setAttribute('aria-expanded', 'false');
-
-    }
+   
     function Remove_Item_in_Basket() {
         ////debugger
 
@@ -821,6 +806,40 @@ namespace SlsTrSales {
             }
 
         }
+
+    }
+    function Basket_onclick() {
+        debugger
+        if (chat.getAttribute('class') == 'chat-box-wrap shadow-reset animated zoomInLeft collapse in')
+        {
+
+            Hide_Basket();
+        }
+        else {
+            Show_Basket();
+        }
+
+    }
+    function Show_Basket() {
+
+        //var CChat = document.getElementById("CChat");
+        //x.setAttribute('class', '');
+        //CChat.setAttribute('class', 'Basket');
+        //CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
+        chat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('style', '');
+
+    }
+    function Hide_Basket() {
+
+        //var CChat = document.getElementById("CChat");
+        //x.setAttribute('class', '');
+        //CChat.setAttribute('class', 'Basket');
+        //CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
+        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
+        chat.setAttribute('aria-expanded', 'false');
 
     }
     ////------------------------------------------------------Edit-----------------------------------

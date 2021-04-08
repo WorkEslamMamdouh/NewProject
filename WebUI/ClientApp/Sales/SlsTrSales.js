@@ -23,6 +23,7 @@ var SlsTrSales;
     var txtQuantity;
     var CChat;
     var Total_Basket;
+    var Basket;
     var ID_input = null;
     var btn_cancel_Popu;
     var btnminus_Quantity;
@@ -117,6 +118,7 @@ var SlsTrSales;
         btn_Approveprice = document.getElementById("btn_Approveprice");
         CChat = document.getElementById("CChat");
         Total_Basket = document.getElementById("Total_Basket");
+        Basket = document.getElementById("Basket");
         Num_Item = document.getElementById('Num_Item');
         x = document.getElementById("x");
         chat = document.getElementById("chat");
@@ -141,6 +143,7 @@ var SlsTrSales;
         fouse = document.getElementById("fouse");
     }
     function InitializeEvents() {
+        Basket.onclick = Basket_onclick;
         All_item.onclick = GetAll_item_onclick;
         btn_cancel_Popu.onclick = cancel_Popu_onclick;
         Finsh_Order.onclick = Finsh_Order_onclick;
@@ -567,24 +570,6 @@ var SlsTrSales;
         }
         Num_Add_List += 1;
     }
-    function Show_Basket() {
-        var CChat = document.getElementById("CChat");
-        x.setAttribute('class', '');
-        CChat.setAttribute('class', 'Basket');
-        CChat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
-        chat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('style', '');
-    }
-    function Hide_Basket() {
-        //var CChat = document.getElementById("CChat");
-        //x.setAttribute('class', '');
-        //CChat.setAttribute('class', 'Basket');
-        //CChat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
-        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
-        chat.setAttribute('aria-expanded', 'false');
-    }
     function Remove_Item_in_Basket() {
         ////debugger
         var liuu = document.getElementById("Ul_Div");
@@ -650,6 +635,33 @@ var SlsTrSales;
                 document.getElementById('All_Total_Basket').setAttribute('All_Total', Number(New_Total).toFixed(2).toString());
             }
         }
+    }
+    function Basket_onclick() {
+        debugger;
+        if (chat.getAttribute('class') == 'chat-box-wrap shadow-reset animated zoomInLeft collapse in') {
+            Hide_Basket();
+        }
+        else {
+            Show_Basket();
+        }
+    }
+    function Show_Basket() {
+        //var CChat = document.getElementById("CChat");
+        //x.setAttribute('class', '');
+        //CChat.setAttribute('class', 'Basket');
+        //CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
+        chat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('style', '');
+    }
+    function Hide_Basket() {
+        //var CChat = document.getElementById("CChat");
+        //x.setAttribute('class', '');
+        //CChat.setAttribute('class', 'Basket');
+        //CChat.setAttribute('aria-expanded', 'true');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
+        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
+        chat.setAttribute('aria-expanded', 'false');
     }
     ////------------------------------------------------------Edit-----------------------------------
     function click_Edit(New_Name, New_Pirce, new_Qet, New_OnhandQty, New_MinUnitPrice) {
