@@ -295,7 +295,9 @@ var PRODUCT = (function (_super) {
         _this.PRODUCT_QET = 0;
         _this.PRODUCT_Purchasing_price;
         _this.PRODUCT_PRICE;
+        _this.MinUnitPrice;
         _this.ID_CAT = 0;
+        _this.serial = "";
         return _this;
     }
     return PRODUCT;

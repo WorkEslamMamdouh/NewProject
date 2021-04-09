@@ -415,14 +415,20 @@ class PRODUCT extends SecurityClass {
         this.PRODUCT_QET = 0;
         this.PRODUCT_Purchasing_price
         this.PRODUCT_PRICE
+        this.MinUnitPrice
         this.ID_CAT = 0;
+        this.serial = "";
+        this.StatusFlag = "";
     }
     public PRODUCT_ID: number;
     public PRODUCT_NAME: string;
     public PRODUCT_QET: number;
     public PRODUCT_Purchasing_price: any;
     public PRODUCT_PRICE: any;
+    public MinUnitPrice: any;
     public ID_CAT: number;
+    public serial: string;
+    public StatusFlag: string;
 }
 
 
