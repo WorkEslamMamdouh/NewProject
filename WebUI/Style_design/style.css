@@ -2058,12 +2058,13 @@ canvas {
         position: fixed;
         height: 414px;
         width: 689px;
-         background: #1c5d75; 
+        /*background: #1c5d75; 
          background: linear-gradient(to right, #033865 0%, rgb(22, 124, 162) 100%); 
         background: linear-gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);
-        background: linear-gradient(to right, rgba(22, 58, 71, 0.84) 0%, #457198 100%);
+        background: linear-gradient(to right, rgba(22, 58, 71, 0.84) 0%, #457198 100%);*/
+        background: linear-gradient(to right, rgb(0 0 0) 0%, #054f5b9c 100%) !important;
         bottom: 90px;
-        right: 356px;
+        /*right: 356px;*/
         top: 91px;
         transition: all .4s ease 0s;
         z-index: 999;
@@ -2125,8 +2126,9 @@ canvas {
     font-size: 17px;
     padding: 7px;
     /*background: #11617f;*/
-    background: linear-gradient(to right, #f57400 0%, rgb(0 0 0) 100%);
+    /*background: linear-gradient(to right, #f57400 0%, rgb(0 0 0) 100%);*/
     /*background: linear-gradient(to right, #fe4b4b 0%, rgb(46, 84, 98) 100%);*/
+    background: linear-gradient(to right, #73bfff6e 0%, rgb(0 0 0) 100%);
     margin: 0px 3px 0px 10px;
     color: #fff;
     border-radius: 37px;
@@ -2140,8 +2142,9 @@ canvas {
     font-size: 15px;
     padding: 4px;
     /* background: #11617f; */
-    background: linear-gradient(to right, rgb(255 80 10) 0%, rgb(77 59 28) 100%);
+    /*background: linear-gradient(to right, rgb(255 80 10) 0%, rgb(77 59 28) 100%);*/
     /*background: linear-gradient(to right, #fe4b4b 0%, rgb(95, 95, 95) 100%);*/
+    background: linear-gradient(to right, rgb(2 0 0) 0%, rgb(153 0 0) 100%);
     border-radius: 47px;
     color: #ffffff;
     margin: -5px -12px 0px 6px;

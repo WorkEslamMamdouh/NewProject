@@ -38,6 +38,9 @@ namespace DAL.Domain
     {
 
     }
+    public partial class CUSTOMER : SecurityandUpdateFlagClass
+    {
 
+    }
 
 }

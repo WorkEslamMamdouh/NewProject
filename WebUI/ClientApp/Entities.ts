@@ -723,6 +723,25 @@ class SlsInvoiceMasterDetails extends SecurityClass {
 
 
 }
+class CUSTOMER extends SecurityClass {
+    constructor() {
+        super();
+        this.CUSTOMER_ID = 0;
+        this.CUSTOMER_NAME = "";
+        this.CUSTOMER_ADDRES = "";
+        this.CUSTOMER_ADDRES_2 = "";
+        this.PHONE = "";
+        this.StatusFlag = "";
+    }
+    public CUSTOMER_ID: number;
+    public CUSTOMER_NAME: string;
+    public CUSTOMER_ADDRES: string;
+    public CUSTOMER_ADDRES_2: string;
+    public PHONE: string;
+    public StatusFlag: string;
+}
+
+
 class Stok_ORDER_DELIVERY extends SecurityClass {
     constructor() {
         super();

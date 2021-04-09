@@ -515,6 +515,20 @@ var SlsInvoiceMasterDetails = (function (_super) {
     }
     return SlsInvoiceMasterDetails;
 }(SecurityClass));
+var CUSTOMER = (function (_super) {
+    __extends(CUSTOMER, _super);
+    function CUSTOMER() {
+        var _this = _super.call(this) || this;
+        _this.CUSTOMER_ID = 0;
+        _this.CUSTOMER_NAME = "";
+        _this.CUSTOMER_ADDRES = "";
+        _this.CUSTOMER_ADDRES_2 = "";
+        _this.PHONE = "";
+        _this.StatusFlag = "";
+        return _this;
+    }
+    return CUSTOMER;
+}(SecurityClass));
 var Stok_ORDER_DELIVERY = (function (_super) {
     __extends(Stok_ORDER_DELIVERY, _super);
     function Stok_ORDER_DELIVERY() {

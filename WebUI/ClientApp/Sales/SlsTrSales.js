@@ -8,6 +8,10 @@ var SlsTrSales;
     var SysSession = GetSystemSession();
     var sys = new SystemTools();
     var FamilyDetails = new Array();
+    var Det_Single_Cust = new CUSTOMER();
+    var Details_Updata_Cust = new Array();
+    var SearchDetails = new Array();
+    var CustomerDetails = new Array();
     var CategoryDetails = new Array();
     var MasterDetailModel = new SlsInvoiceMasterDetails();
     var InvoiceModel = new ORDER_Master();
@@ -73,6 +77,7 @@ var SlsTrSales;
     var ItemFamilyID;
     var IDPlus = 0;
     //-------------------------------------------------------Customr-----------------------
+    var ID_Customer;
     var Insert_But_Cust;
     var CUST_NAME;
     var CUST_ADDRES;
@@ -96,6 +101,7 @@ var SlsTrSales;
         InitializeEvents();
         Display_Category();
         Display_But();
+        GetAllCustomer();
     }
     SlsTrSales.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -160,10 +166,10 @@ var SlsTrSales;
         $('.compose-discard-bt').click(Remove_Item_in_Basket);
         //-------------------------------------------------------Customr-----------------------
         Insert_But_Cust.onclick = add_cust;
+        cust_search_phone.onkeyup = get_cust;
         But_Cutomr.onclick = show_Cutomr;
         hid_div_Customr.onclick = hide_Custm;
         update_div_cust.onclick = update_cust;
-        cust_search_phone.onkeyup = get_cust;
     }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
@@ -440,7 +446,7 @@ var SlsTrSales;
     function Edit_ROW_IN_Basket() {
         //debugger
         price_One_Product = parseFloat($("#txtPrice").val());
-        price_Product = parseFloat($("#txtPrice").val());
+        price_Product = parseFloat($("#txtTotal_Popu").val());
         Qet_Product = Number(txtQuantity.value);
         var paragraph = document.getElementById('ppp' + Num_paragraph);
         var New_QET = Qet_Product;
@@ -456,7 +462,7 @@ var SlsTrSales;
     function Add_ROW_IN_Basket() {
         debugger;
         price_One_Product = parseFloat($("#txtPrice").val());
-        price_Product = parseFloat($("#txtPrice").val());
+        price_Product = parseFloat($("#txtTotal_Popu").val());
         Qet_Product = Number(txtQuantity.value);
         var tttt = 1;
         if (P > -1) {
@@ -637,7 +643,7 @@ var SlsTrSales;
         }
     }
     function Basket_onclick() {
-        debugger;
+        //debugger
         if (chat.getAttribute('class') == 'chat-box-wrap shadow-reset animated zoomInLeft collapse in') {
             Hide_Basket();
         }
@@ -652,15 +658,15 @@ var SlsTrSales;
         //CChat.setAttribute('aria-expanded', 'true');
         chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse in');
         chat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('style', '');
+        chat.setAttribute('style', 'width: 28%; border-radius: 16px;');
     }
     function Hide_Basket() {
         //var CChat = document.getElementById("CChat");
         //x.setAttribute('class', '');
         //CChat.setAttribute('class', 'Basket');
         //CChat.setAttribute('aria-expanded', 'true');
-        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomInLeft collapse');
-        chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
+        chat.setAttribute('class', 'chat-box-wrap shadow-reset animated zoomOutRight collapse');
+        //chat.setAttribute('style', 'width: 28%; border-radius: 16px; height: 0px;');
         chat.setAttribute('aria-expanded', 'false');
     }
     ////------------------------------------------------------Edit-----------------------------------
@@ -691,7 +697,7 @@ var SlsTrSales;
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
         InvoiceModel.Date_Order_Delivery = DateTimeFormat(Date().toString());
         InvoiceModel.Tax = 0;
-        InvoiceModel.CUSTOMER_ID = 9;
+        InvoiceModel.CUSTOMER_ID = ID_Customer == null ? 0 : ID_Customer;
         InvoiceModel.type_order = 'Delivery';
         InvoiceModel.Confirmation = true;
         for (var i = 1; i < Num_Add_List + 1; i++) {
@@ -728,6 +734,7 @@ var SlsTrSales;
     }
     function Finsh_Order_onclick() {
         if (P != 0) {
+            debugger;
             //if (!SysSession.CurrentPrivileges.AddNew) return;
             //if (!ValidationHeader_On_Chanege()) return;
             ValidationMinUnitPrice = 1;
@@ -741,6 +748,9 @@ var SlsTrSales;
                     FamilyDetails = new Array();
                     $('#uul').html('');
                     Display_But();
+                    ID_Customer = null;
+                    idCust.value = "";
+                    hide_Custm();
                 }
             }
             else {
@@ -803,6 +813,9 @@ var SlsTrSales;
                 $('#popu_Passowrd').attr('class', 'popu animated zoomOut');
                 txt_ApprovePass.value = "";
                 $("#Popup_Passowrd").modal("hide");
+                ID_Customer = null;
+                idCust.value = "";
+                hide_Custm();
             }
         }
         else {
@@ -818,17 +831,35 @@ var SlsTrSales;
         Validation_Insert = 0;
     }
     //-------------------------------------------------------Customr-----------------------
+    function GetAllCustomer() {
+        debugger;
+        CustomerDetails = new Array();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Customer", "GetAll"),
+            data: { CompCode: 1 },
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess) {
+                    CustomerDetails = result.Response;
+                }
+            }
+        });
+    }
     function show_Cutomr() {
+        $("#Popup_Custmor").modal("show");
         debugger;
         document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomIn collapse in castmr animated shake');
         document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
-        document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+        document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
         cust_search_phone.focus();
     }
     function hide_Custm() {
         //ElWassem.Reservation_CUSTOMER();
         if (idCust.value == "0" || idCust.value == "") {
-            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+            $("#Popup_Custmor").modal("hide");
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
             CUST_NAME.value = "";
             CUST_ADDRES.value = "";
@@ -842,9 +873,10 @@ var SlsTrSales;
         }
         else {
             debugger;
+            $("#Popup_Custmor").modal("hide");
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomOut collapse  castmr ');
             document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
-            document.getElementById("But_Cutomr").setAttribute('style', 'bottom: 40px;right: 25px;height: 40px;width: 40px;background:-moz-linear-gradient(left,rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1) 100%);background:-webkit-gradient(left top,right top,color-stop(0%,rgba(255,127,77,1)),color-stop(100 %, rgba(255, 80, 10, 1)));background:-o-linear-gradient(left, rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1)100%);background:linear-gradient(to right, #03a9f412 0%, #22e000 100%);z-index: 999;line-height: 40px;text-align:center;border-radius:50%;cursor:pointer;color: #fff;font-size: 30px;margin-right: 359px;');
+            document.getElementById("But_Cutomr").setAttribute('style', 'bottom: 40px;right: 25px;height: 40px;width: 40px;background:-moz-linear-gradient(left,rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1) 100%);background:-webkit-gradient(left top,right top,color-stop(0%,rgba(255,127,77,1)),color-stop(100 %, rgba(255, 80, 10, 1)));background:-o-linear-gradient(left, rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1)100%);background:linear-gradient(to right, #03a9f412 0%, #22e000 100%);z-index: 999;line-height: 40px;text-align:center;border-radius:50%;cursor:pointer;color: #fff;font-size: 30px; ');
         }
         //fouse.focus();
     }
@@ -852,22 +884,62 @@ var SlsTrSales;
         debugger;
         if (CUST_NAME.value == "" || CUST_Phone.value == "") {
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
-            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
             idCust.value = "0";
         }
         else {
+            SearchDetails = CustomerDetails.filter(function (x) { return x.PHONE == CUST_Phone.value; });
+            if (SearchDetails.length > 0) {
+                MessageBox.Show('رقم التليفون موجود بالفعل', "خطأ");
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
+                document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
+                idCust.value = "";
+            }
+            else {
+                Details_Updata_Cust = new Array();
+                Det_Single_Cust = new CUSTOMER();
+                Det_Single_Cust.CUSTOMER_ID = 0;
+                Det_Single_Cust.CUSTOMER_NAME = CUST_NAME.value;
+                Det_Single_Cust.PHONE = CUST_Phone.value;
+                Det_Single_Cust.CUSTOMER_ADDRES = CUST_ADDRES.value;
+                Det_Single_Cust.CUSTOMER_ADDRES_2 = CUST_ADDRES_2.value;
+                Det_Single_Cust.StatusFlag = "i";
+                Details_Updata_Cust.push(Det_Single_Cust);
+                updateList_Customer();
+                if (Success == true) {
+                    document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #499449; border - radius: 50px;');
+                    document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+                    Success = false;
+                }
+            }
         }
     }
     function update_cust() {
         debugger;
         if (CUST_NAME.value == "" || CUST_Phone.value == "") {
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
-            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
             idCust.value = "0";
         }
         else {
+            Details_Updata_Cust = new Array();
+            Det_Single_Cust = new CUSTOMER();
+            Det_Single_Cust.CUSTOMER_ID = Number(idCust.value);
+            Det_Single_Cust.CUSTOMER_NAME = CUST_NAME.value;
+            Det_Single_Cust.PHONE = CUST_Phone.value;
+            Det_Single_Cust.CUSTOMER_ADDRES = CUST_ADDRES.value;
+            Det_Single_Cust.CUSTOMER_ADDRES_2 = CUST_ADDRES_2.value;
+            Det_Single_Cust.StatusFlag = "u";
+            Details_Updata_Cust.push(Det_Single_Cust);
+            updateList_Customer();
+            if (Success == true) {
+                document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #acac01; border - radius: 50px;');
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+                Success = false;
+            }
         }
     }
     function get_cust() {
@@ -878,11 +950,60 @@ var SlsTrSales;
             CUST_ADDRES_2.value = "";
             CUST_Phone.value = "";
             idCust.value = "";
-            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: 356px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+            document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
         }
         else {
+            var search_1 = cust_search_phone.value.toLowerCase();
+            SearchDetails = CustomerDetails.filter(function (x) { return x.PHONE.toString().search(search_1) >= 0 || x.CUSTOMER_NAME.toLowerCase().search(search_1) >= 0; }); /*|| x.MOBILE.toLowerCase().search(search) >= 0*/
+            //    || x.CustomerCODE.toString().search(search) >= 0 /* || x.CreditLimit.toString().search(search) >= 0 || x.Emp_NameA.toString().search(search) >= 0
+            //    || x.ContactMobile.toString().search(search) >= 0 /*|| x.DueAmount.toString().search(search) >= 0 *//*|| x.DaysDiff.toString().search(search) >= 0*/);
+            if (SearchDetails[0] != null) {
+                CUST_NAME.value = SearchDetails[0].CUSTOMER_NAME;
+                CUST_ADDRES.value = SearchDetails[0].CUSTOMER_NAME;
+                //CUST_ADDRES_2.value = SearchDetails[0].CUSTOMER_NAME;
+                CUST_Phone.value = SearchDetails[0].PHONE;
+                idCust.value = SearchDetails[0].CUSTOMER_ID.toString();
+                document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #499449; border - radius: 50px;');
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+            }
+            else {
+                document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
+                CUST_NAME.value = "";
+                CUST_ADDRES.value = "";
+                CUST_ADDRES_2.value = "";
+                CUST_Phone.value = "";
+                idCust.value = "";
+            }
         }
+    }
+    function updateList_Customer() {
+        debugger;
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Customer", "UpdateCustlist"),
+            data: JSON.stringify(Details_Updata_Cust),
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess == true) {
+                    ID_Customer = result.Response;
+                    MessageBox.Show("تم الحفظ", "الحفظ");
+                    idCust.value = ID_Customer;
+                    Success = true;
+                    GetAllCustomer();
+                }
+                else {
+                    debugger;
+                    Success = false;
+                    document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
+                    document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
+                    document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
     }
 })(SlsTrSales || (SlsTrSales = {}));
 //# sourceMappingURL=SlsTrSales.js.map
