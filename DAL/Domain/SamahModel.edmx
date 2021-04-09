@@ -123,7 +123,9 @@
           <Property Name="PRODUCT_QET" Type="int" />
           <Property Name="PRODUCT_Purchasing_price" Type="money" />
           <Property Name="PRODUCT_PRICE" Type="money" />
+          <Property Name="MinUnitPrice" Type="money" />
           <Property Name="ID_CAT" Type="int" />
+          <Property Name="serial" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
@@ -215,6 +217,11 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ElWassem.dbo.Table_test' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Table_test">
+          <Property Name="tchke" Type="bit" />
+        </EntityType>-->
         <EntityType Name="Table_two_days">
           <Key>
             <PropertyRef Name="Num_Day" />
@@ -222,6 +229,21 @@
           <Property Name="Num_Day" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="The_Gard">
+          <Property Name="id_Num" Type="int" />
+          <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRODUCT_Purchasing_price" Type="money" />
+          <Property Name="PRODUCT_PRICE" Type="money" />
+          <Property Name="PRODUCT_Qut" Type="float" />
+          <Property Name="Total_Price_One_Part" Type="money" />
+          <Property Name="Shortage" Type="money" />
+          <Property Name="Outlet" Type="money" />
+          <Property Name="Task(%)" Type="float" />
+          <Property Name="Day_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Shift_User" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
         <EntityType Name="Type_EMPLOYEE">
           <Key>
             <PropertyRef Name="id_Type_EMPLOYEE" />
@@ -1068,6 +1090,8 @@
           <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
@@ -1586,6 +1610,8 @@
           <EntitySetMapping Name="PRODUCTs">
             <EntityTypeMapping TypeName="SamahModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="serial" ColumnName="serial" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
                 <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
                 <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
                 <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />

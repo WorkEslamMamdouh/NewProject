@@ -131,6 +131,52 @@
                             </div>
                         </li>
 
+                        <li class="liItem nav-item " id="btnCash">
+                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-hand-down"></i>  <span class="mini-dn">الصندوق</span></a>
+                            <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX" style=" background: linear-gradient(to right, rgb(0 0 0 / 0%) 0%, #054f5b9c 100%) !important; color:white; width: 131%;">
+                                <ul>
+
+                                    <li class="liItem dropdown-item" id=" " key=" ">
+
+                                        <div class="col-lg-4">
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="login2 pull-right pull-right-pro" style="color: bisque;">الـوصـف</label>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input id="id_Dasc_Name" class="form-control" type="text" placeholder="الـوصـف">
+                                        </div>
+
+                                    </li>
+                                    <li class="liItem dropdown-item" id=" " key=" ">
+
+                                        <div class="col-lg-4">
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label class="login2 pull-right pull-right-pro" style="color: bisque;font-weight: bold;font-size: 21px;">السعـــر</label>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input id="id_pirce" class="form-control" type="text" placeholder="السعـــر">
+                                        </div>
+
+                                    </li>
+
+                                    <li class="liItem dropdown-item" id=" " key=" ">
+                                        <div class="col-lg-1">
+
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <input id="But_Outlet" type="button" style="width: 154%;text-align:center;color:azure;border-radius: 52px;background:linear-gradient(to right, #0088cc 0%, #337ab7 100%);background-color: white;margin-left: 62px;" value=" OK ">
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
 
                     </ul>
                 </div>
@@ -547,7 +593,7 @@
     @Scripts.Render("~/Bundles/AppScript2")
     @Scripts.Render("~/Bundles/AppScript3")
     @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    @Scripts.Render("~/Bundles/AppScript4")*@
+        @Scripts.Render("~/Bundles/AppScript4")*@
 
 
     <style>
@@ -563,7 +609,7 @@
     <script>
         $('#sidebarCollapse').on('click', function () {
             $('#cont').toggleClass('colapsdivcont');
-          
+
             //$("body").toggleClass("mini-navbar");
             $('#sidebar').toggleClass('active');
         });
