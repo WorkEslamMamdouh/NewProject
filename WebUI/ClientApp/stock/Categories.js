@@ -40,7 +40,7 @@ var Categories;
         // Buton privialges for single record page
     }
     function InitalizeEvents() {
-        //debugger;
+        debugger;
         btnAddDetails.onclick = AddNewRow; //
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;

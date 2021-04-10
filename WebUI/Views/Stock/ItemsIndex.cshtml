@@ -105,37 +105,39 @@
     <div class="row">
         <div class="col-lg-12">
 
-         
 
-                <div class="col-lg-1 pad_">
-                    <label class=" style_pading_lepel2 ">الفئة</label>
-                </div>
-                <div class="col-lg-3">
-                    <select id="drpPaymentType" class="form-control"><option>الفئه</option></select>
-                </div>
+
+            <div class="col-lg-1 pad_">
+                <label class=" style_pading_lepel2 ">الفئة</label>
+            </div>
+            <div class="col-lg-3">
+                <select id="drpPaymentType" class="form-control">
+                    <option value="Null">اختر الفئة</option>
+                </select>
+            </div>
             <div class="col-lg-4"></div>
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" id="btnShow" style="width: 179px;">
-                        <span class="glyphicon ">عرض</span>
-                    </button>
-                </div>
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-warning display_none" id="btnback">
-                        <span class="glyphicon glyphicon-backward">رجوع</span>
-                    </button>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-primary" id="btnShow" style="width: 179px;">
+                    <span class="glyphicon ">عرض</span>
+                </button>
+            </div>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-warning display_none" id="btnback">
+                    <span class="glyphicon glyphicon-backward">رجوع</span>
+                </button>
 
-                    <button id="btnsave" type="button" class="btn btn-success display_none">
-                        <span class="glyphicon glyphicon-save">حفظ</span>
-                    </button>
+                <button id="btnsave" type="button" class="btn btn-success display_none">
+                    <span class="glyphicon glyphicon-save">حفظ</span>
+                </button>
 
-                    <button type="button" class="btn btn-primary" id="btnedite">
-                        <span class="glyphicon glyphicon-edit">تعديل</span>
-                    </button>
-                </div>
+                <button type="button" class="btn btn-primary" id="btnedite">
+                    <span class="glyphicon glyphicon-edit">تعديل</span>
+                </button>
+            </div>
 
-          
-      
-            
+
+
+
         </div>
     </div>
 
@@ -163,13 +165,11 @@
                     <div class="col-lg-1 pad_"><label class=" style_pading_lepel ">الرمز</label></div>
                     <div class="col-lg-3 pad_"><label class=" style_pading_lepel">الوصف عربي</label></div>
                     <div class="col-lg-1 pad_"><label class="style_pading_lepel">الفئة</label></div>
-                    <div class="col-lg-1 pad_"><label class="style_pading_lepel">النوع</label></div>
-                    <div class="col-lg-2 pad_"><label class=" style_pading_lepel ">الرقم المرجعي</label></div>
                     <div class="col-lg-1 pad_"><label class="  style_pading_lepel">الكمية المتاحة</label></div>
                     <div class="col-lg-1 pad_"><label class="  style_pading_lepel2">السعر</label></div>
                     <div class="col-lg-1 pad_"><label class="  style_pading_lepel2">اقل سعر</label></div>
 
-                    <div class="col-lg-1 pad_  "><label class=" style_pading_lepel ">وحدة القياس</label></div>
+                    <div class="col-lg-1 pad_  "><label class=" style_pading_lepel " >كود الصنف</label></div>
 
 
                 </div>
@@ -196,6 +196,5 @@
 
 
 @Scripts.Render("~/Bundles/ClientApp")
-<script src="~/ClientApp/JsGrid.js"></script>
-
-<script src="~/ClientApp/StkDefinition/StkDefItems.js"></script>
+@*<script src="~/ClientApp/JsGrid.js"></script>*@
+<script src="~/ClientApp/stock/Items.js"></script>

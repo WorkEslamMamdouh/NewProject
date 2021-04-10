@@ -52,7 +52,7 @@ namespace Categories {
     }
 
     function InitalizeEvents() {
-        //debugger;
+        debugger;
         btnAddDetails.onclick = AddNewRow;//
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
@@ -100,7 +100,7 @@ namespace Categories {
                 }
             }
         });
-    }   
+    }
     function refresh() {
 
         $('#div_Data').html("");
@@ -109,7 +109,7 @@ namespace Categories {
 
         Display();
 
-    }  
+    }
     function Assign() {
 
         var StatusFlag: String;
@@ -126,7 +126,7 @@ namespace Categories {
 
 
                 Model.ID_CAT = 0;
-                
+
                 if ($("#txtDescA" + i).val() == "") {
                     Model.Name_CAT = $("#txtDescL" + i).val();
                     $("#txtDescA" + i).val($("#txtDescL" + i).val());
@@ -134,7 +134,7 @@ namespace Categories {
                 else {
                     Model.Name_CAT = $("#txtDescA" + i).val();
                 }
-               
+
                 Details.push(Model);
 
                 //$("#txt_StatusFlag" + i).val("");
@@ -144,16 +144,16 @@ namespace Categories {
             if (StatusFlag == "u") {
 
                 var UpdatedDetail = Details.filter(x => x.ID_CAT == $("#txt_ID" + i).val())
-                
+
                 UpdatedDetail[0].StatusFlag = StatusFlag.toString();
-               
+
                 if ($("#txtDescA" + i).val() == "") {
                     UpdatedDetail[0].Name_CAT = $("#txtDescL" + i).val();
                     $("#txtDescA" + i).val($("#txtDescL" + i).val());
                 }
                 else {
                     UpdatedDetail[0].Name_CAT = $("#txtDescA" + i).val();
-                }                             
+                }
 
                 $("#txt_StatusFlag" + i).val("");
 
@@ -176,7 +176,7 @@ namespace Categories {
     }
     function AddNewRow() {
         //debugger
-        
+
         var CanAdd: boolean = true;
         if (CountGrid > 0) {
             var LastRowNo = CountGrid - 1;
@@ -187,7 +187,7 @@ namespace Categories {
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode
 
             //$("#txtCode" + CountGrid).removeAttr("disabled");
-            $("#txtCode" + CountGrid).val(CountGrid+1);
+            $("#txtCode" + CountGrid).val(CountGrid + 1);
             $("#txtDescA" + CountGrid).removeAttr("disabled");
             $("#txtDescL" + CountGrid).removeAttr("disabled");
 
@@ -205,7 +205,7 @@ namespace Categories {
         $("#btnedite").addClass("display_none");
     }
     function btnEdit_onclick() {
-        $('#btnsave').toggleClass("display_none");                               
+        $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
         $("#btnedite").toggleClass("display_none");
@@ -221,8 +221,8 @@ namespace Categories {
 
         $(".minus_btn").removeClass("display_none");
     }
-       
-    
+
+
     function btnback_onclick() {
 
 
@@ -241,13 +241,13 @@ namespace Categories {
         Display();
 
 
-    }  
+    }
     function btnsave_onClick() {
         //debugger;
 
         if (Validation_Grid(CountGrid - 1))
             Update();
-    }  
+    }
     function BuildControls(cnt: number) {
         var html;
         debugger;
@@ -273,7 +273,7 @@ namespace Categories {
 
 
         return;
-    }     
+    }
     function DeleteRow(RecNo: number) {
 
         //if (!SysSession.CurrentPrivileges.Remove) return;
@@ -287,13 +287,13 @@ namespace Categories {
 
             $("#txtCode" + RecNo).val("000");
         });
-    }     
+    }
     function Display() {
         debugger
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Category", "GetAll"),
-            data: {CompCode: compcode},
+            data: { CompCode: compcode },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
@@ -304,7 +304,7 @@ namespace Categories {
                 }
             }
         });
-    }                
+    }
     function DisplayStkDefCategory() {
         debugger
         for (var i = 0; i < Details.length; i++) {
@@ -312,9 +312,9 @@ namespace Categories {
             BuildControls(CountGrid);
             CountGrid++;
             $("#txt_ID" + i).val(Details[i].ID_CAT);
-            $("#txtCode" + i).val(i+1);
+            $("#txtCode" + i).val(i + 1);
             $("#txtDescA" + i).val(Details[i].Name_CAT);
-           
+
 
             $("#txt_StatusFlag" + i).val("");
 
@@ -341,7 +341,7 @@ namespace Categories {
             return false;
         }
         return true;
-    }  
+    }
     function Validate_code(rowno: number) {
         debugger
         for (var i = 0; i < CountGrid; i++) {
