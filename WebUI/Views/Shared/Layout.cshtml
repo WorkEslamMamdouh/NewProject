@@ -594,8 +594,8 @@
 
     @Scripts.Render("~/Bundles/AppScript2")
     @Scripts.Render("~/Bundles/AppScript3")
-    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        @Scripts.Render("~/Bundles/AppScript4")*@
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        @Scripts.Render("~/Bundles/AppScript4")
 
 
     <style>
@@ -606,6 +606,12 @@
         .dropdown-menu {
             float: left !important;
             text-align: right !important;
+        }
+        .style_btton {
+            padding: 0px !important;
+            position: absolute !important;
+            left: 2% !important;
+            z-index: 100 !important;
         }
     </style>
     <script>

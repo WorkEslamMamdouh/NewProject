@@ -82,14 +82,10 @@ namespace API.Controllers
         [HttpPost, AllowAnonymous]
         public IHttpActionResult Insert_Processes([FromBody]SlsMasterDetails Operation)
         {
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
-                    var Master = Operation.I_Sls_TR_Invoice;
-                    var Items = Operation.I_Sls_TR_InvoiceItems;
-
-                    db.update_Sales_Master(Master.Total_All, Items[0].UserCode,Master.ID_ORDER_Delivery);
+                  
 
                     var updatedOperationItems = Operation.I_Sls_TR_InvoiceItems.Where(x => x.StatusFlag == "u").ToList();
                     var deletedOperationItems = Operation.I_Sls_TR_InvoiceItems.Where(x => x.StatusFlag == "d").ToList();
@@ -98,7 +94,7 @@ namespace API.Controllers
                     //loop Update  I_Pur_TR_ReceiveItems
                     foreach (var item in updatedOperationItems)
                     {
-                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell), item.price_One_part, item.Total_Price_One_Part, item.ID_DELIVERY, "u");
+                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "u");
 
                         
                     }
@@ -106,12 +102,17 @@ namespace API.Controllers
                     //loop Delete  I_Pur_TR_ReceiveItems
                     foreach (var item in deletedOperationItems)
                     {
-                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell), item.price_One_part, item.Total_Price_One_Part, item.ID_DELIVERY, "d");
+                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "d");
 
                       
                     }
-            
-                    return Ok(new BaseResponse("ok"));
+
+                var Master = Operation.I_Sls_TR_Invoice;
+                var Items = Operation.I_Sls_TR_InvoiceItems;
+
+                db.update_Sales_Master(Master.Total_All, Items[0].UserCode, Master.ID_ORDER_Delivery);
+
+                return Ok(new BaseResponse("ok"));
 
                 }
                 catch (Exception ex)
@@ -119,8 +120,8 @@ namespace API.Controllers
                     
                     return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
                 }
-            }
-            return BadRequest(ModelState);
+             
+            
         }
 
 

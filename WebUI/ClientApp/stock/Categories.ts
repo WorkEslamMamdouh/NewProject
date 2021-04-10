@@ -325,7 +325,7 @@ namespace Categories {
         if (
             ($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "")
             && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("ادخل كود و الوصف العربي", "خطأ");
+            MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
             return false;
         }
         return true;

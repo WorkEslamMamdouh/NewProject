@@ -820,8 +820,8 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
         this.ID_DELIVERY = 0;
         this.Name_Product_sell = "";
         this.Quantity_sell = 0;
-        this.price_One_part
-        this.Total_Price_One_Part
+        this.price_One_part = 0;
+        this.Total_Price_One_Part = 0;
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
         this.StatusFlag = "";
@@ -830,8 +830,8 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
     public ID_DELIVERY: number;
     public Name_Product_sell: string;
     public Quantity_sell: number;
-    public price_One_part: any;
-    public Total_Price_One_Part: any;
+    public price_One_part: number;
+    public Total_Price_One_Part: number;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
     public StatusFlag: string;

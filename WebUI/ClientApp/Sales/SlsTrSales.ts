@@ -95,6 +95,7 @@ namespace SlsTrSales {
     var fouse;
     var Num_Order;
     var Success;
+    var flag_Cust = false;
     export function InitalizeComponent() {
         debugger
         $('#cont').toggleClass('colapsdivcont');
@@ -197,7 +198,19 @@ namespace SlsTrSales {
 
 
     }
-
+    function timer() {
+        debugger
+        var date: Date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? (0 + minutes) : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+         
+    }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
         Ajax.Callsync({
@@ -439,9 +452,9 @@ namespace SlsTrSales {
 
 
     }
-    ////--------------------------------------------------Create_Menu--------------------------------    
+    //--------------------------------------------------Create_Menu--------------------------------    
 
-    ////--------------------------------------------------Open_Popu--------------------------------
+    //--------------------------------------------------Open_Popu--------------------------------
     function btnminus_Quantity_onclick() {
         //debugger
         var type = $(this).attr('data-type');
@@ -881,7 +894,7 @@ namespace SlsTrSales {
         InvoiceModel.UserName = SysSession.CurrentEnvironment.UserCode;
         InvoiceModel.Namber_Order_Delivery = 1;
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
-        InvoiceModel.Date_Order_Delivery = DateTimeFormat(Date().toString());
+        InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
         InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? 24 : Number(idCust.value);
         InvoiceModel.type_order = 'Delivery';
@@ -938,7 +951,13 @@ namespace SlsTrSales {
 
     }
     function Finsh_Order_onclick() {
-
+        
+        if (flag_Cust == false) {
+            show_Cutomr();
+            flag_Cust = true;
+            return;
+        }
+      
         if (P != 0) {
             debugger
             //if (!SysSession.CurrentPrivileges.AddNew) return;
@@ -959,6 +978,7 @@ namespace SlsTrSales {
                     ID_Customer = null;
                     idCust.value = "";
                     hide_Custm();
+                    flag_Cust = false;
                 }
 
 
@@ -1050,6 +1070,7 @@ namespace SlsTrSales {
                 ID_Customer = null;
                 idCust.value = "";
                 hide_Custm();
+                flag_Cust = false;
             }
 
         }
@@ -1069,7 +1090,6 @@ namespace SlsTrSales {
 
 
     }
-
     //-------------------------------------------------------Customr-----------------------
     function GetAllCustomer() {
         debugger
@@ -1152,7 +1172,7 @@ namespace SlsTrSales {
 
         }
 
-
+        flag_Cust = true;
         //fouse.focus();
 
 
@@ -1204,6 +1224,7 @@ namespace SlsTrSales {
 
 
         }
+        flag_Cust = true;
     }
     function update_cust() {
 
@@ -1238,7 +1259,7 @@ namespace SlsTrSales {
                 
             
         }
-
+        flag_Cust = true;
 
     }
     function get_cust() {

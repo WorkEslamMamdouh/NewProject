@@ -329,6 +329,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="ToDate" Type="date" Mode="In" />
           <Parameter Name="FromDate" Type="date" Mode="In" />
         </Function>
+        <Function Name="Close_days" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Date_Time_Now" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="delet_PRODUCT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PRODUCT_NAME" Type="nvarchar" Mode="In" />
@@ -527,7 +528,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
         <Function Name="update_SalesReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name_Product_sell" Type="nvarchar" Mode="In" />
           <Parameter Name="Quantity_sell" Type="int" Mode="In" />
-          <Parameter Name="price_One_part" Type="money" Mode="In" />
           <Parameter Name="Total_Price_One_Part" Type="money" Mode="In" />
           <Parameter Name="ID_ORDER" Type="int" Mode="In" />
           <Parameter Name="StatusFlag" Type="nvarchar" Mode="In" />
@@ -868,7 +868,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <FunctionImport Name="update_SalesReturn">
             <Parameter Name="Name_Product_sell" Mode="In" Type="String" />
             <Parameter Name="Quantity_sell" Mode="In" Type="Int32" />
-            <Parameter Name="price_One_part" Mode="In" Type="Decimal" />
             <Parameter Name="Total_Price_One_Part" Mode="In" Type="Decimal" />
             <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
             <Parameter Name="StatusFlag" Mode="In" Type="String" />
@@ -878,6 +877,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Close_days" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1915,6 +1915,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
           <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
+          <FunctionImportMapping FunctionImportName="Close_days" FunctionName="SamahModel.Store.Close_days" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

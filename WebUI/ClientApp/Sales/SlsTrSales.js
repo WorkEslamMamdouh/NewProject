@@ -92,6 +92,7 @@ var SlsTrSales;
     var fouse;
     var Num_Order;
     var Success;
+    var flag_Cust = false;
     function InitalizeComponent() {
         debugger;
         $('#cont').toggleClass('colapsdivcont');
@@ -170,6 +171,18 @@ var SlsTrSales;
         But_Cutomr.onclick = show_Cutomr;
         hid_div_Customr.onclick = hide_Custm;
         update_div_cust.onclick = update_cust;
+    }
+    function timer() {
+        debugger;
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? (0 + minutes) : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
     }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
@@ -355,8 +368,8 @@ var SlsTrSales;
             Total();
         }
     }
-    ////--------------------------------------------------Create_Menu--------------------------------    
-    ////--------------------------------------------------Open_Popu--------------------------------
+    //--------------------------------------------------Create_Menu--------------------------------    
+    //--------------------------------------------------Open_Popu--------------------------------
     function btnminus_Quantity_onclick() {
         //debugger
         var type = $(this).attr('data-type');
@@ -695,7 +708,7 @@ var SlsTrSales;
         InvoiceModel.UserName = SysSession.CurrentEnvironment.UserCode;
         InvoiceModel.Namber_Order_Delivery = 1;
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
-        InvoiceModel.Date_Order_Delivery = DateTimeFormat(Date().toString());
+        InvoiceModel.Date_Order_Delivery = timer();
         InvoiceModel.Tax = 0;
         InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? 24 : Number(idCust.value);
         InvoiceModel.type_order = 'Delivery';
@@ -733,6 +746,11 @@ var SlsTrSales;
         }
     }
     function Finsh_Order_onclick() {
+        if (flag_Cust == false) {
+            show_Cutomr();
+            flag_Cust = true;
+            return;
+        }
         if (P != 0) {
             debugger;
             //if (!SysSession.CurrentPrivileges.AddNew) return;
@@ -751,6 +769,7 @@ var SlsTrSales;
                     ID_Customer = null;
                     idCust.value = "";
                     hide_Custm();
+                    flag_Cust = false;
                 }
             }
             else {
@@ -819,6 +838,7 @@ var SlsTrSales;
                 ID_Customer = null;
                 idCust.value = "";
                 hide_Custm();
+                flag_Cust = false;
             }
         }
         else {
@@ -881,6 +901,7 @@ var SlsTrSales;
             document.getElementById("div_cutomr").setAttribute('aria-expanded', 'true');
             document.getElementById("But_Cutomr").setAttribute('style', 'bottom: 40px;right: 25px;height: 40px;width: 40px;background:-moz-linear-gradient(left,rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1) 100%);background:-webkit-gradient(left top,right top,color-stop(0%,rgba(255,127,77,1)),color-stop(100 %, rgba(255, 80, 10, 1)));background:-o-linear-gradient(left, rgba(255, 127, 77, 1)0%,rgba(255, 80, 10, 1)100%);background:linear-gradient(to right, #03a9f412 0%, #22e000 100%);z-index: 999;line-height: 40px;text-align:center;border-radius:50%;cursor:pointer;color: #fff;font-size: 30px; ');
         }
+        flag_Cust = true;
         //fouse.focus();
     }
     function add_cust() {
@@ -918,6 +939,7 @@ var SlsTrSales;
                 }
             }
         }
+        flag_Cust = true;
     }
     function update_cust() {
         debugger;
@@ -944,6 +966,7 @@ var SlsTrSales;
                 Success = false;
             }
         }
+        flag_Cust = true;
     }
     function get_cust() {
         debugger;

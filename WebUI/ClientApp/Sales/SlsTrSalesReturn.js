@@ -6,8 +6,10 @@ var SlsTrSalesReturn;
 (function (SlsTrSalesReturn) {
     //system varables
     var AccType = 3; //نوع الحساب
-    var SysSession = GetSystemSession();
+    //var SysSession: SystemSession = GetSystemSession();
     var compcode;
+    //var sys: SystemTools = new SystemTools();
+    var SysSession = GetSystemSession();
     var sys = new SystemTools();
     //Arrays     
     var UserDetails = new Array();
@@ -202,6 +204,8 @@ var SlsTrSalesReturn;
     }
     function btnShow_onclick() {
         $('#divMasterGridiv').removeClass('display_none');
+        $("#rowData").addClass("display_none");
+        $("#divTotalSatistics").addClass("display_none");
         Display();
     }
     function Display() {
@@ -225,6 +229,9 @@ var SlsTrSalesReturn;
                 if (result.IsSuccess) {
                     Get_IQ_ReviewSalesMaster = result.Response;
                     debugger;
+                    for (var i = 0; i < Get_IQ_ReviewSalesMaster.length; i++) {
+                        Get_IQ_ReviewSalesMaster[i].Date = DateFormat(Get_IQ_ReviewSalesMaster[i].Date);
+                    }
                     InitializeGrid();
                     divMasterGrid.DataSource = Get_IQ_ReviewSalesMaster;
                     divMasterGrid.Bind();
@@ -714,6 +721,9 @@ var SlsTrSalesReturn;
             if ($("#txtReturn" + cnt).val() == 0 || $("#txtReturn" + cnt).val() == '') {
                 $("#txt_StatusFlag" + cnt).val("");
             }
+            if ($("#txtQuantity" + cnt).val() == 0 || $("#txtQuantity" + cnt).val() == '') {
+                $("#txt_StatusFlag" + cnt).val("d");
+            }
             ComputeTotals();
         });
         $("#btn_minus" + cnt).on('click', function () {
@@ -846,11 +856,12 @@ var SlsTrSalesReturn;
         debugger;
         SlsMasterDetils = new SlsMasterDetails();
         var StatusFlag;
+        SlsMasterDetils.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
+        SlsMasterDetils.UserCode = SysSession.CurrentEnvironment.UserCode;
         for (var i = 0; i <= CountGrid + 1; i++) {
             OperationItemSingleModel = new Stok_ORDER_DELIVERY();
             StatusFlag = $("#txt_StatusFlag" + i).val();
             $("#txt_StatusFlag" + i).val("");
-            SlsMasterDetils.I_Sls_TR_InvoiceItems[0].UserCode = SysSession.CurrentEnvironment.UserCode;
             if (StatusFlag == "i") {
             }
             if (StatusFlag == "u") {
@@ -861,6 +872,8 @@ var SlsTrSalesReturn;
                 OperationItemSingleModel.price_One_part = $("#txtPrice" + i).val();
                 OperationItemSingleModel.Quantity_sell = $('#txtQuantity' + i).val();
                 OperationItemSingleModel.Total_Price_One_Part = $("#txtTotal" + i).val();
+                OperationItemSingleModel.UserCode = 'Eslam';
+                OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                 SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
             }
             if (StatusFlag == "d") {
@@ -868,6 +881,8 @@ var SlsTrSalesReturn;
                     var OperationItemID = $("#txt_ID" + i).val();
                     OperationItemSingleModel.StatusFlag = StatusFlag.toString();
                     OperationItemSingleModel.ID_DELIVERY = OperationItemID;
+                    OperationItemSingleModel.UserCode = 'Eslam';
+                    OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                     SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
                 }
             }
@@ -880,12 +895,22 @@ var SlsTrSalesReturn;
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("ReviewSales", "Insert_Processes"),
-            data: JSON.stringify(OperationItemModel),
+            data: JSON.stringify(SlsMasterDetils),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
                     debugger;
-                    MessageBox.Show("تم التعديل بنجاح", "تم");
+                    MessageBox.Show("تم المرتجع بنجاح", "تم");
+                    $("#DivHederMaster").removeClass("disabledDiv");
+                    btnUpdate.classList.remove("display_none");
+                    btnSave.classList.add("display_none");
+                    btnBack.classList.add("display_none");
+                    Display();
+                    Selected_Data = new Array();
+                    Selected_Data = Get_IQ_ReviewSalesMaster.filter(function (x) { return x.ID_ORDER_Delivery == SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery; });
+                    $("#rowData").removeClass("display_none");
+                    $("#divTotalSatistics").removeClass("display_none");
+                    DisplayData(Selected_Data);
                 }
                 else {
                     MessageBox.Show("خطأء", "خطأء");
@@ -896,8 +921,6 @@ var SlsTrSalesReturn;
     ////-----------------------------------------------------------------------------------------------------------------------
     ////-------------------------------------------------------button---Save and Back and Eidt--------------------------------------
     function Update_onclick() {
-        if (!SysSession.CurrentPrivileges.EDIT)
-            return;
         btnUpdate.classList.add("display_none");
         btnSave.classList.remove("display_none");
         btnBack.classList.remove("display_none");
@@ -925,19 +948,8 @@ var SlsTrSalesReturn;
     function btnSave_onclick() {
         //alert('ok');
         debugger;
-        var CanAdd = true;
-        if (CountGrid > -1) {
-            for (var i = 0; i <= CountGrid; i++) {
-                CanAdd = Validation_Grid(i);
-                if (CanAdd == false) {
-                    break;
-                }
-            }
-        }
-        if (CanAdd) {
-            Assign();
-            Update();
-        }
+        Assign();
+        Update();
     }
     function remove_disabled_Grid_Controls() {
         for (var i = 0; i < CountGrid + 1; i++) {

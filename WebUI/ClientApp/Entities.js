@@ -585,8 +585,8 @@ var Stok_ORDER_DELIVERY = (function (_super) {
         _this.ID_DELIVERY = 0;
         _this.Name_Product_sell = "";
         _this.Quantity_sell = 0;
-        _this.price_One_part;
-        _this.Total_Price_One_Part;
+        _this.price_One_part = 0;
+        _this.Total_Price_One_Part = 0;
         _this.Notes_Order = "";
         _this.FK_ORDER_Delivery = 0;
         _this.StatusFlag = "";
