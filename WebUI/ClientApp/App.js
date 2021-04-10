@@ -18,6 +18,7 @@ var TransparentButton = "TransparentButton";
 var Modules = {
     Home: "Home",
     SlsTrSales: "SlsTrSales",
+    SlsTrReturn: "SlsTrReturn",
     Categories: "Categories",
     Items: "Items",
 };
@@ -692,6 +693,32 @@ function DateFormatRep(dateForm) {
         var day = (dd < 10) ? ("0" + dd.toString()) : dd.toString();
         //The specified value "'2018-01-15'" does not conform to the required format, "dd/MM/yyyy".
         var startDate = day + "/" + month + "/" + year;
+        return startDate;
+    }
+    catch (e) {
+        return DateFormatRep((new Date()).toString());
+    }
+}
+function DateFormatDataBes(dateForm) {
+    try {
+        var date = new Date();
+        var myDate = "";
+        if (dateForm.indexOf("Date(") > -1) {
+            myDate = dateForm.split('(')[1].split(')')[0];
+            date = new Date(Number(myDate));
+        }
+        else {
+            date = new Date(dateForm);
+        }
+        var yy = date.getFullYear();
+        var mm = (date.getMonth() + 1);
+        var dd = date.getDate();
+        var year = yy;
+        var month = (mm < 10) ? ("0" + mm.toString()) : mm.toString();
+        var day = (dd < 10) ? ("0" + dd.toString()) : dd.toString();
+        //The specified value "'2018-01-15'" does not conform to the required format, "dd/MM/yyyy".
+        //var startDate = day + "/" + month + "/" + year;
+        var startDate = year + "-" + month + "-" + day;
         return startDate;
     }
     catch (e) {

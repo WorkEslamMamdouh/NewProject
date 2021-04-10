@@ -298,9 +298,46 @@ var PRODUCT = (function (_super) {
         _this.MinUnitPrice;
         _this.ID_CAT = 0;
         _this.serial = "";
+        _this.StatusFlag = "";
         return _this;
     }
     return PRODUCT;
+}(SecurityClass));
+var ReviewSalesItemInfo = (function (_super) {
+    __extends(ReviewSalesItemInfo, _super);
+    function ReviewSalesItemInfo() {
+        var _this = _super.call(this) || this;
+        _this.ID_DELIVERY = 0;
+        _this.Name_Product_sell = "";
+        _this.Quantity_sell = 0;
+        _this.price_One_part;
+        _this.Total_Price_One_Part;
+        _this.Notes_Order = "";
+        _this.FK_ORDER_Delivery = 0;
+        _this.MinUnitPrice;
+        _this.ID_CAT = 0;
+        _this.PRODUCT_ID = 0;
+        return _this;
+    }
+    return ReviewSalesItemInfo;
+}(SecurityClass));
+var ReviewSalesMaster = (function (_super) {
+    __extends(ReviewSalesMaster, _super);
+    function ReviewSalesMaster() {
+        var _this = _super.call(this) || this;
+        _this.ID_ORDER_Delivery = 0;
+        _this.Date_Order_Delivery = "";
+        _this.CUSTOMER_NAME = "";
+        _this.CUSTOMER_ADDRES = "";
+        _this.PHONE = "";
+        _this.CUSTOMER_ID = 0;
+        _this.CUSTOMER_ADDRES_2 = "";
+        _this.Total_All;
+        _this.EMPLOYEE_NAME = "";
+        _this.Date = "";
+        return _this;
+    }
+    return ReviewSalesMaster;
 }(SecurityClass));
 var Table_Hagz = (function (_super) {
     __extends(Table_Hagz, _super);
@@ -517,6 +554,16 @@ var SlsInvoiceMasterDetails = (function (_super) {
     }
     return SlsInvoiceMasterDetails;
 }(SecurityClass));
+var SlsMasterDetails = (function (_super) {
+    __extends(SlsMasterDetails, _super);
+    function SlsMasterDetails() {
+        var _this = _super.call(this) || this;
+        _this.I_Sls_TR_Invoice = new ORDER_DELIVERY();
+        _this.I_Sls_TR_InvoiceItems = new Array();
+        return _this;
+    }
+    return SlsMasterDetails;
+}(SecurityClass));
 var CUSTOMER = (function (_super) {
     __extends(CUSTOMER, _super);
     function CUSTOMER() {
@@ -542,6 +589,7 @@ var Stok_ORDER_DELIVERY = (function (_super) {
         _this.Total_Price_One_Part;
         _this.Notes_Order = "";
         _this.FK_ORDER_Delivery = 0;
+        _this.StatusFlag = "";
         return _this;
     }
     return Stok_ORDER_DELIVERY;

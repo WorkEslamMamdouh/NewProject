@@ -1147,7 +1147,6 @@
     <Content Include="Style_design\pdf\Sharmin.pdf" />
     <Content Include="Views\Sales\SlsTrReturnIndex.cshtml" />
     <Content Include="Views\Sales\SlsTrSalesIndex.cshtml" />
-    <Content Include="Views\Sales\SlsTrSalesManagerIndex.cshtml" />
     <Content Include="Views\Stock\CategoriesIndex.cshtml" />
     <Content Include="Views\Stock\ItemsIndex.cshtml" />
   </ItemGroup>
@@ -1213,6 +1212,7 @@
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\LoginComponent.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\Thesettings\Home.ts" />
+    <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
     <TypeScriptCompile Include="ClientApp\stock\Categories.ts" />

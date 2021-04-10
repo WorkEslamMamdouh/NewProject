@@ -97,6 +97,10 @@ namespace WebUI.Controllers
         {
             return View("~/Views/Sales/SlsTrSalesIndex.cshtml");
         }
+        public ActionResult SlsTrReturnIndex()
+        {
+            return View("~/Views/Sales/SlsTrReturnIndex.cshtml");
+        }
 
         public ActionResult CategoriesIndex()
         {

@@ -50,6 +50,8 @@ namespace DAL.Domain
         public virtual DbSet<Table_two_days> Table_two_days { get; set; }
         public virtual DbSet<Type_EMPLOYEE> Type_EMPLOYEE { get; set; }
         public virtual DbSet<User_sales> User_sales { get; set; }
+        public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
+        public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -421,7 +423,7 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_ORDER_TECAYE", userNameParameter, namber_Order_TecayeParameter, total_AllParameter, date_Order_TecayeParameter, type_orderParameter);
         }
     
-        public virtual int insert_Outlet(string dasc_Name, Nullable<decimal> pirce)
+        public virtual int insert_Outlet(string dasc_Name, Nullable<decimal> pirce, string userName)
         {
             var dasc_NameParameter = dasc_Name != null ?
                 new ObjectParameter("Dasc_Name", dasc_Name) :
@@ -431,7 +433,11 @@ namespace DAL.Domain
                 new ObjectParameter("pirce", pirce) :
                 new ObjectParameter("pirce", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Outlet", dasc_NameParameter, pirceParameter);
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter);
         }
     
         public virtual int insert_Stock_ORDER_TECAYE(string name_Product_sell, Nullable<double> quantity_sell, Nullable<decimal> price_One_part, Nullable<decimal> total_Price_One_Part, string notes_Order)
@@ -878,6 +884,52 @@ namespace DAL.Domain
                 new ObjectParameter("Open_Login", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUser_Login_Result>("GetUser_Login", userNameParameter, passwordParameter, open_LoginParameter);
+        }
+    
+        public virtual int update_SalesReturn(string name_Product_sell, Nullable<int> quantity_sell, Nullable<decimal> price_One_part, Nullable<decimal> total_Price_One_Part, Nullable<int> iD_ORDER, string statusFlag)
+        {
+            var name_Product_sellParameter = name_Product_sell != null ?
+                new ObjectParameter("Name_Product_sell", name_Product_sell) :
+                new ObjectParameter("Name_Product_sell", typeof(string));
+    
+            var quantity_sellParameter = quantity_sell.HasValue ?
+                new ObjectParameter("Quantity_sell", quantity_sell) :
+                new ObjectParameter("Quantity_sell", typeof(int));
+    
+            var price_One_partParameter = price_One_part.HasValue ?
+                new ObjectParameter("price_One_part", price_One_part) :
+                new ObjectParameter("price_One_part", typeof(decimal));
+    
+            var total_Price_One_PartParameter = total_Price_One_Part.HasValue ?
+                new ObjectParameter("Total_Price_One_Part", total_Price_One_Part) :
+                new ObjectParameter("Total_Price_One_Part", typeof(decimal));
+    
+            var iD_ORDERParameter = iD_ORDER.HasValue ?
+                new ObjectParameter("ID_ORDER", iD_ORDER) :
+                new ObjectParameter("ID_ORDER", typeof(int));
+    
+            var statusFlagParameter = statusFlag != null ?
+                new ObjectParameter("StatusFlag", statusFlag) :
+                new ObjectParameter("StatusFlag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_SalesReturn", name_Product_sellParameter, quantity_sellParameter, price_One_partParameter, total_Price_One_PartParameter, iD_ORDERParameter, statusFlagParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> update_Sales_Master(Nullable<decimal> total_All, string userName, Nullable<int> iD_ORDER)
+        {
+            var total_AllParameter = total_All.HasValue ?
+                new ObjectParameter("Total_All", total_All) :
+                new ObjectParameter("Total_All", typeof(decimal));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var iD_ORDERParameter = iD_ORDER.HasValue ?
+                new ObjectParameter("ID_ORDER", iD_ORDER) :
+                new ObjectParameter("ID_ORDER", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("update_Sales_Master", total_AllParameter, userNameParameter, iD_ORDERParameter);
         }
     }
 }

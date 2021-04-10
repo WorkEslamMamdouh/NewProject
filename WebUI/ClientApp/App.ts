@@ -14,6 +14,7 @@ const TransparentButton: string = "TransparentButton";
 var Modules = {
     Home: "Home",
     SlsTrSales: "SlsTrSales",
+    SlsTrReturn: "SlsTrReturn",
     Categories: "Categories",
     Items: "Items",
 
@@ -878,6 +879,39 @@ function DateFormatRep(dateForm: string): string {
     }
 }
 
+
+function DateFormatDataBes(dateForm: string): string {
+
+    try {
+        var date: Date = new Date();
+        let myDate: string = "";
+        if (dateForm.indexOf("Date(") > -1) {
+            myDate = dateForm.split('(')[1].split(')')[0];
+            date = new Date(Number(myDate));
+        }
+        else {
+            date = new Date(dateForm);
+        }
+
+
+        let yy = date.getFullYear();
+        let mm = (date.getMonth() + 1);
+        let dd = date.getDate();
+
+        let year = yy;
+        let month = (mm < 10) ? ("0" + mm.toString()) : mm.toString();
+        let day = (dd < 10) ? ("0" + dd.toString()) : dd.toString();
+
+        //The specified value "'2018-01-15'" does not conform to the required format, "dd/MM/yyyy".
+        //var startDate = day + "/" + month + "/" + year;
+        var startDate = year + "-" + month + "-" + day;
+
+
+        return startDate;
+    } catch (e) {
+        return DateFormatRep((new Date()).toString());
+    }
+}
 
 function DateTimeFormat(dateForm: string): string {
     try {

@@ -18,5 +18,6 @@ namespace DAL.Domain
         public string Dasc_Name { get; set; }
         public Nullable<decimal> pirce { get; set; }
         public Nullable<int> Num_Day { get; set; }
+        public Nullable<int> EMPLOYEE_ID { get; set; }
     }
 }

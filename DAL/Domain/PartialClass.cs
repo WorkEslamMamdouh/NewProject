@@ -42,5 +42,9 @@ namespace DAL.Domain
     {
 
     }
+    public partial class Outlet : SecurityandUpdateFlagClass
+    {
+
+    }
 
 }

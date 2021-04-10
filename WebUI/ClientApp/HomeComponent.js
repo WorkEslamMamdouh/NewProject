@@ -7,6 +7,7 @@ var HomeComponent;
 (function (HomeComponent) {
     //let res: any = GetResourceList("");
     var sys = new SystemTools();
+    var But_Outlet;
     var btnDashboard;
     var btn_loguotuser;
     var SysSession = GetSystemSession();
@@ -104,6 +105,8 @@ var HomeComponent;
         }
         btn_loguotuser = DocumentActions.GetElementById("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
+        But_Outlet = document.getElementById('But_Outlet');
+        But_Outlet.onclick = Cash_Box;
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
     function LogoutUserApi() {
@@ -389,6 +392,7 @@ var HomeComponent;
         debugger;
         $("#btnHome").click(function () { OpenPage(Modules.Home); });
         $("#btnSlsTrSales").click(function () { OpenPage(Modules.SlsTrSales); });
+        $("#btnSlsTrReturn").click(function () { OpenPage(Modules.SlsTrReturn); });
         $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
         $("#btnItems").click(function () { OpenPage(Modules.Items); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
@@ -491,6 +495,39 @@ var HomeComponent;
     function RemoveStylejs(fileName) {
         var href = "../Style_design/" + fileName + ".js";
         $("<script src=" + href + " ></script>").remove();
+    }
+    function Cash_Box() {
+        if ($('#id_pirce').val() == '' || $('#id_Dasc_Name').val() == '') {
+            MessageBox.Show("  خطأ  يجب ادخل المبلغ والوصف ", "خطأ");
+            return;
+        }
+        var Dasc_Name = $('#id_Dasc_Name').val();
+        var pirce = Number($('#id_pirce').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Insert"),
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var Outlet = result.Response;
+                    if (Outlet == pirce) {
+                        MessageBox.Show("تم ", "الحفظ");
+                        $('#id_Dasc_Name').val('');
+                        $('#id_pirce').val('');
+                    }
+                    else {
+                        MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
+                        $('#id_Dasc_Name').val('');
+                        $('#id_pirce').val('');
+                    }
+                }
+                else {
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
     }
 })(HomeComponent || (HomeComponent = {}));
 //# sourceMappingURL=HomeComponent.js.map

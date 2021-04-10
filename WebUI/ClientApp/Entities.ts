@@ -431,6 +431,59 @@ class PRODUCT extends SecurityClass {
     public StatusFlag: string;
 }
 
+class ReviewSalesItemInfo extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_DELIVERY = 0;
+        this.Name_Product_sell = "";
+        this.Quantity_sell = 0;
+        this.price_One_part
+        this.Total_Price_One_Part
+        this.Notes_Order = "";
+        this.FK_ORDER_Delivery = 0;
+        this.MinUnitPrice
+        this.ID_CAT = 0;
+        this.PRODUCT_ID = 0;
+    }
+    public ID_DELIVERY: number;
+    public Name_Product_sell: string;
+    public Quantity_sell: number;
+    public price_One_part: any;
+    public Total_Price_One_Part: any;
+    public Notes_Order: string;
+    public FK_ORDER_Delivery: number;
+    public MinUnitPrice: any;
+    public ID_CAT: number;
+    public PRODUCT_ID: number;
+}
+
+
+class ReviewSalesMaster extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_ORDER_Delivery = 0;
+        this.Date_Order_Delivery = "";
+        this.CUSTOMER_NAME = "";
+        this.CUSTOMER_ADDRES = "";
+        this.PHONE = "";
+        this.CUSTOMER_ID = 0;
+        this.CUSTOMER_ADDRES_2 = "";
+        this.Total_All
+        this.EMPLOYEE_NAME = "";
+        this.Date = "";
+    }
+    public ID_ORDER_Delivery: number;
+    public Date_Order_Delivery: string;
+    public CUSTOMER_NAME: string;
+    public CUSTOMER_ADDRES: string;
+    public PHONE: string;
+    public CUSTOMER_ID: number;
+    public CUSTOMER_ADDRES_2: string;
+    public Total_All: any;
+    public EMPLOYEE_NAME: string;
+    public Date: string;
+}
+
 
 
 class Table_Hagz extends SecurityClass {
@@ -729,6 +782,19 @@ class SlsInvoiceMasterDetails extends SecurityClass {
 
 
 }
+
+class SlsMasterDetails extends SecurityClass {
+    constructor() {
+        super();
+        this.I_Sls_TR_Invoice = new ORDER_DELIVERY();
+        this.I_Sls_TR_InvoiceItems = new Array<Stok_ORDER_DELIVERY>();
+    }
+    public I_Sls_TR_Invoice: ORDER_DELIVERY;
+    public I_Sls_TR_InvoiceItems: Array<Stok_ORDER_DELIVERY>;
+
+
+}
+
 class CUSTOMER extends SecurityClass {
     constructor() {
         super();
@@ -758,6 +824,8 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
         this.Total_Price_One_Part
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
+        this.StatusFlag = "";
+
     }
     public ID_DELIVERY: number;
     public Name_Product_sell: string;
@@ -766,6 +834,7 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
     public Total_Price_One_Part: any;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
+    public StatusFlag: string;
 }
 
 

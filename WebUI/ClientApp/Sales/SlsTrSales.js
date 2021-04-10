@@ -697,7 +697,7 @@ var SlsTrSales;
         InvoiceModel.Total_All = Number($('#All_Total_Basket').attr('All_Total'));
         InvoiceModel.Date_Order_Delivery = DateTimeFormat(Date().toString());
         InvoiceModel.Tax = 0;
-        InvoiceModel.CUSTOMER_ID = ID_Customer == null ? 0 : ID_Customer;
+        InvoiceModel.CUSTOMER_ID = Number(idCust.value) == null ? 24 : Number(idCust.value);
         InvoiceModel.type_order = 'Delivery';
         InvoiceModel.Confirmation = true;
         for (var i = 1; i < Num_Add_List + 1; i++) {
@@ -762,6 +762,9 @@ var SlsTrSales;
         }
     }
     function Insert_Basket() {
+        if (InvoiceModel.CUSTOMER_ID == null || InvoiceModel.CUSTOMER_ID == 0) {
+            InvoiceModel.CUSTOMER_ID = 24;
+        }
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("SlsTrSales", "InsertInvoiceMasterDetail"),
@@ -886,7 +889,7 @@ var SlsTrSales;
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
             document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
-            idCust.value = "0";
+            idCust.value = "";
         }
         else {
             SearchDetails = CustomerDetails.filter(function (x) { return x.PHONE == CUST_Phone.value; });
@@ -900,7 +903,7 @@ var SlsTrSales;
             else {
                 Details_Updata_Cust = new Array();
                 Det_Single_Cust = new CUSTOMER();
-                Det_Single_Cust.CUSTOMER_ID = 0;
+                Det_Single_Cust.CUSTOMER_ID = 24;
                 Det_Single_Cust.CUSTOMER_NAME = CUST_NAME.value;
                 Det_Single_Cust.PHONE = CUST_Phone.value;
                 Det_Single_Cust.CUSTOMER_ADDRES = CUST_ADDRES.value;
@@ -922,7 +925,7 @@ var SlsTrSales;
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr ');
             document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
-            idCust.value = "0";
+            idCust.value = "";
         }
         else {
             Details_Updata_Cust = new Array();
