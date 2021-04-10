@@ -76,6 +76,7 @@ namespace API.Controllers
             }
             return BadRequest(ModelState);
         }
+       
         [HttpGet, AllowAnonymous]
         public IHttpActionResult PROC_Delete_Rows(int ID, string TR_Type)
         {

@@ -50,16 +50,14 @@ var Categories;
         debugger;
         Assign();
         debugger;
-        if (Details.filter(function (x) { return x.Name_CAT == ""; }).length > 0) {
-            MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
-            return;
-        }
-        Details[0].Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-        Details[0].UserCode = SysSession.CurrentEnvironment.UserCode;
+        //if (Details.filter(x => x.Name_CAT == "").length > 0) {
+        //    MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
+        //    return;
+        //}
         debugger;
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("StkDefCategory", "UpdateLst"),
+            url: sys.apiUrl("Category", "UpdateLst"),
             data: JSON.stringify(Details),
             success: function (d) {
                 debugger;
@@ -84,6 +82,8 @@ var Categories;
     }
     function Assign() {
         var StatusFlag;
+        debugger;
+        Details = new Array();
         for (var i = 0; i < CountGrid; i++) {
             Model = new CATEGRES();
             StatusFlag = $("#txt_StatusFlag" + i).val();
@@ -91,35 +91,22 @@ var Categories;
             debugger;
             if (StatusFlag == "i") {
                 Model.StatusFlag = StatusFlag.toString();
-                ;
                 Model.ID_CAT = 0;
-                if ($("#txtDescA" + i).val() == "") {
-                    Model.Name_CAT = $("#txtDescL" + i).val();
-                    $("#txtDescA" + i).val($("#txtDescL" + i).val());
-                }
-                else {
-                    Model.Name_CAT = $("#txtDescA" + i).val();
-                }
+                Model.Name_CAT = $("#txtDescA" + i).val();
                 Details.push(Model);
             }
             if (StatusFlag == "u") {
-                var UpdatedDetail = Details.filter(function (x) { return x.ID_CAT == $("#txt_ID" + i).val(); });
-                UpdatedDetail[0].StatusFlag = StatusFlag.toString();
-                if ($("#txtDescA" + i).val() == "") {
-                    UpdatedDetail[0].Name_CAT = $("#txtDescL" + i).val();
-                    $("#txtDescA" + i).val($("#txtDescL" + i).val());
-                }
-                else {
-                    UpdatedDetail[0].Name_CAT = $("#txtDescA" + i).val();
-                }
+                Model.StatusFlag = StatusFlag.toString();
+                Model.ID_CAT = $("#txt_ID" + i).val();
+                Model.Name_CAT = $("#txtDescA" + i).val();
                 $("#txt_StatusFlag" + i).val("");
+                Details.push(Model);
             }
             if (StatusFlag == "d") {
                 if ($("#txt_ID" + i).val() != "") {
-                    var UpdatedDetail = Details.filter(function (x) { return x.ID_CAT == $("#txt_ID" + i).val(); });
-                    UpdatedDetail[0].StatusFlag = StatusFlag.toString();
-                    $("#txtCode" + i).val("");
-                    $("#txt_StatusFlag" + i).val("");
+                    Model.StatusFlag = StatusFlag.toString();
+                    Model.ID_CAT = $("#txt_ID" + i).val();
+                    Details.push(Model);
                 }
             }
         }
@@ -186,14 +173,13 @@ var Categories;
         $("#btn_minus" + cnt).on('click', function () {
             DeleteRow(cnt);
         });
-        $("#txtCode" + cnt).on('change', function () {
-            Validate_code(cnt);
-        });
         $("#txtDescA" + cnt).on('change', function () {
-            if ($("#txt_StatusFlag" + cnt).val() != "i")
-                $("#txt_StatusFlag" + cnt).val("u");
-        });
-        $("#txtDescL" + cnt).on('change', function () {
+            for (var i = 0; i < Details.length; i++) {
+                if ($("#txtDescA" + cnt).val() == Details[i].Name_CAT) {
+                    MessageBox.Show("لا يمكن تكرار اسم صنف", "خطأ");
+                    $("#txtDescA" + cnt).val("");
+                }
+            }
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
         });
@@ -250,29 +236,6 @@ var Categories;
             MessageBox.Show("ادخل كود و الوصف العربي", "خطأ");
             return false;
         }
-        return true;
-    }
-    function Validate_code(rowno) {
-        debugger;
-        for (var i = 0; i < CountGrid; i++) {
-            if (i != rowno) {
-                if ($("#txt_StatusFlag" + i).val() == "d") {
-                    return true;
-                }
-                else {
-                    if ($("#txtCode" + rowno).val() == $("#txtCode" + i).val()) {
-                        var Code = $("#txtCode" + rowno).val();
-                        $("#txtCode" + rowno).val("");
-                        WorningMessage("لا يمكن تكرار رقم الكود " + Code, "code cannot br repeated?", "تحذير", "worning", function () {
-                            $("#txtCode" + rowno).val("");
-                            return false;
-                        });
-                    }
-                }
-            }
-        }
-        if ($("#txt_StatusFlag" + rowno).val() != "i")
-            $("#txt_StatusFlag" + rowno).val("u");
         return true;
     }
 })(Categories || (Categories = {}));

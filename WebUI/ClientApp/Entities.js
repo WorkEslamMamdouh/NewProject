@@ -298,6 +298,7 @@ var PRODUCT = (function (_super) {
         _this.MinUnitPrice;
         _this.ID_CAT = 0;
         _this.serial = "";
+        _this.StatusFlag = "";
         return _this;
     }
     return PRODUCT;
