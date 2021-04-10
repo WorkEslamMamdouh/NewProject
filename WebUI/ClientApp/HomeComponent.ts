@@ -3,15 +3,16 @@
 $(document).ready(() => {
     //HomeComponent.Language();
     HomeComponent.InitalizeComponent();
- 
+
 });
- 
+
 namespace HomeComponent {
-     //let res: any = GetResourceList("");
-     var sys: SystemTools = new SystemTools();
-   
-    
-    var btnDashboard: HTMLButtonElement; 
+    //let res: any = GetResourceList("");
+    var sys: SystemTools = new SystemTools();
+
+
+    var But_Outlet: HTMLButtonElement;
+    var btnDashboard: HTMLButtonElement;
     var btn_loguotuser: HTMLButtonElement;
     var SysSession: SystemSession = GetSystemSession();
     var systemEnv: SystemEnvironment = SysSession.CurrentEnvironment;
@@ -46,7 +47,7 @@ namespace HomeComponent {
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
 
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode, Modulecode: Modulecode },
-            success: (d) => { 
+            success: (d) => {
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -60,11 +61,11 @@ namespace HomeComponent {
                     if (result.Access == true) {
                         let opt: JQueryAjaxSettings = {
                             url: Url.Action(moduleCode, "GeneralReports"),
-                             
+
                             success: (d) => {
 
                                 let result = d as string;
- 
+
                                 $("#PopupDialog").modal("show");
                                 $("#PopupBody").html(result);
                                 $('#PopupDialog').modal({
@@ -83,7 +84,7 @@ namespace HomeComponent {
             }
         });
     }
-     
+
     export function InitalizeComponent() {
         debugger
 
@@ -96,18 +97,18 @@ namespace HomeComponent {
             $('#hLoggedName').html(localStorage.getItem('Inv1_Login_Data'));
         }
 
-        Language(); 
+        Language();
         //GetBackgroundImage(); 
         // GetNotificationData();
         //Notifications_Message()
-       
+
         // Apply user and company privilages 
         //ApplyModules();
         ApplyCompanyPrivilages();
 
-        InitializePages(); 
-        $("#DashButton").css('pointer-events', 'auto'); 
-        document.getElementById('Admin_name').innerHTML = SysSession.CurrentEnvironment.UserCode; 
+        InitializePages();
+        $("#DashButton").css('pointer-events', 'auto');
+        document.getElementById('Admin_name').innerHTML = SysSession.CurrentEnvironment.UserCode;
         if (SysSession.CurrentEnvironment.ScreenLanguage == 'ar') {
             $('#homeTitle').text("نظام سيف لادارة الاملاك");
         }
@@ -121,22 +122,24 @@ namespace HomeComponent {
         else {
             $('#LanguageButtonHome').text(" تغير اللغة  ");
         }
-         btn_loguotuser = DocumentActions.GetElementById<HTMLButtonElement>("btn_loguotuser");
+        btn_loguotuser = DocumentActions.GetElementById<HTMLButtonElement>("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
-        
- 
-     }
+
+        But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
+        But_Outlet.onclick = Cash_Box;
+
+    }
 
     export function LogoutUserApi() {
         debugger;
 
         var loginData = localStorage.getItem("Inv1_Login_Data");
-        
-            var data = JSON.parse(loginData);
-            data.USER_CODE;
-          data.USER_PASSWORD;
 
-      
+        var data = JSON.parse(loginData);
+        data.USER_CODE;
+        data.USER_PASSWORD;
+
+
 
         let userCode = SysSession.CurrentEnvironment.UserCode;
         Ajax.Callsync({
@@ -157,15 +160,15 @@ namespace HomeComponent {
         });
     };
     function ApplyCompanyPrivilages() {
-       
-       
+
+
         if (systemEnv.IsDashboardActive == false) {
             // disable dashboard button
             btnDashboard = DocumentActions.GetElementById<HTMLButtonElement>("btnDashboard");
             btnDashboard.style.display = "none";
         }
     }
-   
+
 
     function ApplyModules() {
         var lis = document.getElementsByClassName("liItem");
@@ -198,12 +201,12 @@ namespace HomeComponent {
             }
             else if (singleUserModule.MODULE_CODE.substring(0, 4) == "tol_") {
 
-                   li = document.getElementById(singleUserModule.MODULE_CODE) as HTMLLIElement;
-             }
+                li = document.getElementById(singleUserModule.MODULE_CODE) as HTMLLIElement;
+            }
 
             else {
-                    li = document.getElementById("btn" + singleUserModule.MODULE_CODE) as HTMLLIElement;
-                 }
+                li = document.getElementById("btn" + singleUserModule.MODULE_CODE) as HTMLLIElement;
+            }
 
             if (li != null) {
                 if (singleUserModule != null) {
@@ -239,9 +242,9 @@ namespace HomeComponent {
             AppendStyleSheet("main");
             AppendStyleSheet("responsive");
             SysSession.CurrentEnvironment.ScreenLanguage = "en";
-            
+
             $('#LanguageButtonHome').text(" تغير اللغة  ");
-         
+
 
             document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         }
@@ -260,21 +263,21 @@ namespace HomeComponent {
             AppendStyleSheet("responsive_AR");
 
             SysSession.CurrentEnvironment.ScreenLanguage = "ar";
-            
+
             $('#LanguageButtonHome').text("Change Language");
-            
+
             document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         }
 
         window.location.reload();
     });
 
-  
+
     function GetNotificationData() {
         let comCode = SysSession.CurrentEnvironment.CompCode;
         let BraCode = SysSession.CurrentEnvironment.BranchCode;
         let SystemCode = SysSession.CurrentEnvironment.SystemCode;
-        let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode; 
+        let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         $.ajax({
             type: "GET",
             url: sys.apiUrl("SystemTools", "GetNotifications"),
@@ -287,12 +290,12 @@ namespace HomeComponent {
                 for (let n of not) {
                     let li = document.createElement("li");
                     let span = document.createElement("span");
-                    let span2 = document.createElement("span"); 
+                    let span2 = document.createElement("span");
                     if (n.NoteCount > 0) {
-                        li.onclick = () => { 
+                        li.onclick = () => {
                             notification_onclick(n.MODULE_CODE, n.MODULE_CODE);
                         }
-                    } 
+                    }
                     li.className = "liItem disabledLi dropdown cursor";
                     li.id = n.MODULE_CODE;
                     if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
@@ -305,12 +308,12 @@ namespace HomeComponent {
                     span2.innerText = n.NoteCount.toString();
                     li.appendChild(span);
                     li.appendChild(span2);
-                    $("#notificationUL").append(li); 
-                } 
+                    $("#notificationUL").append(li);
+                }
             }
         });
 
-    } 
+    }
     function notification_onclick(ModuleCode: string, btnName: string) {
         let sys: SystemTools = new SystemTools();
         var condation = "CompCode = " + SysSession.CurrentEnvironment.CompCode;
@@ -341,7 +344,7 @@ namespace HomeComponent {
     }
 
 
-    export function HomePrev(controllerName: string, moduleCode: string) { 
+    export function HomePrev(controllerName: string, moduleCode: string) {
         let compCode = SysSession.CurrentEnvironment.CompCode;
         let branchCode = SysSession.CurrentEnvironment.BranchCode;
         let UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -358,16 +361,16 @@ namespace HomeComponent {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
                 }
-                else { 
+                else {
                     let result = JSON.parse(d) as UserPrivilege;
                     if (result == null) {
                         MessageBox.Show("Access denied", controllerName);
                         return;
                     }
-                    if (result.Access == true) { 
-                        $("#spnFav").css("display", "inline-block"); 
+                    if (result.Access == true) {
+                        $("#spnFav").css("display", "inline-block");
                         SysSession.CurrentPrivileges = result;
-                        SysSession.CurrentPrivileges.MODULE_CODE = SysSession.CurrentEnvironment.ModuleCode; 
+                        SysSession.CurrentPrivileges.MODULE_CODE = SysSession.CurrentEnvironment.ModuleCode;
                         document.cookie = "Inv1_Privilage=" + JSON.stringify(result).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
 
                     }
@@ -397,14 +400,14 @@ namespace HomeComponent {
     }
     export function OpenView(controllerName: string, moduleCode: string) {
         debugger;
-            SysSession.CurrentEnvironment.ModuleCode = moduleCode;
- 
-            let compCode = SysSession.CurrentEnvironment.CompCode;
-            let branchCode = SysSession.CurrentEnvironment.BranchCode;
-            let UserCode = SysSession.CurrentEnvironment.UserCode;
-            let SystemCode = SysSession.CurrentEnvironment.SystemCode;
-            let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
-            let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
+        SysSession.CurrentEnvironment.ModuleCode = moduleCode;
+
+        let compCode = SysSession.CurrentEnvironment.CompCode;
+        let branchCode = SysSession.CurrentEnvironment.BranchCode;
+        let UserCode = SysSession.CurrentEnvironment.UserCode;
+        let SystemCode = SysSession.CurrentEnvironment.SystemCode;
+        let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
+        let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
         localStorage.setItem("Compcode1", compCode);
 
         Ajax.Callsync({
@@ -430,7 +433,7 @@ namespace HomeComponent {
                         SysSession.CurrentPrivileges = result;
                         SysSession.CurrentPrivileges.MODULE_CODE = SysSession.CurrentEnvironment.ModuleCode;
                         sessionStorage.setItem("MODU_CODE", SysSession.CurrentEnvironment.ModuleCode);
-                        systemEnv.ScreenLanguage = sessionStorage.getItem("temp_lang");                         
+                        systemEnv.ScreenLanguage = sessionStorage.getItem("temp_lang");
                         document.cookie = "Privilage=" + JSON.stringify(d).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
                         window.open(Url.Action(controllerName + "Index", controllerName), "_self");
                     }
@@ -447,17 +450,18 @@ namespace HomeComponent {
         $("#btnHome").click(() => { OpenPage(Modules.Home); })
 
 
-        $("#btnSlsTrSales").click(() => { OpenPage(Modules.SlsTrSales); }) 
-            $("#btnCategories").click(() => { OpenPage(Modules.Categories); }) 
-            $("#btnItems").click(() => { OpenPage(Modules.Items); })
+        $("#btnSlsTrSales").click(() => { OpenPage(Modules.SlsTrSales); })
+        $("#btnSlsTrReturn").click(() => { OpenPage(Modules.SlsTrReturn); })
+        $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
+        $("#btnItems").click(() => { OpenPage(Modules.Items); })
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
 
     }
 
-     
-    
-    
+
+
+
     function Notifications_Message() {
 
         let comCode = SysSession.CurrentEnvironment.CompCode;
@@ -480,50 +484,50 @@ namespace HomeComponent {
                     let span = document.createElement("span");
                     let span2 = document.createElement("span");
                     let span3 = document.createElement("span");
-                    let span4 = document.createElement("span"); 
+                    let span4 = document.createElement("span");
                     li.id = ms.AlertID.toString();
                     if (ms.NoteSubType == 1) {
                         li.className = "liItem disabledLi dropdown cursor border_li style_li1";
                     } else {
-                        li.className = "liItem disabledLi dropdown cursor border_li style_li2"; 
+                        li.className = "liItem disabledLi dropdown cursor border_li style_li2";
                     }
                     span.innerText = ms.MsgText;
                     span.className = 'bading_left font_mseeg';
                     span2.className = 'col-lg-12 font_mseeg';
                     span3.className = 'col-lg-12 font_mseeg';
                     span4.className = 'col-lg-12 font_mseeg';
-                    span2.innerText = DateTimeFormat(ms.MsgDate); 
+                    span2.innerText = DateTimeFormat(ms.MsgDate);
                     li.appendChild(span);
                     li.appendChild(span2);
                     li.appendChild(span3);
-                    li.appendChild(span4); 
+                    li.appendChild(span4);
                     $("#creatnotesmassg").append(li);
 
                 }
 
             }
-        }); 
+        });
     }
     //By Muhammad Rajab
     export function Language() {
         debugger
-         if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
+        if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
 
 
-             RemoveStyleSheet("bootstrap-rtl");
-             RemoveStyleSheet("responsive_AR");
-             RemoveStylejs("mainAR");
-             RemoveStyleSheet("Style_Arabic");
-             RemoveStyleSheet("style");
-             RemoveStyleSheet("StyleNewmassege");
+            RemoveStyleSheet("bootstrap-rtl");
+            RemoveStyleSheet("responsive_AR");
+            RemoveStylejs("mainAR");
+            RemoveStyleSheet("Style_Arabic");
+            RemoveStyleSheet("style");
+            RemoveStyleSheet("StyleNewmassege");
 
             AppendStyleSheet("StyleEn");
             AppendStyleSheet("bootstrap.min");
             AppendStylejs("main");
             AppendStyleSheet("responsive");
-             $("#btn_loguotuser").text("Logout"); 
+            $("#btn_loguotuser").text("Logout");
         }
-        else { 
+        else {
             RemoveStyleSheet("StyleEn");
             RemoveStyleSheet("bootstrap.min");
             RemoveStylejs("main");
@@ -541,17 +545,17 @@ namespace HomeComponent {
         //$("#SearchBox").draggable();
         App.Startup();
     }
-     
-    function AppendStyleSheet(fileName) { 
+
+    function AppendStyleSheet(fileName) {
         var lnk = document.createElement('link');
         lnk.href = "../Style_design/" + fileName + ".css";
         lnk.rel = 'stylesheet';
         lnk.type = 'text/css';
         document.getElementsByTagName("head")[0].appendChild(lnk);
-    } 
-    function RemoveStyleSheet(fileName) { 
+    }
+    function RemoveStyleSheet(fileName) {
         var href = "../Style_design/" + fileName + ".css";
-        $("link[rel=stylesheet][href~='" + href + "']").remove(); 
+        $("link[rel=stylesheet][href~='" + href + "']").remove();
     }
     //By Muhammad Rajab 
     function AppendStylejs(fileName) {
@@ -563,7 +567,47 @@ namespace HomeComponent {
     //By Muhammad Rajab 
     function RemoveStylejs(fileName) {
         var href = "../Style_design/" + fileName + ".js";
-        $("<script src=" + href + " ></script>").remove(); 
+        $("<script src=" + href + " ></script>").remove();
+    }
+
+    function Cash_Box() {
+
+       
+        if ($('#id_pirce').val() == '' || $('#id_Dasc_Name').val() == '') {
+            MessageBox.Show("  خطأ  يجب ادخل المبلغ والوصف ", "خطأ");
+            return
+        }
+
+        var Dasc_Name = $('#id_Dasc_Name').val();
+        var pirce = Number($('#id_pirce').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Insert"),
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Outlet = result.Response;
+                    if (Outlet == pirce)
+                    {
+                        MessageBox.Show("تم ", "الحفظ");
+
+                        $('#id_Dasc_Name').val('');
+                        $('#id_pirce').val('');
+                    }
+                    else {
+                        MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
+                        $('#id_Dasc_Name').val('');
+                        $('#id_pirce').val('');
+                    }
+
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
     }
 }
- 

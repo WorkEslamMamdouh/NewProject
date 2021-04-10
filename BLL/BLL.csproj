@@ -41,6 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Stok_ORDER\Stok_ORDERServices.cs" />
+    <Compile Include="Services\Stok_ORDER\IStok_ORDERServices.cs" />
+    <Compile Include="Services\Outletpirce\OutletpirceServices.cs" />
+    <Compile Include="Services\Outletpirce\IOutletpirceServices.cs" />
     <Compile Include="Services\Customer\CustomerServices.cs" />
     <Compile Include="Services\Customer\ICustomerServices.cs" />
     <Compile Include="Services\Category\ICategoryServices.cs" />

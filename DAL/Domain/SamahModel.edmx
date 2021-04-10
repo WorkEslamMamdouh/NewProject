@@ -113,6 +113,7 @@
           <Property Name="Dasc_Name" Type="nvarchar" MaxLength="50" />
           <Property Name="pirce" Type="money" />
           <Property Name="Num_Day" Type="int" />
+          <Property Name="EMPLOYEE_ID" Type="int" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -258,6 +259,44 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="id_User_sales" Type="int" Nullable="false" />
           <Property Name="id_Settings" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ElWassem.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReviewSalesItemInfo">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+            <PropertyRef Name="PRODUCT_ID" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="int" Nullable="false" />
+          <Property Name="Name_Product_sell" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity_sell" Type="float" />
+          <Property Name="price_One_part" Type="money" />
+          <Property Name="Total_Price_One_Part" Type="money" />
+          <Property Name="Notes_Order" Type="nvarchar" MaxLength="50" />
+          <Property Name="FK_ORDER_Delivery" Type="int" />
+          <Property Name="MinUnitPrice" Type="money" />
+          <Property Name="ID_CAT" Type="int" />
+          <Property Name="PRODUCT_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReviewSalesMaster">
+          <Key>
+            <PropertyRef Name="ID_ORDER_Delivery" />
+            <PropertyRef Name="CUSTOMER_ID" />
+          </Key>
+          <Property Name="ID_ORDER_Delivery" Type="int" Nullable="false" />
+          <Property Name="Date_Order_Delivery" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ADDRES" Type="nvarchar" MaxLength="50" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Total_All" Type="money" />
+          <Property Name="EMPLOYEE_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ID_User" Type="int" />
+          <Property Name="EMPLOYEE_ID" Type="int" />
+        </EntityType>
         <Function Name="Add_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_name" Type="nvarchar" Mode="In" />
           <Parameter Name="passwrd" Type="nvarchar" Mode="In" />
@@ -359,6 +398,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
         <Function Name="insert_Outlet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
           <Parameter Name="pirce" Type="money" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_Stock_ORDER_TECAYE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name_Product_sell" Type="nvarchar" Mode="In" />
@@ -479,6 +519,19 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Parameter Name="emp_phone_New" Type="nvarchar" Mode="In" />
           <Parameter Name="type_emp" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="update_Sales_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Total_All" Type="money" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_ORDER" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_SalesReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name_Product_sell" Type="nvarchar" Mode="In" />
+          <Parameter Name="Quantity_sell" Type="int" Mode="In" />
+          <Parameter Name="price_One_part" Type="money" Mode="In" />
+          <Parameter Name="Total_Price_One_Part" Type="money" Mode="In" />
+          <Parameter Name="ID_ORDER" Type="int" Mode="In" />
+          <Parameter Name="StatusFlag" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Update_Settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nots" Type="nvarchar" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -507,6 +560,36 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <EntitySet Name="Table_two_days" EntityType="Self.Table_two_days" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="Self.Type_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_sales" EntityType="Self.User_sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReviewSalesItemInfo].[ID_DELIVERY] AS [ID_DELIVERY], 
+    [ReviewSalesItemInfo].[Name_Product_sell] AS [Name_Product_sell], 
+    [ReviewSalesItemInfo].[Quantity_sell] AS [Quantity_sell], 
+    [ReviewSalesItemInfo].[price_One_part] AS [price_One_part], 
+    [ReviewSalesItemInfo].[Total_Price_One_Part] AS [Total_Price_One_Part], 
+    [ReviewSalesItemInfo].[Notes_Order] AS [Notes_Order], 
+    [ReviewSalesItemInfo].[FK_ORDER_Delivery] AS [FK_ORDER_Delivery], 
+    [ReviewSalesItemInfo].[MinUnitPrice] AS [MinUnitPrice], 
+    [ReviewSalesItemInfo].[ID_CAT] AS [ID_CAT], 
+    [ReviewSalesItemInfo].[PRODUCT_ID] AS [PRODUCT_ID]
+    FROM [dbo].[ReviewSalesItemInfo] AS [ReviewSalesItemInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ReviewSalesMaster" EntityType="Self.ReviewSalesMaster" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ReviewSalesMaster].[ID_ORDER_Delivery] AS [ID_ORDER_Delivery], 
+    [ReviewSalesMaster].[Date_Order_Delivery] AS [Date_Order_Delivery], 
+    [ReviewSalesMaster].[CUSTOMER_NAME] AS [CUSTOMER_NAME], 
+    [ReviewSalesMaster].[CUSTOMER_ADDRES] AS [CUSTOMER_ADDRES], 
+    [ReviewSalesMaster].[PHONE] AS [PHONE], 
+    [ReviewSalesMaster].[CUSTOMER_ID] AS [CUSTOMER_ID], 
+    [ReviewSalesMaster].[CUSTOMER_ADDRES_2] AS [CUSTOMER_ADDRES_2], 
+    [ReviewSalesMaster].[Total_All] AS [Total_All], 
+    [ReviewSalesMaster].[EMPLOYEE_NAME] AS [EMPLOYEE_NAME], 
+    [ReviewSalesMaster].[Date] AS [Date], 
+    [ReviewSalesMaster].[ID_User] AS [ID_User], 
+    [ReviewSalesMaster].[EMPLOYEE_ID] AS [EMPLOYEE_ID]
+    FROM [dbo].[ReviewSalesMaster] AS [ReviewSalesMaster]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -627,6 +710,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <FunctionImport Name="insert_Outlet">
             <Parameter Name="Dasc_Name" Mode="In" Type="String" />
             <Parameter Name="pirce" Mode="In" Type="Decimal" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insert_Stock_ORDER_TECAYE">
             <Parameter Name="Name_Product_sell" Mode="In" Type="String" />
@@ -779,6 +863,21 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
           <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
+          <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
+          <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
+          <FunctionImport Name="update_SalesReturn">
+            <Parameter Name="Name_Product_sell" Mode="In" Type="String" />
+            <Parameter Name="Quantity_sell" Mode="In" Type="Int32" />
+            <Parameter Name="price_One_part" Mode="In" Type="Decimal" />
+            <Parameter Name="Total_Price_One_Part" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
+            <Parameter Name="StatusFlag" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_Sales_Master" ReturnType="Collection(Decimal)">
+            <Parameter Name="Total_All" Mode="In" Type="Decimal" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1079,6 +1178,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -1203,6 +1303,40 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           </Key>
           <Property Name="id_User_sales" Type="Int32" Nullable="false" />
           <Property Name="id_Settings" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReviewSalesMaster">
+          <Key>
+            <PropertyRef Name="ID_ORDER_Delivery" />
+            <PropertyRef Name="CUSTOMER_ID" />
+          </Key>
+          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" />
+          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ID_User" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReviewSalesItemInfo">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+            <PropertyRef Name="PRODUCT_ID" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" />
+          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1600,6 +1734,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <EntitySetMapping Name="Outlets">
             <EntityTypeMapping TypeName="SamahModel.Outlet">
               <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
                 <ScalarProperty Name="pirce" ColumnName="pirce" />
                 <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
@@ -1744,6 +1879,42 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ReviewSalesMasters">
+            <EntityTypeMapping TypeName="SamahModel.ReviewSalesMaster">
+              <MappingFragment StoreEntitySet="ReviewSalesMaster">
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewSalesItemInfoes">
+            <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
+              <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
+          <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

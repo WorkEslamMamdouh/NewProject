@@ -50,6 +50,19 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAllUser()
+        {
+            if (ModelState.IsValid)
+            {
+                var Login = LoginService.GetAll().ToList();
+             
+                    return Ok(new BaseResponse(Login));
+                
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult open_and_close_Login(string UserName, string password , int Open_Login)
         {
             if (ModelState.IsValid)
