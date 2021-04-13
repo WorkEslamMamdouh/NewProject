@@ -956,6 +956,7 @@ class Supplier extends SecurityClass {
         this.Type_Supplier = "";
         this.Notes = "";
         this.IS_Active = false;
+        this.IS_Active_Name = "";
     }
     public ID_Supplier: number;
     public Name_Supplier: string;
@@ -963,6 +964,7 @@ class Supplier extends SecurityClass {
     public Type_Supplier: string;
     public Notes: string;
     public IS_Active: boolean;
+    public IS_Active_Name: string;
 }
 
 

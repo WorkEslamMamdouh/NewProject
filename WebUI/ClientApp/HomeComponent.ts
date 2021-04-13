@@ -454,7 +454,9 @@ namespace HomeComponent {
         $("#btnSlsTrReturn").click(() => { OpenPage(Modules.SlsTrReturn); })
         $("#btnPurchases").click(() => { OpenPage(Modules.Purchases); })
         $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
-        $("#btnItems").click(() => { OpenPage(Modules.Items); })
+        $("#btnItems").click(() => { OpenPage(Modules.Items); })     
+        $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })     
+
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
 

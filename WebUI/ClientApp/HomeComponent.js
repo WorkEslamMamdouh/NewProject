@@ -396,6 +396,7 @@ var HomeComponent;
         $("#btnPurchases").click(function () { OpenPage(Modules.Purchases); });
         $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
         $("#btnItems").click(function () { OpenPage(Modules.Items); });
+        $("#btnSupplier").click(function () { OpenPage(Modules.Supplier); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
     }
     function Notifications_Message() {
