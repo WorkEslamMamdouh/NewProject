@@ -7,6 +7,7 @@ var AccDefVendor;
     var AccountType = 2;
     var MSG_ID;
     var Details = new Array();
+    var Display = new Array();
     var SearchDetails = new Array();
     var BilldIData = new Array();
     var ReportGrid = new JsGrid();
@@ -70,13 +71,12 @@ var AccDefVendor;
         InitalizeControls();
         InitalizeEvents();
         GetSupplier();
-        reference_Page();
     }
     AccDefVendor.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         ////debugger;
         txt_ID_APP_Category = document.getElementById("txt_ID_APP_Category");
-        //  btnShow = document.getElementById("btnShow") as HTMLButtonElement;
+        btnShow = document.getElementById("btnShow");
         //  btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
         //  btnEdit = document.getElementById("btnedite") as HTMLButtonElement;
         //  btnsave = document.getElementById("btnsave") as HTMLButtonElement;
@@ -108,22 +108,12 @@ var AccDefVendor;
     }
     function InitalizeEvents() {
         //debugger
-        //btnShow.onclick = btnShow_onclick;
+        btnShow.onclick = btnShow_onclick;
         //btnAdd.onclick = btnAdd_onclick;
         //btnsave.onclick = btnsave_onClick;
         //btnback.onclick = btnback_onclick;
         //btnEdit.onclick = btnEdit_onclick;
         //searchbutmemreport.onkeyup = _SearchBox_Change;
-    }
-    function reference_Page() {
-        //if (!SysSession.CurrentPrivileges.EDIT) {
-        //    $('#btnedite').attr('class', 'btn btn-primary display_none');
-        //    $('#btnsave').attr('class', 'btn btn-success display_none');
-        //    $('#btnback').attr('class', 'btn btn-success display_none');
-        //}
-        //if (!SysSession.CurrentPrivileges.AddNew) {
-        //    $('#btnAdd').attr('class', 'btn btn-primary display_none');
-        //}
     }
     function GetSupplier() {
         debugger;
@@ -145,6 +135,22 @@ var AccDefVendor;
         for (var i = 0; i < Details.length; i++) {
             $('#txt_ID_APP_Category').append('<option data-ItemID="' + Details[i].Name_Supplier + '" value="' + Details[i].ID_Supplier + '">' + Details[i].Name_Supplier + '</option>');
         }
+    }
+    function Display_All() {
+        //debugger;
+        var ID_Supplier = $('#txt_ID_APP_Category').val();
+        if (ID_Supplier != 'Null') {
+            Display = Details.filter(function (s) { return s.ID_Supplier == ID_Supplier; });
+        }
+        else {
+            Display = Details;
+        }
+        for (var i = 0; i < Display.length; i++) {
+            Display[i].IS_Active_Name = Display[i].IS_Active == false ? 'غير فعال' : 'فعال';
+        }
+        InitializeGrid();
+        ReportGrid.DataSource = Display;
+        ReportGrid.Bind();
     }
     function btnEdit_onclick() {
         //IsNew = false;
@@ -323,14 +329,7 @@ var AccDefVendor;
         //return Valid = 0;
     }
     function btnShow_onclick() {
-        ////debugger;
-        //if ($('#txt_ID_APP_Category').val() == "Null" && $('#txt_ID_APP_Group').val() == "Null" && $('#txt_ID_APP_Type').val() == "Null") {
-        //    DisplayMassage("يجب اختيار واحد علي الاقل من (الفئه - المجموعة - النوع )", "At least one of the tracks must be selected prior to the show", MessageType.Worning);
-        //}
-        //else {
-        //    Display();
-        //    //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //}
+        Display_All();
     }
     function btnback_onclick() {
         //Selecteditem = Details.filter(x => x.ID_Supplier == Number(ReportGrid.SelectedKey));
@@ -490,59 +489,6 @@ var AccDefVendor;
         //txtResName.value = "";
         ////FillddlCashAdd();
     }
-    function Display() {
-        //debugger;
-        //indebtedness = $('#txt_indebtedness').val();
-        //var IsCredit_Type: number;
-        //if ($('#txt_ID_APP_Type').val() == "Null") {
-        //    IsCredit_Type = 2;
-        //}
-        //else {
-        //    IsCredit_Type = Number($('#txt_ID_APP_Type').val());
-        //}
-        //var catid: number;
-        //if ($('#txt_ID_APP_Category').val() == "Null") {
-        //    catid = 0;
-        //}
-        //else {
-        //    catid = Number($('#txt_ID_APP_Category').val());
-        //}
-        //var Groupid: number;
-        //if ($('#txt_ID_APP_Group').val() == "Null") {
-        //    Groupid = 0;
-        //}
-        //else {
-        //    Groupid = Number($('#txt_ID_APP_Group').val());
-        //}
-        //var VendorType: number;
-        //if ($('#txtVendorType').val() == "Null") {
-        //    VendorType = 0;
-        //}
-        //else {
-        //    VendorType = Number($('#txtVendorType').val());
-        //}
-        //Ajax.Callsync({
-        //    type: "Get",
-        //    url: sys.apiUrl("AccDefVendor", "GetFiltered"),
-        //    data: {
-        //        CompCode: compcode, Catid: catid, Groupid: Groupid, CreditType: IsCredit_Type, VendorType: VendorType, BalType: indebtedness, UserCode: SysSession.CurrentEnvironment.UserCode, Token: "HGFD-" + SysSession.CurrentEnvironment.Token
-        //    },
-        //    success: (d) => {
-        //        //debugger;
-        //        let result = d as BaseResponse;
-        //        if (result.IsSuccess) {
-        //            Details = result.Response as Array<Supplier>;
-        //            //for (var i = 0; i < Details.length; i++) {
-        //            //    Details[i].Isbalance = Number((Number(Details[i].Openbalance) - Number(Details[i].Debit) + Number(Details[i].Credit)).toFixed(2));
-        //            //}
-        //            //debugger
-        //            InitializeGrid();
-        //            ReportGrid.DataSource = Details;
-        //            ReportGrid.Bind();
-        //        }
-        //    }
-        //});
-    }
     function filter_DataSource() {
         ////debugger
         //var IsCredit_Type;
@@ -612,7 +558,7 @@ var AccDefVendor;
             { title: "رقم الجوال", name: "phone", type: "text", width: "100px" },
             { title: "النوع", name: "Type_Supplier", type: "text", width: "100px" },
             { title: "ملاحظات", name: "Notes", type: "text", width: "100px" },
-            { title: "مفعل", name: "Debit", type: "IS_Active", width: "100px" },
+            { title: "مفعل", name: "IS_Active_Name", type: "textdd", width: "100px" },
         ];
         ReportGrid.Bind();
     }

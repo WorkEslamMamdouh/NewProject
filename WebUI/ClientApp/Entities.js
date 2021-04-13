@@ -677,6 +677,7 @@ var Supplier = (function (_super) {
         _this.Type_Supplier = "";
         _this.Notes = "";
         _this.IS_Active = false;
+        _this.IS_Active_Name = "";
         return _this;
     }
     return Supplier;
