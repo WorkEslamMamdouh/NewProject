@@ -12,6 +12,7 @@ using BLL.Services.SlsTrSales;
 using BLL.Services.Customer;
 using BLL.Services.Outletpirce;
 using BLL.Services.Stok_ORDER;
+using BLL.Services.Vendor;
 using WebUl.DAL.Repository;
 
 namespace Infrastructure
@@ -30,6 +31,7 @@ namespace Infrastructure
             container.RegisterType<ICustomerServices, CustomerServices>();
             container.RegisterType<IOutletpirceServices, OutletpirceServices>();
             container.RegisterType<IStok_ORDERServices, Stok_ORDERServices>();
+            container.RegisterType<IVendorServices, VendorServices>();
 
 
 

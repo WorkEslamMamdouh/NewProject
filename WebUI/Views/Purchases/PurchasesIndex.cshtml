@@ -54,10 +54,10 @@
 
         <div id="DivFilter" class="col-lg-12">
             <div id="DivHederMaster" class="row  margingred ">
-                <div class="col-lg-12">
-                    <label class="col-lg-1 col-xs-4   pading_2  ">المورد</label>
-                    <div class="col-lg-3 col-xs-8">
-                        <select id="ddlUserMaster" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
+                <div class="col-lg-12" >
+                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 7%;">المورد</label>
+                    <div class="col-lg-2 col-xs-8">
+                        <select id="ddlVendor" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
                     </div>
 
 
@@ -78,21 +78,46 @@
 
                     </div>
                     <div class="col-md-1 col-sm-5 col-xs-10">
-                        @*<button id="btnadd" type="button" class="btn btn-success">
+                        <button id="btnadd" type="button" class="btn btn-success">
                                 <span class="glyphicon"></span> الاضافه
-                            </button>*@
+                            </button>
 
+                    </div> 
+                    <div class="col-md-2 col-sm-5 col-xs-10" style="width: 9%;">
+                        <div class="btn-group">
+                            <label type="button" class="btn btn-warning" style="background-color: #031665;">طباعة</label>
+                            <button type="button" class="btn btn-warning dropdown-toggle" style="background-color: #031665;" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-hand-down"></span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="border-radius:15px">
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrint" type="button" class="  btn btn-custon-four  primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>طباعة</button>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrview" type="button" class="  btn btn-custon-four  primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>عرض تقرير</button>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four  primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>تنزيل PDF</button>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four  primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>تنزيل EXCEL</button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-lg-12">
 
-                    <label class="col-lg-1 col-xs-4   pading_2  ">النوع</label>
-                    <div class="col-lg-3 col-xs-8">
+                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 7%;">الحاله</label>
+                    <div class="col-lg-2 col-xs-8">
                         <select id="ddlStateType" name="" class="form-control" style='width: 100%;border-radius: 30px;'>
-                            <option value="">الجميع</option>
-                            <option value="">مسدد</option>
-                            <option value="">غير مسدد</option>
+                            <option value="2">الجميع</option>
+                            <option value="1">مسدد</option>
+                            <option value="0">غير مسدد</option>
                         </select>
                     </div>
 
@@ -131,83 +156,99 @@
                     <br />
                     <div id="div_Master" class="">
                         <div class="col-lg-12">
-                            <label class="col-lg-1 col-xs-4   pading_2  ">  الرقم الفاتوره</label>
+                            <label class="col-lg-1 col-xs-4   pading_2  ">   رقم الفاتوره</label>
                             <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" name="ID_ORDER_Delivery" disabled id="txtNumber">
+                                <input type="text" class="form-control input-sm addable editable" name="TrNo" disabled id="txtNumber">
                             </div>
 
 
                             <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading "> التاريخ </label>
                             <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" name="Date" disabled id="txtDate">
-                            </div>
-
-
-
-                            <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  " style="padding-right:25px">الوقت</label>
-                            <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" disabled name="Date_Order_Delivery" id="txttimer">
-                            </div>
-
-
-
-
-
-                        </div>
-                        <div class="col-lg-12">
-
-
-                            <label class="col-lg-1 col-xs-4   pading_2   "> البائع </label>
-                            <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" name="EMPLOYEE_NAME" disabled id="txtEMPLOYEE_NAME">
-                            </div>
-
-                            <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  ">    اسم العميل  </label>
-                            <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" disabled name="CUSTOMER_NAME" id="txtCUSTOMER_NAME">
-                            </div>
-
-                            <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  " style="padding-right:22px">  رقم تليفون </label>
-                            <div class="col-md-2 col-sm-5 col-xs-10">
-                                <input type="text" class="form-control input-sm addable editable" disabled name="PHONE" id="txtPHONE">
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-12">
-                            <label class="col-lg-1 col-xs-4   pading_2  ">ملاحظات  </label>
-
-                            <div class="col-md-8 col-sm-5 col-xs-10">
-                                <textarea type="text" class="form-control input-sm addable editable " disabled name="CUSTOMER_ADDRES" id="txtRemarks"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 ">
-
-                            <div class="col-lg-9" style="">
-
-                                <div class="col-lg-5">
-
-                                </div>
-                                <div class="col-lg-7">
-
-                                </div>
+                                <input type="date" class="form-control input-sm addable editable" name="Tr_Date" disabled id="txtDate">
                             </div>
 
                             <div class="col-lg-2 col-xs-8">
 
+                            </div>
 
-                                <button id="btnBack" type="button" class="btn btn-warning display_none"> تراجع <span class="glyphicon glyphicon-save"></span></button>
-                                <button id="btnSave" type="button" class="btn btn-success display_none" style="margin-right:9%"> حفظ <span class="glyphicon glyphicon-save"></span></button>
+                                <div class="col-lg-2 col-xs-8">
+
+
+                                    <button id="btnBack" type="button" class="btn btn-warning display_none"> تراجع <span class="glyphicon glyphicon-save"></span></button>
+                                    <button id="btnSave" type="button" class="btn btn-success display_none" style="margin-right:9%"> حفظ <span class="glyphicon glyphicon-save"></span></button>
+
+                                </div>
+
+                                <div class="col-md-1 col-sm-5 col-xs-10">
+                                    <button id="btnUpdate" type="button" class="btn btn-primary">  تعديل <span class="glyphicon glyphicon-edit"></span></button>
+
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-lg-12">
+
+
+                                <label class="col-lg-1 col-xs-4   pading_2   "> المورد </label>
+                                <div class="col-md-2 col-sm-5 col-xs-10">
+                                    <input type="text" class="form-control input-sm addable editable" name="Name_Supplier" disabled id="txtName_Supplier">
+                                </div>
+
+                                <div class="col-xs-1">
+                                    <button style=" left: 21%;" type="button" class="src-btn btn btn-warning " disabled="disabled" id="btnRecieveSearch" name="InvoiceSearch">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+
+                                <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  ">    نوع التوريد  </label>
+                                <div class="col-md-2 col-sm-5 col-xs-10">
+                                    <input type="text" class="form-control input-sm addable editable" disabled name="Type_Supplier" id="txtType_Supplier">
+                                </div>
+
+                                <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  " style="padding-right:22px">  رقم تليفون </label>
+                                <div class="col-md-2 col-sm-5 col-xs-10">
+                                    <input type="text" class="form-control input-sm addable editable" disabled name="phone" id="txtPHONE">
+                                </div>
 
                             </div>
 
-                            <div class="col-md-1 col-sm-5 col-xs-10">
-                                <button id="btnUpdate" type="button" class="btn btn-primary">  تعديل <span class="glyphicon glyphicon-edit"></span></button>
+                            <div class="col-lg-12">
+
+                                <label class="col-lg-1 col-xs-4   pading_2    " style="padding-right:25px">المدفوع </label>
+                                <div class="col-md-2 col-sm-5 col-xs-10">
+                                    <input type="text" class="form-control input-sm addable editable" disabled name="Paid_Up" id="txtPaid_Up">
+                                </div>
+
+                                <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  " style="padding-right:25px">المتبقي</label>
+                                <div class="col-md-2 col-sm-5 col-xs-10">
+                                    <input type="text" class="form-control input-sm addable editable" disabled name="To_be_Paid" id="txtTo_be_Paid">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="col-lg-1 col-xs-4   pading_2  ">ملاحظات  </label>
+
+                                <div class="col-md-9 col-sm-5 col-xs-10">
+                                    <textarea type="text" class="form-control input-sm addable editable " disabled name="REMARKS" id="txtRemarks"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 ">
+
+                                <div class="col-lg-9" style="">
+
+                                    <div class="col-lg-5">
+
+                                    </div>
+                                    <div class="col-lg-7">
+
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
-                    </div>
                 </div>
                 <div id="DivShow" class="col-lg-12 " style="border: solid 4px;border-radius: 44px;background: linear-gradient(to right, rgb(253 211 213) 0%, #8babed 100%); overflow:auto ;">
                     <div id=" " class="col-lg-12 font_header" style="bottom: 5px;font-weight:bold!important">
