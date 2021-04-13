@@ -1150,6 +1150,7 @@
     <Content Include="Views\Stock\CategoriesIndex.cshtml" />
     <Content Include="Views\Stock\ItemsIndex.cshtml" />
     <Content Include="Views\Purchases\PurchasesIndex.cshtml" />
+    <Content Include="Views\Generalsetting\SupplierIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1207,6 +1208,7 @@
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
     <TypeScriptCompile Include="ClientApp\Entities.ts" />
+    <TypeScriptCompile Include="ClientApp\Generalsetting\Supplier.ts" />
     <TypeScriptCompile Include="ClientApp\HomeComponent.ts" />
     <TypeScriptCompile Include="ClientApp\IgGrid.ts" />
     <TypeScriptCompile Include="ClientApp\JsGrid.ts" />

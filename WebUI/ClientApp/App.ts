@@ -18,6 +18,7 @@ var Modules = {
     Categories: "Categories",
     Items: "Items",
     Purchases: "Purchases",
+    Supplier: "Supplier"
 
     //Nationality: "Nationality",
     

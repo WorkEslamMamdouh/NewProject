@@ -116,6 +116,10 @@ namespace WebUI.Controllers
         {
             return View("~/Views/Stock/ItemsIndex.cshtml");
         }
+         public ActionResult SupplierIndex()
+        {
+            return View("~/Views/Generalsetting/SupplierIndex.cshtml");
+        }
 
 
         #endregion  Open Pages 

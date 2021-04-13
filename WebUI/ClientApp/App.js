@@ -22,6 +22,7 @@ var Modules = {
     Categories: "Categories",
     Items: "Items",
     Purchases: "Purchases",
+    Supplier: "Supplier"
 };
 var Keys = {
     Enter: "Enter"
