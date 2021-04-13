@@ -24,27 +24,10 @@ var Purchases;
     var OperationItemModel = new Array();
     var OperationItemSingleModel = new Stok_ORDER_DELIVERY();
     var SlsMasterDetils = new SlsMasterDetails();
-    //var GetAllVendorDetails: Array<A_Pay_D_Vendor> = new Array<A_Pay_D_Vendor>();
-    //var SellerDetails: Array<I_Sls_D_Salesman> = new Array<I_Sls_D_Salesman>();
-    //var NationalityDetails: Array<G_Nationality> = new Array<G_Nationality>();
-    //var Cashbox_DescA: Array<A_RecPay_D_CashBox> = new Array<A_RecPay_D_CashBox>();
-    //var CashboxDetails: Array<A_RecPay_D_CashBox> = new Array<A_RecPay_D_CashBox>();
-    //var StateDetailsAr: Array<string> = new Array<string>();
-    //var StateDetailsEn: Array<string> = new Array<string>();
-    //var DepositDetailsModel: Array<I_TR_OperationDeposit> = new Array<I_TR_OperationDeposit>();
-    //var DepositsingleModel: I_TR_OperationDeposit = new I_TR_OperationDeposit();
-    //var chargesDetailsModel: Array<I_TR_OperationCharges> = new Array<I_TR_OperationCharges>();
-    //var chargesingleModel: I_TR_OperationCharges = new I_TR_OperationCharges();
-    //var Model_I_TR_Operation: I_TR_Operation = new I_TR_Operation();
-    //var VatTypeData: Array<A_D_VAT_TYPE> = new Array<A_D_VAT_TYPE>();
-    //var AddonsData: Array<I_Pur_D_Charges> = new Array<I_Pur_D_Charges>();
-    //var Details_Acount: Array<A_ACCOUNT> = new Array<A_ACCOUNT>();
+    var GetAllVendorDetails = new Array();
     //DropDownlist
     var ddlStateType;
-    var ddlSalesman;
-    var ddlCustomerMaster;
     var ddlVendor;
-    var ddlUserMaster;
     var id_divGridDetails;
     // giedView
     var divMasterGrid = new JsGrid();
@@ -83,9 +66,9 @@ var Purchases;
         debugger;
         InitalizeControls();
         IntializeEvents();
-        FillddlUserMaster();
         txtFromDate.value = GetDate();
         txtToDate.value = GetDate();
+        FillddlVendor();
         FillddlFamily();
         GetAllIItem();
     }
@@ -102,8 +85,8 @@ var Purchases;
         //Drop Downlists
         txtFromDate = document.getElementById("txtFromDate");
         txtToDate = document.getElementById("txtToDate");
-        ddlUserMaster = document.getElementById("ddlUserMaster");
-        ddlCustomerMaster = document.getElementById("ddlCustomerMaster");
+        ddlVendor = document.getElementById("ddlVendor");
+        ddlStateType = document.getElementById("ddlStateType");
         searchbutmemreport = document.getElementById("searchbutmemreport");
         btnShow = document.getElementById("btnShow");
         btnUpdate = document.getElementById("btnUpdate");
@@ -134,18 +117,15 @@ var Purchases;
         ReturnedDate = yyyy + '-' + mm + '-' + dd;
         return ReturnedDate;
     }
-    function FillddlUserMaster() {
-        debugger;
+    function FillddlVendor() {
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Login", "GetAllUser"),
-            data: {},
+            url: sys.apiUrl("Supplier", "GetAll"),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
-                    UserDetails = result.Response;
-                    debugger;
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "ID_User", "UserName", "اختار البائع");
+                    GetAllVendorDetails = result.Response;
+                    DocumentActions.FillCombowithdefult(GetAllVendorDetails, ddlVendor, "ID_Supplier", "Name_Supplier", "اختر المورد");
                 }
             }
         });
@@ -160,15 +140,12 @@ var Purchases;
         debugger;
         var startdt = DateFormatDataBes(txtFromDate.value).toString();
         var enddt = DateFormatDataBes(txtToDate.value).toString();
-        var CustomerId = 0;
-        var ID_User = 0;
-        if (ddlUserMaster.value != "null") {
-            ID_User = Number(ddlUserMaster.value.toString());
-        }
+        var ID_Supplier = ddlVendor.value == "null" ? 0 : ddlVendor.value;
+        var Type_Debit = ddlStateType.value;
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("ReviewSales", "GetAll_IQ_IQ_Purchases_Master"),
-            data: { startDate: startdt, endDate: enddt, CustomerId: 0, ID_User: ID_User },
+            url: sys.apiUrl("Purchases", "GetAll_IQ_PurchasesMaster"),
+            data: { startDate: startdt, endDate: enddt, ID_Supplier: Number(ID_Supplier), Type_Debit: Number(Type_Debit) },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -176,6 +153,8 @@ var Purchases;
                     debugger;
                     for (var i = 0; i < Get_IQ_Purchases_Master.length; i++) {
                         Get_IQ_Purchases_Master[i].Tr_Date = DateFormat(Get_IQ_Purchases_Master[i].Tr_Date);
+                        //Get_IQ_Purchases_Master[i].Type_Supplier = DateFormat(Get_IQ_Purchases_Master[i].Tr_Date);
+                        Get_IQ_Purchases_Master[i].Type_Debit_Name = Get_IQ_Purchases_Master[i].Type_Debit == false ? 'غير مسدد' : 'مسدد';
                     }
                     InitializeGrid();
                     divMasterGrid.DataSource = Get_IQ_Purchases_Master;
@@ -210,14 +189,14 @@ var Purchases;
         divMasterGrid.Inserting = false;
         divMasterGrid.SelectedIndex = 1;
         divMasterGrid.OnRowDoubleClicked = MasterGridDoubleClick;
-        divMasterGrid.PrimaryKey = "ID_ORDER_Delivery";
+        divMasterGrid.PrimaryKey = "TrNo";
         divMasterGrid.Columns = [
-            { title: "ID", name: "ID_ORDER_Delivery", type: "text", width: "2%", visible: false },
-            { title: "رقم الفاتوره", name: "ID_ORDER_Delivery", type: "text", width: "10%" },
-            { title: " التاريخ  ", name: "Date", type: "text", width: "12%" },
-            { title: "المورد", name: "EMPLOYEE_NAME", type: "text", width: "20%" },
-            { title: "النوع", name: "CUSTOMER_NAME", type: "text", width: "20%" },
-            { title: "اجمالي الفاتوره", name: "Total_All", type: "text", width: "16%" },
+            { title: "ID", name: "TrNo", type: "text", width: "2%", visible: false },
+            { title: "رقم الفاتوره", name: "TrNo", type: "text", width: "10%" },
+            { title: " التاريخ  ", name: "Tr_Date", type: "text", width: "12%" },
+            { title: "المورد", name: "Name_Supplier", type: "text", width: "20%" },
+            { title: "الحاله", name: "Type_Debit_Name", type: "text", width: "20%" },
+            { title: "اجمالي الفاتوره", name: "Total_Amount", type: "text", width: "16%" },
             { title: " المسداد", name: "Paid_Up", type: "text", width: "17%", css: "classfont" },
             { title: "المطلوب سداده", name: "To_be_Paid", type: "text", width: "17%", css: "classfont" },
             {
@@ -266,7 +245,7 @@ var Purchases;
     function DisplayData(Selected_Data) {
         debugger;
         DocumentActions.RenderFromModel(Selected_Data[0]);
-        BindGetOperationItemsGridData(Selected_Data[0].TrNo);
+        //BindGetOperationItemsGridData(Selected_Data[0].TrNo);
     }
     function BindGetOperationItemsGridData(ID_ORDER) {
         debugger;

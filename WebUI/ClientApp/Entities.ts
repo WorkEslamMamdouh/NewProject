@@ -847,23 +847,27 @@ class IQ_Purchases_Master extends SecurityClass {
         this.ID_Supplier = 0;
         this.Name_Supplier = "";
         this.Type_Debit = false;
+        this.Type_Debit_Name = "";
         this.Total_Amount = 0;
         this.phone = "";
         this.Type_Supplier = "";
         this.Notes = "";
+        this.REMARKS = "";
         this.IS_Active = false;
         this.Paid_Up = 0;
-            this.To_be_Paid = 0;
+        this.To_be_Paid = 0;
     }
     public TrNo: number;
     public Tr_Date: string;
     public ID_Supplier: number;
     public Name_Supplier: string;
     public Type_Debit: boolean;
+    public Type_Debit_Name: string;
     public Total_Amount: any;
     public phone: string;
     public Type_Supplier: string;
     public Notes: string;
+    public REMARKS: string;
     public IS_Active: boolean;
     public Paid_Up: any;
     public To_be_Paid: any;
@@ -921,9 +925,10 @@ class Purchases_Details extends SecurityClass {
 
 class Purchases_Master extends SecurityClass {
     constructor() {
-        super(); 
+        super();
         this.TrNo = 0;
         this.Tr_Date = "";
+        this.REMARKS = "";
         this.ID_Supplier = 0;
         this.Type_Debit = false;
         this.Total_Amount
@@ -932,6 +937,7 @@ class Purchases_Master extends SecurityClass {
     }
     public TrNo: number;
     public Tr_Date: string;
+    public REMARKS: string;
     public ID_Supplier: number;
     public Type_Debit: boolean;
     public Total_Amount: any;

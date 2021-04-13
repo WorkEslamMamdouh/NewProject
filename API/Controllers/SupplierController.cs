@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll(int CompCode)
+        public IHttpActionResult GetAll()
         {
             if (ModelState.IsValid)
             {
