@@ -152,6 +152,7 @@
           <Property Name="Total_Amount" Type="money" />
           <Property Name="Paid_Up" Type="money" />
           <Property Name="To_be_Paid" Type="money" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
@@ -332,6 +333,7 @@ warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Master' does not have a 
           <Property Name="IS_Active" Type="bit" />
           <Property Name="Paid_Up" Type="money" />
           <Property Name="To_be_Paid" Type="money" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -664,7 +666,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
     [IQ_Purchases_Master].[Notes] AS [Notes], 
     [IQ_Purchases_Master].[IS_Active] AS [IS_Active], 
     [IQ_Purchases_Master].[Paid_Up] AS [Paid_Up], 
-    [IQ_Purchases_Master].[To_be_Paid] AS [To_be_Paid]
+    [IQ_Purchases_Master].[To_be_Paid] AS [To_be_Paid], 
+    [IQ_Purchases_Master].[REMARKS] AS [REMARKS]
     FROM [dbo].[IQ_Purchases_Master] AS [IQ_Purchases_Master]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
@@ -1475,6 +1478,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -1520,6 +1524,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="IS_Active" Type="Boolean" />
           <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2117,6 +2122,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="Purchases_Master">
             <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
               <MappingFragment StoreEntitySet="Purchases_Master">
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
                 <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
                 <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
                 <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
@@ -2158,6 +2164,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="IQ_Purchases_Master">
             <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
               <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
                 <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
                 <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
                 <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />

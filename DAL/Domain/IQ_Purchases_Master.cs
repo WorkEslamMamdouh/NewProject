@@ -26,5 +26,6 @@ namespace DAL.Domain
         public Nullable<bool> IS_Active { get; set; }
         public Nullable<decimal> Paid_Up { get; set; }
         public Nullable<decimal> To_be_Paid { get; set; }
+        public string REMARKS { get; set; }
     }
 }
