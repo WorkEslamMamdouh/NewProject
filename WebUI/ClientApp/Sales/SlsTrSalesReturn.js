@@ -424,7 +424,7 @@ var SlsTrSalesReturn;
             '<div class="col-lg-1" style=""><input id="txtReturn' + cnt + '" type="number" disabled class="form-control right2"   value=""/></div>' +
             '<div class="col-lg-2" style=""><input id="txtTotal' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '</div></div></div>' +
-            '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
+            '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" /><input id="PRODUCT_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
         $("#div_Data").append(html);
         debugger;
         $('.btn-number1' + cnt).click(function (e) {
@@ -747,6 +747,7 @@ var SlsTrSalesReturn;
         var itemcode = AllGetStokItemInfo[cnt].PRODUCT_ID;
         $("#txt_ID" + cnt).prop("value", AllGetStokItemInfo[cnt].ID_DELIVERY);
         $("#ddlItem" + cnt).prop("value", itemcode.toString());
+        $('#PRODUCT_ID' + cnt).val(AllGetStokItemInfo[cnt].PRODUCT_ID);
         $("#txtQuantity" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Quantity_sell == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Quantity_sell));
         $("#txtQuantity" + cnt).attr("Quantity", ((AllGetStokItemInfo[cnt].Quantity_sell == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Quantity_sell));
         $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].price_One_part == null || undefined) ? 0 : AllGetStokItemInfo[cnt].price_One_part.toFixed(2));
@@ -869,10 +870,11 @@ var SlsTrSalesReturn;
                 OperationItemSingleModel.StatusFlag = StatusFlag.toString();
                 OperationItemSingleModel.ID_DELIVERY = OperationItemID;
                 OperationItemSingleModel.Name_Product_sell = $("#ddlItem" + i + " option:selected").text();
+                OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
                 OperationItemSingleModel.price_One_part = $("#txtPrice" + i).val();
                 OperationItemSingleModel.Quantity_sell = $('#txtQuantity' + i).val();
                 OperationItemSingleModel.Total_Price_One_Part = $("#txtTotal" + i).val();
-                OperationItemSingleModel.UserCode = 'Eslam';
+                OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
                 OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                 SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
             }
@@ -881,7 +883,8 @@ var SlsTrSalesReturn;
                     var OperationItemID = $("#txt_ID" + i).val();
                     OperationItemSingleModel.StatusFlag = StatusFlag.toString();
                     OperationItemSingleModel.ID_DELIVERY = OperationItemID;
-                    OperationItemSingleModel.UserCode = 'Eslam';
+                    OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
+                    OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
                     OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                     SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
                 }
@@ -908,9 +911,15 @@ var SlsTrSalesReturn;
                     Display();
                     Selected_Data = new Array();
                     Selected_Data = Get_IQ_ReviewSalesMaster.filter(function (x) { return x.ID_ORDER_Delivery == SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery; });
-                    $("#rowData").removeClass("display_none");
-                    $("#divTotalSatistics").removeClass("display_none");
-                    DisplayData(Selected_Data);
+                    if (Selected_Data.length == 0) {
+                        $("#rowData").addClass("display_none");
+                        $("#divTotalSatistics").addClass("display_none");
+                    }
+                    else {
+                        $("#rowData").removeClass("display_none");
+                        $("#divTotalSatistics").removeClass("display_none");
+                        DisplayData(Selected_Data);
+                    }
                 }
                 else {
                     MessageBox.Show("خطأء", "خطأء");

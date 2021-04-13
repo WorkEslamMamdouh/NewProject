@@ -128,6 +128,31 @@
           <Property Name="ID_CAT" Type="int" />
           <Property Name="serial" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Purchases_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="ID_CAT" Type="int" />
+          <Property Name="PRODUCT_ID" Type="int" />
+          <Property Name="Purchases_Quantity" Type="int" />
+          <Property Name="Purchases_Price" Type="money" />
+          <Property Name="Sales_Price" Type="money" />
+          <Property Name="MinUnitPrice" Type="money" />
+        </EntityType>
+        <EntityType Name="Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tr_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Supplier" Type="int" />
+          <Property Name="Type_Debit" Type="bit" />
+          <Property Name="Total_Amount" Type="money" />
+          <Property Name="Paid_Up" Type="money" />
+          <Property Name="To_be_Paid" Type="money" />
+        </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
             <PropertyRef Name="id" />
@@ -194,7 +219,7 @@
             <PropertyRef Name="ID_DELIVERY" />
           </Key>
           <Property Name="ID_DELIVERY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name_Product_sell" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRODUCT_ID" Type="int" />
           <Property Name="Quantity_sell" Type="float" />
           <Property Name="price_One_part" Type="money" />
           <Property Name="Total_Price_One_Part" Type="money" />
@@ -207,6 +232,17 @@
           </Key>
           <Property Name="ID_STORE" Type="int" Nullable="false" />
           <Property Name="NAME_STORE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Supplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_Supplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="IS_Active" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -260,14 +296,50 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="id_Settings" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_Purchases_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TrNo" />
+            <PropertyRef Name="ID_CAT" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="Name_CAT" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="Purchases_Quantity" Type="int" />
+          <Property Name="Purchases_Price" Type="money" />
+          <Property Name="Sales_Price" Type="money" />
+          <Property Name="MinUnitPrice" Type="money" />
+          <Property Name="PRODUCT_ID" Type="int" />
+          <Property Name="ID_CAT" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="int" Nullable="false" />
+          <Property Name="Tr_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Supplier" Type="int" />
+          <Property Name="Name_Supplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_Debit" Type="bit" />
+          <Property Name="Total_Amount" Type="money" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_Supplier" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="200" />
+          <Property Name="IS_Active" Type="bit" />
+          <Property Name="Paid_Up" Type="money" />
+          <Property Name="To_be_Paid" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
             <PropertyRef Name="ID_DELIVERY" />
-            <PropertyRef Name="PRODUCT_ID" />
           </Key>
           <Property Name="ID_DELIVERY" Type="int" Nullable="false" />
-          <Property Name="Name_Product_sell" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity_sell" Type="float" />
           <Property Name="price_One_part" Type="money" />
           <Property Name="Total_Price_One_Part" Type="money" />
@@ -275,7 +347,9 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesItemInfo' does not have a 
           <Property Name="FK_ORDER_Delivery" Type="int" />
           <Property Name="MinUnitPrice" Type="money" />
           <Property Name="ID_CAT" Type="int" />
-          <Property Name="PRODUCT_ID" Type="int" Nullable="false" />
+          <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="PRODUCT_QET" Type="int" />
+          <Property Name="PRODUCT_ID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -326,8 +400,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
         </Function>
         <Function Name="all_The_Gard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EMPLOYEE_NAME" Type="nvarchar" Mode="In" />
-          <Parameter Name="ToDate" Type="date" Mode="In" />
           <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
         </Function>
         <Function Name="Close_days" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Date_Time_Now" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -526,7 +600,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="ID_ORDER" Type="int" Mode="In" />
         </Function>
         <Function Name="update_SalesReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Name_Product_sell" Type="nvarchar" Mode="In" />
+          <Parameter Name="PRODUCT_ID" Type="int" Mode="In" />
           <Parameter Name="Quantity_sell" Type="int" Mode="In" />
           <Parameter Name="Total_Price_One_Part" Type="money" Mode="In" />
           <Parameter Name="ID_ORDER" Type="int" Mode="In" />
@@ -548,6 +622,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="ORDER_TECAYE" EntityType="Self.ORDER_TECAYE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outlet" EntityType="Self.Outlet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases_Details" EntityType="Self.Purchases_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases_Master" EntityType="Self.Purchases_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report_Parameters" EntityType="Self.Report_Parameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Send_Message" EntityType="Self.Send_Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
@@ -556,14 +632,44 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="Stock_ORDER_TECAYE" EntityType="Self.Stock_ORDER_TECAYE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="Self.Stok_ORDER_DELIVERY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STORE" EntityType="Self.STORE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_two_days" EntityType="Self.Table_two_days" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="Self.Type_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_sales" EntityType="Self.User_sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IQ_Purchases_Details" EntityType="Self.IQ_Purchases_Details" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_Purchases_Details].[ID] AS [ID], 
+    [IQ_Purchases_Details].[TrNo] AS [TrNo], 
+    [IQ_Purchases_Details].[Name_CAT] AS [Name_CAT], 
+    [IQ_Purchases_Details].[PRODUCT_NAME] AS [PRODUCT_NAME], 
+    [IQ_Purchases_Details].[Purchases_Quantity] AS [Purchases_Quantity], 
+    [IQ_Purchases_Details].[Purchases_Price] AS [Purchases_Price], 
+    [IQ_Purchases_Details].[Sales_Price] AS [Sales_Price], 
+    [IQ_Purchases_Details].[MinUnitPrice] AS [MinUnitPrice], 
+    [IQ_Purchases_Details].[PRODUCT_ID] AS [PRODUCT_ID], 
+    [IQ_Purchases_Details].[ID_CAT] AS [ID_CAT]
+    FROM [dbo].[IQ_Purchases_Details] AS [IQ_Purchases_Details]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IQ_Purchases_Master" EntityType="Self.IQ_Purchases_Master" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_Purchases_Master].[TrNo] AS [TrNo], 
+    [IQ_Purchases_Master].[Tr_Date] AS [Tr_Date], 
+    [IQ_Purchases_Master].[ID_Supplier] AS [ID_Supplier], 
+    [IQ_Purchases_Master].[Name_Supplier] AS [Name_Supplier], 
+    [IQ_Purchases_Master].[Type_Debit] AS [Type_Debit], 
+    [IQ_Purchases_Master].[Total_Amount] AS [Total_Amount], 
+    [IQ_Purchases_Master].[phone] AS [phone], 
+    [IQ_Purchases_Master].[Type_Supplier] AS [Type_Supplier], 
+    [IQ_Purchases_Master].[Notes] AS [Notes], 
+    [IQ_Purchases_Master].[IS_Active] AS [IS_Active], 
+    [IQ_Purchases_Master].[Paid_Up] AS [Paid_Up], 
+    [IQ_Purchases_Master].[To_be_Paid] AS [To_be_Paid]
+    FROM [dbo].[IQ_Purchases_Master] AS [IQ_Purchases_Master]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ReviewSalesItemInfo" EntityType="Self.ReviewSalesItemInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ReviewSalesItemInfo].[ID_DELIVERY] AS [ID_DELIVERY], 
-    [ReviewSalesItemInfo].[Name_Product_sell] AS [Name_Product_sell], 
     [ReviewSalesItemInfo].[Quantity_sell] AS [Quantity_sell], 
     [ReviewSalesItemInfo].[price_One_part] AS [price_One_part], 
     [ReviewSalesItemInfo].[Total_Price_One_Part] AS [Total_Price_One_Part], 
@@ -571,6 +677,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
     [ReviewSalesItemInfo].[FK_ORDER_Delivery] AS [FK_ORDER_Delivery], 
     [ReviewSalesItemInfo].[MinUnitPrice] AS [MinUnitPrice], 
     [ReviewSalesItemInfo].[ID_CAT] AS [ID_CAT], 
+    [ReviewSalesItemInfo].[PRODUCT_NAME] AS [PRODUCT_NAME], 
+    [ReviewSalesItemInfo].[PRODUCT_QET] AS [PRODUCT_QET], 
     [ReviewSalesItemInfo].[PRODUCT_ID] AS [PRODUCT_ID]
     FROM [dbo].[ReviewSalesItemInfo] AS [ReviewSalesItemInfo]</DefiningQuery>
           </EntitySet>
@@ -644,8 +752,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           </FunctionImport>
           <FunctionImport Name="all_The_Gard" ReturnType="Collection(SamahModel.all_The_Gard_Result)">
             <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
-            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Date_Time_Now" ReturnType="Collection(DateTime)" />
           <FunctionImport Name="delet_PRODUCT">
@@ -857,16 +965,14 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
           <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
           <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
-          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
           <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
           <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
           <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
           <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
-          <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
           <FunctionImport Name="update_SalesReturn">
-            <Parameter Name="Name_Product_sell" Mode="In" Type="String" />
+            <Parameter Name="PRODUCT_ID" Mode="In" Type="Int32" />
             <Parameter Name="Quantity_sell" Mode="In" Type="Int32" />
             <Parameter Name="Total_Price_One_Part" Mode="In" Type="Decimal" />
             <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
@@ -878,6 +984,13 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Close_days" />
+          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
+          <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
+          <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
+          <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
+          <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
+          <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
+          <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1254,18 +1367,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_Order_Tecaye" Type="Int32" />
         </EntityType>
-        <EntityType Name="Stok_ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-        </EntityType>
         <EntityType Name="STORE">
           <Key>
             <PropertyRef Name="ID_STORE" />
@@ -1322,13 +1423,23 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="ID_User" Type="Int32" />
           <Property Name="EMPLOYEE_ID" Type="Int32" />
         </EntityType>
+        <EntityType Name="Stok_ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+        </EntityType>
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
             <PropertyRef Name="ID_DELIVERY" />
-            <PropertyRef Name="PRODUCT_ID" />
           </Key>
           <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" />
-          <Property Name="Name_Product_sell" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity_sell" Type="Double" />
           <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
@@ -1336,7 +1447,79 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="FK_ORDER_Delivery" Type="Int32" />
           <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ID_CAT" Type="Int32" />
-          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_QET" Type="Int32" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Purchases_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Purchases_Quantity" Type="Int32" />
+          <Property Name="Purchases_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Sales_Price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="IQ_Purchases_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="TrNo" />
+            <PropertyRef Name="ID_CAT" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Name_CAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purchases_Quantity" Type="Int32" />
+          <Property Name="Purchases_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Sales_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="ID_CAT" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IQ_Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1823,19 +2006,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="STOREs">
             <EntityTypeMapping TypeName="SamahModel.STORE">
               <MappingFragment StoreEntitySet="STORE">
@@ -1897,10 +2067,28 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
+          <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
+          <FunctionImportMapping FunctionImportName="Close_days" FunctionName="SamahModel.Store.Close_days" />
+          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReviewSalesItemInfoes">
             <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
               <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
                 <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
                 <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
                 <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
                 <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
@@ -1908,14 +2096,83 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
                 <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
                 <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
                 <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
                 <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
-          <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
-          <FunctionImportMapping FunctionImportName="Close_days" FunctionName="SamahModel.Store.Close_days" />
+          <EntitySetMapping Name="Purchases_Details">
+            <EntityTypeMapping TypeName="SamahModel.Purchases_Details">
+              <MappingFragment StoreEntitySet="Purchases_Details">
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
+                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
+              <MappingFragment StoreEntitySet="Purchases_Master">
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="SamahModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Purchases_Details">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Details">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Details">
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
+                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
+                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

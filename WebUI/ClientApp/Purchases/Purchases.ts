@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(() => {
     ////debugger;
-    SlsTrSalesReturn.InitalizeComponent();
+    Purchases.InitalizeComponent();
 })
 
-namespace SlsTrSalesReturn {
+namespace Purchases {
     //system varables
     var AccType = 3; //نوع الحساب
     //var SysSession: SystemSession = GetSystemSession();
@@ -17,9 +17,9 @@ namespace SlsTrSalesReturn {
     var UserDetails: Array<LoginPage> = new Array<LoginPage>();
     var CustomerDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
 
-    var Get_IQ_ReviewSalesMaster: Array<ReviewSalesMaster> = new Array<ReviewSalesMaster>();
-    var SearchDetails: Array<ReviewSalesMaster> = new Array<ReviewSalesMaster>();
-    var Selected_Data: Array<ReviewSalesMaster> = new Array<ReviewSalesMaster>();
+    var Get_IQ_Purchases_Master: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
+    var SearchDetails: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
+    var Selected_Data: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
     var AllGetStokMasterDetail: Array<ReviewSalesItemInfo> = new Array<ReviewSalesItemInfo>();
     var FamilyDetails: Array<CATEGRES> = new Array<CATEGRES>();
     var ItemFamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
@@ -102,7 +102,7 @@ namespace SlsTrSalesReturn {
         InitalizeControls();
         IntializeEvents();
         FillddlUserMaster();
-        FillddlCustomerMaster();
+     
         txtFromDate.value = GetDate();
         txtToDate.value = GetDate();
 
@@ -135,55 +135,7 @@ namespace SlsTrSalesReturn {
         btnBack = document.getElementById("btnBack") as HTMLButtonElement;
         btnSave = document.getElementById("btnSave") as HTMLButtonElement;
 
-        //ddlStateType = document.getElementById("ddlStateType") as HTMLSelectElement;
-        //ddlSalesman = document.getElementById("ddlSalesman") as HTMLSelectElement;
-        //ddlVendor = document.getElementById("ddlVendor") as HTMLSelectElement;
-        //txtNationality = document.getElementById("txtNationality") as HTMLSelectElement;
-
-        //id_divGridDetails = document.getElementById("DivFilter") as HTMLDivElement;
-
-        ////textboxes
-
-        //txtdateopening = document.getElementById("txtdateopening") as HTMLInputElement;
-        //txtClose_Adjustment = document.getElementById("txtClose_Adjustment") as HTMLInputElement;
-        //txtClose_SalesManCommition = document.getElementById("txtClose_SalesManCommition") as HTMLInputElement;
-        //txtClose_CompanyCommitionPrc = document.getElementById("txtClose_CompanyCommitionPrc") as HTMLInputElement;
-
-
-        //txtTruckNumber = document.getElementById("txtTruckNumber") as HTMLInputElement;
-        //txtPaperPurchaseValue = document.getElementById("txtPaperPurchaseValue") as HTMLInputElement;
-        //txtPortName = document.getElementById("txtPortName") as HTMLInputElement;
-
-        ////buttons
-        //btnPresent = document.getElementById("btnPresent") as HTMLButtonElement;
-        //btnClose = document.getElementById("btnClose") as HTMLButtonElement;
-        //btnOpen = document.getElementById("btnOpen") as HTMLButtonElement;
-        //btnView_load = document.getElementById("btnView_load") as HTMLButtonElement;
-        //btnExpenses = document.getElementById("btnExpenses") as HTMLButtonElement;
-
-
-
-        //btnadd = document.getElementById("btnadd") as HTMLButtonElement;
-
-        //btnBack_1 = document.getElementById("btnBack_1") as HTMLButtonElement;
-        //btnSave_1 = document.getElementById("btnSave_1") as HTMLButtonElement;
-        //btnUpdate = document.getElementById("btnUpdate") as HTMLButtonElement;
-
-        //btnUpdate_3 = document.getElementById("btnUpdate_3") as HTMLButtonElement;
-        //btnBack_3 = document.getElementById("btnBack_3") as HTMLButtonElement;
-        //btnSave_3 = document.getElementById("btnSave_3") as HTMLButtonElement;
-        //btnUpdate_4 = document.getElementById("btnUpdate_4") as HTMLButtonElement;
-        //btnBack_4 = document.getElementById("btnBack_4") as HTMLButtonElement;
-        //btnSave_4 = document.getElementById("btnSave_4") as HTMLButtonElement;
-        //btnUpdate_5 = document.getElementById("btnUpdate_5") as HTMLButtonElement;
-        //btnBack_5 = document.getElementById("btnBack_5") as HTMLButtonElement;
-        //btnSave_5 = document.getElementById("btnSave_5") as HTMLButtonElement;
-
-        //btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
-        //btnAddDetailsCharge = document.getElementById("btnAddDetailsCharge") as HTMLButtonElement;
-        //btnAddDetailslebel = document.getElementById("btnAddDetailslebel") as HTMLButtonElement;
-
-
+        
 
 
     }
@@ -236,26 +188,7 @@ namespace SlsTrSalesReturn {
             }
         });
     }
-    function FillddlCustomerMaster() {
-        debugger
-        Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("Customer", "GetAll"),
-            data: { CompCode: 1 },
-            success: (d) => {
-                let result = d as BaseResponse;
-                if (result.IsSuccess) {
-                    CustomerDetails = result.Response as Array<CUSTOMER>;
-                    debugger
-
-                    DocumentActions.FillCombowithdefult(CustomerDetails, ddlCustomerMaster, "CUSTOMER_ID", "CUSTOMER_NAME", "اختار العميل");
-
-
-                }
-            }
-        });
-    }
-
+ 
 
 
     function btnShow_onclick() {
@@ -279,24 +212,24 @@ namespace SlsTrSalesReturn {
 
 
         if (ddlUserMaster.value != "null") { ID_User = Number(ddlUserMaster.value.toString()); }
-        if (ddlCustomerMaster.value != "null") { CustomerId = Number(ddlCustomerMaster.value.toString()); }
+      
 
 
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("ReviewSales", "GetAll_IQ_ReviewSalesMaster"),
-            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, ID_User: ID_User },
+            url: sys.apiUrl("ReviewSales", "GetAll_IQ_IQ_Purchases_Master"),
+            data: { startDate: startdt, endDate: enddt, CustomerId: 0, ID_User: ID_User },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                    Get_IQ_ReviewSalesMaster = result.Response as Array<ReviewSalesMaster>;
+                    Get_IQ_Purchases_Master = result.Response as Array<IQ_Purchases_Master>;
                     debugger
-                    for (var i = 0; i < Get_IQ_ReviewSalesMaster.length; i++) {
-                        Get_IQ_ReviewSalesMaster[i].Date = DateFormat(Get_IQ_ReviewSalesMaster[i].Date);
+                    for (var i = 0; i < Get_IQ_Purchases_Master.length; i++) {
+                        Get_IQ_Purchases_Master[i].Tr_Date = DateFormat(Get_IQ_Purchases_Master[i].Tr_Date);
 
                     }
                     InitializeGrid();
-                    divMasterGrid.DataSource = Get_IQ_ReviewSalesMaster;
+                    divMasterGrid.DataSource = Get_IQ_Purchases_Master;
                     divMasterGrid.Bind();
                 }
             }
@@ -310,12 +243,12 @@ namespace SlsTrSalesReturn {
 
 
             let search: string = searchbutmemreport.value.toLowerCase();
-            SearchDetails = Get_IQ_ReviewSalesMaster.filter(x => x.ID_ORDER_Delivery.toString().search(search) >= 0 || x.EMPLOYEE_NAME.toLowerCase().search(search) >= 0 || x.CUSTOMER_NAME.toLowerCase().search(search) >= 0 /*|| x.PortName.toLowerCase().search(search) >= 0*/);
+            SearchDetails = Get_IQ_Purchases_Master.filter(x => x.TrNo.toString().search(search) >= 0 || x.Name_Supplier.toLowerCase().search(search) >= 0  /*|| x.PortName.toLowerCase().search(search) >= 0*/);
 
             divMasterGrid.DataSource = SearchDetails;
             divMasterGrid.Bind();
         } else {
-            divMasterGrid.DataSource = Get_IQ_ReviewSalesMaster;
+            divMasterGrid.DataSource = Get_IQ_Purchases_Master;
             divMasterGrid.Bind();
         }
     }
@@ -336,18 +269,58 @@ namespace SlsTrSalesReturn {
             { title: "ID", name: "ID_ORDER_Delivery", type: "text", width: "2%", visible: false },
             { title: "رقم الفاتوره", name: "ID_ORDER_Delivery", type: "text", width: "10%" },
             { title: " التاريخ  ", name: "Date", type: "text", width: "12%" },
-            { title: "البائع", name: "EMPLOYEE_NAME", type: "text", width: "20%" },
-            { title: "العميل", name: "CUSTOMER_NAME", type: "text", width: "20%" },
+            { title: "المورد", name: "EMPLOYEE_NAME", type: "text", width: "20%" },
+            { title: "النوع", name: "CUSTOMER_NAME", type: "text", width: "20%" },
             { title: "اجمالي الفاتوره", name: "Total_All", type: "text", width: "16%" },
+            { title: " المسداد", name: "Paid_Up", type: "text", width: "17%", css: "classfont" },
+            { title: "المطلوب سداده", name: "To_be_Paid", type: "text", width: "17%", css: "classfont" },
+            {
+                title: "سداد نقدي ", css: "ColumPadding", name: "Paid_Up", width: "14%",
+                itemTemplate: (s: string, item: IQ_Purchases_Master): HTMLInputElement => {
+                    let txt: HTMLInputElement = CreateElement("number", "form-control", " ", " ", "", " ");
+                    txt.id = "txtcash";
+                    //txt.name = SlsInvoiceListModel.indexOf(item).toString();
+                    //SlsInvoiceListModel = Grid.DataSource;
+                    txt.style.height = "25px";
+                    txt.style.width = "70px";
+                    txt.onchange = (e) => {
+                        //item.CashPaidAmount = Number(txt.value);
+                        //CashTot = 0;
+                        //for (let i = 0; i < PurReceiveStatisticsDetails.length; i++) {
+                        //    CashTot += PurReceiveStatisticsDetails[i].CashPaidAmount;
+                        //}
+                        //txtCashTot.value = CashTot.toFixed(2).toString();
 
+                    };
 
+                    txt.value = '0';
+
+                    //    txt.disabled = StatusFlag;
+                    //if (item.CashPaidAmount != null) {
+                    //    txt.value = item.CashPaidAmount.toString();
+                    //}
+                    //if (ddlStateType.value != "null") {
+                    //    var status = Number(ddlStateType.value.toString());
+                    //    if (status == 0) {
+                    //        txt.disabled = false;
+                    //    }
+                    //    else if (status == 2 || status == 1) {
+                    //        txt.disabled = true;
+                    //    }
+                    //}
+                    return txt;
+                }
+            }
         ];
 
     }
-    function MasterGridDoubleClick() {
-        Selected_Data = new Array<ReviewSalesMaster>();
 
-        Selected_Data = Get_IQ_ReviewSalesMaster.filter(x => x.ID_ORDER_Delivery == Number(divMasterGrid.SelectedKey));
+   
+
+    function MasterGridDoubleClick() {
+        Selected_Data = new Array<IQ_Purchases_Master>();
+
+        Selected_Data = Get_IQ_Purchases_Master.filter(x => x.TrNo == Number(divMasterGrid.SelectedKey));
 
         $("#rowData").removeClass("display_none");
         $("#divTotalSatistics").removeClass("display_none");
@@ -355,79 +328,13 @@ namespace SlsTrSalesReturn {
 
 
     }
-    function DisplayData(Selected_Data: Array<ReviewSalesMaster>) {
+    function DisplayData(Selected_Data: Array<IQ_Purchases_Master>) {
         debugger
-        //alert(Selected_Data[0].TrDate);
-        //console.log(Selected_Data[0].TrDate);
-        //CountGrid = 0;
-        //CountGridCharge = 0;
+     
         DocumentActions.RenderFromModel(Selected_Data[0]);
-        BindGetOperationItemsGridData(Selected_Data[0].ID_ORDER_Delivery);
+        BindGetOperationItemsGridData(Selected_Data[0].TrNo);
 
-        //var trDate: string = DateFormat(Selected_Data[0].TrDate);
-        //$('#txtDate').val(trDate);
-
-        //$('#txtClearanceDate').val(DateFormat(Selected_Data[0].ClearanceDate));
-        //$('#txtdateopening').val(DateFormat(Selected_Data[0].OpenAt));
-        //$('#ddlVendor').prop("value", Selected_Data[0].VendorID);
-        //$('#txtNationality').prop("value", Selected_Data[0].NationalityID);
-        //if (Selected_Data[0].SalesmanId != 0) {
-        //    $('#ddlSalesman option[value=' + Selected_Data[0].SalesmanId + ']').prop('selected', 'selected').change();
-        //}
-        //else {
-        //    $('#ddlSalesman option[value=null]').prop('selected', 'selected').change();
-        //}
-        //$('#div_Master').removeClass('disabledDiv');
-        //$("#div_Master").attr("disabled", "disabled").off('click');
-        //$("#div_Master").addClass("disabledDiv");
-
-        //$('#txtStatus').val(Selected_Data[0].Status_DescA);
-
-        //Status = Selected_Data[0].Status;
-
-
-        //OperationID = Selected_Data[0].OperationID;
-
-        //var Close_TrDate: string = DateFormat(Selected_Data[0].Close_TrDate);
-        //$('#txtClose_TrDate').val(Close_TrDate);
-
-        //Calculation_Close();
-
-        //$('#Close_TotalSalesCredit').text(Selected_Data[0].Close_TotalSalesCredit);
-        //$('#Close_TotalSalesCreditVAT').text(Selected_Data[0].Close_TotalSalesCreditVAT);
-        //var AfterTotalSalesCreditVAT = Number(Selected_Data[0].Close_TotalSalesCredit) + Number(Selected_Data[0].Close_TotalSalesCreditVAT);
-        //$('#Close_AfterTotalSalesCreditVAT').text(AfterTotalSalesCreditVAT);
-
-        //$('#Close_TotalSalesCash').text(Selected_Data[0].Close_TotalSalesCash);
-        //$('#Close_TotalSalesCashVAT').text(Selected_Data[0].Close_TotalSalesCashVAT);
-        //var AfterTotalSalesCashVAT = Number(Selected_Data[0].Close_TotalSalesCash) + Number(Selected_Data[0].Close_TotalSalesCashVAT);
-        //$('#Close_AfterTotalSalesCashVAT').text(AfterTotalSalesCashVAT);
-
-        //$('#Close_AllTotalSale').text(Number(Selected_Data[0].Close_TotalSalesCash) + Number(Selected_Data[0].Close_TotalSalesCredit));
-        //$('#Close_AllTotalSaleVAT').text(Number(Selected_Data[0].Close_TotalSalesCashVAT) + Number(Selected_Data[0].Close_TotalSalesCreditVAT));
-        //$('#Close_AllAfterTotalSaleVAT').text(Number(AfterTotalSalesCreditVAT) + Number(AfterTotalSalesCashVAT));
-
-        //$('#lab_Close_CashOnhand').text(Number(Selected_Data[0].Close_CashOnhand));
-        //$('#lab_Close_CashOnBank').text(Number(Selected_Data[0].Close_CashOnBank));
-
-        //showdiv();
-
-        //$('#divlepRentdata_1').removeClass('showdiv');
-        //$('#spanlepRentdata_1').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_1').toggleClass('fa-caret-down');
-
-        //$('#divlepRentdata_2').removeClass('showdiv');
-        //$('#spanlepRentdata_2').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_2').toggleClass('fa-caret-down');
-
-        //$('#divlepRentdata_3').removeClass('showdiv');
-        //$('#spanlepRentdata_3').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_3').toggleClass('fa-caret-down');
-
-        //$('#lepRentdata').removeClass('showdiv');
-        //$('#spanlepRentdata_4').toggleClass('fa-caret-left');
-        //$('#spanlepRentdata_4').toggleClass('fa-caret-down');
-
+       
 
 
     }
@@ -955,18 +862,12 @@ namespace SlsTrSalesReturn {
             $("#ddlItem" + CountGrid).removeAttr("disabled");
             $("#txtQuantity" + CountGrid).removeAttr("disabled");
             $("#txtPrice" + CountGrid).removeAttr("disabled");
-            //$("#txtMinPrice" + CountGrid).removeAttr("disabled");
-            //$("#txtScrapQty" + CountGrid).removeAttr("disabled");
-
-
-            // can delete new inserted record  without need for delete privilage
+       
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
 
 
-            //CountGrid++;
-            //eslam
-            //bind statistics data
+           
 
         }
     }
@@ -1138,10 +1039,10 @@ namespace SlsTrSalesReturn {
                     btnSave.classList.add("display_none");
                     btnBack.classList.add("display_none");
                     Display();
-                    Selected_Data = new Array<ReviewSalesMaster>();
+                    Selected_Data = new Array<IQ_Purchases_Master>();
 
 
-                    Selected_Data = Get_IQ_ReviewSalesMaster.filter(x => x.ID_ORDER_Delivery == SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery);
+                    Selected_Data = Get_IQ_Purchases_Master.filter(x => x.TrNo == SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery);
 
                     if (Selected_Data.length == 0) {
 

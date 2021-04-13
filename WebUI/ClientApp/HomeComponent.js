@@ -393,6 +393,7 @@ var HomeComponent;
         $("#btnHome").click(function () { OpenPage(Modules.Home); });
         $("#btnSlsTrSales").click(function () { OpenPage(Modules.SlsTrSales); });
         $("#btnSlsTrReturn").click(function () { OpenPage(Modules.SlsTrReturn); });
+        $("#btnPurchases").click(function () { OpenPage(Modules.Purchases); });
         $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
         $("#btnItems").click(function () { OpenPage(Modules.Items); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })

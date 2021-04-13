@@ -94,7 +94,7 @@ namespace API.Controllers
                     //loop Update  I_Pur_TR_ReceiveItems
                     foreach (var item in updatedOperationItems)
                     {
-                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "u");
+                        db.update_SalesReturn(item.PRODUCT_ID, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "u");
 
                         
                     }
@@ -102,7 +102,7 @@ namespace API.Controllers
                     //loop Delete  I_Pur_TR_ReceiveItems
                     foreach (var item in deletedOperationItems)
                     {
-                        db.update_SalesReturn(item.Name_Product_sell, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "d");
+                        db.update_SalesReturn(item.PRODUCT_ID, Convert.ToInt16(item.Quantity_sell) , item.Total_Price_One_Part, item.ID_DELIVERY, "d");
 
                       
                     }
@@ -111,6 +111,11 @@ namespace API.Controllers
                 var Items = Operation.I_Sls_TR_InvoiceItems;
 
                 db.update_Sales_Master(Master.Total_All, Items[0].UserCode, Master.ID_ORDER_Delivery);
+
+                //string qury = "update_Sales_Master  "+ Master.Total_All + ",'"+ Items[0].UserCode + "'," + Master.ID_ORDER_Delivery + " ";
+                //var Total_All = db.Database.SqlQuery<double>(qury).FirstOrDefault();
+
+
 
                 return Ok(new BaseResponse("ok"));
 

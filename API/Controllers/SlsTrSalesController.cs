@@ -66,10 +66,10 @@ namespace API.Controllers
                     {
                         obj.I_Sls_TR_InvoiceItems[i].FK_ORDER_Delivery = Num_Order;
 
-                        string Name_Product = obj.I_Sls_TR_InvoiceItems[i].Name_Product_sell;
+                        int PRODUCT_ID =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].PRODUCT_ID);
                         int Quantity =Convert.ToInt16(obj.I_Sls_TR_InvoiceItems[i].Quantity_sell);
 
-                        string update = "update PRODUCT set PRODUCT_QET=(PRODUCT_QET - "+ Quantity + ") where PRODUCT_NAME='"+ Name_Product + "'";
+                        string update = "update PRODUCT set PRODUCT_QET=(PRODUCT_QET - "+ Quantity + ") where PRODUCT_ID='" + PRODUCT_ID + "'";
 
                         var InvoiceItems = SlsTrSalesServices.Insert(obj.I_Sls_TR_InvoiceItems[i]);
 

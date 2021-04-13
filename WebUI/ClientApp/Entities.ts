@@ -720,7 +720,7 @@ class G_USER_LOG extends SecurityClass {
     public COMP_CODE: number;
     public LOG_DATE: string;
 }
- 
+
 class ORDER_Master extends SecurityClass {
     constructor() {
         super();
@@ -728,10 +728,10 @@ class ORDER_Master extends SecurityClass {
         this.Namber_Order_Delivery = 0;
         this.Total_All = 0;
         this.Date_Order_Delivery = "";
-        this.Tax = 0; 
-        this.CUSTOMER_ID = 0; 
-        this.type_order = ""; 
-        this.Confirmation = false; 
+        this.Tax = 0;
+        this.CUSTOMER_ID = 0;
+        this.type_order = "";
+        this.Confirmation = false;
     }
     public UserName: string;
     public Namber_Order_Delivery: number;
@@ -741,7 +741,7 @@ class ORDER_Master extends SecurityClass {
     public CUSTOMER_ID: number;
     public type_order: string;
     public Confirmation: boolean;
-     
+
 }
 
 class ORDER_DELIVERY extends SecurityClass {
@@ -818,24 +818,149 @@ class Stok_ORDER_DELIVERY extends SecurityClass {
     constructor() {
         super();
         this.ID_DELIVERY = 0;
-        this.Name_Product_sell = "";
+        this.PRODUCT_ID = 0;
         this.Quantity_sell = 0;
         this.price_One_part = 0;
         this.Total_Price_One_Part = 0;
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
+        this.Name_Product_sell = "";
         this.StatusFlag = "";
-
     }
     public ID_DELIVERY: number;
-    public Name_Product_sell: string;
+    public PRODUCT_ID: number;
     public Quantity_sell: number;
-    public price_One_part: number;
-    public Total_Price_One_Part: number;
+    public price_One_part: any;
+    public Total_Price_One_Part: any;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
+    public Name_Product_sell: string;
     public StatusFlag: string;
 }
+
+
+class IQ_Purchases_Master extends SecurityClass {
+    constructor() {
+        super();
+        this.TrNo = 0;
+        this.Tr_Date = "";
+        this.ID_Supplier = 0;
+        this.Name_Supplier = "";
+        this.Type_Debit = false;
+        this.Total_Amount = 0;
+        this.phone = "";
+        this.Type_Supplier = "";
+        this.Notes = "";
+        this.IS_Active = false;
+        this.Paid_Up = 0;
+            this.To_be_Paid = 0;
+    }
+    public TrNo: number;
+    public Tr_Date: string;
+    public ID_Supplier: number;
+    public Name_Supplier: string;
+    public Type_Debit: boolean;
+    public Total_Amount: any;
+    public phone: string;
+    public Type_Supplier: string;
+    public Notes: string;
+    public IS_Active: boolean;
+    public Paid_Up: any;
+    public To_be_Paid: any;
+}
+
+
+
+class IQ_Purchases_Details extends SecurityClass {
+    constructor() {
+        super();
+        this.ID = 0;
+        this.TrNo = 0;
+        this.Name_CAT = "";
+        this.PRODUCT_NAME = "";
+        this.Purchases_Quantity = 0;
+        this.Purchases_Price = 0;
+        this.Sales_Price = 0;
+        this.MinUnitPrice = 0;
+        this.PRODUCT_ID = 0;
+        this.ID_CAT = 0;
+    }
+    public ID: number;
+    public TrNo: number;
+    public Name_CAT: string;
+    public PRODUCT_NAME: string;
+    public Purchases_Quantity: number;
+    public Purchases_Price: any;
+    public Sales_Price: any;
+    public MinUnitPrice: any;
+    public PRODUCT_ID: number;
+    public ID_CAT: number;
+}
+
+class Purchases_Details extends SecurityClass {
+    constructor() {
+        super();
+        this.ID = 0;
+        this.TrNo = 0;
+        this.ID_CAT = 0;
+        this.PRODUCT_ID = 0;
+        this.Purchases_Quantity = 0;
+        this.Purchases_Price
+        this.Sales_Price
+        this.MinUnitPrice
+    }
+    public ID: number;
+    public TrNo: number;
+    public ID_CAT: number;
+    public PRODUCT_ID: number;
+    public Purchases_Quantity: number;
+    public Purchases_Price: any;
+    public Sales_Price: any;
+    public MinUnitPrice: any;
+}
+
+class Purchases_Master extends SecurityClass {
+    constructor() {
+        super(); 
+        this.TrNo = 0;
+        this.Tr_Date = "";
+        this.ID_Supplier = 0;
+        this.Type_Debit = false;
+        this.Total_Amount
+        this.Paid_Up
+        this.To_be_Paid
+    }
+    public TrNo: number;
+    public Tr_Date: string;
+    public ID_Supplier: number;
+    public Type_Debit: boolean;
+    public Total_Amount: any;
+    public Paid_Up: any;
+    public To_be_Paid: any;
+}
+
+
+
+class Supplier extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_Supplier = 0;
+        this.Name_Supplier = "";
+        this.phone = "";
+        this.Type_Supplier = "";
+        this.Notes = "";
+        this.IS_Active = false;
+    }
+    public ID_Supplier: number;
+    public Name_Supplier: string;
+    public phone: string;
+    public Type_Supplier: string;
+    public Notes: string;
+    public IS_Active: boolean;
+}
+
+
+
 
 
 

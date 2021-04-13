@@ -1,5 +1,5 @@
 ﻿using API.Models;
-using BLL.Services.Item;
+using BLL.Services.Vendor;
 using DAL.Domain;
 using System;
 using System.Collections.Generic;
@@ -18,14 +18,14 @@ using Newtonsoft.Json;
 namespace API.Controllers
 {
     [EnableCorsAttribute("*", "*", "*")]
-    public class ItemsController : BaseController
+    public class SupplierController : BaseController
     {
 
-        private readonly IItemServices ItemServices;
+        private readonly IVendorServices VendorServices;
 
-        public ItemsController(IItemServices _IItemServices)
+        public SupplierController(IVendorServices _IVendorServices)
         {
-            ItemServices = _IItemServices;
+            VendorServices = _IVendorServices;
 
         }
 
@@ -34,20 +34,20 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Items = ItemServices.GetAll().ToList();
+                var Supplier = VendorServices.GetAll().ToList();
 
-                return Ok(new BaseResponse(Items));
+                return Ok(new BaseResponse(Supplier));
 
             }
             return BadRequest(ModelState);
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll_Item_by_Cat(int Cat)
+        public IHttpActionResult GetAll_Item_by_Cat(int ID_Supplier)
         {
             if (ModelState.IsValid)
             {
-                var Item = ItemServices.GetAll(x => x.ID_CAT == Cat).ToList();
+                var Item = VendorServices.GetAll(x => x.ID_Supplier == ID_Supplier).ToList();
 
                 return Ok(new BaseResponse(Item));
 
@@ -119,10 +119,10 @@ namespace API.Controllers
 
         protected IEnumerable<T> Get<T>(string SqlStatement)
         {
-            //var companiesList = new List<PRODUCT>();
+            //var companiesList = new List<Supplier>();
             //foreach (var company in companies)
             //{
-            //    var comp = new PRODUCT();
+            //    var comp = new Supplier();
             //    comp.ID = company.ID;
             //    comp.Num= company.Num;
             //    comp.Name= SecuritySystem.Decrypt(company.Name);
@@ -162,7 +162,7 @@ namespace API.Controllers
                     command.Connection = connection;
                     command.CommandText = SqlStatement;
                     connection.Open();
-                    PRODUCT table = new PRODUCT();
+                    Supplier table = new Supplier();
                     //table.Load(command.ExecuteReader());
                     connection.Close();
                     command.Dispose();
@@ -205,13 +205,13 @@ namespace API.Controllers
 
 
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert([FromBody]PRODUCT Nation)
+        public IHttpActionResult Insert([FromBody]Supplier Nation)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var Nationality = ItemServices.Insert(Nation);
+                    var Nationality = VendorServices.Insert(Nation);
                     return Ok(new BaseResponse(Nationality));
                 }
                 catch (Exception ex)
@@ -228,7 +228,7 @@ namespace API.Controllers
             {
                 try
                 {
-                    ItemServices.Delete(ID);
+                    VendorServices.Delete(ID);
                     return Ok(new BaseResponse());
                 }
                 catch (Exception ex)
@@ -243,7 +243,7 @@ namespace API.Controllers
             }
         }
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Update([FromBody]PRODUCT Nation)
+        public IHttpActionResult Update([FromBody]Supplier Nation)
         {
             if (ModelState.IsValid)
             {
@@ -260,7 +260,7 @@ namespace API.Controllers
 
                 try
                 {
-                    var Nationality = ItemServices.Update(Nation);
+                    var Nationality = VendorServices.Update(Nation);
                     return Ok(new BaseResponse(Nationality));
                 }
                 catch (Exception ex)
@@ -275,38 +275,38 @@ namespace API.Controllers
 
         //***************asmaa********************//
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult UpdateLst(List<PRODUCT> PRODUCT)
+        public IHttpActionResult UpdateLst(List<Supplier> Supplier)
         {
 
             try
             {
-                var InsertOperationItems = PRODUCT.Where(x => x.StatusFlag == "i").ToList();
-                var updatedOperationItems = PRODUCT.Where(x => x.StatusFlag == "u").ToList();
-                var deletedOperationItems = PRODUCT.Where(x => x.StatusFlag == "d").ToList();
+                var InsertOperationSupplier = Supplier.Where(x => x.StatusFlag == "i").ToList();
+                var updatedOperationSupplier = Supplier.Where(x => x.StatusFlag == "u").ToList();
+                var deletedOperationSupplier = Supplier.Where(x => x.StatusFlag == "d").ToList();
 
 
-                //loop Insert  I_Pur_TR_ReceiveItems
-                foreach (var item in InsertOperationItems)
+                //loop Insert  I_Pur_TR_ReceiveSupplier
+                foreach (var item in InsertOperationSupplier)
                 {
 
 
-                    var Insert = ItemServices.Insert(item);
+                    var Insert = VendorServices.Insert(item);
 
                 }
 
-                //loop Update  I_Pur_TR_ReceiveItems
-                foreach (var item in updatedOperationItems)
+                //loop Update  I_Pur_TR_ReceiveSupplier
+                foreach (var item in updatedOperationSupplier)
                 {
 
-                    var updated = ItemServices.Update(item);
+                    var updated = VendorServices.Update(item);
 
                 }
 
-                //loop Delete  I_Pur_TR_ReceiveItems
-                foreach (var item in deletedOperationItems)
+                //loop Delete  I_Pur_TR_ReceiveSupplier
+                foreach (var item in deletedOperationSupplier)
                 {
-                    int id = item.PRODUCT_ID;
-                    ItemServices.Delete(id);
+                    int id = item.ID_Supplier;
+                    VendorServices.Delete(id);
 
                 }
 

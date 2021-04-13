@@ -44,14 +44,19 @@ namespace DAL.Domain
         public virtual DbSet<Settings_Report> Settings_Report { get; set; }
         public virtual DbSet<SOFRA> SOFRAs { get; set; }
         public virtual DbSet<Stock_ORDER_TECAYE> Stock_ORDER_TECAYE { get; set; }
-        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
         public virtual DbSet<STORE> STOREs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Table_two_days> Table_two_days { get; set; }
         public virtual DbSet<Type_EMPLOYEE> Type_EMPLOYEE { get; set; }
         public virtual DbSet<User_sales> User_sales { get; set; }
         public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
+        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
+        public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
+        public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
+        public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -210,21 +215,21 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addemp", emp_namParameter, emp_phoneParameter, usar_name_empParameter, passwrd_empParameter);
         }
     
-        public virtual ObjectResult<all_The_Gard_Result> all_The_Gard(string eMPLOYEE_NAME, Nullable<System.DateTime> toDate, Nullable<System.DateTime> fromDate)
+        public virtual ObjectResult<all_The_Gard_Result> all_The_Gard(string eMPLOYEE_NAME, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
         {
             var eMPLOYEE_NAMEParameter = eMPLOYEE_NAME != null ?
                 new ObjectParameter("EMPLOYEE_NAME", eMPLOYEE_NAME) :
                 new ObjectParameter("EMPLOYEE_NAME", typeof(string));
     
-            var toDateParameter = toDate.HasValue ?
-                new ObjectParameter("ToDate", toDate) :
-                new ObjectParameter("ToDate", typeof(System.DateTime));
-    
             var fromDateParameter = fromDate.HasValue ?
                 new ObjectParameter("FromDate", fromDate) :
                 new ObjectParameter("FromDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Result>("all_The_Gard", eMPLOYEE_NAMEParameter, toDateParameter, fromDateParameter);
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Result>("all_The_Gard", eMPLOYEE_NAMEParameter, fromDateParameter, toDateParameter);
         }
     
         public virtual ObjectResult<Nullable<System.DateTime>> Date_Time_Now()
@@ -886,11 +891,11 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUser_Login_Result>("GetUser_Login", userNameParameter, passwordParameter, open_LoginParameter);
         }
     
-        public virtual int update_SalesReturn(string name_Product_sell, Nullable<int> quantity_sell, Nullable<decimal> total_Price_One_Part, Nullable<int> iD_ORDER, string statusFlag)
+        public virtual int update_SalesReturn(Nullable<int> pRODUCT_ID, Nullable<int> quantity_sell, Nullable<decimal> total_Price_One_Part, Nullable<int> iD_ORDER, string statusFlag)
         {
-            var name_Product_sellParameter = name_Product_sell != null ?
-                new ObjectParameter("Name_Product_sell", name_Product_sell) :
-                new ObjectParameter("Name_Product_sell", typeof(string));
+            var pRODUCT_IDParameter = pRODUCT_ID.HasValue ?
+                new ObjectParameter("PRODUCT_ID", pRODUCT_ID) :
+                new ObjectParameter("PRODUCT_ID", typeof(int));
     
             var quantity_sellParameter = quantity_sell.HasValue ?
                 new ObjectParameter("Quantity_sell", quantity_sell) :
@@ -908,7 +913,7 @@ namespace DAL.Domain
                 new ObjectParameter("StatusFlag", statusFlag) :
                 new ObjectParameter("StatusFlag", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_SalesReturn", name_Product_sellParameter, quantity_sellParameter, total_Price_One_PartParameter, iD_ORDERParameter, statusFlagParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_SalesReturn", pRODUCT_IDParameter, quantity_sellParameter, total_Price_One_PartParameter, iD_ORDERParameter, statusFlagParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> update_Sales_Master(Nullable<decimal> total_All, string userName, Nullable<int> iD_ORDER)

@@ -48,14 +48,14 @@
 
 <div class="panel panel-default">
     <div class="panel-heading panel_me">
-        <i class="glyphicon glyphicon-pencil icon_panel"></i><label class="span_item">سجل الفواتير</label><label class="span_item"></label>
+        <i class="glyphicon glyphicon-pencil icon_panel"></i><label class="span_item">استلام المشتريات</label><label class="span_item"></label>
     </div>
     <div class="panel-body">
 
         <div id="DivFilter" class="col-lg-12">
             <div id="DivHederMaster" class="row  margingred ">
                 <div class="col-lg-12">
-                    <label class="col-lg-1 col-xs-4   pading_2  ">البائع</label>
+                    <label class="col-lg-1 col-xs-4   pading_2  ">المورد</label>
                     <div class="col-lg-3 col-xs-8">
                         <select id="ddlUserMaster" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
                     </div>
@@ -87,9 +87,13 @@
 
                 <div class="col-lg-12">
 
-                    <label class="col-lg-1 col-xs-4   pading_2  ">العميل</label>
+                    <label class="col-lg-1 col-xs-4   pading_2  ">النوع</label>
                     <div class="col-lg-3 col-xs-8">
-                        <select id="ddlCustomerMaster" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
+                        <select id="ddlStateType" name="" class="form-control" style='width: 100%;border-radius: 30px;'>
+                            <option value="">الجميع</option>
+                            <option value="">مسدد</option>
+                            <option value="">غير مسدد</option>
+                        </select>
                     </div>
 
                 </div>
@@ -329,4 +333,5 @@
 @Scripts.Render("~/Bundles/ClientApp")
 <script src="~/ClientApp/JsGrid.js"></script>
 @*<script src="~/ClientApp/Purchase/PurTrReceive.js"></script>*@
-<script src="~/ClientApp/Sales/SlsTrSalesReturn.js"></script>
+@*<script src="~/ClientApp/Sales/SlsTrSalesReturn.js"></script>*@
+<script src="~/ClientApp/Purchases/Purchases.js"></script>

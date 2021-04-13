@@ -46,5 +46,9 @@ namespace DAL.Domain
     {
 
     }
+    public partial class Supplier : SecurityandUpdateFlagClass
+    {
+
+    }
 
 }

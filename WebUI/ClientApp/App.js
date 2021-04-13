@@ -21,6 +21,7 @@ var Modules = {
     SlsTrReturn: "SlsTrReturn",
     Categories: "Categories",
     Items: "Items",
+    Purchases: "Purchases",
 };
 var Keys = {
     Enter: "Enter"

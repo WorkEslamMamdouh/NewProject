@@ -452,6 +452,7 @@ namespace HomeComponent {
 
         $("#btnSlsTrSales").click(() => { OpenPage(Modules.SlsTrSales); })
         $("#btnSlsTrReturn").click(() => { OpenPage(Modules.SlsTrReturn); })
+        $("#btnPurchases").click(() => { OpenPage(Modules.Purchases); })
         $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
         $("#btnItems").click(() => { OpenPage(Modules.Items); })
 

@@ -727,6 +727,7 @@ var SlsTrSales;
                 var get_Price_on_seller = document.getElementById("oioo" + prgraph.getAttribute("data-new_p"));
                 var Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
                 Model.ID_DELIVERY = 0;
+                Model.PRODUCT_ID = Item_ID;
                 Model.Name_Product_sell = Name_Item;
                 Model.Quantity_sell = Number(Qty_2);
                 Model.price_One_part = Number(Price_Item);

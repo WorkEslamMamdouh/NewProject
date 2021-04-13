@@ -920,6 +920,7 @@ namespace SlsTrSales {
                 let Price_on_seller = get_Price_on_seller.getAttribute("data-price_one");
 
                 Model.ID_DELIVERY = 0;
+                Model.PRODUCT_ID = Item_ID;
                 Model.Name_Product_sell = Name_Item;
                 Model.Quantity_sell = Number(Qty);
                 Model.price_One_part = Number(Price_Item);

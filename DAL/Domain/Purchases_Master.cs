@@ -12,14 +12,14 @@ namespace DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class Stok_ORDER_DELIVERY
+    public partial class Purchases_Master
     {
-        public int ID_DELIVERY { get; set; }
-        public Nullable<int> PRODUCT_ID { get; set; }
-        public Nullable<double> Quantity_sell { get; set; }
-        public Nullable<decimal> price_One_part { get; set; }
-        public Nullable<decimal> Total_Price_One_Part { get; set; }
-        public string Notes_Order { get; set; }
-        public Nullable<int> FK_ORDER_Delivery { get; set; }
+        public int TrNo { get; set; }
+        public string Tr_Date { get; set; }
+        public Nullable<int> ID_Supplier { get; set; }
+        public Nullable<bool> Type_Debit { get; set; }
+        public Nullable<decimal> Total_Amount { get; set; }
+        public Nullable<decimal> Paid_Up { get; set; }
+        public Nullable<decimal> To_be_Paid { get; set; }
     }
 }

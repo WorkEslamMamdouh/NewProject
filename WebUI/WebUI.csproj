@@ -1149,6 +1149,7 @@
     <Content Include="Views\Sales\SlsTrSalesIndex.cshtml" />
     <Content Include="Views\Stock\CategoriesIndex.cshtml" />
     <Content Include="Views\Stock\ItemsIndex.cshtml" />
+    <Content Include="Views\Purchases\PurchasesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1212,6 +1213,7 @@
     <TypeScriptCompile Include="ClientApp\MessageBox.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\LoginComponent.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\Thesettings\Home.ts" />
+    <TypeScriptCompile Include="ClientApp\Purchases\Purchases.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />

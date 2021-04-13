@@ -22,14 +22,19 @@
         <EntityTypeShape EntityType="SamahModel.Settings_Report" Width="1.5" PointX="8.75" PointY="7.75" />
         <EntityTypeShape EntityType="SamahModel.SOFRA" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="SamahModel.Stock_ORDER_TECAYE" Width="1.5" PointX="10.75" PointY="2.75" />
-        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="10.75" PointY="6.75" />
         <EntityTypeShape EntityType="SamahModel.STORE" Width="1.5" PointX="8.75" PointY="10.75" />
         <EntityTypeShape EntityType="SamahModel.sysdiagram" Width="1.5" PointX="10.75" PointY="10.75" />
         <EntityTypeShape EntityType="SamahModel.Table_two_days" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="SamahModel.Type_EMPLOYEE" Width="1.5" PointX="2.75" PointY="11.75" />
         <EntityTypeShape EntityType="SamahModel.User_sales" Width="1.5" PointX="4.75" PointY="11.75" />
         <EntityTypeShape EntityType="SamahModel.ReviewSalesMaster" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="SamahModel.ReviewSalesItemInfo" Width="1.5" PointX="13.375" PointY="5.75" />
+        <EntityTypeShape EntityType="SamahModel.Stok_ORDER_DELIVERY" Width="1.5" PointX="7.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SamahModel.ReviewSalesItemInfo" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SamahModel.Purchases_Details" Width="1.5" PointX="13.375" PointY="5.75" />
+        <EntityTypeShape EntityType="SamahModel.Purchases_Master" Width="1.5" PointX="13.375" PointY="9.75" />
+        <EntityTypeShape EntityType="SamahModel.Supplier" Width="1.5" PointX="9.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Details" Width="1.5" PointX="11.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Master" Width="1.5" PointX="13.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

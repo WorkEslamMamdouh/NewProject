@@ -17,6 +17,7 @@ var Modules = {
     SlsTrReturn: "SlsTrReturn",
     Categories: "Categories",
     Items: "Items",
+    Purchases: "Purchases",
 
     //Nationality: "Nationality",
     

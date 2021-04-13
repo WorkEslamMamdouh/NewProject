@@ -101,6 +101,10 @@ namespace WebUI.Controllers
         {
             return View("~/Views/Sales/SlsTrReturnIndex.cshtml");
         }
+        public ActionResult PurchasesIndex()
+        {
+            return View("~/Views/Purchases/PurchasesIndex.cshtml");
+        }
 
         public ActionResult CategoriesIndex()
         {

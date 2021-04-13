@@ -91,6 +91,12 @@
     <Compile Include="Domain\insert_Table_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\IQ_Purchases_Details.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\IQ_Purchases_Master.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\ITEME.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
@@ -117,6 +123,12 @@
     </Compile>
     <Compile Include="Domain\PartialClass.cs" />
     <Compile Include="Domain\PRODUCT.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Purchases_Details.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Purchases_Master.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Receipt_Order_delivery_one_Result.cs">
@@ -196,6 +208,9 @@
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\STORE.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Supplier.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\sysdiagram.cs">
