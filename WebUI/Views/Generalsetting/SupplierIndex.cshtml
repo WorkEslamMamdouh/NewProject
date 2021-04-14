@@ -92,7 +92,7 @@
                         <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading" style="top: 3px;right: 20px;">النوع</label>
                         <div class="col-lg-3 col-xs-8">
                             <select id="txt_ID_APP_Category" name="" class="form-control  text_Display" style="border-color: #0000bd;border: solid 1px;">
-                                <option value="Null">اختر المورد</option>
+                               
                             </select>
                         </div>
                         <div class="col-lg-3 col-xs-8">
@@ -140,212 +140,74 @@
                             <div class="col-lg-2">
 
                                 <button type="button" class="btn btn-warning display_none" id="btnback">
-                                    <span class="glyphicon glyphicon-backward"></span>  _back
-                                </button>
+                                    <span class="glyphicon glyphicon-backward"></span>رجوع</button>
 
                                 <button id="btnsave" type="button" class="btn btn-success display_none">
-                                    <span class="glyphicon glyphicon-save"></span>  _save
-                                </button>
+                                    <span class="glyphicon glyphicon-save"></span>حفظ</button>
 
                             </div>
                             <div class="col-lg-1">
 
 
                                 <button type="button" class="btn btn-primary" id="btnedite">
-                                    <span class="glyphicon glyphicon-edit"></span>  _Update
-                                </button>
+                                    <span class="glyphicon glyphicon-edit"></span>تعديل</button>
                             </div>
                         </div>
 
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2"> _VendorNumber</label>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">كود المورد</label>
                         <div class="col-lg-2 col-xs-8">
-                            <input id="txt_CustomerCODE" disabled name="VendorCode" type="number" class="form-control  text_Display" placeholder=" _VendorNumber">
+                            <input id="txt_ID_Supplier" disabled name="ID_Supplier" type="number" class="form-control  text_Display" placeholder="كود المورد">
                         </div>
                         <div class="col-lg-1 col-xs-8">
                         </div>
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _Type</label>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">نوع المورد</label>
 
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="txt_Cust_Type" disabled name="" class="form-control  text_Display">
-                                <option value="Null">   _Type </option>
-                                <option value="0"> _Doubted</option>
-                                <option value="1"> _Cash</option>
-                            </select>
+                       
+                            <div class="col-lg-3 col-xs-8">
+                                <input id="txt_Type_Supplier" disabled name="Type_Supplier" type="text" class="form-control  text_Display" placeholder="نوع المورد">
+                            </div>
+
+
+
+
+
+                        <div class="col-lg-12 " style="padding-top: 3px;">
+                            <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">اسم المورد</label>
+                            <div class="col-lg-3 col-xs-8">
+                                <input id="txt_NAME" disabled name="Name_Supplier" type="text" class="form-control  text_Display" placeholder="اسم المورد">
+                            </div>
+
+
+
+
+                            <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">النشاط</label>
+                            <div class="col-lg-3 col-xs-8">
+                                <select id="txt_IS_Active" disabled name="" type="text" class="form-control  text_Display" placeholder="رقم الهاتف">
+                                    <option value="1">فعال</option>
+                                    <option value="0">غير فعال</option>
+
+                                </select>
+                            </div>
+
+
+                            <div class="col-lg-12 " style="padding-top: 3px;">
+                                <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">رقم الهاتف</label>
+                                <div class="col-lg-3 col-xs-8">
+                                    <input id="txt_phone" disabled name="phone" type="text" class="form-control  text_Display" placeholder="رقم الهاتف">
+                                </div>
+
+                                <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">ملاحظات</label>
+                                <div class="col-lg-3 col-xs-8">
+                                    <input id="txt_Notes" disabled name="Notes" type="text" class="form-control  text_Display" placeholder="ملاحظات">
+                                </div>
+
+
+                            </div>
+
+
+
+
                         </div>
-
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _Certified</label>
-
-                        <div class="col-xs-1">
-                            <input type="checkbox" id="id_chkcustom6" disabled name="" />
-                        </div>
-                    </div>
-
-
-
-
-
-                    <div class="col-lg-12 " style="padding-top: 3px;">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2"> SHT_Name </label>
-                        <div class="col-lg-3 col-xs-8">
-                            <input id="txt_NAME" disabled name="NAMEA" type="text" class="form-control  text_Display" placeholder="SHT_Name  ">
-                        </div>
-
-
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">   _Category   </label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="txt_Category" disabled name="" class="form-control  text_Display">
-                                <option>  _Category </option>
-                            </select>
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">    _Group   </label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="txt_Grop" disabled name="" class="form-control  text_Display">
-                                <option>   _Group </option>
-                            </select>
-                        </div>
-
-
-                    </div>
-
-                    <div class="col-lg-12 " style="padding-top: 3px;">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">   _Responsible </label>
-                        <div class="col-lg-3 col-xs-8">
-                            <input id="txtResName" name="RespPersonName" disabled="" type="text" class="form-control  text_Display" placeholder="  _Responsible  ">
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _ResponsiblePhone</label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txtResMobile" name="RespPersonMobile" disabled="" type="number" class="form-control  text_Display" placeholder=" _ResponsiblePhone ">
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">  _Nationality  </label>
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="ddlNationality" name="" disabled="" class="form-control  text_Display">
-                                <option>  _Nationality </option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-12 " style="padding-top: 3px;">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">    _address </label>
-                        <div class="col-lg-3 col-xs-8">
-                            <input id="txt_ADDRESS" disabled name="ADDRESS" type="text" class="form-control  text_Display" placeholder=" _address  ">
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _Mobile  </label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_MOBILE" disabled name="MOBILE" type="number" class="form-control  text_Display" placeholder=" _Mobile  ">
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">  _phone </label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_TEL" disabled name="TEL" type="number" class="form-control  text_Display" placeholder=" _phone  ">
-                        </div>
-
-                    </div>
-                    <div class="col-lg-12 " style="padding-top: 3px;">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 "> _IDNumberOrRecord</label>
-
-                        <div class="col-lg-3 col-xs-8">
-                            <input id="txt_IDNo" disabled name="IDNo" type="text" class="form-control  text_Display" placeholder=" _IDNumberOrRecord ">
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _WorkPhone</label>
-
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_WorkTel" disabled name="WorkTel" type="number" class="form-control  text_Display" placeholder=" _WorkPhone">
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">نشاط المورد</label>
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="txtVendorType_New" name="" class="form-control  text_Display">
-                                <option value="Null"> نشاط المورد</option>
-                                <option value="1">مورد بضاعة</option>
-                                <option value="2">  مورد خدمات</option>
-                            </select>
-                        </div>
-
-
-
-                    </div>
-                    <div class="col-lg-12">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">     _Notes </label>
-                        <div class="col-lg-6 col-xs-8">
-                            <textarea id="txt_note" disabled name="REMARKS" type="text" class="form-control   " placeholder="  _Notes"></textarea>
-                        </div>
-
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">    بريد الالكتروني  </label>
-                        <div class="col-lg-4 col-xs-8">
-                            <input id="txt_Email" name="EMAIL" disabled type="email" class="form-control  text_Display" placeholder="بريد الالكتروني ">
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-lg-12 ">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2"> _TaxType</label>
-                        <div class="col-lg-2 col-xs-8">
-                            <select id="txt_tax" name="" disabled class="form-control  text_Display">
-                                <option>  _TaxType </option>
-                            </select>
-                        </div>
-
-                        <div class="col-lg-1 col-xs-8">
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _TaxNumber </label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_VatNo" disabled name="VatNo" type="number" class="form-control  text_Display" placeholder=" _TaxNumber">
-                        </div>
-
-
-
-
-                    </div>
-                    <div id="div_Balance" class="col-lg-12 ">
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">    _openBalance </label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_Openbalance" disabled name="Openbalance" type="number" class="form-control  text_Display " placeholder="  _openBalance">
-                        </div>
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2">   _Debtor   </label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_Debit" disabled name="Debit" type="number" class="form-control  text_Display" placeholder=" _Debtor ">
-                        </div>
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _Creditor</label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_DebitFC" disabled name="Credit" type="number" class="form-control  text_Display" placeholder="   _Creditor ">
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading">   _Balance  </label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_balance" disabled name="" type="number" class="form-control  text_Display " placeholder="  _Balance ">
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2 textcentr_pading"> _CreditLimit</label>
-                        <div class="col-lg-2 col-xs-8">
-                            <input id="txt_CreditLimit" disabled name="CreditLimit" type="number" class="form-control  text_Display" placeholder=" ">
-                        </div>
-
-
-
-                    </div>
 
                 </div>
 

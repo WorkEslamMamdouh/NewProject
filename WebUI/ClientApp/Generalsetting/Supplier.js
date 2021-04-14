@@ -10,6 +10,7 @@ var AccDefVendor;
     var Display = new Array();
     var SearchDetails = new Array();
     var BilldIData = new Array();
+    var Model = new Supplier();
     var ReportGrid = new JsGrid();
     var CashDetailsAr = new Array();
     var CashDetailsEn = new Array();
@@ -77,10 +78,10 @@ var AccDefVendor;
         ////debugger;
         txt_ID_APP_Category = document.getElementById("txt_ID_APP_Category");
         btnShow = document.getElementById("btnShow");
-        //  btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
-        //  btnEdit = document.getElementById("btnedite") as HTMLButtonElement;
-        //  btnsave = document.getElementById("btnsave") as HTMLButtonElement;
-        //  btnback = document.getElementById("btnback") as HTMLButtonElement;
+        btnAdd = document.getElementById("btnAdd");
+        btnEdit = document.getElementById("btnedite");
+        btnsave = document.getElementById("btnsave");
+        btnback = document.getElementById("btnback");
         //  //textBoxes
         //  txt_CustomerCODE = document.getElementById("txt_CustomerCODE") as HTMLInputElement;
         //  txt_Cust_Type = document.getElementById("txt_Cust_Type") as HTMLSelectElement;
@@ -109,10 +110,10 @@ var AccDefVendor;
     function InitalizeEvents() {
         //debugger
         btnShow.onclick = btnShow_onclick;
-        //btnAdd.onclick = btnAdd_onclick;
-        //btnsave.onclick = btnsave_onClick;
-        //btnback.onclick = btnback_onclick;
-        //btnEdit.onclick = btnEdit_onclick;
+        btnAdd.onclick = btnAdd_onclick;
+        btnsave.onclick = btnsave_onClick;
+        btnback.onclick = btnback_onclick;
+        btnEdit.onclick = btnEdit_onclick;
         //searchbutmemreport.onkeyup = _SearchBox_Change;
     }
     function GetSupplier() {
@@ -132,6 +133,8 @@ var AccDefVendor;
     }
     function displaysupplier() {
         debugger;
+        $('#txt_ID_APP_Category').html('');
+        $('#txt_ID_APP_Category').append(' <option value="Null">اختر المورد</option>');
         for (var i = 0; i < Details.length; i++) {
             $('#txt_ID_APP_Category').append('<option data-ItemID="' + Details[i].Name_Supplier + '" value="' + Details[i].ID_Supplier + '">' + Details[i].Name_Supplier + '</option>');
         }
@@ -153,310 +156,162 @@ var AccDefVendor;
         ReportGrid.Bind();
     }
     function btnEdit_onclick() {
-        //IsNew = false;
-        //removedisabled();
-        //if (SysSession.CurrentPrivileges.EDIT) {
-        //    $('#btnsave').toggleClass("display_none");
-        //    $('#btnback').toggleClass("display_none");
-        //    $("#div_ContentData :input").removeAttr("disabled");
-        //    $("#btnedite").toggleClass("display_none");
-        //    $("#txt_CustomerCODE").attr("disabled", "disabled");
-        //    $("#txt_Debit").attr("disabled", "disabled");
-        //    $("#txt_DebitFC").attr("disabled", "disabled");
-        //    $("#txt_balance").attr("disabled", "disabled");
-        //    $("#id_div_Add").attr("disabled", "disabled").off('click');
-        //    var x1 = $("#id_div_Add").hasClass("disabledDiv");
-        //    (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
-        //}
-        //else {
-        //    $('#btnsave').toggleClass("display_none");
-        //    $('#btnback').toggleClass("display_none");
-        //    $("#btnedite").toggleClass("display_none");
-        //}
-        //if (SysSession.CurrentPrivileges.AddNew) {
-        //    $(".btnAddDetails").removeAttr("disabled");
-        //    $('#btnAddDetails').toggleClass("display_none");
-        //}
-        //else {
-        //    $(".btnAddDetails").attr("disabled", "disabled");
-        //}
-        //if (SysSession.CurrentPrivileges.Remove) {
-        //    //debugger;
-        //    $(".fa-minus-circle").removeClass("display_none");
-        //}
-        //else {
-        //    $(".fa-minus-circle").addClass("display_none");
-        //}
+        IsNew = false;
+        removedisabled();
+        $('#btnsave').toggleClass("display_none");
+        $('#btnback').toggleClass("display_none");
+        $("#div_ContentData :input").removeAttr("disabled");
+        $("#btnedite").toggleClass("display_none");
+        $("#txt_ID_Supplier").attr("disabled", "disabled");
+        $("#id_div_Add").attr("disabled", "disabled").off('click');
+        var x1 = $("#id_div_Add").hasClass("disabledDiv");
+        (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
+        $(".btnAddDetails").removeAttr("disabled");
+        $('#btnAddDetails').toggleClass("display_none");
+        $(".fa-minus-circle").removeClass("display_none");
     }
     //onclick
     function btnAdd_onclick() {
-        //IsNew = true;
-        //EnableControls();
-        //removedisabled();
-        //$("#txt_Debit").attr("disabled", "disabled");
-        //$("#txt_DebitFC").attr("disabled", "disabled");
-        //$("#txt_balance").attr("disabled", "disabled");
-        //$("#id_div_Add").attr("disabled", "disabled").off('click');
-        //var x1 = $("#id_div_Add").hasClass("disabledDiv");
-        //(x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
-        //reference_Page();
+        IsNew = true;
+        EnableControls();
+        removedisabled();
+        $("#id_div_Add").attr("disabled", "disabled").off('click');
+        var x1 = $("#id_div_Add").hasClass("disabledDiv");
+        (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
+        reference_Page();
+    }
+    function reference_Page() {
+        $('#btnedite').attr('class', 'btn btn-primary display_none');
+        $('#btnsave').attr('class', 'btn btn-success display_none');
+        $('#btnback').attr('class', 'btn btn-success display_none');
+        $('#btnAdd').attr('class', 'btn btn-primary display_none');
     }
     function btnsave_onClick() {
-        //if (IsNew == true) {
-        //    Validation();
-        //    if (Valid == 1) {
-        //    }
-        //    else {
-        //        Insert();
-        //        Update_claenData = 0;
-        //        btnback_onclick();
-        //        Display();
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
-        //}
-        //else {
-        //    Validation();
-        //    if (Valid == 1) {
-        //    }
-        //    else {
-        //        Update();
-        //        Update_claenData = 1;
-        //        btnback_onclick();
-        //        Display();
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
-        //}
+        if (IsNew == true) {
+            Validation();
+            if (Valid == 1) {
+            }
+            else {
+                Insert();
+                Update_claenData = 0;
+                btnback_onclick();
+                Display_All();
+            }
+        }
+        else {
+            Validation();
+            if (Valid == 1) {
+            }
+            else {
+                Update();
+                Update_claenData = 1;
+                btnback_onclick();
+                Display_All();
+            }
+        }
     }
     function txt_disabled() {
         //debugger;
-        //$("#txt_CustomerCODE").attr("disabled", "disabled");
-        //$("#txt_Cust_Type").attr("disabled", "disabled");
-        //$("#id_chkcustom6").attr("disabled", "disabled");
-        //$("#txt_NAME").attr("disabled", "disabled");
-        //$("#txt_Category").attr("disabled", "disabled");
-        //$("#txt_Grop").attr("disabled", "disabled");
-        //$("#txt_ADDRESS").attr("disabled", "disabled");
-        //$("#txt_MOBILE").attr("disabled", "disabled");
-        //$("#txt_TEL").attr("disabled", "disabled");
-        //$("#txt_Email").attr("disabled", "disabled");
-        //$("#txt_IDNo").attr("disabled", "disabled");
-        //$("#txt_WorkTel").attr("disabled", "disabled");
-        //$("#txt_note").attr("disabled", "disabled");
-        //$("#txt_tax").attr("disabled", "disabled");
-        //$("#txt_VatNo").attr("disabled", "disabled");
-        //$("#txt_Debit").attr("disabled", "disabled");
-        //$("#txt_DebitFC").attr("disabled", "disabled");
-        //$("#txt_balance").attr("disabled", "disabled");
-        //$("#txt_Openbalance").attr("disabled", "disabled");
-        //$("#txt_CreditLimit").attr("disabled", "disabled");
-        //$("#txtResName").attr("disabled", "disabled");
-        //$("#txtResMobile").attr("disabled", "disabled");
-        //$("#ddlNationality").attr("disabled", "disabled");
-        //$("#txtVendorType_New").attr("disabled", "disabled");
+        $("#txt_Type_Supplier").attr("disabled", "disabled");
+        $("#txt_ID_Supplier").attr("disabled", "disabled");
+        $("#txt_NAME").attr("disabled", "disabled");
+        $("#txt_IS_Active").attr("disabled", "disabled");
+        $("#txt_phone").attr("disabled", "disabled");
+        $("#txt_Notes").attr("disabled", "disabled");
     }
     function removedisabled() {
         //debugger;
-        //$("#txt_CustomerCODE").removeAttr("disabled");
-        //$("#txt_Cust_Type").removeAttr("disabled");
-        //$("#id_chkcustom6").removeAttr("disabled");
-        //$("#txt_NAME").removeAttr("disabled");
-        //$("#txt_Category").removeAttr("disabled");
-        //$("#txt_Grop").removeAttr("disabled");
-        //$("#txt_ADDRESS").removeAttr("disabled");
-        //$("#txt_MOBILE").removeAttr("disabled");
-        //$("#txt_TEL").removeAttr("disabled");
-        //$("#txt_Email").removeAttr("disabled");
-        //$("#txt_IDNo").removeAttr("disabled");
-        //$("#txt_WorkTel").removeAttr("disabled");
-        //$("#txt_note").removeAttr("disabled");
-        //$("#txt_tax").removeAttr("disabled");
-        //$("#txt_VatNo").removeAttr("disabled");
-        //$("#txt_Debit").removeAttr("disabled");
-        //$("#txt_DebitFC").removeAttr("disabled");
-        //$("#txt_balance").removeAttr("disabled");
-        //$("#txt_Openbalance").removeAttr("disabled");
-        //$("#txt_CreditLimit").removeAttr("disabled");
-        //$("#txtResName").removeAttr("disabled");
-        //$("#txtResMobile").removeAttr("disabled");
-        //$("#ddlNationality").removeAttr("disabled");
-        //$("#txtVendorType_New").removeAttr("disabled");
+        $("#txt_Type_Supplier").removeAttr("disabled");
+        $("#txt_ID_Supplier").removeAttr("disabled");
+        $("#txt_NAME").removeAttr("disabled");
+        $("#txt_IS_Active").removeAttr("disabled");
+        $("#txt_phone").removeAttr("disabled");
+        $("#txt_Notes").removeAttr("disabled");
+    }
+    function CustomerFoundBefore() {
+        var res = true;
+        var code = $('#txt_ID_Supplier').val();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Supplier", "GetAll_Item_by_Cat"),
+            data: { code: code },
+            success: function (d) {
+                //debugger
+                var result = d;
+                if (result.Response == 0) {
+                    res = true;
+                }
+                else
+                    res = false;
+            }
+        });
+        return res;
     }
     function Validation() {
-        //if (IsNew == true) {
-        //    if (CustomerFoundBefore() == false) {
-        //        DisplayMassage("رقم المورد موجود من قبل ", "Contact Email Is Not Valid", MessageType.Worning);
-        //        return Valid = 1;
-        //    }
-        //}
-        //if (txt_CustomerCODE.value == "") {
-        //    DisplayMassage("يجب ادخال رقم المورد", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txt_NAME.value == "") {
-        //    DisplayMassage("يجب ادخال الاسم ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txt_Cust_Type.selectedIndex == 0) {
-        //    return DisplayMassage("يجب اختيار النوع ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txt_Category.selectedIndex == 0) {
-        //    DisplayMassage("يجب اختيار الفئة ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txt_tax.selectedIndex == 0) {
-        //    DisplayMassage("يجب اختيار نوع الضريبة ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (ddlNationality.selectedIndex == 0) {
-        //    DisplayMassage("يجب اختيار الجنسيه ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txtVendorType_New.selectedIndex == 0) {
-        //    DisplayMassage("يجب اختيار نشاط المورد ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if (txt_Grop.selectedIndex == 0) {
-        //    DisplayMassage("يجب اختيار المجموعة ", "Contact Email Is Not Valid", MessageType.Worning);
-        //    return Valid = 1;
-        //}
-        //if ($('#txt_Email').val() != '') {
-        //    if (validate_email() == false) {
-        //        DisplayMassage("يجب ادخال البريد الالكتروني صحيح ", "Contact Email Is Not Valid", MessageType.Worning);
-        //        return Valid = 1;
-        //    }
-        //}
-        //return Valid = 0;
+        if (IsNew == true) {
+            if (CustomerFoundBefore() == false) {
+                MessageBox.Show("رقم المورد موجود من قبل ", "Contact Email Is Not Valid");
+                return Valid = 1;
+            }
+        }
+        if ($('#txt_Type_Supplier').val() == "") {
+            MessageBox.Show("يجب ادخال رقم المورد", "Contact Email Is Not Valid");
+            return Valid = 1;
+        }
+        if ($('#txt_NAME').val() == "") {
+            MessageBox.Show("يجب ادخال اسم المورد ", "Contact Email Is Not Valid");
+            return Valid = 1;
+        }
+        if ($('#txt_phone').val() == 0) {
+            MessageBox.Show("يجب ادخال الهاتف ", "Contact Email Is Not Valid");
+            return Valid = 1;
+        }
+        return Valid = 0;
     }
     function btnShow_onclick() {
         Display_All();
     }
     function btnback_onclick() {
-        //Selecteditem = Details.filter(x => x.ID_Supplier == Number(ReportGrid.SelectedKey));
-        //if (Selecteditem.length == 0) {
-        //    IsNew = true;
-        //}
-        //if (IsNew == true) {
-        //    $('#btnAddDetails').toggleClass("display_none");
-        //    $('#btnsave').toggleClass("display_none");
-        //    $('#btnback').toggleClass("display_none");
-        //    //$("#div_ContentData :input").attr("disabled", "true");
-        //    $(".fa-minus-circle").addClass("display_none");
-        //    $("#btnedite").removeClass("display_none");
-        //    $("#btnedite").removeAttr("disabled");
-        //    //$("#drpPaymentType").removeAttr("disabled");
-        //    $("#drp_G_Store").removeAttr("disabled");
-        //    txt_disabled();
-        //    $("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    $("#id_div_Add").attr("disabled", "");
-        //    $("#id_div_Add").removeClass("disabledDiv");
-        //}
-        //else {
-        //    $('#btnAddDetails').toggleClass("display_none");
-        //    $('#btnsave').toggleClass("display_none");
-        //    $('#btnback').toggleClass("display_none");
-        //    //$("#div_ContentData :input").attr("disabled", "true");
-        //    $(".fa-minus-circle").addClass("display_none");
-        //    $("#btnedite").removeClass("display_none");
-        //    $("#btnedite").removeAttr("disabled");
-        //    //$("#drpPaymentType").removeAttr("disabled");
-        //    $("#drp_G_Store").removeAttr("disabled");
-        //    txt_disabled();
-        //    //DriverDoubleClick();
-        //    if (Update_claenData != 1) {
-        //        back_Details();
-        //    }
-        //    Update_claenData = 0;
-        //    $("#id_div_Add").attr("disabled", "");
-        //    $("#id_div_Add").removeClass("disabledDiv");
-        //}
-    }
-    function back_Details() {
-        //Selecteditem = Details.filter(x => x.ID_Supplier == Number(ReportGrid.SelectedKey));
-        //for (var item of Selecteditem) {
-        //    //CustomerIdUpdate = item.VendorID;
-        //    if (item.Isactive) { chkActive.checked = true; }
-        //    else chkActive.checked = false;
-        //}
-        //DisplayData(Selecteditem);
-        //reference_Page();
+        Selecteditem = Details.filter(function (x) { return x.ID_Supplier == Number(ReportGrid.SelectedKey); });
+        if (Selecteditem.length == 0) {
+            IsNew = true;
+        }
+        if (IsNew == true) {
+            $('#btnAddDetails').toggleClass("display_none");
+            $('#btnsave').toggleClass("display_none");
+            $('#btnback').toggleClass("display_none");
+            $(".fa-minus-circle").addClass("display_none");
+            $("#btnedite").removeClass("display_none");
+            $("#btnedite").removeAttr("disabled");
+            txt_disabled();
+            $("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+            $("#id_div_Add").attr("disabled", "");
+            $("#id_div_Add").removeClass("disabledDiv");
+        }
+        else {
+            $('#btnAddDetails').toggleClass("display_none");
+            $('#btnsave').toggleClass("display_none");
+            $('#btnback').toggleClass("display_none");
+            $(".fa-minus-circle").addClass("display_none");
+            $("#btnedite").removeClass("display_none");
+            $("#btnedite").removeAttr("disabled");
+            txt_disabled();
+            Update_claenData = 0;
+            $("#id_div_Add").attr("disabled", "");
+            $("#id_div_Add").removeClass("disabledDiv");
+        }
+        DriverDoubleClick();
     }
     function DriverDoubleClick() {
         ////debugger
-        //Selecteditem = Details.filter(x => x.ID_Supplier == Number(ReportGrid.SelectedKey));
-        //for (var item of Selecteditem) {
-        //    //CustomerIdUpdate = item.VendorID;
-        //    if (item.Isactive) { chkActive.checked = true; }
-        //    else chkActive.checked = false;
-        //}
-        //DisplayData(Selecteditem);
-        //$('#btnedite').removeClass("display_none");
-        //$('#btnsave').addClass("display_none");
-        //$('#btnback').addClass("display_none");
-        //$('#btnedite').removeAttr("disabled");
-        //chkActive.disabled = true;
-        //IsNew = false;
-        //Update_claenData = 1;
-        //btnback_onclick();
-        //$('#btnsave').toggleClass("display_none");
-        //$('#btnback').toggleClass("display_none");
-        //reference_Page();
-        //$("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
-    }
-    function DisplayData(Selecteditem) {
-        //DocumentActions.RenderFromModel(Selecteditem[0]);
-        //$('#txt_Category').prop("value", Selecteditem[0].CatID);
-        ////debugger;
-        //if (Selecteditem[0].IsCreditVendor == false) {
-        //    $('#txt_Cust_Type').prop("value", 0);
-        //    $('#div_Balance').removeClass("display_none");
-        //}
-        //else {
-        //    $('#txt_Cust_Type').prop("value", 1);
-        //    //$('#txt_Openbalance').addClass("display_none");
-        //    $('#div_Balance').addClass("display_none");
-        //}
-        //$('#txt_Grop').prop("value", Selecteditem[0].GroupId);
-        //$('#txt_tax').prop("value", Selecteditem[0].VATType);
-        //$('#ddlNationality').prop("value", Selecteditem[0].NationalityID);
-        //$('#txtVendorType_New').prop("value", Selecteditem[0].VendorType);
-        ////alert(Selecteditem[0].NationalityID);
-        //CustomerId = Selecteditem[0].VendorID;
-        //Debit = Selecteditem[0].Debit;
-        //Credit = Selecteditem[0].Credit
-        //$('#txt_balance').val((Selecteditem[0].Openbalance + Selecteditem[0].Debit - Selecteditem[0].Credit));
-    }
-    function FillddlCashAdd() {
-        //CashDetailsAr = ["أجل", "نقدي"];
-        //CashDetailsEn = ["Cash", "Doubted"];
-        //if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
-        //    let option = document.createElement("option");
-        //    option.value = null;
-        //    option.text = "Select ...";
-        //    //   ddlCash.options.add(option);
-        //    txt_Cust_Type.options.add(option);
-        //    for (let i = 0; i < CashDetailsEn.length; i++) {
-        //        let newoption = document.createElement("option");
-        //        newoption.value = i.toString();
-        //        newoption.text = CashDetailsEn[i];
-        //        //     ddlCash.options.add(newoption);
-        //        txt_Cust_Type.options.add(newoption);
-        //    }
-        //}
-        //else {
-        //    let option = document.createElement("option");
-        //    option.value = null;
-        //    option.text = "النوع ...";
-        //    //    ddlCash.options.add(option);
-        //    txt_Cust_Type.options.add(option);
-        //    for (let i = 0; i < CashDetailsAr.length; i++) {
-        //        let newoption = document.createElement("option");
-        //        newoption.value = i.toString();
-        //        newoption.text = CashDetailsAr[i];
-        //        //   ddlCash.options.add(newoption);
-        //        txt_Cust_Type.options.add(newoption);
-        //    }
-        //}
+        Selecteditem = Details.filter(function (s) { return s.ID_Supplier == Number(ReportGrid.SelectedKey); });
+        DocumentActions.RenderFromModel(Selecteditem[0]);
+        $('#btnedite').removeClass("display_none");
+        $('#btnsave').addClass("display_none");
+        $('#btnback').addClass("display_none");
+        $('#btnedite').removeAttr("disabled");
+        $('#txt_IS_Active').prop("value", Selecteditem[0].IS_Active == false ? 0 : 1);
+        $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
     }
     function EnableControls() {
         //if (!SysSession.CurrentPrivileges.AddNew) return;
@@ -527,23 +382,23 @@ var AccDefVendor;
     }
     function _SearchBox_Change() {
         //////debugger;
-        //if (searchbutmemreport.value != "") {
-        //    let search: string = searchbutmemreport.value.toLowerCase();
-        //    SearchDetails = Details.filter(x => x.NAMEA.toLowerCase().search(search) >= 0 || x.VendorCode.toString().search(search) >= 0
-        //        || x.AddDedNo.toString().search(search) >= 0);
-        //    ReportGrid.DataSource = SearchDetails;
-        //    ReportGrid.Bind();
-        //} else {
-        //    ReportGrid.DataSource = Details;
-        //    ReportGrid.Bind();
-        //}
+        if (searchbutmemreport.value != "") {
+            var search_1 = searchbutmemreport.value.toLowerCase();
+            SearchDetails = Details.filter(function (x) { return x.Name_Supplier.toLowerCase().search(search_1) >= 0 || x.ID_Supplier.toString().search(search_1) >= 0; });
+            ReportGrid.DataSource = SearchDetails;
+            ReportGrid.Bind();
+        }
+        else {
+            ReportGrid.DataSource = Details;
+            ReportGrid.Bind();
+        }
     }
     function InitializeGrid() {
         var res = GetResourceList("");
         $("#id_ReportGrid").attr("style", "");
         ReportGrid.OnRowDoubleClicked = DriverDoubleClick;
         ReportGrid.ElementName = "ReportGrid";
-        ReportGrid.PrimaryKey = "VendorID";
+        ReportGrid.PrimaryKey = "ID_Supplier";
         ReportGrid.Paging = true;
         ReportGrid.PageSize = 10;
         ReportGrid.Sorting = true;
@@ -563,68 +418,53 @@ var AccDefVendor;
         ReportGrid.Bind();
     }
     function Assign() {
-        //debugger;
-        var IsCredit_Type;
-        if ($('#txt_Cust_Type').val() == 0) {
-            IsCredit_Type = false;
-        }
-        else {
-            IsCredit_Type = true;
-        }
-        var Model = new Supplier();
-        if (IsNew == true) {
-            DocumentActions.AssignToModel(Model); //Insert Update
-            Model.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-            Model.UserCode = SysSession.CurrentEnvironment.UserCode;
-            Model.ID_Supplier = CustomerId;
-            Model.Type_Supplier = $('#txtVendorType_New').val();
-            Model.Name_Supplier = $('#txtResName').val();
-            Model.phone = $('#txtResMobile').val();
-        }
-        else {
-            //  DocumentActions.RenderFromModel(Model);//Display
-            DocumentActions.AssignToModel(Model); //Insert Update 
-            Model.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-            Model.UserCode = SysSession.CurrentEnvironment.UserCode;
-            Model.ID_Supplier = CustomerId;
-            Model.Type_Supplier = $('#txtVendorType_New').val();
-            Model.Name_Supplier = $('#txtResName').val();
-            Model.phone = $('#txtResMobile').val();
-        }
+        debugger;
+        DocumentActions.AssignToModel(Model); //Insert Update    
+        Model.ID_Supplier = $('#txt_ID_Supplier').val();
+        Model.Type_Supplier = $('#txt_Type_Supplier').val();
+        Model.Name_Supplier = $('#txt_NAME').val();
+        Model.IS_Active = $('#txt_IS_Active').val() == '1' ? true : false;
+        Model.phone = $('#txt_phone').val();
+        Model.Notes = $('#txt_Notes').val();
     }
     function Insert() {
-        //Assign();
-        ////debugger
-        //Ajax.Callsync({
-        //    type: "POST",
-        //    url: sys.apiUrl("AccDefVendor", "Insert"),
-        //    data: JSON.stringify(Model),
-        //    success: (d) => {
-        //        let result = d as BaseResponse;
-        //        if (result.IsSuccess) {
-        //            DisplayMassage("تم الحفظ بنجاح", "Success", MessageType.Succeed);
-        //            Valid = 0;
-        //        } else {
-        //            DisplayMassage("خطأء", "Error", MessageType.Error);
-        //        }
-        //    }
-        //});
+        Assign();
+        debugger;
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Supplier", "Insert"),
+            data: JSON.stringify(Model),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    MessageBox.Show("تم الحفظ بنجاح", "Success");
+                    Valid = 0;
+                }
+                else {
+                    MessageBox.Show("خطأء", "Error");
+                }
+            }
+        });
     }
     function Update() {
-        //Assign();
-        //Ajax.Callsync({
-        //    type: "POST",
-        //    url: sys.apiUrl("AccDefVendor", "Update"),
-        //    data: JSON.stringify(Model),
-        //    success: (d) => {
-        //        let result = d as BaseResponse;
-        //        if (result.IsSuccess) {
-        //            DisplayMassage("تم التعديل بنجاح", "Success", MessageType.Succeed);
-        //        } else {
-        //            DisplayMassage("خطأء", "Error", MessageType.Error);
-        //        }
-        //    }
-        //});
+        Assign();
+        Ajax.Callsync({
+            type: "POST",
+            url: sys.apiUrl("Supplier", "Update"),
+            data: JSON.stringify(Model),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    MessageBox.Show("تم التعديل بنجاح", "Success");
+                    GetSupplier();
+                    displaysupplier();
+                    Display_All();
+                }
+                else {
+                    MessageBox.Show("خطأء", "Error");
+                }
+            }
+        });
     }
 })(AccDefVendor || (AccDefVendor = {}));
 //# sourceMappingURL=Supplier.js.map
