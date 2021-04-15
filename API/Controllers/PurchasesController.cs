@@ -67,6 +67,20 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAll_IQ_Purchases_Details(int TrNo)
+        {
+            if (ModelState.IsValid)
+            {
+                string s = "select * from IQ_Purchases_Details where TrNo = " + TrNo + "";
+                 
+                string query = s ;
+                var res = db.Database.SqlQuery<IQ_Purchases_Details>(query).ToList();
+                return Ok(new BaseResponse(res));
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
         public IHttpActionResult IQ_PurchasesItemInfo(int TrNo)
         {
             if (ModelState.IsValid)

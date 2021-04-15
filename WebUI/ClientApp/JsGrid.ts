@@ -65,23 +65,23 @@ class JsGrid {
 
 
     public SwitchInsertingRow() {
-        debugger
+        //debugger
         let value: boolean = <boolean>$('#' + this.ElementName).jsGrid('option', 'inserting');
 
         $('#' + this.ElementName).jsGrid('option', 'inserting', !value);
     }
     public SwitchEditing() {
-        debugger
+        //debugger
         let value: boolean = <boolean>$('#' + this.ElementName).jsGrid('option', 'editing');
         $('#' + this.ElementName).jsGrid('option', 'editing', !value);
     }
     public GenerateColumns(objType: any) {
         //let row = this.DataSource[0];
-        debugger
+        //debugger
         this.Columns = new Array<IJsGridColumn>();
         let fields = Object.getOwnPropertyNames(objType);
         for (var field of fields) {
-            debugger
+            //debugger
             let col: IJsGridColumn = {
                 
                 name: field,
@@ -107,7 +107,7 @@ class JsGrid {
         if (this.SwitchingLanguageEnabled == true) {
             this.SwitchColumnsLanguage();
         }
-        debugger;
+        //debugger;
 
 
 
@@ -141,7 +141,7 @@ class JsGrid {
             //},
 
             getFilter: function () {
-                debugger;
+                //debugger;
                 var result = {};
                 this._eachField(function (field) {
                     if (field.filtering) {
@@ -152,7 +152,7 @@ class JsGrid {
             },
 
             filterTemplate: function () {
-                debugger
+                //debugger
                 if (!this.filtering)
                     return "";
 
@@ -171,7 +171,7 @@ class JsGrid {
                 return $result;
             },
             loadData: function (filter) {
-                debugger
+                //debugger
                 filter = filter || (this.filtering ? this.getFilter() : {});
 
                 $.extend(filter, this._loadStrategy.loadParams(), this._sortingParams());
@@ -181,7 +181,7 @@ class JsGrid {
                 });
 
                 return this._controllerCall("loadData", filter, args.cancel, function (loadedData) {
-                    debugger
+                    //debugger
                     if (!loadedData)
                         return;
 
@@ -193,7 +193,7 @@ class JsGrid {
                 });
             },
             _controllerCall: function (method, param, isCanceled, doneCallback) {
-                debugger
+                //debugger
                 if (isCanceled)
                     return $.Deferred().reject().promise();
 
@@ -211,7 +211,7 @@ class JsGrid {
             },
 
             _setSortingParams: function (field, order) {
-                debugger
+                //debugger
                 field = this._normalizeField(field);
                 order = order || ((this._sortField === field) ? this._reversedSortOrder(this._sortOrder) : "asc");
 
@@ -219,7 +219,7 @@ class JsGrid {
                 this._sortOrder = order;
             },
             sort: function (field, order) {
-                debugger
+                //debugger
                 if ($.isPlainObject(field)) {
                     order = field.order;
                     field = field.field;
@@ -232,7 +232,7 @@ class JsGrid {
             },
 
             _sortData: function () {
-                debugger
+                //debugger
                 var sortFactor = this._sortFactor(),
                     sortField = this._sortField;
 
@@ -243,7 +243,7 @@ class JsGrid {
                 }
             },
             _sortingParams: function () {
-                debugger
+                //debugger
                 if (this.sorting && this._sortField) {
                     return {
                         sortField: this._sortField.name,
@@ -253,19 +253,19 @@ class JsGrid {
                 return {};
             },
             search: function (filter) {
-                debugger
+                //debugger
                 this._resetSorting();
                 this._resetPager();
                 return this.loadData(filter);
             },
             _resetSorting: function () {
-                debugger
+                //debugger
                 this._sortField = null;
                 this._sortOrder = "asc";
                 this._clearSortingCss();
             },
             _resetPager: function () {
-                debugger
+                //debugger
                 this._firstDisplayingPage = 1;
                 this._setPage(1);
             },
@@ -307,7 +307,7 @@ class JsGrid {
 
             //},
             rowClick: (e) => {
-                debugger
+                ////debugger
                 let row = e.event.currentTarget as HTMLTableRowElement;
                 $(".jsgrid-row").removeClass("SelectedRowF");
                 $(".jsgrid-alt-row").removeClass("SelectedRowF");
@@ -323,12 +323,12 @@ class JsGrid {
             },
 
             filterValue: function () {
-                debugger
+                ////debugger
 
                 return this.filterControl.val();
             },
             onDataLoaded: () => {
-                debugger
+                ////debugger
                 if (this.OnDataLoaded != null)
                     this.OnDataLoaded();
             },
@@ -337,7 +337,7 @@ class JsGrid {
                     this.OnRefreshed();
             },
             rowDoubleClick: (e) => {
-                debugger
+                ////debugger
                 this.SelectedIndex = this.DataSource.indexOf(e.item);// e.itemIndex;
                 this.SelectedItem = e.item;
                 this.SelectedKey = e.item[this.PrimaryKey];
@@ -352,7 +352,7 @@ class JsGrid {
 
 
             onItemInserting: (arg) => {
-                debugger
+                //debugger
                 if (this.OnItemInserting != null) {
                     if (this.InsertionMode == JsGridInsertionMode.Binding)
                         arg.cancel = true;
@@ -365,7 +365,7 @@ class JsGrid {
                 }
             },
             onItemInserted: (arg) => {
-                debugger
+                //debugger
                 //$("#" + this.ElementName).jsGrid('option', 'inserting', false);
                 //$("#" + this.ElementName).jsGrid("refresh");
                 if (this.OnItemInserted != null)
@@ -373,7 +373,7 @@ class JsGrid {
             },
 
             onItemUpdating: (arg) => {
-                debugger
+                //debugger
                 if (this.OnItemUpdating != null) {
                     let e: JsGridUpdateEventArgs = new JsGridUpdateEventArgs();
                     e.Item = arg.item;
@@ -385,7 +385,7 @@ class JsGrid {
             },
 
             onItemEditing: (arg) => {
-                debugger
+                //debugger
                 if (this.OnItemEditing != null) {
                     let e: JsGridEditEventArgs = new JsGridEditEventArgs();
                     e.Item = arg.item;
@@ -396,7 +396,7 @@ class JsGrid {
             },
 
             onItemDeleting: (arg) => {
-                debugger
+                //debugger
                 if (this.OnItemDeleting != null) {
                     let e: JsGridDeleteEventArgs = new JsGridDeleteEventArgs();
                     e.Item = arg.item;

@@ -88,6 +88,15 @@
     <Compile Include="Domain\Get_Settings_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\G_SearchForm.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_SearchFormModule.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_SearchFormSetting.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\insert_Table_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>

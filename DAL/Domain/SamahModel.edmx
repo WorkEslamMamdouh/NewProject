@@ -32,6 +32,54 @@
           <Property Name="ID_User" Type="int" />
           <Property Name="id_Type_EMPLOYEE" Type="int" />
         </EntityType>
+        <EntityType Name="G_SearchForm">
+          <Key>
+            <PropertyRef Name="SearchFormCode" />
+          </Key>
+          <Property Name="SearchFormCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReturnDataPropertyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="SerachFormTitle" Type="nvarchar" MaxLength="120" />
+          <Property Name="IsFullScreen" Type="bit" Nullable="false" />
+          <Property Name="Left" Type="int" Nullable="false" />
+          <Property Name="Top" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="PageSize" Type="int" Nullable="false" />
+          <Property Name="DataSourceName" Type="nvarchar" MaxLength="200" />
+          <Property Name="SearchInterval" Type="int" Nullable="false" />
+          <Property Name="SerachFormTitleA" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="G_SearchFormModule">
+          <Key>
+            <PropertyRef Name="SystemCode" />
+            <PropertyRef Name="SubSystemCode" />
+            <PropertyRef Name="ModuleCode" />
+            <PropertyRef Name="ControlCode" />
+          </Key>
+          <Property Name="SystemCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubSystemCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ModuleCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ControlCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SearchFormCode" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="G_SearchFormSetting">
+          <Key>
+            <PropertyRef Name="SearchFormSettingID" />
+          </Key>
+          <Property Name="SearchFormSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SearchFormCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="FieldSequence" Type="tinyint" />
+          <Property Name="DataMember" Type="nvarchar" MaxLength="200" />
+          <Property Name="AlternateDataMember" Type="nvarchar" MaxLength="200" />
+          <Property Name="FieldTitle" Type="nvarchar" MaxLength="120" />
+          <Property Name="IsReadOnly" Type="bit" Nullable="false" />
+          <Property Name="Datatype" Type="tinyint" Nullable="false" />
+          <Property Name="FieldWidth" Type="int" Nullable="false" />
+          <Property Name="UseSelectionOperator" Type="bit" />
+          <Property Name="Language" Type="tinyint" />
+          <Property Name="FieldTitleA" Type="nvarchar" MaxLength="120" />
+        </EntityType>
         <EntityType Name="ITEME">
           <Key>
             <PropertyRef Name="ID_Iteme" />
@@ -616,6 +664,9 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_SearchForm" EntityType="Self.G_SearchForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_SearchFormModule" EntityType="Self.G_SearchFormModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_SearchFormSetting" EntityType="Self.G_SearchFormSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ITEME" EntityType="Self.ITEME" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginPage" EntityType="Self.LoginPage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message_Chat" EntityType="Self.Message_Chat" Schema="dbo" store:Type="Tables" />
@@ -994,6 +1045,9 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
           <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
+          <EntitySet Name="G_SearchForm" EntityType="SamahModel.G_SearchForm" />
+          <EntitySet Name="G_SearchFormModule" EntityType="SamahModel.G_SearchFormModule" />
+          <EntitySet Name="G_SearchFormSetting" EntityType="SamahModel.G_SearchFormSetting" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1525,6 +1579,54 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SearchForm">
+          <Key>
+            <PropertyRef Name="SearchFormCode" />
+          </Key>
+          <Property Name="SearchFormCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDataPropertyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SerachFormTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullScreen" Type="Boolean" Nullable="false" />
+          <Property Name="Left" Type="Int32" Nullable="false" />
+          <Property Name="Top" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="PageSize" Type="Int32" Nullable="false" />
+          <Property Name="DataSourceName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SearchInterval" Type="Int32" Nullable="false" />
+          <Property Name="SerachFormTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SearchFormModule">
+          <Key>
+            <PropertyRef Name="SystemCode" />
+            <PropertyRef Name="SubSystemCode" />
+            <PropertyRef Name="ModuleCode" />
+            <PropertyRef Name="ControlCode" />
+          </Key>
+          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ControlCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SearchFormSetting">
+          <Key>
+            <PropertyRef Name="SearchFormSettingID" />
+          </Key>
+          <Property Name="SearchFormSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FieldSequence" Type="Byte" />
+          <Property Name="DataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateDataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FieldTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="IsReadOnly" Type="Boolean" Nullable="false" />
+          <Property Name="Datatype" Type="Byte" Nullable="false" />
+          <Property Name="FieldWidth" Type="Int32" Nullable="false" />
+          <Property Name="UseSelectionOperator" Type="Boolean" />
+          <Property Name="Language" Type="Byte" />
+          <Property Name="FieldTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2177,6 +2279,54 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
                 <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
                 <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchForm">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchForm">
+              <MappingFragment StoreEntitySet="G_SearchForm">
+                <ScalarProperty Name="SerachFormTitleA" ColumnName="SerachFormTitleA" />
+                <ScalarProperty Name="SearchInterval" ColumnName="SearchInterval" />
+                <ScalarProperty Name="DataSourceName" ColumnName="DataSourceName" />
+                <ScalarProperty Name="PageSize" ColumnName="PageSize" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Top" ColumnName="Top" />
+                <ScalarProperty Name="Left" ColumnName="Left" />
+                <ScalarProperty Name="IsFullScreen" ColumnName="IsFullScreen" />
+                <ScalarProperty Name="SerachFormTitle" ColumnName="SerachFormTitle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReturnDataPropertyName" ColumnName="ReturnDataPropertyName" />
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchFormModule">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchFormModule">
+              <MappingFragment StoreEntitySet="G_SearchFormModule">
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+                <ScalarProperty Name="ControlCode" ColumnName="ControlCode" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="SubSystemCode" ColumnName="SubSystemCode" />
+                <ScalarProperty Name="SystemCode" ColumnName="SystemCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchFormSetting">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchFormSetting">
+              <MappingFragment StoreEntitySet="G_SearchFormSetting">
+                <ScalarProperty Name="FieldTitleA" ColumnName="FieldTitleA" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="UseSelectionOperator" ColumnName="UseSelectionOperator" />
+                <ScalarProperty Name="FieldWidth" ColumnName="FieldWidth" />
+                <ScalarProperty Name="Datatype" ColumnName="Datatype" />
+                <ScalarProperty Name="IsReadOnly" ColumnName="IsReadOnly" />
+                <ScalarProperty Name="FieldTitle" ColumnName="FieldTitle" />
+                <ScalarProperty Name="AlternateDataMember" ColumnName="AlternateDataMember" />
+                <ScalarProperty Name="DataMember" ColumnName="DataMember" />
+                <ScalarProperty Name="FieldSequence" ColumnName="FieldSequence" />
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+                <ScalarProperty Name="SearchFormSettingID" ColumnName="SearchFormSettingID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

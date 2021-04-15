@@ -2,13 +2,12 @@
 class SystemTools {
 
     constructor() {
-
         this.orgCondition = "";
-        //this.SysSession = GetSystemSession();
+        this.SysSession = GetSystemSession();
     }
 
     public orgCondition: string;
-    //public SysSession: SystemSession; 
+    public SysSession: SystemSession; 
 
     public apiUrl(controller: string, action: string) {
         debugger
@@ -305,6 +304,91 @@ class SystemTools {
                 return " Like '%" + filter + "'";
             if (cond.toLowerCase() == "startswith")
                 return " Like '" + filter + "%'";
+        }
+
+
+        public FindKey(moduleCode: string, _SearchControlName: string, Condition: string, OnSearchSelected: () => void) {
+
+            this.orgCondition = Condition;
+
+            let SystemCode = this.SysSession.CurrentEnvironment.SystemCode;
+            let SubSystemCode = this.SysSession.CurrentEnvironment.SubSystemCode;
+            let ScreenLanguage = this.SysSession.CurrentEnvironment.ScreenLanguage;
+            Ajax.CallAsync({
+                url: this.apiUrl("SystemTools", "FindKey"),
+                data: {
+                    moduleCode: moduleCode,
+                    Condition: Condition,
+                    controlName: _SearchControlName,
+                    SystemCode: SystemCode,
+                    SubSystemCode: SubSystemCode,
+                    ScreenLanguage: ScreenLanguage
+                },
+                async: true,
+                success: (resp) => {
+
+                    var response = resp;
+                    if (response == null) {
+                        MessageBox.Show("Search not available, Please call your app administrator", "Search");
+                        return;
+                    }
+
+                    let columns = response.Columns as Array<datatableColumn>;
+                    let result = JSON.parse(response.DataResult);
+
+                    let settings = response.Settings as G_SearchForm;
+                    let TableName = response.TableName as string;
+                    let Condition = response.Condition as string;
+
+                    SearchGrid.SearchDataGrid = new DataTable();
+                    SearchGrid.SearchDataGrid.Columns = columns;
+
+                    SearchGrid.SearchDataGrid.dataScr = result;
+                    SearchGrid.SearchDataGrid.ElementName = "SearchDataTable";
+                    SearchGrid.SearchDataGrid.PageSize = settings.PageSize;// < 50 ? 50 : settings.PageSize;
+                    SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
+
+                    let boxWidth: string = settings.Width <= 100 ? "70%" : settings.Width.toString() + "px";
+                    let boxHeight: string = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
+                    let boxLeft: string = settings.Left <= 50 ? "14%" : settings.Left.toString() + "px";
+                    let boxTop: string = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
+
+                    $("#SearchBox").css("width", boxWidth);
+                    $("#SearchBox").css("height", boxHeight);
+                    $("#SearchBox").css("left", boxLeft);
+                    $("#SearchBox").css("top", boxTop);
+
+                    SearchGrid.SearchDataGrid.Bind();
+
+                    SearchGrid.SearchDataGrid.OnDoubleClick = () => {
+                        console.log(SearchGrid.SearchDataGrid.SelectedKey);
+                        $("#SearchBox").modal("hide");//.css("display", "none");
+                        OnSearchSelected();
+                    };
+
+                    try {
+
+                        if (this.SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
+                            document.getElementById("searchTitle").innerText = settings.SerachFormTitleA;
+                        }
+                        else if (this.SysSession.CurrentEnvironment.ScreenLanguage == "en") {
+                            document.getElementById("searchTitle").innerText = settings.SerachFormTitle;
+                        }
+                    } catch (e) {
+                        console.log('error in language...');
+                    }
+
+                    $(".ui-igedit-input").keyup((e) => {
+
+                    });
+
+                    $("#SearchBox").modal("show");//.css("display", "");//
+                    // $("#SearchBox").addClass("in");//.css("display", "");//
+
+                    $("#SearchDataTable").css("width", "100%");
+                    $("#SearchDataTable").css("height", "100%");
+                }
+            });
         }
 
 

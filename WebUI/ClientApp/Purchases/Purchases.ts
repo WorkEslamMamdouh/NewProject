@@ -20,7 +20,9 @@ namespace Purchases {
     var Get_IQ_Purchases_Master: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
     var SearchDetails: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
     var Selected_Data: Array<IQ_Purchases_Master> = new Array<IQ_Purchases_Master>();
-    var AllGetStokMasterDetail: Array<ReviewSalesItemInfo> = new Array<ReviewSalesItemInfo>();
+    var AllGetStokMasterDetail: Array<IQ_Purchases_Details> = new Array<IQ_Purchases_Details>();
+    
+    var FilterFamilyDetails: Array<CATEGRES> = new Array<CATEGRES>();
     var FamilyDetails: Array<CATEGRES> = new Array<CATEGRES>();
     var ItemFamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
     var ItemBaesdFamilyDetails: Array<PRODUCT> = new Array<PRODUCT>();
@@ -30,6 +32,7 @@ namespace Purchases {
     var SlsMasterDetils: SlsMasterDetails = new SlsMasterDetails();
 
     var GetAllVendorDetails: Array<Supplier> = new Array<Supplier>();
+    var SearchVendorDetails: Array<Supplier> = new Array<Supplier>();
    
     //DropDownlist
 
@@ -59,6 +62,7 @@ namespace Purchases {
     var btnUpdate: HTMLButtonElement;
     var btnSave: HTMLButtonElement;
     var btnBack: HTMLButtonElement;
+    var btnSupplierSearch: HTMLButtonElement;
 
 
     //new
@@ -119,7 +123,9 @@ namespace Purchases {
         btnUpdate = document.getElementById("btnUpdate") as HTMLButtonElement;
         btnBack = document.getElementById("btnBack") as HTMLButtonElement;
         btnSave = document.getElementById("btnSave") as HTMLButtonElement;
+        btnSupplierSearch = document.getElementById("btnSupplierSearch") as HTMLButtonElement;
 
+        btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
         
 
 
@@ -135,6 +141,10 @@ namespace Purchases {
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
 
+        btnAddDetails.onclick = AddNewRow;
+
+        btnSupplierSearch.onclick = Search;
+        //btnAddDetails.getAttribute('data-ID_CAT')
 
     }
     function GetDate() {
@@ -313,22 +323,22 @@ namespace Purchases {
         debugger
      
         DocumentActions.RenderFromModel(Selected_Data[0]);
-        //BindGetOperationItemsGridData(Selected_Data[0].TrNo);
+        BindGetOperationItemsGridData(Selected_Data[0].TrNo);
 
        
 
 
     }
-    function BindGetOperationItemsGridData(ID_ORDER: number) {
+    function BindGetOperationItemsGridData(TrNo: number) {
         debugger
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("ReviewSales", "IQ_ReviewSalesItemInfo"),
-            data: { ID_ORDER: ID_ORDER },
+            url: sys.apiUrl("Purchases", "GetAll_IQ_Purchases_Details"),
+            data: { TrNo: TrNo },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                    AllGetStokMasterDetail = result.Response as Array<ReviewSalesItemInfo>;
+                    AllGetStokMasterDetail = result.Response as Array<IQ_Purchases_Details>;
 
                     $("#div_Data").html('');
                     for (var i = 0; i < AllGetStokMasterDetail.length; i++) {
@@ -386,9 +396,11 @@ namespace Purchases {
             }
         });
     }
-    function FillddlItems(ItemFamilyID: number) {
+    function FillddlItems(Name_CAT: string) {
         debugger
-        ItemBaesdFamilyDetails = ItemFamilyDetails.filter(x => x.ID_CAT == ItemFamilyID);
+        FilterFamilyDetails = new Array<CATEGRES>();
+        FilterFamilyDetails = FamilyDetails.filter(x => x.Name_CAT == Name_CAT);
+        ItemBaesdFamilyDetails = ItemFamilyDetails.filter(x => x.ID_CAT == FilterFamilyDetails[0].ID_CAT);
         //Ajax.Callsync({
         //    type: "Get",
         //    url: sys.apiUrl("StkDefItems", "GetAll"),//(int CompCode,int ItemFamilyID,int storeCode, string UserCode, string Token)
@@ -416,12 +428,14 @@ namespace Purchases {
             '<div class="col-lg-1"style="left: -4%!important;">' +
             '<span id="btn_minus' + cnt + '" class="fa fa-minus-circle fontitm3 display_none" style="font-size: 28px;"></span></div>' +
             '<div class="col-lg-2"style="left:1%!important">' +
-            '<select id="ddlFamily' + cnt + '" class="form-control" disabled  ><option value="null">اختر</option></select></div>' +
-            '<div class="col-lg-2"style="left: 1%;">' +
-            '<select id="ddlItem' + cnt + '" class="form-control" disabled  ><option  value="null">اختر</option></select></div>' +
-            '<div class="col-lg-2" style=""><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<form> <input list="ddlFamily' + cnt + '" name="Family' + cnt + '" class="form-control" id="Family' + cnt + '">  <datalist id="ddlFamily' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
+            '<div class="col-lg-2"style="left:1%!important">' +
+            '<form> <input list="ddlItem' + cnt + '" name="Items' + cnt + '" class="form-control" id="Items' + cnt + '">  <datalist id="ddlItem' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
             '<div class="col-lg-1" style=""><input id="txtQuantity' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
-            '<div class="col-lg-1" style=""><input id="txtReturn' + cnt + '" type="number" disabled class="form-control right2"   value=""/></div>' +
+            '<div class="col-lg-1" style=""><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style=""><input id="Sales_Price' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style=""><input id="MinUnitPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            //'<div class="col-lg-1" style=""><input id="txtReturn' + cnt + '" type="number" disabled class="form-control right2"   value=""/></div>' +
             '<div class="col-lg-2" style=""><input id="txtTotal' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
 
             '</div></div></div>' +
@@ -429,6 +443,22 @@ namespace Purchases {
             '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" /><input id="PRODUCT_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
 
         $("#div_Data").append(html);
+
+
+      
+
+        //$("#Family" + cnt).on('input', function () {
+        //    var val = this.value;
+        //    if ($('#ddlFamily' + cnt + ' option').filter(function () {
+        //        return this.value.toUpperCase() === val.toUpperCase();
+        //    }).length) {
+        //        //send ajax request
+        //        //alert(this.getAttribute('data-ID_CAT'));
+        //        //$('#ddlFamily' + cnt + ' option').attr('data-ID_CAT');
+        //        //alert($('option:selected', $('#ddlFamily' + 0 + '')).attr('data-id_cat'));
+        //    }
+        //});
+
 
         debugger
 
@@ -581,11 +611,11 @@ namespace Purchases {
         debugger
         var drop = '#ddlFamily' + cnt;
         $('#ddlFamily' + cnt).empty();
-        $('#ddlFamily' + cnt).append('<option value="' + null + '">' + "اختر النوع" + '</option>');
+        //$('#ddlFamily' + cnt).append('<option value="' + null + '">' + "اختر النوع" + '</option>');
         for (var i = 0; i < FamilyDetails.length; i++) {
-            $('#ddlFamily' + cnt).append('<option value="' + FamilyDetails[i].ID_CAT + '">' + FamilyDetails[i].Name_CAT + '</option>');
+            $('#ddlFamily' + cnt).append('<option data-ID_CAT="' + FamilyDetails[i].ID_CAT + '" value="' + FamilyDetails[i].Name_CAT + '">');
         }
-        $('#ddlFamily' + cnt).change(
+        $('#Family' + cnt).change(
             () => {
 
                 if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -594,10 +624,10 @@ namespace Purchases {
                 debugger
                 if ($('#ddlFamily' + cnt).val() != "null") {
                     $('#ddlItem' + cnt).empty();
-                    $('#ddlItem' + cnt).append('<option value="' + null + '">' + "اختر الصنف" + '</option>');
-                    FillddlItems(Number($('#ddlFamily' + cnt).val()));
+                    //$('#ddlItem' + cnt).append('<option value="' + null + '">' + "اختر الصنف" + '</option>');
+                    FillddlItems($('#Family' + cnt).val());
                     for (var i = 0; i < ItemBaesdFamilyDetails.length; i++) {
-                        $('#ddlItem' + cnt).append('<option data-PRODUCT_PRICE="' + ItemBaesdFamilyDetails[i].PRODUCT_PRICE + '"  data-MinUnitPrice="' + ItemBaesdFamilyDetails[i].MinUnitPrice + '" data-OnhandQty="' + ItemBaesdFamilyDetails[i].PRODUCT_QET + '" value="' + ItemBaesdFamilyDetails[i].PRODUCT_ID + '">' + ItemBaesdFamilyDetails[i].PRODUCT_NAME + '</option>');
+                        $('#ddlItem' + cnt).append('<option  value="' + ItemBaesdFamilyDetails[i].PRODUCT_NAME + '"> ');
 
                     }
                 }
@@ -789,35 +819,39 @@ namespace Purchases {
         return;
 
     }
-    function Disbly_BuildControls(cnt: number, AllGetStokItemInfo: Array<ReviewSalesItemInfo>) {
+    function Disbly_BuildControls(cnt: number, AllGetStokItemInfo: Array<IQ_Purchases_Details>) {
         debugger
         $("#btnAddDetails").addClass("display_none");
         $("#btn_minus" + cnt).addClass("display_none");
         $("#txt_StatusFlag" + cnt).val("");
-        var FamilyID: number = Number(AllGetStokItemInfo[cnt].ID_CAT);
-        $("#ddlFamily" + cnt).prop("value", FamilyID);
-        FillddlItems(Number($('#ddlFamily' + cnt).val()));
-        for (var i = 0; i < ItemBaesdFamilyDetails.length; i++) {
-
-            $('#ddlItem' + cnt).append('<option data-PRODUCT_PRICE="' + ItemBaesdFamilyDetails[i].PRODUCT_PRICE + '" data-MinUnitPrice="' + ItemBaesdFamilyDetails[i].MinUnitPrice + '" data-OnhandQty="' + ItemBaesdFamilyDetails[i].PRODUCT_QET + '" value="' + ItemBaesdFamilyDetails[i].PRODUCT_ID + '">' + ItemBaesdFamilyDetails[i].PRODUCT_NAME + '</option>');
-
-
-
-        }
-        var itemcode = AllGetStokItemInfo[cnt].PRODUCT_ID;
-        $("#txt_ID" + cnt).prop("value", AllGetStokItemInfo[cnt].ID_DELIVERY);
-        $("#ddlItem" + cnt).prop("value", itemcode.toString());
+       
+        $("#Family" + cnt).prop("value", AllGetStokItemInfo[cnt].Name_CAT);
+      
+        var itemcode = AllGetStokItemInfo[cnt].PRODUCT_NAME;
+        $("#txt_ID" + cnt).prop("value", AllGetStokItemInfo[cnt].ID);
+        $("#Items" + cnt).prop("value", itemcode.toString());
         $('#PRODUCT_ID' + cnt).val(AllGetStokItemInfo[cnt].PRODUCT_ID);
-        $("#txtQuantity" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Quantity_sell == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Quantity_sell));
-        $("#txtQuantity" + cnt).attr("Quantity", ((AllGetStokItemInfo[cnt].Quantity_sell == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Quantity_sell));
-        $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].price_One_part == null || undefined) ? 0 : AllGetStokItemInfo[cnt].price_One_part.toFixed(2));
+        $("#txtQuantity" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
+        $("#txtQuantity" + cnt).attr("Quantity", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
+        $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Purchases_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Price.toFixed(2));
+        //$("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Sales_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Sales_Price.toFixed(2));
 
-        var Total = (Number(AllGetStokItemInfo[cnt].Quantity_sell) * Number(AllGetStokItemInfo[cnt].price_One_part));
+        var Total = (Number(AllGetStokItemInfo[cnt].Purchases_Quantity) * Number(AllGetStokItemInfo[cnt].Purchases_Price));
         $("#txtTotal" + cnt).prop("value", (Total).toFixed(2));
 
         $("#btn_minus" + cnt).on('click', function () {
             DeleteRow(cnt);
         });
+
+
+        FillddlItems(AllGetStokItemInfo[cnt].Name_CAT);
+        for (var i = 0; i < ItemBaesdFamilyDetails.length; i++) {
+
+            $('#ddlItem' + cnt).append('<option  value="' + ItemBaesdFamilyDetails[i].PRODUCT_NAME + '"> ');
+
+
+
+        }
 
     }
     function AddNewRow() {
@@ -1066,6 +1100,8 @@ namespace Purchases {
         $("#DivHederMaster").addClass("disabledDiv");
 
         $(".fontitm3").removeClass("display_none");
+        $("#btnAddDetails").removeClass("display_none");
+
         remove_disabled_Grid_Controls();
 
 
@@ -1098,6 +1134,23 @@ namespace Purchases {
 
     }
 
+    function Search() {
+
+        let sys: SystemTools = new SystemTools();
+        sys.FindKey(Modules.Purchases, "btnSupplierSearch", "", () => {
+            let ID_Supplier = SearchGrid.SearchDataGrid.SelectedKey
+            //alert(id);
+            SearchVendorDetails = GetAllVendorDetails.filter(x => x.ID_Supplier == Number(ID_Supplier));
+            DocumentActions.RenderFromModel(SearchVendorDetails[0]);
+
+            //GetAllVendorDetails
+            //btnAddReturn_onclick();
+            //$("#ddlVendorDetails").attr("disabled", "disabled");
+            //$("#ddlReturnTypeShow").attr("disabled", "disabled");
+            //$("#ddlFreeSalesman").attr("disabled", "disabled");
+        });
+
+    }
 
     function remove_disabled_Grid_Controls() {
         for (var i = 0; i < CountGrid + 1; i++) {

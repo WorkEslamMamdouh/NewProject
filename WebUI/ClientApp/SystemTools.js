@@ -2,9 +2,8 @@
 var SystemTools = (function () {
     function SystemTools() {
         this.orgCondition = "";
-        //this.SysSession = GetSystemSession();
+        this.SysSession = GetSystemSession();
     }
-    //public SysSession: SystemSession; 
     SystemTools.prototype.apiUrl = function (controller, action) {
         debugger;
         var apiUrl = $("#GetAPIUrl").val() + controller + "/" + action;
@@ -243,6 +242,74 @@ var SystemTools = (function () {
             return " Like '%" + filter + "'";
         if (cond.toLowerCase() == "startswith")
             return " Like '" + filter + "%'";
+    };
+    SystemTools.prototype.FindKey = function (moduleCode, _SearchControlName, Condition, OnSearchSelected) {
+        var _this = this;
+        this.orgCondition = Condition;
+        var SystemCode = this.SysSession.CurrentEnvironment.SystemCode;
+        var SubSystemCode = this.SysSession.CurrentEnvironment.SubSystemCode;
+        var ScreenLanguage = this.SysSession.CurrentEnvironment.ScreenLanguage;
+        Ajax.CallAsync({
+            url: this.apiUrl("SystemTools", "FindKey"),
+            data: {
+                moduleCode: moduleCode,
+                Condition: Condition,
+                controlName: _SearchControlName,
+                SystemCode: SystemCode,
+                SubSystemCode: SubSystemCode,
+                ScreenLanguage: ScreenLanguage
+            },
+            async: true,
+            success: function (resp) {
+                var response = resp;
+                if (response == null) {
+                    MessageBox.Show("Search not available, Please call your app administrator", "Search");
+                    return;
+                }
+                var columns = response.Columns;
+                var result = JSON.parse(response.DataResult);
+                var settings = response.Settings;
+                var TableName = response.TableName;
+                var Condition = response.Condition;
+                SearchGrid.SearchDataGrid = new DataTable();
+                SearchGrid.SearchDataGrid.Columns = columns;
+                SearchGrid.SearchDataGrid.dataScr = result;
+                SearchGrid.SearchDataGrid.ElementName = "SearchDataTable";
+                SearchGrid.SearchDataGrid.PageSize = settings.PageSize; // < 50 ? 50 : settings.PageSize;
+                SearchGrid.SearchDataGrid.PrimaryKey = settings.ReturnDataPropertyName; //"RowIndex";
+                var boxWidth = settings.Width <= 100 ? "70%" : settings.Width.toString() + "px";
+                var boxHeight = settings.Height <= 100 ? "50%" : settings.Height.toString() + "px";
+                var boxLeft = settings.Left <= 50 ? "14%" : settings.Left.toString() + "px";
+                var boxTop = settings.Top <= 50 ? "10%" : settings.Top.toString() + "px";
+                $("#SearchBox").css("width", boxWidth);
+                $("#SearchBox").css("height", boxHeight);
+                $("#SearchBox").css("left", boxLeft);
+                $("#SearchBox").css("top", boxTop);
+                SearchGrid.SearchDataGrid.Bind();
+                SearchGrid.SearchDataGrid.OnDoubleClick = function () {
+                    console.log(SearchGrid.SearchDataGrid.SelectedKey);
+                    $("#SearchBox").modal("hide"); //.css("display", "none");
+                    OnSearchSelected();
+                };
+                try {
+                    if (_this.SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
+                        document.getElementById("searchTitle").innerText = settings.SerachFormTitleA;
+                    }
+                    else if (_this.SysSession.CurrentEnvironment.ScreenLanguage == "en") {
+                        document.getElementById("searchTitle").innerText = settings.SerachFormTitle;
+                    }
+                }
+                catch (e) {
+                    console.log('error in language...');
+                }
+                $(".ui-igedit-input").keyup(function (e) {
+                });
+                $("#SearchBox").modal("show"); //.css("display", "");//
+                // $("#SearchBox").addClass("in");//.css("display", "");//
+                $("#SearchDataTable").css("width", "100%");
+                $("#SearchDataTable").css("height", "100%");
+            }
+        });
     };
     SystemTools.prototype.ImgPopup = function (CompCode, Branch, moduleCode, TrNo) {
         var opt = {

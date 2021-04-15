@@ -57,6 +57,9 @@ namespace DAL.Domain
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
+        public virtual DbSet<G_SearchForm> G_SearchForm { get; set; }
+        public virtual DbSet<G_SearchFormModule> G_SearchFormModule { get; set; }
+        public virtual DbSet<G_SearchFormSetting> G_SearchFormSetting { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
