@@ -506,7 +506,7 @@ var Purchases;
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
             debugger;
-            if ($('#ddlFamily' + cnt).val() != "null") {
+            if ($('#Family' + cnt).val() != "" && $('#Family' + cnt).val() != " " && $('#Family' + cnt).val() != "  " && $('#Family' + cnt).val() != "   ") {
                 $('#ddlItem' + cnt).empty();
                 //$('#ddlItem' + cnt).append('<option value="' + null + '">' + "اختر الصنف" + '</option>');
                 FillddlItems($('#Family' + cnt).val());
