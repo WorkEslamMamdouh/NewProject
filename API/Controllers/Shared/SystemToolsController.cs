@@ -785,149 +785,148 @@ namespace Inv.API.Controllers
             public bool filterable { get; set; }
         }
 
-        //public struct SearchAttruibuts
-        //{
-        //    public List<G_SearchFormSetting> Columns { get; set; }
-        //    public G_SearchForm Settings { get; set; }
-        //}
+        public struct SearchAttruibuts
+        {
+            public List<G_SearchFormSetting> Columns { get; set; }
+            public G_SearchForm Settings { get; set; }
+        }
 
-        //[HttpPost]
-        //public SearchAttruibuts SearchProperties(string moduleCode, string controlName, string SystemCode, string SubSystemCode)
-        //{
+        [HttpPost]
+        public SearchAttruibuts SearchProperties(string moduleCode, string controlName, string SystemCode, string SubSystemCode)
+        {
 
-        //    var searchFormModule = (from module in db.G_SearchFormModule
-        //                            where module.SystemCode == SystemCode
-        //                            && module.SubSystemCode == SubSystemCode
-        //                            && module.ModuleCode == moduleCode
-        //                            && (module.ControlCode == controlName || module.ControlCode == "*")
-        //                            select module).FirstOrDefault();
-        //    if (searchFormModule == null)
-        //        return new SearchAttruibuts { Columns = new List<G_SearchFormSetting>(), Settings = new G_SearchForm() };
+            var searchFormModule = (from module in db.G_SearchFormModule
+                                    where module.ModuleCode == moduleCode
+                                    && module.ControlCode == controlName 
+                                    select module).FirstOrDefault();
+            if (searchFormModule == null)
+                return new SearchAttruibuts { Columns = new List<G_SearchFormSetting>(), Settings = new G_SearchForm() };
 
-        //    string SearchFormCode = searchFormModule.SearchFormCode;// db.G_SearchFormModule.Where(f => f.ModuleCode == moduleCode).First().SearchFormCode;
+            string SearchFormCode = searchFormModule.SearchFormCode;// db.G_SearchFormModule.Where(f => f.ModuleCode == moduleCode).First().SearchFormCode;
 
-        //    var columns = (from cols in db.G_SearchFormSetting
-        //                   orderby cols.FieldSequence
-        //                   where cols.SearchFormCode == SearchFormCode
-        //                   select cols).ToList();
+            var columns = (from cols in db.G_SearchFormSetting
+                           orderby cols.FieldSequence
+                           where cols.SearchFormCode == SearchFormCode
+                           select cols).ToList();
 
-        //    var settings = from searchForm in db.G_SearchForm
-        //                   where searchForm.SearchFormCode == SearchFormCode
-        //                   select searchForm;
+            var settings = from searchForm in db.G_SearchForm
+                           where searchForm.SearchFormCode == SearchFormCode
+                           select searchForm;
 
-        //    var obj = new SearchAttruibuts
-        //    {
-        //        Columns = columns as List<G_SearchFormSetting>,
-        //        Settings = settings.First()
-        //    };
+            var obj = new SearchAttruibuts
+            {
+                Columns = columns as List<G_SearchFormSetting>,
+                Settings = settings.First()
+            };
 
-        //    return obj;
-        //    // var jsonObject = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
-        //    //  return jsonObject;
-        //}
+            return obj;
+            // var jsonObject = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
+            //  return jsonObject;
+        }
 
-        //[HttpPost, ActionName("Find")]
-        //public string Find(string TableName, string Condition, string Columns, string orderBy)
-        //{
-        //    SqlConnection connection = new SqlConnection(db.Database.Connection.ConnectionString);
-        //    connection.Open();
+        [HttpPost, ActionName("Find")]
+        public string Find(string TableName, string Condition, string Columns, string orderBy)
+        {
+            SqlConnection connection = new SqlConnection(db.Database.Connection.ConnectionString);
+            connection.Open();
 
-        //    var pageSize = db.G_SearchForm.FirstOrDefault(f => f.DataSourceName == TableName).PageSize;
+            var pageSize = db.G_SearchForm.FirstOrDefault(f => f.DataSourceName == TableName).PageSize;
 
-        //    string cond = Condition;
+            string cond = Condition;
 
-        //    SqlCommand command = new SqlCommand();
-        //    command.Connection = connection;
-        //    if (pageSize == 0)
-        //        command.CommandText = "Select " + Columns + " From " + TableName + cond + " Order By " + orderBy;
-        //    else
-        //        command.CommandText = "Select Top " + pageSize.ToString() + " " + Columns + " From " + TableName + cond + " Order By " + orderBy;
+            SqlCommand command = new SqlCommand();
+            command.Connection = connection;
+            if (pageSize == 0)
+                command.CommandText = "Select " + Columns + " From " + TableName + cond + " Order By " + orderBy;
+            else
+                command.CommandText = "Select Top " + pageSize.ToString() + " " + Columns + " From " + TableName + cond + " Order By " + orderBy;
 
-        //    //if (pageSize == 0)
-        //    //    command.CommandText = "Select RowIndex," + Columns + " From (Select Row_Number() Over (Order By (Select 0)) As RowIndex, * From " + TableName + ") t2" + cond + " Order By " + orderBy;
-        //    //else
-        //    //    command.CommandText = "Select Top " + pageSize.ToString() + " RowIndex," + Columns + " From (Select Row_Number() Over (Order By (Select 0)) As RowIndex, * From " + TableName + ") t2" + cond + " Order By " + orderBy;
+            //if (pageSize == 0)
+            //    command.CommandText = "Select RowIndex," + Columns + " From (Select Row_Number() Over (Order By (Select 0)) As RowIndex, * From " + TableName + ") t2" + cond + " Order By " + orderBy;
+            //else
+            //    command.CommandText = "Select Top " + pageSize.ToString() + " RowIndex," + Columns + " From (Select Row_Number() Over (Order By (Select 0)) As RowIndex, * From " + TableName + ") t2" + cond + " Order By " + orderBy;
 
-        //    DataTable table = new DataTable();
-        //    table.Load(command.ExecuteReader());
-        //    connection.Close();
-        //    connection.Dispose();
-        //    command.Dispose();
-        //    var jsonResult = JsonConvert.SerializeObject(table);
+            DataTable table = new DataTable();
+            table.Load(command.ExecuteReader());
+            connection.Close();
+            connection.Dispose();
+            command.Dispose();
+            var jsonResult = JsonConvert.SerializeObject(table);
 
-        //    return jsonResult;
+            return jsonResult;
 
-        //}
+        }
 
-        //[HttpGet]
-        //public IHttpActionResult FindKey(string moduleCode, string Condition, string controlName, string SystemCode, string SubSystemCode, string ScreenLanguage)
-        //{
+        [HttpGet]
+        public IHttpActionResult FindKey(string moduleCode, string Condition, string controlName, string SystemCode, string SubSystemCode, string ScreenLanguage)
+        {
 
-        //    var obj = SearchProperties(moduleCode, controlName, SystemCode, SubSystemCode);
-        //    if (obj.Settings.DataSourceName == null)
-        //    {
-        //        return Ok();
-        //    }
-        //    string cols = string.Empty;
+            var obj = SearchProperties(moduleCode, controlName, SystemCode, SubSystemCode);
+            if (obj.Settings.DataSourceName == null)
+            {
+                return Ok();
+            }
+            string cols = string.Empty;
 
-        //    List<ColumnObjectStruct> columnsObject = new List<ColumnObjectStruct>();
-        //    columnsObject.Add(new ColumnObjectStruct()
-        //    {
-        //        dataType = "number",
-        //        headerText = "",
-        //        hidden = true,
-        //        key = "RowIndex",
-        //        width = ""
-        //    });
-        //    foreach (G_SearchFormSetting column in obj.Columns)
-        //    {
-        //        //if ((column.Language == 0) ||
-        //        //    (ScreenLanguage == "en" && column.Language == 2) ||
-        //        //    (ScreenLanguage == "ar" && column.Language == 1))
-        //        //{
-        //            cols += "," + column.DataMember;
-        //            ColumnObjectStruct colObj = new ColumnObjectStruct();
-        //            colObj.dataType = column.Datatype == 0 ? "string" : "number";
+            List<ColumnObjectStruct> columnsObject = new List<ColumnObjectStruct>();
+            columnsObject.Add(new ColumnObjectStruct()
+            {
+                dataType = "number",
+                headerText = "",
+                hidden = true,
+                key = "RowIndex",
+                width = ""
+            });
+            foreach (G_SearchFormSetting column in obj.Columns)
+            {
+                //if ((column.Language == 0) ||
+                //    (ScreenLanguage == "en" && column.Language == 2) ||
+                //    (ScreenLanguage == "ar" && column.Language == 1))
+                //{
+                cols += "," + column.DataMember;
+                ColumnObjectStruct colObj = new ColumnObjectStruct();
+                colObj.dataType = column.Datatype == 0 ? "string" : "number";
 
-        //            //if (ScreenLanguage == "en")
-        //                colObj.headerText = column.FieldTitle;
-        //            //else
-        //              //  colObj.headerText = column.FieldTitleA;
+                //if (ScreenLanguage == "en")
+                colObj.headerText = column.FieldTitle;
+                //else
+                //  colObj.headerText = column.FieldTitleA;
 
-        //            colObj.hidden = !column.IsReadOnly;
-        //            colObj.filterable = false;
-        //            colObj.key = column.DataMember;
-        //            colObj.width = column.FieldWidth == 0 ? "100px" : (column.FieldWidth.ToString() + "px");
+                colObj.hidden = !column.IsReadOnly;
+                colObj.filterable = false;
+                colObj.key = column.DataMember;
+                colObj.width = column.FieldWidth == 0 ? "100px" : (column.FieldWidth.ToString() + "px");
 
-        //            columnsObject.Add(colObj);
-        //       // }
-        //    }
+                columnsObject.Add(colObj);
+                // }
+            }
 
-        //    string tableName = obj.Settings.DataSourceName;
-        //    string condition = "";
+            string tableName = obj.Settings.DataSourceName;
+            string condition = "";
 
-        //    if (Condition == null || Condition == "")
-        //        condition = "";
-        //    else
-        //        condition = " Where " + Condition;
+            if (Condition == null || Condition == "")
+                condition = "";
+            else
+                condition = " Where " + Condition;
 
-        //    string columns = cols.Substring(1);
-        //    string orderBy = obj.Settings.ReturnDataPropertyName;
+            string columns = cols.Substring(1);
+            string orderBy = obj.Settings.ReturnDataPropertyName;
 
-        //    var result = Find(tableName, condition, columns, orderBy);
+            var result = Find(tableName, condition, columns, orderBy);
 
-        //    var resultObject = new
-        //    {
-        //        TableName = tableName,
-        //        Condition = condition,
-        //        DataResult = result,
-        //        Settings = obj.Settings,
-        //        Columns = columnsObject
+            var resultObject = new
+            {
+                TableName = tableName,
+                Condition = condition,
+                DataResult = result,
+                Settings = obj.Settings,
+                Columns = columnsObject
 
-        //    };
+            };
 
-        //    return Ok(resultObject);
-        //}
+            return Ok(resultObject);
+        }
+
 
         [HttpGet]
         public IHttpActionResult GetIndexByUseId(int idValue, string BaseTableName, string idFieldName, string Condition)

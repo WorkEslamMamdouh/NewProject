@@ -35,6 +35,9 @@
         <EntityTypeShape EntityType="SamahModel.Supplier" Width="1.5" PointX="9.375" PointY="13.75" />
         <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Details" Width="1.5" PointX="11.375" PointY="13.75" />
         <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Master" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SamahModel.G_SearchForm" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SamahModel.G_SearchFormModule" Width="1.5" PointX="2.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SamahModel.G_SearchFormSetting" Width="1.5" PointX="4.75" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

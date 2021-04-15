@@ -42,7 +42,7 @@
     }
 
     .panel-body {
-        background-color: aliceblue;
+        background-color: #a3cac9;
     }
 </style>
 
@@ -196,7 +196,7 @@
                                 </div>
 
                                 <div class="col-xs-1">
-                                    <button style=" left: 21%;" type="button" class="src-btn btn btn-warning " disabled="disabled" id="btnRecieveSearch" name="InvoiceSearch">
+                                    <button style=" left: 21%;" type="button" class="src-btn btn btn-warning "  id="btnSupplierSearch" name="InvoiceSearch">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
@@ -251,7 +251,7 @@
                 </div>
                 <div id="DivShow" class="col-lg-12 " style="border: solid 4px;border-radius: 44px;background: linear-gradient(to right, rgb(253 211 213) 0%, #8babed 100%); overflow:auto ;">
                     <div id=" " class="col-lg-12 font_header" style="bottom: 5px;font-weight:bold!important">
-                        <br />
+                        <br>
                         <div class="col-lg-2" style="width: 14%;">
 
                         </div>
@@ -261,16 +261,20 @@
                         <div class="col-lg-2">
                             <span class="">الصنف</span>
                         </div>
-                        <div class="col-lg-2" style="margin-right: -1%;width: 13%;">
-                            <span class="">السعر</span>
+                        <div class="col-lg-2" style="margin-right: -5%;width: 8%;">
+                            <span class="">كمية الشراء</span>
 
                         </div>
-                        <div class="col-lg-1" style="width: 6%;">
-                            <span class="">الكمية </span>
+                        <div class="col-lg-1" style="width: 8%;">
+                            <span class="">سعر الشراء</span>
 
                         </div>
-                        <div class="col-lg-1" style="width: 13%;">
-                            <span class="">الكمية المرتجع </span>
+                        <div class="col-lg-1" style="width: 8%;">
+                            <span class="">سعر البيع</span>
+
+                        </div>
+                        <div class="col-lg-1" style="width: 12%;">
+                            <span class=""> اقل سعر بيع</span>
 
                         </div>
                         <div class="col-lg-1">
@@ -283,13 +287,15 @@
 
                     </div>
 
+                     
+
                     <div class="row col-lg-12">
                         <div class="">
 
                             <div class="col-lg-12">
                                 <div class="row " id="div_Data">
                                 </div>
-                                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none"></span>
+                                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none" style="font-size: 36px;"></span>
 
                             </div>
 
