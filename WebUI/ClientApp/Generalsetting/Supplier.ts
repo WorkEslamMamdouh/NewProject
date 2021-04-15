@@ -21,49 +21,23 @@ namespace AccDefVendor {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
 
-
-
-    var txt_Cust_Type: HTMLSelectElement;
-    var txt_Category: HTMLSelectElement;
-    var txt_tax: HTMLSelectElement;
-    var txt_Grop: HTMLSelectElement;
-    var ddlNationality: HTMLSelectElement;
-    var txtVendorType_New: HTMLSelectElement;
-
-
-
-
+    var ID_Supplier;
+    var txt_NAME; 
+    var txt_phone;
+    var txt_Notes;
+    var txt_Type_Supplier;
+    
+    
     var btnback: HTMLButtonElement;
     var btnShow: HTMLButtonElement;
     var btnAdd: HTMLButtonElement;
     var btnEdit: HTMLButtonElement;
     var btnsave: HTMLButtonElement;
-
-    var txt_CustomerCODE: HTMLInputElement;
-
-    var txt_NAME: HTMLInputElement;
-
-    var txt_ADDRESS: HTMLInputElement;
-    var txt_MOBILE: HTMLInputElement;
-    var txt_TEL: HTMLInputElement;
-    var txt_IDNo: HTMLInputElement;
-    var txt_WorkTel: HTMLInputElement;
-    var txt_note: HTMLInputElement;
-
-    var txt_VatNo: HTMLInputElement;
-    var txt_Debit: HTMLInputElement;
-    var txt_DebitFC: HTMLInputElement;
-    var txt_Openbalance: HTMLInputElement;
-    var txt_CreditLimit: HTMLInputElement;
-    var txt_balance: HTMLInputElement;
-    var txtResMobile: HTMLInputElement;
-    var txtResName: HTMLInputElement;
-
-
+   
     var searchbutmemreport: HTMLInputElement;
 
     var compcode: Number;//SharedSession.CurrentEnvironment.CompCode;
-    var IsNew;
+    var IsNew = false;
     var index;
     var Selecteditem
     var CustomerIdUpdate: number = 0;
@@ -77,13 +51,9 @@ namespace AccDefVendor {
     var Valid = 0;
 
     var Update_claenData = 0;
-    var indebtedness;
-
-
+    
     var txt_ID_APP_Category: HTMLSelectElement;
-    var txt_ID_APP_Group: HTMLSelectElement;
-    var txt_indebtedness: HTMLSelectElement;
-    var txt_ID_APP_Type: HTMLSelectElement;
+   
 
 
     export function InitalizeComponent() {
@@ -127,12 +97,16 @@ namespace AccDefVendor {
           btnsave = document.getElementById("btnsave") as HTMLButtonElement;
           btnback = document.getElementById("btnback") as HTMLButtonElement;
 
+          ID_Supplier = document.getElementById("txt_NAME") as HTMLInputElement;
+          txt_NAME = document.getElementById("txt_NAME") as HTMLInputElement;
+          txt_phone = document.getElementById("txt_NAME") as HTMLInputElement;
+          txt_Notes = document.getElementById("txt_NAME") as HTMLInputElement;
+          txt_Type_Supplier = document.getElementById("txt_NAME") as HTMLInputElement;
 
 
         //  //textBoxes
         //  txt_CustomerCODE = document.getElementById("txt_CustomerCODE") as HTMLInputElement;
         //  txt_Cust_Type = document.getElementById("txt_Cust_Type") as HTMLSelectElement;
-        //  txt_NAME = document.getElementById("txt_NAME") as HTMLInputElement;
         //  txt_Category = document.getElementById("txt_Category") as HTMLSelectElement;
         //  txt_ADDRESS = document.getElementById("txt_ADDRESS") as HTMLInputElement;
         //  txt_MOBILE = document.getElementById("txt_MOBILE") as HTMLInputElement;
@@ -269,6 +243,7 @@ namespace AccDefVendor {
     }
     //onclick
     function btnAdd_onclick() {
+        debugger
         IsNew = true;
         EnableControls();
         removedisabled();
@@ -279,7 +254,7 @@ namespace AccDefVendor {
 
        (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
 
-        reference_Page();
+        //reference_Page();
 
     }
     function reference_Page() {
@@ -292,7 +267,7 @@ namespace AccDefVendor {
     }
 
     function btnsave_onClick() {
-
+        debugger
         if (IsNew == true) {
 
             Validation();
@@ -345,7 +320,7 @@ namespace AccDefVendor {
         //debugger;
 
         $("#txt_Type_Supplier").removeAttr("disabled");
-        $("#txt_ID_Supplier").removeAttr("disabled");
+        //$("#txt_ID_Supplier").removeAttr("disabled");
         $("#txt_NAME").removeAttr("disabled");
         $("#txt_IS_Active").removeAttr("disabled");
         $("#txt_phone").removeAttr("disabled");
@@ -377,18 +352,7 @@ namespace AccDefVendor {
 
     function Validation() {
 
-        if (IsNew == true) {
-            if (CustomerFoundBefore() == false) {
-                MessageBox.Show("رقم المورد موجود من قبل ", "Contact Email Is Not Valid");
-
-                return Valid = 1;
-            }
-        }
-
-        if ($('#txt_Type_Supplier').val() == "") {
-            MessageBox.Show("يجب ادخال رقم المورد", "Contact Email Is Not Valid");
-            return Valid = 1;
-        }
+            
 
         if ($('#txt_NAME').val() == "") {
 
@@ -461,44 +425,22 @@ namespace AccDefVendor {
     }
               
     function EnableControls() {
-        //if (!SysSession.CurrentPrivileges.AddNew) return;
 
-        //$("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
+        debugger
+       $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
+       
+       $('#btnsave').removeClass("display_none");
+       $('#btnback').removeClass("display_none");
+       $('#btnedite').attr('class', 'btn btn-primary display_none');
+       $('#txt_IS_Active').prop("selectedIndex", 0);
+                           
+        ID_Supplier.value = "";
+        txt_NAME.value = "";
+        txt_phone.value = "";
+        txt_Notes.value = "";
+        txt_Type_Supplier.value = "";   
 
-        //$('#btnsave').removeClass("display_none");
-        //$('#btnback').removeClass("display_none");
-        //$('#btnedite').addClass("display_none");
-
-        //$('#txt_Category').prop("selectedIndex", 0);
-        //$('#txt_Cust_Type').prop("selectedIndex", 0);
-        //$('#ddlNationality').prop("selectedIndex", 0);
-        //$('#txtVendorType_New').prop("selectedIndex", 0);
-        //$('#txt_tax').prop("selectedIndex", 0);
-        //$('#txt_Grop').prop("selectedIndex", 0);
-
-
-        //$('#txt_Email').val("");
-
-        //txt_CustomerCODE.value = "";
-        //txt_NAME.value = "";
-        //txt_ADDRESS.value = "";
-        //txt_MOBILE.value = "";
-        //txt_TEL.value = "";
-        //txt_IDNo.value = "";
-        //txt_WorkTel.value = "";
-        //txt_note.value = "";
-        //txt_VatNo.value = "";
-        //txt_Debit.value = "";
-        //txt_DebitFC.value = "";
-        //txt_Openbalance.value = "";
-        //txt_CreditLimit.value = "";
-        //txt_balance.value = "";
-        //txtResMobile.value = "";
-        //txtResName.value = "";
-
-
-
-        ////FillddlCashAdd();
+       
 
 
 
@@ -601,7 +543,7 @@ namespace AccDefVendor {
 
         debugger;    
         DocumentActions.AssignToModel(Model);//Insert Update    
-            Model.ID_Supplier = $('#txt_ID_Supplier').val();
+        Model.ID_Supplier = IsNew == true ? 0 : $('#txt_ID_Supplier').val();
             Model.Type_Supplier = $('#txt_Type_Supplier').val();
             Model.Name_Supplier = $('#txt_NAME').val();
             Model.IS_Active = $('#txt_IS_Active').val() == '1' ? true : false;
@@ -619,7 +561,10 @@ namespace AccDefVendor {
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                     MessageBox.Show("تم الحفظ بنجاح", "Success");
+                    MessageBox.Show("تم الحفظ بنجاح", "Success");
+                    GetSupplier();
+                    displaysupplier();
+                    Display_All();
                     Valid = 0;
                 } else {
                      MessageBox.Show("خطأء", "Error");
@@ -641,6 +586,7 @@ namespace AccDefVendor {
                     GetSupplier();
                     displaysupplier();
                     Display_All();
+                    Valid = 0;
                 } else {
                     MessageBox.Show("خطأء", "Error");
                 }   

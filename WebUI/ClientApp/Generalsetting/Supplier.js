@@ -16,36 +16,19 @@ var AccDefVendor;
     var CashDetailsEn = new Array();
     var sys = new SystemTools();
     var SysSession = GetSystemSession();
-    var txt_Cust_Type;
-    var txt_Category;
-    var txt_tax;
-    var txt_Grop;
-    var ddlNationality;
-    var txtVendorType_New;
+    var ID_Supplier;
+    var txt_NAME;
+    var txt_phone;
+    var txt_Notes;
+    var txt_Type_Supplier;
     var btnback;
     var btnShow;
     var btnAdd;
     var btnEdit;
     var btnsave;
-    var txt_CustomerCODE;
-    var txt_NAME;
-    var txt_ADDRESS;
-    var txt_MOBILE;
-    var txt_TEL;
-    var txt_IDNo;
-    var txt_WorkTel;
-    var txt_note;
-    var txt_VatNo;
-    var txt_Debit;
-    var txt_DebitFC;
-    var txt_Openbalance;
-    var txt_CreditLimit;
-    var txt_balance;
-    var txtResMobile;
-    var txtResName;
     var searchbutmemreport;
     var compcode; //SharedSession.CurrentEnvironment.CompCode;
-    var IsNew;
+    var IsNew = false;
     var index;
     var Selecteditem;
     var CustomerIdUpdate = 0;
@@ -55,11 +38,7 @@ var AccDefVendor;
     var Credit;
     var Valid = 0;
     var Update_claenData = 0;
-    var indebtedness;
     var txt_ID_APP_Category;
-    var txt_ID_APP_Group;
-    var txt_indebtedness;
-    var txt_ID_APP_Type;
     function InitalizeComponent() {
         //debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
@@ -82,10 +61,14 @@ var AccDefVendor;
         btnEdit = document.getElementById("btnedite");
         btnsave = document.getElementById("btnsave");
         btnback = document.getElementById("btnback");
+        ID_Supplier = document.getElementById("txt_NAME");
+        txt_NAME = document.getElementById("txt_NAME");
+        txt_phone = document.getElementById("txt_NAME");
+        txt_Notes = document.getElementById("txt_NAME");
+        txt_Type_Supplier = document.getElementById("txt_NAME");
         //  //textBoxes
         //  txt_CustomerCODE = document.getElementById("txt_CustomerCODE") as HTMLInputElement;
         //  txt_Cust_Type = document.getElementById("txt_Cust_Type") as HTMLSelectElement;
-        //  txt_NAME = document.getElementById("txt_NAME") as HTMLInputElement;
         //  txt_Category = document.getElementById("txt_Category") as HTMLSelectElement;
         //  txt_ADDRESS = document.getElementById("txt_ADDRESS") as HTMLInputElement;
         //  txt_MOBILE = document.getElementById("txt_MOBILE") as HTMLInputElement;
@@ -172,13 +155,14 @@ var AccDefVendor;
     }
     //onclick
     function btnAdd_onclick() {
+        debugger;
         IsNew = true;
         EnableControls();
         removedisabled();
         $("#id_div_Add").attr("disabled", "disabled").off('click');
         var x1 = $("#id_div_Add").hasClass("disabledDiv");
         (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
-        reference_Page();
+        //reference_Page();
     }
     function reference_Page() {
         $('#btnedite').attr('class', 'btn btn-primary display_none');
@@ -187,6 +171,7 @@ var AccDefVendor;
         $('#btnAdd').attr('class', 'btn btn-primary display_none');
     }
     function btnsave_onClick() {
+        debugger;
         if (IsNew == true) {
             Validation();
             if (Valid == 1) {
@@ -222,7 +207,7 @@ var AccDefVendor;
     function removedisabled() {
         //debugger;
         $("#txt_Type_Supplier").removeAttr("disabled");
-        $("#txt_ID_Supplier").removeAttr("disabled");
+        //$("#txt_ID_Supplier").removeAttr("disabled");
         $("#txt_NAME").removeAttr("disabled");
         $("#txt_IS_Active").removeAttr("disabled");
         $("#txt_phone").removeAttr("disabled");
@@ -248,16 +233,6 @@ var AccDefVendor;
         return res;
     }
     function Validation() {
-        if (IsNew == true) {
-            if (CustomerFoundBefore() == false) {
-                MessageBox.Show("رقم المورد موجود من قبل ", "Contact Email Is Not Valid");
-                return Valid = 1;
-            }
-        }
-        if ($('#txt_Type_Supplier').val() == "") {
-            MessageBox.Show("يجب ادخال رقم المورد", "Contact Email Is Not Valid");
-            return Valid = 1;
-        }
         if ($('#txt_NAME').val() == "") {
             MessageBox.Show("يجب ادخال اسم المورد ", "Contact Email Is Not Valid");
             return Valid = 1;
@@ -314,35 +289,17 @@ var AccDefVendor;
         $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
     }
     function EnableControls() {
-        //if (!SysSession.CurrentPrivileges.AddNew) return;
-        //$("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
-        //$('#btnsave').removeClass("display_none");
-        //$('#btnback').removeClass("display_none");
-        //$('#btnedite').addClass("display_none");
-        //$('#txt_Category').prop("selectedIndex", 0);
-        //$('#txt_Cust_Type').prop("selectedIndex", 0);
-        //$('#ddlNationality').prop("selectedIndex", 0);
-        //$('#txtVendorType_New').prop("selectedIndex", 0);
-        //$('#txt_tax').prop("selectedIndex", 0);
-        //$('#txt_Grop').prop("selectedIndex", 0);
-        //$('#txt_Email').val("");
-        //txt_CustomerCODE.value = "";
-        //txt_NAME.value = "";
-        //txt_ADDRESS.value = "";
-        //txt_MOBILE.value = "";
-        //txt_TEL.value = "";
-        //txt_IDNo.value = "";
-        //txt_WorkTel.value = "";
-        //txt_note.value = "";
-        //txt_VatNo.value = "";
-        //txt_Debit.value = "";
-        //txt_DebitFC.value = "";
-        //txt_Openbalance.value = "";
-        //txt_CreditLimit.value = "";
-        //txt_balance.value = "";
-        //txtResMobile.value = "";
-        //txtResName.value = "";
-        ////FillddlCashAdd();
+        debugger;
+        $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
+        $('#btnsave').removeClass("display_none");
+        $('#btnback').removeClass("display_none");
+        $('#btnedite').attr('class', 'btn btn-primary display_none');
+        $('#txt_IS_Active').prop("selectedIndex", 0);
+        ID_Supplier.value = "";
+        txt_NAME.value = "";
+        txt_phone.value = "";
+        txt_Notes.value = "";
+        txt_Type_Supplier.value = "";
     }
     function filter_DataSource() {
         ////debugger
@@ -420,7 +377,7 @@ var AccDefVendor;
     function Assign() {
         debugger;
         DocumentActions.AssignToModel(Model); //Insert Update    
-        Model.ID_Supplier = $('#txt_ID_Supplier').val();
+        Model.ID_Supplier = IsNew == true ? 0 : $('#txt_ID_Supplier').val();
         Model.Type_Supplier = $('#txt_Type_Supplier').val();
         Model.Name_Supplier = $('#txt_NAME').val();
         Model.IS_Active = $('#txt_IS_Active').val() == '1' ? true : false;
@@ -438,6 +395,9 @@ var AccDefVendor;
                 var result = d;
                 if (result.IsSuccess) {
                     MessageBox.Show("تم الحفظ بنجاح", "Success");
+                    GetSupplier();
+                    displaysupplier();
+                    Display_All();
                     Valid = 0;
                 }
                 else {
@@ -459,6 +419,7 @@ var AccDefVendor;
                     GetSupplier();
                     displaysupplier();
                     Display_All();
+                    Valid = 0;
                 }
                 else {
                     MessageBox.Show("خطأء", "Error");
