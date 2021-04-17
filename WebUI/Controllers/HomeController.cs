@@ -116,9 +116,19 @@ namespace WebUI.Controllers
         {
             return View("~/Views/Stock/ItemsIndex.cshtml");
         }
+        public ActionResult familly_CatIndex()
+        { 
+
+            return View("~/Views/Stock/familly_Cat.cshtml");
+        }
          public ActionResult SupplierIndex()
         {
             return View("~/Views/Generalsetting/SupplierIndex.cshtml");
+        }
+          public ActionResult SalesinventoryIndex()
+        { 
+
+            return View("~/Views/Report/Salesinventory.cshtml");
         }
 
 

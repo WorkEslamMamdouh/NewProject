@@ -463,6 +463,8 @@ namespace HomeComponent {
         $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
         $("#btnItems").click(() => { OpenPage(Modules.Items); })
         $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })
+        $("#btnSalesinventory").click(() => { OpenPage(Modules.Salesinventory); })
+        $("#btnfamilly_Cat").click(() => { OpenPage(Modules.familly_Cat); })
 
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })

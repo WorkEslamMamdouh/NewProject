@@ -414,6 +414,8 @@ var HomeComponent;
         $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
         $("#btnItems").click(function () { OpenPage(Modules.Items); });
         $("#btnSupplier").click(function () { OpenPage(Modules.Supplier); });
+        $("#btnSalesinventory").click(function () { OpenPage(Modules.Salesinventory); });
+        $("#btnfamilly_Cat").click(function () { OpenPage(Modules.familly_Cat); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
     }
     function Notifications_Message() {

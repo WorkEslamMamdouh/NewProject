@@ -22,7 +22,9 @@ var Modules = {
     Categories: "Categories",
     Items: "Items",
     Purchases: "Purchases",
-    Supplier: "Supplier"
+    Supplier: "Supplier",
+    Salesinventory: "Salesinventory",
+    familly_Cat: "familly_Cat"
 };
 var Keys = {
     Enter: "Enter"

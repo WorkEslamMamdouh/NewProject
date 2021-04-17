@@ -1153,6 +1153,8 @@
     <Content Include="Views\Stock\ItemsIndex.cshtml" />
     <Content Include="Views\Purchases\PurchasesIndex.cshtml" />
     <Content Include="Views\Generalsetting\SupplierIndex.cshtml" />
+    <Content Include="Views\Report\Salesinventory.cshtml" />
+    <Content Include="Views\Stock\familly_Cat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
