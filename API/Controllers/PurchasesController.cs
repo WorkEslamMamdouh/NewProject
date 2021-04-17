@@ -1,5 +1,5 @@
 ﻿using API.Models;
-using BLL.Services.Stok_ORDER;
+using BLL.Services.Purchases;
 using DAL.Domain;
 using System;
 using System.Collections.Generic;
@@ -23,11 +23,11 @@ namespace API.Controllers
     {
 
 
-        private readonly IStok_ORDERServices Stok_ORDERServices;
+        private readonly IPurchases_MasterServices Purchases_MasterServices;
 
-        public PurchasesController(IStok_ORDERServices _Stok_ORDERServices)
+        public PurchasesController(IPurchases_MasterServices _Purchases_MasterServices)
         {
-            this.Stok_ORDERServices = _Stok_ORDERServices;
+            this.Purchases_MasterServices = _Purchases_MasterServices;
 
         }
 
@@ -36,7 +36,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Login = Stok_ORDERServices.GetAll().ToList();
+                var Login = Purchases_MasterServices.GetAll().ToList();
 
                 return Ok(new BaseResponse(Login));
 
@@ -58,7 +58,7 @@ namespace API.Controllers
                 if (Type_Debit != 2 && Type_Debit != null)
                     condition = condition + " and Type_Debit =" + Type_Debit;
 
-                 
+
                 string query = s + condition;
                 var res = db.Database.SqlQuery<IQ_Purchases_Master>(query).ToList();
                 return Ok(new BaseResponse(res));
@@ -72,8 +72,8 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 string s = "select * from IQ_Purchases_Details where TrNo = " + TrNo + "";
-                 
-                string query = s ;
+
+                string query = s;
                 var res = db.Database.SqlQuery<IQ_Purchases_Details>(query).ToList();
                 return Ok(new BaseResponse(res));
             }
@@ -91,45 +91,140 @@ namespace API.Controllers
             }
             return BadRequest(ModelState);
         }
+
+
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert_Processes([FromBody]SlsMasterDetails Operation)
+        public IHttpActionResult UpdatePurchases_Master(List<Purchases_Master> Purc_Master)
         {
 
             try
             {
-
-
-                var updatedOperationItems = Operation.I_Sls_TR_InvoiceItems.Where(x => x.StatusFlag == "u").ToList();
-                var deletedOperationItems = Operation.I_Sls_TR_InvoiceItems.Where(x => x.StatusFlag == "d").ToList();
-
-
-                //loop Update  I_Pur_TR_ReceiveItems
-                foreach (var item in updatedOperationItems)
+          
+                //loop Insert  I_Pur_TR_ReceiveItems
+                foreach (var item in Purc_Master)
                 {
-                    db.update_SalesReturn(item.PRODUCT_ID, Convert.ToInt16(item.Quantity_sell), item.Total_Price_One_Part, item.ID_DELIVERY, "u");
 
+                    var updated = Purchases_MasterServices.Update(item);
+                 
 
                 }
-
-                //loop Delete  I_Pur_TR_ReceiveItems
-                foreach (var item in deletedOperationItems)
-                {
-                    db.update_SalesReturn(item.PRODUCT_ID, Convert.ToInt16(item.Quantity_sell), item.Total_Price_One_Part, item.ID_DELIVERY, "d");
-
-
-                }
-
-                var Master = Operation.I_Sls_TR_Invoice;
-                var Items = Operation.I_Sls_TR_InvoiceItems;
-
-                db.update_Sales_Master(Master.Total_All, Items[0].UserCode, Master.ID_ORDER_Delivery);
-
-                //string qury = "update_Sales_Master  "+ Master.Total_All + ",'"+ Items[0].UserCode + "'," + Master.ID_ORDER_Delivery + " ";
-                //var Total_All = db.Database.SqlQuery<double>(qury).FirstOrDefault();
-
+ 
 
 
                 return Ok(new BaseResponse("ok"));
+            }
+            catch (Exception ex)
+            {
+                return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, "الصنف مستخدم بافعل لا يمكنك تغيره"));
+            }
+
+        }
+
+
+
+
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult Insert_Purchases([FromBody]PurchasesMasterDetails Operation)
+        {
+
+            try
+            {
+                var TrNo = 0;
+
+                var insertOperationItems = Operation.Purchases_Details.Where(x => x.StatusFlag == "i").ToList();
+                var updatedOperationItems = Operation.Purchases_Details.Where(x => x.StatusFlag == "u").ToList();
+                var deletedOperationItems = Operation.Purchases_Details.Where(x => x.StatusFlag == "d").ToList();
+
+
+                if (Operation.Purchases_Master.TrNo != null && Operation.Purchases_Master.TrNo != 0)
+                {
+                    string Tr_Date = Operation.Purchases_Master.Tr_Date;
+                    int ID_Supplier = Convert.ToInt16(Operation.Purchases_Master.ID_Supplier);
+                    bool Type_Debit = Convert.ToBoolean(Operation.Purchases_Master.Type_Debit);
+                    decimal Total_Amount = Convert.ToDecimal(Operation.Purchases_Master.Total_Amount);
+                    decimal Paid_Up = Convert.ToDecimal(Operation.Purchases_Master.Paid_Up);
+                    decimal To_be_Paid = Convert.ToDecimal(Operation.Purchases_Master.To_be_Paid);
+                    string REMARKS = Operation.Purchases_Master.REMARKS;
+
+                    string update_qury = "update_Purchases_Master " + Operation.Purchases_Master.TrNo + " ,'" + Tr_Date + "'," + ID_Supplier + "," + Type_Debit + ", " + Total_Amount + " ," + Paid_Up + "," + To_be_Paid + ",'" + REMARKS + "'";
+                    db.Database.ExecuteSqlCommand(update_qury);
+
+                    TrNo = Operation.Purchases_Master.TrNo;
+
+                }
+
+
+                if (insertOperationItems.Count > 0)
+                {
+
+                    if (insertOperationItems[0].TrNo == null || insertOperationItems[0].TrNo == 0)
+                    {
+                        string Tr_Date = Operation.Purchases_Master.Tr_Date;
+                        int ID_Supplier = Convert.ToInt16(Operation.Purchases_Master.ID_Supplier);
+                        bool Type_Debit = Convert.ToBoolean(Operation.Purchases_Master.Type_Debit);
+                        decimal Total_Amount = Convert.ToDecimal(Operation.Purchases_Master.Total_Amount);
+                        decimal Paid_Up = Convert.ToDecimal(Operation.Purchases_Master.Paid_Up);
+                        decimal To_be_Paid = Convert.ToDecimal(Operation.Purchases_Master.To_be_Paid);
+                        string REMARKS = Operation.Purchases_Master.REMARKS;
+
+                        string qury = "insert_Purchases_Master  '" + Tr_Date + "'," + ID_Supplier + "," + Type_Debit + ", " + Total_Amount + " ," + Paid_Up + "," + To_be_Paid + ",'" + REMARKS + "'";
+
+                        TrNo = db.Database.SqlQuery<int>(qury).FirstOrDefault();
+
+                        foreach (var item in insertOperationItems)
+                        {
+
+                            //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(TrNo), Convert.ToInt16(item.ID), "i");
+
+                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(TrNo) + "," + Convert.ToInt16(item.ID) + ",'i'";
+                            db.Database.ExecuteSqlCommand(Pro_qury);
+
+                        }
+                    }
+                    else
+                    {
+                        //loop insert  I_Pur_TR_ReceiveItems
+                        foreach (var item in insertOperationItems)
+                        {
+                            //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "i");
+
+                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'i'";
+                            db.Database.ExecuteSqlCommand(Pro_qury);
+                            TrNo = item.TrNo;
+                        }
+                    }
+
+                }
+
+                if (updatedOperationItems.Count > 0)
+                {
+
+                 
+
+                    //loop Update  I_Pur_TR_ReceiveItems
+                    foreach (var item in updatedOperationItems)
+                    {
+                        //[Processes_Purchases] 'نتاناتاتييع',11,15,10,30,'NEW MOBILES',2,4,'u'
+                        //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "u");
+                         
+                        string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'u'";
+                        db.Database.ExecuteSqlCommand(Pro_qury);
+                        TrNo = item.TrNo;
+                    }
+                }
+                //loop Delete  I_Pur_TR_ReceiveItems
+                foreach (var item in deletedOperationItems)
+                {
+                    //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "d");
+
+                    string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'d'";
+                    db.Database.ExecuteSqlCommand(Pro_qury);
+                    TrNo = item.TrNo;
+
+                }
+
+
+                return Ok(new BaseResponse(TrNo));
 
             }
             catch (Exception ex)

@@ -23,8 +23,11 @@ var Purchases;
     var ItemFamilyDetails = new Array();
     var ItemBaesdFamilyDetails = new Array();
     var OperationItemModel = new Array();
-    var OperationItemSingleModel = new Stok_ORDER_DELIVERY();
-    var SlsMasterDetils = new SlsMasterDetails();
+    var OperationItemSingleModel = new IQ_Purchases_Details();
+    var PurMasterDetails = new PurchasesMasterDetails();
+    var Purchases_Mas = new Array();
+    var UpdatedModel = new Array();
+    var FilteredModel = new Array();
     var GetAllVendorDetails = new Array();
     var SearchVendorDetails = new Array();
     //DropDownlist
@@ -51,6 +54,7 @@ var Purchases;
     var btnSave;
     var btnBack;
     var btnSupplierSearch;
+    var btnPaid_Up;
     //new
     var txtClose_Adjustment;
     var txtClose_SalesManCommition;
@@ -62,9 +66,14 @@ var Purchases;
     var btnAddDetailsCharge;
     var btnAddDetailslebel;
     var searchbutmemreport;
+    var txtPaid_Up;
+    var txtTo_be_Paid;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
+    var ID_Supp;
+    var AddNew;
+    var CashTot;
     function InitalizeComponent() {
         debugger;
         InitalizeControls();
@@ -79,7 +88,7 @@ var Purchases;
     function InitalizeControls() {
         debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
-            document.getElementById('Screen_name').innerHTML = "سجل الفواتير";
+            document.getElementById('Screen_name').innerHTML = "المشتريات";
         }
         else {
             document.getElementById('Screen_name').innerHTML = "Sales Invoices";
@@ -91,11 +100,15 @@ var Purchases;
         ddlVendor = document.getElementById("ddlVendor");
         ddlStateType = document.getElementById("ddlStateType");
         searchbutmemreport = document.getElementById("searchbutmemreport");
+        txtPaid_Up = document.getElementById("txtPaid_Up");
+        txtTo_be_Paid = document.getElementById("txtTo_be_Paid");
+        btnadd = document.getElementById("btnadd");
         btnShow = document.getElementById("btnShow");
         btnUpdate = document.getElementById("btnUpdate");
         btnBack = document.getElementById("btnBack");
         btnSave = document.getElementById("btnSave");
         btnSupplierSearch = document.getElementById("btnSupplierSearch");
+        btnPaid_Up = document.getElementById("btnPaid_Up");
         btnAddDetails = document.getElementById("btnAddDetails");
     }
     function IntializeEvents() {
@@ -105,9 +118,19 @@ var Purchases;
         btnUpdate.onclick = Update_onclick;
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
+        btnadd.onclick = btnAdd_onclick;
         btnAddDetails.onclick = AddNewRow;
         btnSupplierSearch.onclick = Search;
-        //btnAddDetails.getAttribute('data-ID_CAT')
+        txtPaid_Up.onkeyup = txtPaid_Up_onchange;
+        btnPaid_Up.onclick = btnExecute_onclick;
+    }
+    function txtPaid_Up_onchange() {
+        ComputeTotals();
+        if (Number(txtTo_be_Paid.value) < 0) {
+            MessageBox.Show("يجب ان يكون المبلغ المدفوع بيساوي الاجمالي", "خطأ");
+            txtTo_be_Paid.value = '0';
+            txtPaid_Up.value = $('#txtTotal').val();
+        }
     }
     function GetDate() {
         debugger;
@@ -143,9 +166,18 @@ var Purchases;
         $("#rowData").addClass("display_none");
         $("#divTotalSatistics").addClass("display_none");
         Display();
+        debugger;
+        if (ddlStateType.value == '0') {
+            $('#btnPaid_Up').removeAttr('disabled');
+            $('.Paid').removeAttr('disabled');
+        }
+        else {
+            $('#btnPaid_Up').attr('disabled', 'disabled');
+            $('.Paid').attr('disabled', 'disabled');
+        }
     }
     function Display() {
-        debugger;
+        //debugger
         var startdt = DateFormatDataBes(txtFromDate.value).toString();
         var enddt = DateFormatDataBes(txtToDate.value).toString();
         var ID_Supplier = ddlVendor.value == "null" ? 0 : ddlVendor.value;
@@ -201,27 +233,29 @@ var Purchases;
         divMasterGrid.Columns = [
             { title: "ID", name: "TrNo", type: "text", width: "2%", visible: false },
             { title: "رقم الفاتوره", name: "TrNo", type: "text", width: "10%" },
-            { title: " التاريخ  ", name: "Tr_Date", type: "text", width: "12%" },
+            { title: " التاريخ  ", name: "Tr_Date", type: "text", width: "18%" },
             { title: "المورد", name: "Name_Supplier", type: "text", width: "20%" },
-            { title: "الحاله", name: "Type_Debit_Name", type: "text", width: "20%" },
+            { title: "نوع التوريد", name: "Type_Supplier", type: "text", width: "20%" },
+            { title: "الحاله", name: "Type_Debit_Name", type: "text", width: "13%" },
             { title: "اجمالي الفاتوره", name: "Total_Amount", type: "text", width: "16%" },
             { title: " المسداد", name: "Paid_Up", type: "text", width: "17%", css: "classfont" },
             { title: "المطلوب سداده", name: "To_be_Paid", type: "text", width: "17%", css: "classfont" },
             {
-                title: "سداد نقدي ", css: "ColumPadding", name: "Paid_Up", width: "14%",
+                title: "سداد نقدي ", css: "ColumPadding", name: "CashPaidAmount", width: "14%",
                 itemTemplate: function (s, item) {
-                    var txt = CreateElement("number", "form-control", " ", " ", "", " ");
+                    var txt = CreateElement("number", "form-control Paid ", " ", " ", "", " ");
                     txt.id = "txtcash";
                     //txt.name = SlsInvoiceListModel.indexOf(item).toString();
                     //SlsInvoiceListModel = Grid.DataSource;
                     txt.style.height = "25px";
                     txt.style.width = "70px";
+                    txt.style.backgroundColor = "blanchedalmond";
                     txt.onchange = function (e) {
-                        //item.CashPaidAmount = Number(txt.value);
-                        //CashTot = 0;
-                        //for (let i = 0; i < PurReceiveStatisticsDetails.length; i++) {
-                        //    CashTot += PurReceiveStatisticsDetails[i].CashPaidAmount;
-                        //}
+                        item.CashPaidAmount = Number(txt.value);
+                        CashTot = 0;
+                        for (var i = 0; i < Purchases_Mas.length; i++) {
+                            CashTot += Purchases_Mas[i].CashPaidAmount;
+                        }
                         //txtCashTot.value = CashTot.toFixed(2).toString();
                     };
                     txt.value = '0';
@@ -243,9 +277,67 @@ var Purchases;
             }
         ];
     }
+    function btnExecute_onclick() {
+        debugger;
+        var ValidDataFlag = true;
+        FilteredModel = divMasterGrid.DataSource;
+        /////////
+        for (var i_1 = 0; i_1 < FilteredModel.length; i_1++) {
+            var cash = FilteredModel[i_1].CashPaidAmount;
+            var Remain = FilteredModel[i_1].To_be_Paid;
+            if (cash != 0 && cash != null) {
+                if (Remain < cash) {
+                    //  $("#btnExecute").attr("disabled", "disabled");
+                    MessageBox.Show('يجب ان يكون المبلغ المطلوب سداده مساوي للسداد  للفاتورة رقم   ( ' + FilteredModel[i_1].TrNo + "  )", "تم");
+                    ValidDataFlag = false;
+                    break;
+                }
+            }
+        }
+        ////////////////
+        if (ValidDataFlag == true) {
+            ValidDataFlag = false;
+            UpdatedModel = divMasterGrid.DataSource;
+            UpdatedModel = UpdatedModel.filter(function (s) { return s.CashPaidAmount != 0 && s.CashPaidAmount != null; });
+            for (var i = 0; i < UpdatedModel.length; i++) {
+                var cash = UpdatedModel[i].CashPaidAmount;
+                var Paid_Up = UpdatedModel[i].Paid_Up;
+                var To_be_Paid = UpdatedModel[i].To_be_Paid;
+                UpdatedModel[i].Paid_Up = Paid_Up + cash;
+                UpdatedModel[i].To_be_Paid = To_be_Paid - cash;
+                UpdatedModel[i].Type_Debit = UpdatedModel[i].To_be_Paid == 0 ? true : false;
+            }
+            if (UpdatedModel.length > 0) {
+                console.log(UpdatedModel);
+                Ajax.Callsync({
+                    type: "POST",
+                    url: sys.apiUrl("Purchases", "UpdatePurchases_Master"),
+                    data: JSON.stringify(UpdatedModel),
+                    success: function (d) {
+                        var result = d;
+                        if (result.IsSuccess) {
+                            debugger;
+                            var res = result.Response;
+                            MessageBox.Show("تم الحفظ بنجاح", "تم");
+                            btnBack_onclick();
+                            //Display();
+                            btnShow_onclick();
+                        }
+                        else {
+                            MessageBox.Show("خطأء", "خطأء");
+                        }
+                    }
+                });
+            }
+            else {
+                MessageBox.Show('( لا توجد فواتير مسدده كي يتم التنفيذ )', "تم");
+            }
+        }
+    }
     function MasterGridDoubleClick() {
         Selected_Data = new Array();
         Selected_Data = Get_IQ_Purchases_Master.filter(function (x) { return x.TrNo == Number(divMasterGrid.SelectedKey); });
+        ID_Supp = Selected_Data[0].ID_Supplier;
         $("#rowData").removeClass("display_none");
         $("#divTotalSatistics").removeClass("display_none");
         DisplayData(Selected_Data);
@@ -335,9 +427,9 @@ var Purchases;
             '<div class="col-lg-1"style="left: -4%!important;">' +
             '<span id="btn_minus' + cnt + '" class="fa fa-minus-circle fontitm3 display_none" style="font-size: 28px;"></span></div>' +
             '<div class="col-lg-2"style="left:1%!important">' +
-            '<form> <input list="ddlFamily' + cnt + '" name="Family' + cnt + '" class="form-control" id="Family' + cnt + '">  <datalist id="ddlFamily' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
+            '<form> <input list="ddlFamily' + cnt + '"  disabled name="Family' + cnt + '" class="form-control" id="Family' + cnt + '">  <datalist id="ddlFamily' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
             '<div class="col-lg-2"style="left:1%!important">' +
-            '<form> <input list="ddlItem' + cnt + '" name="Items' + cnt + '" class="form-control" id="Items' + cnt + '">  <datalist id="ddlItem' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
+            '<form> <input list="ddlItem' + cnt + '" disabled name="Items' + cnt + '" class="form-control" id="Items' + cnt + '">  <datalist id="ddlItem' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
             '<div class="col-lg-1" style=""><input id="txtQuantity' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '<div class="col-lg-1" style=""><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '<div class="col-lg-1" style=""><input id="Sales_Price' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
@@ -599,64 +691,26 @@ var Purchases;
             //$("#txtMinPrice" + cnt).val($("#txtPrice" + cnt).val() - 1);
             ComputeTotals();
         });
-        $("#txtReturn" + cnt).on('keyup', function () {
+        $("#Sales_Price" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
-            var Return = $("#txtReturn" + cnt).val();
-            var txtQuantityValue = $("#txtQuantity" + cnt).attr("Quantity");
-            if (Number(Return) < 0) {
-                $("#txtReturn" + cnt).val(0);
-                $("#txtQuantity" + cnt).val($("#txtQuantity" + cnt).attr("Quantity"));
-                txtQuantityValue = $("#txtQuantity" + cnt).val();
-                var txtPriceValue = $("#txtPrice" + cnt).val();
-                if ($("#txtPrice" + cnt).val() != 0) {
-                    var total = (Number(txtQuantityValue) * Number(txtPriceValue)) /* - (Number(txtQuantityReturnValue) *0)*/;
-                    $("#txtTotal" + cnt).val(total);
-                }
-                if (Number($("#txtPrice" + cnt).val()) < 0) {
-                    $("#txtPrice" + cnt).val('0');
-                }
+            $("#MinUnitPrice" + cnt).val($("#Sales_Price" + cnt).val() - 1);
+        });
+        $("#MinUnitPrice" + cnt).on('keyup', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i")
+                $("#txt_StatusFlag" + cnt).val("u");
+            debugger;
+            if ($("#Sales_Price" + cnt).val() == "" || $("#Sales_Price" + cnt).val() == 0) {
+                MessageBox.Show('يجب أدخال سعر الصنف اوالاً', 'خطأ');
+                $("#MinUnitPrice" + cnt).val(0);
             }
-            if (Number(Return) > Number(txtQuantityValue)) {
-                $("#txtReturn" + cnt).val($("#txtQuantity" + cnt).attr("Quantity"));
-                $("#txtQuantity" + cnt).val(0);
-                txtQuantityValue = $("#txtQuantity" + cnt).val();
-                var txtPriceValue = $("#txtPrice" + cnt).val();
-                if ($("#txtPrice" + cnt).val() != 0) {
-                    var total = (Number(txtQuantityValue) * Number(txtPriceValue)) /* - (Number(txtQuantityReturnValue) *0)*/;
-                    $("#txtTotal" + cnt).val(total);
-                }
-                if (Number($("#txtPrice" + cnt).val()) < 0) {
-                    $("#txtPrice" + cnt).val('0');
-                }
+            else if (Number($("#MinUnitPrice" + cnt).val()) > Number($("#Sales_Price" + cnt).val())) {
+                MessageBox.Show('يجب ان يكون أقل سعر اصغر من سعر الصنف', 'خطأ');
+                $("#MinUnitPrice" + cnt).val($("#Sales_Price" + cnt).val() - 1);
             }
-            else {
-                Return = $("#txtReturn" + cnt).val();
-                txtQuantityValue = $("#txtQuantity" + cnt).attr("Quantity");
-                $("#txtQuantity" + cnt).val(Number(txtQuantityValue) - Number(Return));
-                txtQuantityValue = $("#txtQuantity" + cnt).val();
-                if (Number(txtQuantityValue) <= 0) {
-                    $("#txt_StatusFlag" + cnt).val("d");
-                }
-                else {
-                    $("#txt_StatusFlag" + cnt).val("u");
-                }
-                var txtPriceValue = $("#txtPrice" + cnt).val();
-                if ($("#txtPrice" + cnt).val() != 0) {
-                    var total = (Number(txtQuantityValue) * Number(txtPriceValue)) /* - (Number(txtQuantityReturnValue) *0)*/;
-                    $("#txtTotal" + cnt).val(total);
-                }
-                if (Number($("#txtPrice" + cnt).val()) < 0) {
-                    $("#txtPrice" + cnt).val('0');
-                }
+            if (Number($("#txtMinPrice" + cnt).val()) < 0) {
+                $("#MinUnitPrice" + cnt).val('0');
             }
-            if ($("#txtReturn" + cnt).val() == 0 || $("#txtReturn" + cnt).val() == '') {
-                $("#txt_StatusFlag" + cnt).val("");
-            }
-            if ($("#txtQuantity" + cnt).val() == 0 || $("#txtQuantity" + cnt).val() == '') {
-                $("#txt_StatusFlag" + cnt).val("d");
-            }
-            ComputeTotals();
         });
         $("#btn_minus" + cnt).on('click', function () {
             DeleteRow(cnt);
@@ -673,12 +727,12 @@ var Purchases;
         $("#Family" + cnt).prop("value", AllGetStokItemInfo[cnt].Name_CAT);
         var itemcode = AllGetStokItemInfo[cnt].PRODUCT_NAME;
         $("#txt_ID" + cnt).prop("value", AllGetStokItemInfo[cnt].ID);
-        $("#Items" + cnt).prop("value", itemcode.toString());
         $('#PRODUCT_ID' + cnt).val(AllGetStokItemInfo[cnt].PRODUCT_ID);
+        $("#Items" + cnt).prop("value", itemcode.toString());
         $("#txtQuantity" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
-        $("#txtQuantity" + cnt).attr("Quantity", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
-        $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Purchases_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Price.toFixed(2));
-        //$("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Sales_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Sales_Price.toFixed(2));
+        $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Purchases_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Price);
+        $("#Sales_Price" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Sales_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Sales_Price));
+        $("#MinUnitPrice" + cnt).prop("value", ((AllGetStokItemInfo[cnt].MinUnitPrice == null || undefined) ? 0 : AllGetStokItemInfo[cnt].MinUnitPrice));
         var Total = (Number(AllGetStokItemInfo[cnt].Purchases_Quantity) * Number(AllGetStokItemInfo[cnt].Purchases_Price));
         $("#txtTotal" + cnt).prop("value", (Total).toFixed(2));
         $("#btn_minus" + cnt).on('click', function () {
@@ -691,8 +745,7 @@ var Purchases;
     }
     function AddNewRow() {
         debugger;
-        if (!SysSession.CurrentPrivileges.AddNew)
-            return;
+        //if (!SysSession.CurrentPrivileges.AddNew) return;
         var CanAdd = true;
         if (CountGrid > -1) {
             for (var i = 0; i <= CountGrid; i++) {
@@ -706,14 +759,16 @@ var Purchases;
             CountGrid += 1;
             CountItems = CountItems + 1;
             BuildControls(CountGrid);
-            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode
-            $("#txtFamilyType").val(CountItems); //In Insert mode
-            $("#ddlFamily" + CountGrid).removeAttr("disabled");
-            $("#ddlItem" + CountGrid).removeAttr("disabled");
+            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
+            $("#Family" + CountGrid).removeAttr("disabled");
+            $("#Items" + CountGrid).removeAttr("disabled");
             $("#txtQuantity" + CountGrid).removeAttr("disabled");
             $("#txtPrice" + CountGrid).removeAttr("disabled");
+            $("#Sales_Price" + CountGrid).removeAttr("disabled");
+            $("#MinUnitPrice" + CountGrid).removeAttr("disabled");
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
+            ComputeTotals();
         }
     }
     function DeleteRow(RecNo) {
@@ -734,6 +789,7 @@ var Purchases;
             $("#txtTax" + RecNo).val("0");
             $("#No_Row" + RecNo).attr("hidden", "true");
             $("#txtCode" + RecNo).val("000");
+            ComputeTotals();
         });
     }
     function checkRepeatedItems(itemValue, familyValue) {
@@ -749,33 +805,45 @@ var Purchases;
     }
     function ComputeTotals() {
         var CountTotal = 0;
+        var ItemCount = 0;
         for (var i = 0; i < CountGrid + 1; i++) {
             var flagvalue = $("#txt_StatusFlag" + i).val();
             if (flagvalue != "d") {
                 CountTotal += Number($("#txtTotal" + i).val());
                 CountTotal = Number(CountTotal.toFixed(2).toString());
+                ItemCount += 1;
             }
         }
-        $("#txtItemCount").val(CountGrid + 1);
+        $("#txtItemCount").val(ItemCount);
         $("#txtTotal").val(CountTotal);
+        var To_be_Paid = Number(CountTotal - Number($("#txtPaid_Up").val() == null ? 0 : $("#txtPaid_Up").val()));
+        $("#txtTo_be_Paid").val(To_be_Paid);
     }
     function Validation_Grid(rowcount) {
         //else
         debugger;
-        if ($("#ddlFamily" + rowcount).val() == "النوع" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+        if ($("#Family" + rowcount).val() == "النوع" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال النوع", "خطأ");
             return false;
         }
-        else if (($("#ddlItem" + rowcount).val() == "null" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+        else if (($("#Items" + rowcount).val() == "null" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال الصنف", "خطأ");
             return false;
         }
-        else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+        else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() <= 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال الكمية", "خطأ");
             return false;
         }
-        else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-            MessageBox.Show(" برجاءادخال السعر", "خطأ");
+        else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == "0.00" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            MessageBox.Show("  برجاءادخال السعر الشراء", "خطأ");
+            return false;
+        }
+        else if (($("#Sales_Price" + rowcount).val() == "" || $("#Sales_Price" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            MessageBox.Show("  برجاءادخال السعر البيع ", "خطأ");
+            return false;
+        }
+        else if (($("#MinUnitPrice" + rowcount).val() == "" || $("#MinUnitPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            MessageBox.Show(" برجاءادخال السعر اقل سعر بيع", "خطأ");
             return false;
         }
         return true;
@@ -784,71 +852,86 @@ var Purchases;
     ////----------------------------------------------------- Div_items-------------------------------------------------------
     function Assign() {
         debugger;
-        SlsMasterDetils = new SlsMasterDetails();
+        PurMasterDetails = new PurchasesMasterDetails();
         var StatusFlag;
-        SlsMasterDetils.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-        SlsMasterDetils.UserCode = SysSession.CurrentEnvironment.UserCode;
         for (var i = 0; i <= CountGrid + 1; i++) {
-            OperationItemSingleModel = new Stok_ORDER_DELIVERY();
+            OperationItemSingleModel = new IQ_Purchases_Details();
             StatusFlag = $("#txt_StatusFlag" + i).val();
             $("#txt_StatusFlag" + i).val("");
             if (StatusFlag == "i") {
+                OperationItemSingleModel.StatusFlag = StatusFlag.toString();
+                OperationItemSingleModel.ID = 0;
+                OperationItemSingleModel.PRODUCT_ID = 0;
+                OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
+                OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
+                OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
+                OperationItemSingleModel.Purchases_Price = Number($("#txtPrice" + i).val());
+                OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
+                OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
             }
             if (StatusFlag == "u") {
                 var OperationItemID = $("#txt_ID" + i).val();
                 OperationItemSingleModel.StatusFlag = StatusFlag.toString();
-                OperationItemSingleModel.ID_DELIVERY = OperationItemID;
-                OperationItemSingleModel.Name_Product_sell = $("#ddlItem" + i + " option:selected").text();
-                OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
-                OperationItemSingleModel.price_One_part = $("#txtPrice" + i).val();
-                OperationItemSingleModel.Quantity_sell = $('#txtQuantity' + i).val();
-                OperationItemSingleModel.Total_Price_One_Part = $("#txtTotal" + i).val();
-                OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
-                OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-                SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
+                OperationItemSingleModel.ID = OperationItemID;
+                OperationItemSingleModel.PRODUCT_ID = 0;
+                OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
+                OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
+                OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
+                OperationItemSingleModel.Purchases_Price = Number($("#txtPrice" + i).val());
+                OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
+                OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
             }
             if (StatusFlag == "d") {
-                if ($("#ReciveDetailsID" + i).val() != "") {
+                if ($("#txt_ID" + i).val() != "") {
                     var OperationItemID = $("#txt_ID" + i).val();
                     OperationItemSingleModel.StatusFlag = StatusFlag.toString();
-                    OperationItemSingleModel.ID_DELIVERY = OperationItemID;
-                    OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
-                    OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
-                    OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
-                    SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
+                    OperationItemSingleModel.ID = OperationItemID;
+                    OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                    OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
+                    OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
+                    OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
+                    OperationItemSingleModel.Purchases_Price = $("#txtPrice" + i).val();
+                    OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
+                    OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                    PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
                 }
             }
         }
-        SlsMasterDetils.I_Sls_TR_Invoice.Total_All = $('#txtTotal').val();
-        SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery = $('#txtNumber').val();
+        DocumentActions.AssignToModel(PurMasterDetails.Purchases_Master);
+        PurMasterDetails.Purchases_Master.TrNo = $('#txtNumber').val();
+        PurMasterDetails.Purchases_Master.Tr_Date = $('#txtDate').val();
+        PurMasterDetails.Purchases_Master.ID_Supplier = ID_Supp;
+        PurMasterDetails.Purchases_Master.Type_Debit = Number(txtTo_be_Paid.value) == 0 ? true : false;
+        PurMasterDetails.Purchases_Master.Total_Amount = $('#txtTotal').val();
+        PurMasterDetails.Purchases_Master.Paid_Up = $('#txtPaid_Up').val();
+        PurMasterDetails.Purchases_Master.To_be_Paid = $('#txtTo_be_Paid').val();
+        PurMasterDetails.Purchases_Master.REMARKS = $('#txtRemarks').val();
     }
     function Update() {
         debugger;
         Ajax.Callsync({
             type: "POST",
-            url: sys.apiUrl("ReviewSales", "Insert_Processes"),
-            data: JSON.stringify(SlsMasterDetils),
+            url: sys.apiUrl("Purchases", "Insert_Purchases"),
+            data: JSON.stringify(PurMasterDetails),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
                     debugger;
-                    MessageBox.Show("تم المرتجع بنجاح", "تم");
-                    $("#DivHederMaster").removeClass("disabledDiv");
-                    btnUpdate.classList.remove("display_none");
-                    btnSave.classList.add("display_none");
-                    btnBack.classList.add("display_none");
-                    Display();
+                    var res_1 = result.Response;
+                    MessageBox.Show("تم الحفظ بنجاح", "تم");
+                    btnBack_onclick();
+                    //Display();
+                    btnShow_onclick();
                     Selected_Data = new Array();
-                    Selected_Data = Get_IQ_Purchases_Master.filter(function (x) { return x.TrNo == SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery; });
-                    if (Selected_Data.length == 0) {
-                        $("#rowData").addClass("display_none");
-                        $("#divTotalSatistics").addClass("display_none");
-                    }
-                    else {
-                        $("#rowData").removeClass("display_none");
-                        $("#divTotalSatistics").removeClass("display_none");
-                        DisplayData(Selected_Data);
-                    }
+                    Selected_Data = Get_IQ_Purchases_Master.filter(function (x) { return x.TrNo == Number(res_1); });
+                    ID_Supp = Selected_Data[0].ID_Supplier;
+                    $("#rowData").removeClass("display_none");
+                    $("#divTotalSatistics").removeClass("display_none");
+                    DisplayData(Selected_Data);
                 }
                 else {
                     MessageBox.Show("خطأء", "خطأء");
@@ -858,7 +941,32 @@ var Purchases;
     }
     ////-----------------------------------------------------------------------------------------------------------------------
     ////-------------------------------------------------------button---Save and Back and Eidt--------------------------------------
+    function btnAdd_onclick() {
+        AddNew = true;
+        btnUpdate.classList.add("display_none");
+        btnSave.classList.remove("display_none");
+        btnBack.classList.remove("display_none");
+        $("#DivShow").removeClass("disabledDiv");
+        //$("#DivHederMaster").attr("disabled", "disabled").off('click');
+        $("#DivHederMaster").addClass("disabledDiv");
+        $(".fontitm3").removeClass("display_none");
+        $("#btnAddDetails").removeClass("display_none");
+        //remove_disabled_Grid_Controls();
+        $("#txtDate").removeAttr("disabled");
+        $("#txtPaid_Up").removeAttr("disabled");
+        //$("#txtTo_be_Paid").removeAttr("disabled");
+        $("#txtRemarks").removeAttr("disabled");
+        $("#div_Data").html("");
+        btnSupplierSearch.disabled = false;
+        clear();
+        $("#txtDate").val(GetDate());
+        CountGrid = -1;
+        CountItems = 0;
+        $("#rowData").removeClass("display_none");
+        $("#divTotalSatistics").removeClass("display_none");
+    }
     function Update_onclick() {
+        AddNew = false;
         btnUpdate.classList.add("display_none");
         btnSave.classList.remove("display_none");
         btnBack.classList.remove("display_none");
@@ -870,30 +978,70 @@ var Purchases;
         remove_disabled_Grid_Controls();
     }
     function btnBack_onclick() {
-        $("#DivHederMaster").removeClass("disabledDiv");
-        $("#btnAddDetails").addClass("display_none");
-        btnUpdate.classList.remove("display_none");
-        btnSave.classList.add("display_none");
-        btnBack.classList.add("display_none");
-        $("#div_Data").html('');
-        CountGrid = -1;
-        for (var i = 0; i < AllGetStokMasterDetail.length; i++) {
-            BuildControls(i);
-            Disbly_BuildControls(i, AllGetStokMasterDetail);
-            CountGrid = i;
+        if (AddNew == true) {
+            $("#DivHederMaster").removeClass("disabledDiv");
+            $("#btnAddDetails").addClass("display_none");
+            btnUpdate.classList.remove("display_none");
+            btnSave.classList.add("display_none");
+            btnBack.classList.add("display_none");
+            $("#div_Data").html('');
+            CountGrid = -1;
+            CountItems = 0;
+            clear();
+            disabled_Grid_Controls();
+            $("#rowData").addClass("display_none");
+            $("#divTotalSatistics").addClass("display_none");
+        }
+        else {
+            $("#DivHederMaster").removeClass("disabledDiv");
+            $("#btnAddDetails").addClass("display_none");
+            btnUpdate.classList.remove("display_none");
+            btnSave.classList.add("display_none");
+            btnBack.classList.add("display_none");
+            $("#div_Data").html('');
+            CountGrid = -1;
+            for (var i = 0; i < AllGetStokMasterDetail.length; i++) {
+                BuildControls(i);
+                Disbly_BuildControls(i, AllGetStokMasterDetail);
+                CountGrid = i;
+            }
+            disabled_Grid_Controls();
+            DocumentActions.RenderFromModel(Selected_Data[0]);
         }
         ComputeTotals();
     }
     function btnSave_onclick() {
         //alert('ok');
         debugger;
-        Assign();
-        Update();
+        if (Number($("#txtTo_be_Paid").val()) < 0 || Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
+            MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+            return false;
+        }
+        if (CountGrid < 0) {
+            MessageBox.Show(" برجاءادخال الاصناف ", "خطأ");
+            return false;
+        }
+        else {
+            var CanAdd = true;
+            if (CountGrid > -1) {
+                for (var i = 0; i <= CountGrid; i++) {
+                    CanAdd = Validation_Grid(i);
+                    if (CanAdd == false) {
+                        break;
+                    }
+                }
+            }
+            if (CanAdd) {
+                Assign();
+                Update();
+            }
+        }
     }
     function Search() {
         var sys = new SystemTools();
         sys.FindKey(Modules.Purchases, "btnSupplierSearch", "", function () {
             var ID_Supplier = SearchGrid.SearchDataGrid.SelectedKey;
+            ID_Supp = ID_Supplier;
             //alert(id);
             SearchVendorDetails = GetAllVendorDetails.filter(function (x) { return x.ID_Supplier == Number(ID_Supplier); });
             DocumentActions.RenderFromModel(SearchVendorDetails[0]);
@@ -904,23 +1052,44 @@ var Purchases;
             //$("#ddlFreeSalesman").attr("disabled", "disabled");
         });
     }
+    function clear() {
+        $('#txtNumber').val('');
+        $('#txtName_Supplier').val('');
+        $('#txtType_Supplier').val('');
+        $('#txtPHONE').val('');
+        $('#txtPaid_Up').val('');
+        $('#txtTo_be_Paid').val('');
+        $('#txtRemarks').val('');
+        $('#txtTotal').val('');
+        $('#txtItemCount').val('');
+    }
     function remove_disabled_Grid_Controls() {
+        $("#txtDate").removeAttr("disabled");
+        $("#txtPaid_Up").removeAttr("disabled");
+        //$("#txtTo_be_Paid").removeAttr("disabled");
+        $("#txtRemarks").removeAttr("disabled");
         for (var i = 0; i < CountGrid + 1; i++) {
-            //$("#ddlFamily" + i).removeAttr("disabled");
-            //$("#ddlItem" + i).removeAttr("disabled");
-            //$("#txtQuantity" + i).removeAttr("disabled");
-            //$("#txtPrice" + i).removeAttr("disabled");
-            $("#txtReturn" + i).removeAttr("disabled");
+            $("#Family" + i).removeAttr("disabled");
+            $("#Items" + i).removeAttr("disabled");
+            $("#txtQuantity" + i).removeAttr("disabled");
+            $("#txtPrice" + i).removeAttr("disabled");
+            $("#Sales_Price" + i).removeAttr("disabled");
+            $("#MinUnitPrice" + i).removeAttr("disabled");
         }
     }
     function disabled_Grid_Controls() {
+        btnSupplierSearch.disabled = true;
+        $("#txtDate").attr("disabled", "disabled");
+        $("#txtPaid_Up").attr("disabled", "disabled");
+        $("#txtTo_be_Paid").attr("disabled", "disabled");
+        $("#txtRemarks").attr("disabled", "disabled");
         for (var i = 0; i < CountGrid + 1; i++) {
-            $("#ddlFamily" + i).attr("disabled", "disabled");
-            $("#ddlItem" + i).attr("disabled", "disabled");
+            $("#Family" + i).attr("disabled", "disabled");
+            $("#Items" + i).attr("disabled", "disabled");
             $("#txtQuantity" + i).attr("disabled", "disabled");
             $("#txtPrice" + i).attr("disabled", "disabled");
+            $("#Sales_Price" + i).attr("disabled", "disabled");
             $("#txtMinPrice" + i).attr("disabled", "disabled");
-            $("#txtScrapQty" + i).attr("disabled", "disabled");
         }
     }
 })(Purchases || (Purchases = {}));

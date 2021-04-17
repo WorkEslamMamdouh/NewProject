@@ -564,6 +564,16 @@ var SlsMasterDetails = (function (_super) {
     }
     return SlsMasterDetails;
 }(SecurityClass));
+var PurchasesMasterDetails = (function (_super) {
+    __extends(PurchasesMasterDetails, _super);
+    function PurchasesMasterDetails() {
+        var _this = _super.call(this) || this;
+        _this.Purchases_Master = new Purchases_Master();
+        _this.Purchases_Details = new Array();
+        return _this;
+    }
+    return PurchasesMasterDetails;
+}(SecurityClass));
 var CUSTOMER = (function (_super) {
     __extends(CUSTOMER, _super);
     function CUSTOMER() {
@@ -613,6 +623,7 @@ var IQ_Purchases_Master = (function (_super) {
         _this.IS_Active = false;
         _this.Paid_Up = 0;
         _this.To_be_Paid = 0;
+        _this.CashPaidAmount = 0;
         return _this;
     }
     return IQ_Purchases_Master;
@@ -631,6 +642,7 @@ var IQ_Purchases_Details = (function (_super) {
         _this.MinUnitPrice = 0;
         _this.PRODUCT_ID = 0;
         _this.ID_CAT = 0;
+        _this.StatusFlag = "";
         return _this;
     }
     return IQ_Purchases_Details;
@@ -647,6 +659,7 @@ var Purchases_Details = (function (_super) {
         _this.Purchases_Price;
         _this.Sales_Price;
         _this.MinUnitPrice;
+        _this.StatusFlag = '';
         return _this;
     }
     return Purchases_Details;
@@ -657,12 +670,14 @@ var Purchases_Master = (function (_super) {
         var _this = _super.call(this) || this;
         _this.TrNo = 0;
         _this.Tr_Date = "";
-        _this.REMARKS = "";
         _this.ID_Supplier = 0;
         _this.Type_Debit = false;
-        _this.Total_Amount;
-        _this.Paid_Up;
-        _this.To_be_Paid;
+        _this.Total_Amount = 0;
+        _this.Paid_Up = 0;
+        _this.To_be_Paid = 0;
+        _this.REMARKS = "";
+        _this.Num_Day = 0;
+        _this.CashPaidAmount = 0;
         return _this;
     }
     return Purchases_Master;

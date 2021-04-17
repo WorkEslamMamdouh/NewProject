@@ -795,6 +795,19 @@ class SlsMasterDetails extends SecurityClass {
 
 }
 
+
+class PurchasesMasterDetails extends SecurityClass {
+    constructor() {
+        super();
+        this.Purchases_Master = new Purchases_Master();
+        this.Purchases_Details = new Array<IQ_Purchases_Details>();
+    }
+    public Purchases_Master: Purchases_Master;
+    public Purchases_Details: Array<IQ_Purchases_Details>;
+
+
+}
+
 class CUSTOMER extends SecurityClass {
     constructor() {
         super();
@@ -856,6 +869,7 @@ class IQ_Purchases_Master extends SecurityClass {
         this.IS_Active = false;
         this.Paid_Up = 0;
         this.To_be_Paid = 0;
+        this.CashPaidAmount = 0;
     }
     public TrNo: number;
     public Tr_Date: string;
@@ -871,6 +885,7 @@ class IQ_Purchases_Master extends SecurityClass {
     public IS_Active: boolean;
     public Paid_Up: any;
     public To_be_Paid: any;
+    public CashPaidAmount: any;
 }
 
 
@@ -888,6 +903,7 @@ class IQ_Purchases_Details extends SecurityClass {
         this.MinUnitPrice = 0;
         this.PRODUCT_ID = 0;
         this.ID_CAT = 0;
+        this.StatusFlag = "";
     }
     public ID: number;
     public TrNo: number;
@@ -899,6 +915,7 @@ class IQ_Purchases_Details extends SecurityClass {
     public MinUnitPrice: any;
     public PRODUCT_ID: number;
     public ID_CAT: number;
+    public StatusFlag: string;
 }
 
 class Purchases_Details extends SecurityClass {
@@ -912,6 +929,7 @@ class Purchases_Details extends SecurityClass {
         this.Purchases_Price
         this.Sales_Price
         this.MinUnitPrice
+        this.StatusFlag = '';
     }
     public ID: number;
     public TrNo: number;
@@ -921,6 +939,7 @@ class Purchases_Details extends SecurityClass {
     public Purchases_Price: any;
     public Sales_Price: any;
     public MinUnitPrice: any;
+    public StatusFlag: string;
 }
 
 class Purchases_Master extends SecurityClass {
@@ -928,22 +947,27 @@ class Purchases_Master extends SecurityClass {
         super();
         this.TrNo = 0;
         this.Tr_Date = "";
-        this.REMARKS = "";
         this.ID_Supplier = 0;
         this.Type_Debit = false;
-        this.Total_Amount
-        this.Paid_Up
-        this.To_be_Paid
+        this.Total_Amount = 0;
+        this.Paid_Up = 0;
+        this.To_be_Paid = 0;
+        this.REMARKS = "";
+        this.Num_Day = 0;
+        this.CashPaidAmount = 0;
     }
     public TrNo: number;
     public Tr_Date: string;
-    public REMARKS: string;
     public ID_Supplier: number;
     public Type_Debit: boolean;
     public Total_Amount: any;
     public Paid_Up: any;
     public To_be_Paid: any;
+    public REMARKS: string;
+    public Num_Day: number;
+    public CashPaidAmount: any;
 }
+
 
 
 

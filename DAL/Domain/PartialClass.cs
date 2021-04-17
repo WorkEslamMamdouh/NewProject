@@ -50,5 +50,16 @@ namespace DAL.Domain
     {
 
     }
+    public partial class Purchases_Details : SecurityandUpdateFlagClass
+    {
 
+    }
+    public partial class IQ_Purchases_Details : SecurityandUpdateFlagClass
+    {
+
+    }
+    public partial class Purchases_Master : SecurityandUpdateFlagClass
+    {
+
+    }
 }

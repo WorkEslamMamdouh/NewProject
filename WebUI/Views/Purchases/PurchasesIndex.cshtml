@@ -55,7 +55,7 @@
         <div id="DivFilter" class="col-lg-12">
             <div id="DivHederMaster" class="row  margingred ">
                 <div class="col-lg-12" >
-                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 7%;">المورد</label>
+                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 6%;">المورد</label>
                     <div class="col-lg-2 col-xs-8">
                         <select id="ddlVendor" name="" class="form-control" style='width: 100%;border-radius: 30px;'></select>
                     </div>
@@ -83,7 +83,7 @@
                             </button>
 
                     </div> 
-                    <div class="col-md-2 col-sm-5 col-xs-10" style="width: 9%;">
+                    <div class="col-md-2 col-sm-5 col-xs-10" style="width: 10%;">
                         <div class="btn-group">
                             <label type="button" class="btn btn-warning" style="background-color: #031665;">طباعة</label>
                             <button type="button" class="btn btn-warning dropdown-toggle" style="background-color: #031665;" data-toggle="dropdown">
@@ -112,7 +112,7 @@
 
                 <div class="col-lg-12">
 
-                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 7%;">الحاله</label>
+                    <label class="col-lg-1 col-xs-4   pading_2  " style="width: 6%;">الحاله</label>
                     <div class="col-lg-2 col-xs-8">
                         <select id="ddlStateType" name="" class="form-control" style='width: 100%;border-radius: 30px;'>
                             <option value="2">الجميع</option>
@@ -128,13 +128,21 @@
                     <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
                         <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="بحث ">
                     </div>
-                    <div class="col-lg-12 ">
-                        @*رقم الفاتورة	العميل	عدد الأصناف	عدد العبوات	الإجمالي	الضريبة	الصافي	العمولة	المطلوب سداده*@
-                        <table id="divMasterGrid"></table>
-                    </div>
-                </div>
+                    <div class="col-lg-7 col-xs-8">
 
-            </div>
+                    </div>
+                        <div class="col-lg-1 col-xs-8">
+
+                            <button id="btnPaid_Up" type="button" class="btn btn-success  " disabled style="margin-right: 38%;margin-top: 8%;"> تسديد <span class="glyphicon glyphicon-save"></span></button>
+
+                        </div>
+                        <div class="col-lg-12 ">
+                            @*رقم الفاتورة	العميل	عدد الأصناف	عدد العبوات	الإجمالي	الضريبة	الصافي	العمولة	المطلوب سداده*@
+                            <table id="divMasterGrid"></table>
+                        </div>
+                    </div>
+
+                </div>
 
 
 
@@ -196,7 +204,7 @@
                                 </div>
 
                                 <div class="col-xs-1">
-                                    <button style=" left: 21%;" type="button" class="src-btn btn btn-warning "  id="btnSupplierSearch" name="InvoiceSearch">
+                                    <button style=" left: 21%;" type="button" class="src-btn btn btn-warning "  disabled id="btnSupplierSearch" name="InvoiceSearch">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
@@ -217,7 +225,7 @@
 
                                 <label class="col-lg-1 col-xs-4   pading_2    " style="padding-right:25px">المدفوع </label>
                                 <div class="col-md-2 col-sm-5 col-xs-10">
-                                    <input type="text" class="form-control input-sm addable editable" disabled name="Paid_Up" id="txtPaid_Up">
+                                    <input type="number" class="form-control input-sm addable editable" disabled name="Paid_Up" id="txtPaid_Up">
                                 </div>
 
                                 <label class="col-lg-1 col-xs-4   pading_2 textcentr_pading  " style="padding-right:25px">المتبقي</label>
@@ -295,7 +303,7 @@
                             <div class="col-lg-12">
                                 <div class="row " id="div_Data">
                                 </div>
-                                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none" style="font-size: 36px;"></span>
+                                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none"  style="font-size: 36px;"></span>
 
                             </div>
 
@@ -333,7 +341,7 @@
 
                 <div class="col-md-2 col-sm-5 col-xs-10">
                     @*<input type="text" class="form-control" disabled="" name="" id="txtTax">*@
-                    <input type="text" class="form-control" disabled="" name="Total_All" id="txtTotal">
+                    <input type="text" class="form-control" disabled="" name="Total_Amount" id="txtTotal">
 
                 </div>
 

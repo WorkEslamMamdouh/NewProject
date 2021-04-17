@@ -12,6 +12,7 @@ namespace HomeComponent {
 
 
     var But_Outlet: HTMLButtonElement;
+    var Close: HTMLButtonElement;
     var btnDashboard: HTMLButtonElement;
     var btn_loguotuser: HTMLButtonElement;
     var SysSession: SystemSession = GetSystemSession();
@@ -126,8 +127,11 @@ namespace HomeComponent {
         btn_loguotuser.onclick = LogoutUserApi;
 
         But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
+        Close = document.getElementById('Close') as HTMLButtonElement
         But_Outlet.onclick = Cash_Box;
-
+        Close.onclick = Close_Day;
+        //Close.onclick = Check_Close_Day;
+        Check_Close_Day();
     }
 
     export function LogoutUserApi() {
@@ -454,8 +458,8 @@ namespace HomeComponent {
         $("#btnSlsTrReturn").click(() => { OpenPage(Modules.SlsTrReturn); })
         $("#btnPurchases").click(() => { OpenPage(Modules.Purchases); })
         $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
-        $("#btnItems").click(() => { OpenPage(Modules.Items); })     
-        $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })     
+        $("#btnItems").click(() => { OpenPage(Modules.Items); })
+        $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })
 
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
@@ -575,7 +579,7 @@ namespace HomeComponent {
 
     function Cash_Box() {
 
-       
+
         if ($('#id_pirce').val() == '' || $('#id_Dasc_Name').val() == '') {
             MessageBox.Show("  خطأ  يجب ادخل المبلغ والوصف ", "خطأ");
             return
@@ -592,8 +596,7 @@ namespace HomeComponent {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
-                    if (Outlet == pirce)
-                    {
+                    if (Outlet == pirce) {
                         MessageBox.Show("تم ", "الحفظ");
 
                         $('#id_Dasc_Name').val('');
@@ -612,5 +615,76 @@ namespace HomeComponent {
                 }
             }
         });
+    }
+
+    function Close_Day() {
+
+        //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;');
+        if ($('#Close').attr('style') != 'margin-top: -18%;background-color: #4df109;border-radius: 11px;') {
+
+            ConfirmMessage("هل ترغب في قفل اليوم ", "code cannot br repeated?", "تحذير", "worning", () => {
+                Ajax.Callsync({
+                    type: "Post",
+                    url: sys.apiUrl("Close_Day", "Close"),
+                    success: (d) => {
+                        debugger
+                       
+
+                        let result = d as BaseResponse;
+                        if (result.IsSuccess == true) {
+
+                            $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
+
+                        }
+                        else {
+
+                            $('#Close').attr('style', 'margin-top: -18%;background-color: #c40303;border-radius: 11px;');
+
+                        }
+                    }
+                });
+                return false;
+            });
+            //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
+
+        }
+
+
+    }
+
+    function Check_Close_Day() {
+
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Close_Day", "Check_Close_Day"),
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    let res = result.Response
+
+                    //alert(res);
+                    if (res == '1900-01-01T00:00:00') {
+
+                        //Close.style.
+                        $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
+
+                    }
+                    else {
+                        $('#Close').attr('style', 'margin-top: -18%;background-color: #c40303;border-radius: 11px;');
+
+                    }
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+
+
+
+
     }
 }

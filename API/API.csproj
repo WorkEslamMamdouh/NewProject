@@ -241,6 +241,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Close_Day.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\Outletpirce.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\CustomEntities\ORDER_Master.cs" />
     <Compile Include="Models\CustomEntities\SystemParameters.cs" />
     <Compile Include="Models\CustomEntities\UserPrivilege.cs" />
+    <Compile Include="Models\CustomModel\PurchasesMasterDetails.cs" />
     <Compile Include="Models\CustomModel\SlsMasterDetails.cs" />
     <Compile Include="Models\CustomModel\SlsInvoiceMasterDetails.cs" />
     <Compile Include="Models\ResponseResult.cs" />

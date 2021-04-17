@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Purchases\IPurchases_MasterServices.cs" />
+    <Compile Include="Services\Purchases\Purchases_MasterServices.cs" />
     <Compile Include="Services\Vendor\VendorServices.cs" />
     <Compile Include="Services\Vendor\IVendorServices.cs" />
     <Compile Include="Services\Stok_ORDER\Stok_ORDERServices.cs" />

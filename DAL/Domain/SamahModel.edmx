@@ -201,6 +201,7 @@
           <Property Name="Paid_Up" Type="money" />
           <Property Name="To_be_Paid" Type="money" />
           <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
+          <Property Name="Num_Day" Type="int" />
         </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
@@ -525,6 +526,15 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="pirce" Type="money" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="insert_Purchases_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Tr_Date" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_Supplier" Type="int" Mode="In" />
+          <Parameter Name="Type_Debit" Type="bit" Mode="In" />
+          <Parameter Name="Total_Amount" Type="money" Mode="In" />
+          <Parameter Name="Paid_Up" Type="money" Mode="In" />
+          <Parameter Name="To_be_Paid" Type="money" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="insert_Stock_ORDER_TECAYE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name_Product_sell" Type="nvarchar" Mode="In" />
           <Parameter Name="Quantity_sell" Type="float" Mode="In" />
@@ -562,6 +572,17 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
           <Parameter Name="Open_Login" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Processes_Purchases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PRODUCT_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="PRODUCT_QET" Type="int" Mode="In" />
+          <Parameter Name="PRODUCT_Purchasing_price" Type="money" Mode="In" />
+          <Parameter Name="PRODUCT_PRICE" Type="money" Mode="In" />
+          <Parameter Name="MinUnitPrice" Type="money" Mode="In" />
+          <Parameter Name="Name_CAT" Type="nvarchar" Mode="In" />
+          <Parameter Name="TrNo" Type="int" Mode="In" />
+          <Parameter Name="ID_Details" Type="int" Mode="In" />
+          <Parameter Name="StatusFlag" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Receipt_Order_delivery_one" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_ORDER_Delivery" Type="int" Mode="In" />
@@ -643,6 +664,16 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="emp_phone" Type="nvarchar" Mode="In" />
           <Parameter Name="emp_phone_New" Type="nvarchar" Mode="In" />
           <Parameter Name="type_emp" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="update_Purchases_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrNo" Type="int" Mode="In" />
+          <Parameter Name="Tr_Date" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_Supplier" Type="int" Mode="In" />
+          <Parameter Name="Type_Debit" Type="bit" Mode="In" />
+          <Parameter Name="Total_Amount" Type="money" Mode="In" />
+          <Parameter Name="Paid_Up" Type="money" Mode="In" />
+          <Parameter Name="To_be_Paid" Type="money" Mode="In" />
+          <Parameter Name="REMARKS" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="update_Sales_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Total_All" Type="money" Mode="In" />
@@ -1048,6 +1079,36 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="G_SearchForm" EntityType="SamahModel.G_SearchForm" />
           <EntitySet Name="G_SearchFormModule" EntityType="SamahModel.G_SearchFormModule" />
           <EntitySet Name="G_SearchFormSetting" EntityType="SamahModel.G_SearchFormSetting" />
+          <FunctionImport Name="insert_Purchases_Master">
+            <Parameter Name="Tr_Date" Mode="In" Type="String" />
+            <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
+            <Parameter Name="Type_Debit" Mode="In" Type="Boolean" />
+            <Parameter Name="Total_Amount" Mode="In" Type="Decimal" />
+            <Parameter Name="Paid_Up" Mode="In" Type="Decimal" />
+            <Parameter Name="To_be_Paid" Mode="In" Type="Decimal" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Processes_Purchases" ReturnType="Collection(String)">
+            <Parameter Name="PRODUCT_NAME" Mode="In" Type="String" />
+            <Parameter Name="PRODUCT_QET" Mode="In" Type="Int32" />
+            <Parameter Name="PRODUCT_Purchasing_price" Mode="In" Type="Decimal" />
+            <Parameter Name="PRODUCT_PRICE" Mode="In" Type="Decimal" />
+            <Parameter Name="MinUnitPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="Name_CAT" Mode="In" Type="String" />
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
+            <Parameter Name="ID_Details" Mode="In" Type="Int32" />
+            <Parameter Name="StatusFlag" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="update_Purchases_Master">
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
+            <Parameter Name="Tr_Date" Mode="In" Type="String" />
+            <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
+            <Parameter Name="Type_Debit" Mode="In" Type="Boolean" />
+            <Parameter Name="Total_Amount" Mode="In" Type="Decimal" />
+            <Parameter Name="Paid_Up" Mode="In" Type="Decimal" />
+            <Parameter Name="To_be_Paid" Mode="In" Type="Decimal" />
+            <Parameter Name="REMARKS" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1533,6 +1594,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Day" Type="Int32" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -2224,6 +2286,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="Purchases_Master">
             <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
               <MappingFragment StoreEntitySet="Purchases_Master">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
                 <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
                 <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
                 <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
@@ -2330,6 +2393,9 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="SamahModel.Store.insert_Purchases_Master" />
+          <FunctionImportMapping FunctionImportName="Processes_Purchases" FunctionName="SamahModel.Store.Processes_Purchases" />
+          <FunctionImportMapping FunctionImportName="update_Purchases_Master" FunctionName="SamahModel.Store.update_Purchases_Master" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

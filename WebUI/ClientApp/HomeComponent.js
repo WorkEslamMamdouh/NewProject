@@ -8,6 +8,7 @@ var HomeComponent;
     //let res: any = GetResourceList("");
     var sys = new SystemTools();
     var But_Outlet;
+    var Close;
     var btnDashboard;
     var btn_loguotuser;
     var SysSession = GetSystemSession();
@@ -106,7 +107,11 @@ var HomeComponent;
         btn_loguotuser = DocumentActions.GetElementById("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
         But_Outlet = document.getElementById('But_Outlet');
+        Close = document.getElementById('Close');
         But_Outlet.onclick = Cash_Box;
+        Close.onclick = Close_Day;
+        //Close.onclick = Check_Close_Day;
+        Check_Close_Day();
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
     function LogoutUserApi() {
@@ -523,6 +528,52 @@ var HomeComponent;
                         MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
                         $('#id_Dasc_Name').val('');
                         $('#id_pirce').val('');
+                    }
+                }
+                else {
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+    }
+    function Close_Day() {
+        //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;');
+        if ($('#Close').attr('style') != 'margin-top: -18%;background-color: #4df109;border-radius: 11px;') {
+            ConfirmMessage("هل ترغب في قفل اليوم ", "code cannot br repeated?", "تحذير", "worning", function () {
+                Ajax.Callsync({
+                    type: "Post",
+                    url: sys.apiUrl("Close_Day", "Close"),
+                    success: function (d) {
+                        debugger;
+                        var result = d;
+                        if (result.IsSuccess == true) {
+                            $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
+                        }
+                        else {
+                            $('#Close').attr('style', 'margin-top: -18%;background-color: #c40303;border-radius: 11px;');
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+    }
+    function Check_Close_Day() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Close_Day", "Check_Close_Day"),
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var res = result.Response;
+                    //alert(res);
+                    if (res == '1900-01-01T00:00:00') {
+                        //Close.style.
+                        $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
+                    }
+                    else {
+                        $('#Close').attr('style', 'margin-top: -18%;background-color: #c40303;border-radius: 11px;');
                     }
                 }
                 else {

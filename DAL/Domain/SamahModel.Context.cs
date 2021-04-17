@@ -940,5 +940,116 @@ namespace DAL.Domain
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Close_days");
         }
+    
+        public virtual int insert_Purchases_Master(string tr_Date, Nullable<int> iD_Supplier, Nullable<bool> type_Debit, Nullable<decimal> total_Amount, Nullable<decimal> paid_Up, Nullable<decimal> to_be_Paid, string rEMARKS)
+        {
+            var tr_DateParameter = tr_Date != null ?
+                new ObjectParameter("Tr_Date", tr_Date) :
+                new ObjectParameter("Tr_Date", typeof(string));
+    
+            var iD_SupplierParameter = iD_Supplier.HasValue ?
+                new ObjectParameter("ID_Supplier", iD_Supplier) :
+                new ObjectParameter("ID_Supplier", typeof(int));
+    
+            var type_DebitParameter = type_Debit.HasValue ?
+                new ObjectParameter("Type_Debit", type_Debit) :
+                new ObjectParameter("Type_Debit", typeof(bool));
+    
+            var total_AmountParameter = total_Amount.HasValue ?
+                new ObjectParameter("Total_Amount", total_Amount) :
+                new ObjectParameter("Total_Amount", typeof(decimal));
+    
+            var paid_UpParameter = paid_Up.HasValue ?
+                new ObjectParameter("Paid_Up", paid_Up) :
+                new ObjectParameter("Paid_Up", typeof(decimal));
+    
+            var to_be_PaidParameter = to_be_Paid.HasValue ?
+                new ObjectParameter("To_be_Paid", to_be_Paid) :
+                new ObjectParameter("To_be_Paid", typeof(decimal));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Purchases_Master", tr_DateParameter, iD_SupplierParameter, type_DebitParameter, total_AmountParameter, paid_UpParameter, to_be_PaidParameter, rEMARKSParameter);
+        }
+    
+        public virtual ObjectResult<string> Processes_Purchases(string pRODUCT_NAME, Nullable<int> pRODUCT_QET, Nullable<decimal> pRODUCT_Purchasing_price, Nullable<decimal> pRODUCT_PRICE, Nullable<decimal> minUnitPrice, string name_CAT, Nullable<int> trNo, Nullable<int> iD_Details, string statusFlag)
+        {
+            var pRODUCT_NAMEParameter = pRODUCT_NAME != null ?
+                new ObjectParameter("PRODUCT_NAME", pRODUCT_NAME) :
+                new ObjectParameter("PRODUCT_NAME", typeof(string));
+    
+            var pRODUCT_QETParameter = pRODUCT_QET.HasValue ?
+                new ObjectParameter("PRODUCT_QET", pRODUCT_QET) :
+                new ObjectParameter("PRODUCT_QET", typeof(int));
+    
+            var pRODUCT_Purchasing_priceParameter = pRODUCT_Purchasing_price.HasValue ?
+                new ObjectParameter("PRODUCT_Purchasing_price", pRODUCT_Purchasing_price) :
+                new ObjectParameter("PRODUCT_Purchasing_price", typeof(decimal));
+    
+            var pRODUCT_PRICEParameter = pRODUCT_PRICE.HasValue ?
+                new ObjectParameter("PRODUCT_PRICE", pRODUCT_PRICE) :
+                new ObjectParameter("PRODUCT_PRICE", typeof(decimal));
+    
+            var minUnitPriceParameter = minUnitPrice.HasValue ?
+                new ObjectParameter("MinUnitPrice", minUnitPrice) :
+                new ObjectParameter("MinUnitPrice", typeof(decimal));
+    
+            var name_CATParameter = name_CAT != null ?
+                new ObjectParameter("Name_CAT", name_CAT) :
+                new ObjectParameter("Name_CAT", typeof(string));
+    
+            var trNoParameter = trNo.HasValue ?
+                new ObjectParameter("TrNo", trNo) :
+                new ObjectParameter("TrNo", typeof(int));
+    
+            var iD_DetailsParameter = iD_Details.HasValue ?
+                new ObjectParameter("ID_Details", iD_Details) :
+                new ObjectParameter("ID_Details", typeof(int));
+    
+            var statusFlagParameter = statusFlag != null ?
+                new ObjectParameter("StatusFlag", statusFlag) :
+                new ObjectParameter("StatusFlag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Processes_Purchases", pRODUCT_NAMEParameter, pRODUCT_QETParameter, pRODUCT_Purchasing_priceParameter, pRODUCT_PRICEParameter, minUnitPriceParameter, name_CATParameter, trNoParameter, iD_DetailsParameter, statusFlagParameter);
+        }
+    
+        public virtual int update_Purchases_Master(Nullable<int> trNo, string tr_Date, Nullable<int> iD_Supplier, Nullable<bool> type_Debit, Nullable<decimal> total_Amount, Nullable<decimal> paid_Up, Nullable<decimal> to_be_Paid, string rEMARKS)
+        {
+            var trNoParameter = trNo.HasValue ?
+                new ObjectParameter("TrNo", trNo) :
+                new ObjectParameter("TrNo", typeof(int));
+    
+            var tr_DateParameter = tr_Date != null ?
+                new ObjectParameter("Tr_Date", tr_Date) :
+                new ObjectParameter("Tr_Date", typeof(string));
+    
+            var iD_SupplierParameter = iD_Supplier.HasValue ?
+                new ObjectParameter("ID_Supplier", iD_Supplier) :
+                new ObjectParameter("ID_Supplier", typeof(int));
+    
+            var type_DebitParameter = type_Debit.HasValue ?
+                new ObjectParameter("Type_Debit", type_Debit) :
+                new ObjectParameter("Type_Debit", typeof(bool));
+    
+            var total_AmountParameter = total_Amount.HasValue ?
+                new ObjectParameter("Total_Amount", total_Amount) :
+                new ObjectParameter("Total_Amount", typeof(decimal));
+    
+            var paid_UpParameter = paid_Up.HasValue ?
+                new ObjectParameter("Paid_Up", paid_Up) :
+                new ObjectParameter("Paid_Up", typeof(decimal));
+    
+            var to_be_PaidParameter = to_be_Paid.HasValue ?
+                new ObjectParameter("To_be_Paid", to_be_Paid) :
+                new ObjectParameter("To_be_Paid", typeof(decimal));
+    
+            var rEMARKSParameter = rEMARKS != null ?
+                new ObjectParameter("REMARKS", rEMARKS) :
+                new ObjectParameter("REMARKS", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_Purchases_Master", trNoParameter, tr_DateParameter, iD_SupplierParameter, type_DebitParameter, total_AmountParameter, paid_UpParameter, to_be_PaidParameter, rEMARKSParameter);
+        }
     }
 }
