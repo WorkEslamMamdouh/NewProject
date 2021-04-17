@@ -11,6 +11,7 @@
           </Key>
           <Property Name="ID_CAT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_CAT" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_familly_Cat" Type="int" />
         </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
@@ -31,6 +32,13 @@
           <Property Name="EMPLOYEE_PHONE" Type="nvarchar" MaxLength="50" />
           <Property Name="ID_User" Type="int" />
           <Property Name="id_Type_EMPLOYEE" Type="int" />
+        </EntityType>
+        <EntityType Name="familly_Cat">
+          <Key>
+            <PropertyRef Name="ID_familly_Cat" />
+          </Key>
+          <Property Name="ID_familly_Cat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_familly_Cat" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="G_MODULES">
           <Key>
@@ -503,7 +511,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="Total_Price_One_Part" Type="money" />
           <Property Name="Shortage" Type="money" />
           <Property Name="Outlet" Type="money" />
-          <Property Name="Task(%)" Type="float" />
+          <Property Name="Task" Type="float" />
           <Property Name="Day_Date" Type="nvarchar" MaxLength="50" />
           <Property Name="Shift_User" Type="nvarchar" MaxLength="50" />
         </EntityType>-->
@@ -977,6 +985,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="familly_Cat" EntityType="Self.familly_Cat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_MODULES" EntityType="Self.G_MODULES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_ReportWebSetting" EntityType="Self.G_ReportWebSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_Role" EntityType="Self.G_Role" Schema="dbo" store:Type="Tables" />
@@ -1447,6 +1456,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="sub" Mode="In" Type="String" />
             <Parameter Name="Mod" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1645,6 +1655,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           </Key>
           <Property Name="ID_CAT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_CAT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_familly_Cat" Type="Int32" />
         </EntityType>
         <EntityType Name="CUSTOMER">
           <Key>
@@ -2292,6 +2303,13 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Type="Boolean" Name="EditImages" Nullable="true" />
           <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
         </ComplexType>
+        <EntityType Name="familly_Cat">
+          <Key>
+            <PropertyRef Name="ID_familly_Cat" />
+          </Key>
+          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2579,6 +2597,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="CATEGRES">
             <EntityTypeMapping TypeName="SamahModel.CATEGRE">
               <MappingFragment StoreEntitySet="CATEGRES">
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
                 <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
                 <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
               </MappingFragment>
@@ -3225,6 +3244,14 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="familly_Cat">
+            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
+              <MappingFragment StoreEntitySet="familly_Cat">
+                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

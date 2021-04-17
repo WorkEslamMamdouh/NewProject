@@ -981,6 +981,34 @@ class Purchases_Master extends SecurityClass {
 }
 
 
+class The_Gard extends SecurityClass {
+    constructor() {
+        super();
+        this.id_Num = 0;
+        this.PRODUCT_NAME = "";
+        this.PRODUCT_Purchasing_price
+        this.PRODUCT_PRICE
+        this.PRODUCT_Qut = 0;
+        this.Total_Price_One_Part = 0;
+        this.Shortage = 0;
+        this.Outlet = 0;
+        this.Task = 0;
+        this.Day_Date = "";
+        this.Shift_User = "";
+    }
+    public id_Num: number;
+    public PRODUCT_NAME: string;
+    public PRODUCT_Purchasing_price: any;
+    public PRODUCT_PRICE: any;
+    public PRODUCT_Qut: number;
+    public Total_Price_One_Part: any;
+    public Shortage: any;
+    public Outlet: any;
+    public Task: number;
+    public Day_Date: string;
+    public Shift_User: string;
+}
+
 
 
 class Supplier extends SecurityClass {

@@ -67,6 +67,9 @@
     <Compile Include="Domain\Enter_Customer_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\familly_Cat.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\getPRODUCT_NAME_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>

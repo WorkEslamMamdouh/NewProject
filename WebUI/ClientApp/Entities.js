@@ -692,6 +692,25 @@ var Purchases_Master = (function (_super) {
     }
     return Purchases_Master;
 }(SecurityClass));
+var The_Gard = (function (_super) {
+    __extends(The_Gard, _super);
+    function The_Gard() {
+        var _this = _super.call(this) || this;
+        _this.id_Num = 0;
+        _this.PRODUCT_NAME = "";
+        _this.PRODUCT_Purchasing_price;
+        _this.PRODUCT_PRICE;
+        _this.PRODUCT_Qut = 0;
+        _this.Total_Price_One_Part = 0;
+        _this.Shortage = 0;
+        _this.Outlet = 0;
+        _this.Task = 0;
+        _this.Day_Date = "";
+        _this.Shift_User = "";
+        return _this;
+    }
+    return The_Gard;
+}(SecurityClass));
 var Supplier = (function (_super) {
     __extends(Supplier, _super);
     function Supplier() {

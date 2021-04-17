@@ -68,6 +68,7 @@ namespace DAL.Domain
         public virtual DbSet<G_SUB_SYSTEMS> G_SUB_SYSTEMS { get; set; }
         public virtual DbSet<G_SYSTEM> G_SYSTEM { get; set; }
         public virtual DbSet<G_USERS> G_USERS { get; set; }
+        public virtual DbSet<familly_Cat> familly_Cat { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {

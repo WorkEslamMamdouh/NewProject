@@ -12,10 +12,9 @@ namespace DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class CATEGRE
+    public partial class familly_Cat
     {
-        public int ID_CAT { get; set; }
-        public string Name_CAT { get; set; }
-        public Nullable<int> ID_familly_Cat { get; set; }
+        public int ID_familly_Cat { get; set; }
+        public string Name_familly_Cat { get; set; }
     }
 }

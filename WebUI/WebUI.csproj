@@ -1220,6 +1220,7 @@
     <TypeScriptCompile Include="ClientApp\Pages\LoginComponent.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\Thesettings\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Purchases\Purchases.ts" />
+    <TypeScriptCompile Include="ClientApp\Reports\Salesinventory.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />

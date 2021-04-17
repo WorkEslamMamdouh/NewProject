@@ -49,6 +49,7 @@
         <AssociationConnector Association="SamahModel.FK_G_RoleModule_G_MODULES" />
         <AssociationConnector Association="SamahModel.FK_G_RoleModule_G_Role" />
         <AssociationConnector Association="SamahModel.FK_G_RoleUsers_G_Role" />
+        <EntityTypeShape EntityType="SamahModel.familly_Cat" Width="1.5" PointX="11.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

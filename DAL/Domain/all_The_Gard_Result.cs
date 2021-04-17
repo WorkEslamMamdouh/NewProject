@@ -20,7 +20,7 @@ namespace DAL.Domain
         public Nullable<decimal> Total_Price_One_Part { get; set; }
         public Nullable<decimal> Shortage { get; set; }
         public Nullable<int> Outlet { get; set; }
-        public Nullable<double> Task___ { get; set; }
+        public Nullable<double> Task { get; set; }
         public Nullable<decimal> The_total_amount { get; set; }
         public Nullable<double> Net_Money { get; set; }
     }
