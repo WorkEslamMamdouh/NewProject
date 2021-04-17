@@ -647,6 +647,16 @@ var IQ_Purchases_Details = (function (_super) {
     }
     return IQ_Purchases_Details;
 }(SecurityClass));
+var familly_Cat = (function (_super) {
+    __extends(familly_Cat, _super);
+    function familly_Cat() {
+        var _this = _super.call(this) || this;
+        _this.ID_familly_Cat = 0;
+        _this.Name_familly_Cat = "";
+        return _this;
+    }
+    return familly_Cat;
+}(SecurityClass));
 var Purchases_Details = (function (_super) {
     __extends(Purchases_Details, _super);
     function Purchases_Details() {
@@ -996,6 +1006,7 @@ var CATEGRES = (function (_super) {
         var _this = _super.call(this) || this;
         _this.ID_CAT = 0;
         _this.Name_CAT = "";
+        _this.ID_familly_Cat = 0;
         _this.StatusFlag = "";
         return _this;
     }

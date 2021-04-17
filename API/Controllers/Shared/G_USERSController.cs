@@ -1,13 +1,13 @@
-﻿using Inv.API.Models;
-using Inv.API.Tools;
-using Inv.DAL.Domain;
+﻿using API.Models;
+using DAL.Domain;
+using Inv.BLL.Services.GUSERS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using WebUl.API.Tools;
 
 namespace API.Controllers
 {
@@ -39,7 +39,6 @@ namespace API.Controllers
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult UserLogin(string UserCode, string Password)
-
         {
             G_USERS Nusr = new G_USERS();
             //try {

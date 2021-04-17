@@ -1,5 +1,4 @@
 ﻿
-/// <reference path="../scripts/typings/jquery/jquery.d.ts"/>
 $(document).ready(() => {
     //HomeComponent.Language();
     HomeComponent.InitalizeComponent();
@@ -10,9 +9,8 @@ namespace HomeComponent {
     //let res: any = GetResourceList("");
     var sys: SystemTools = new SystemTools();
 
-
     var But_Outlet: HTMLButtonElement;
-    var Close: HTMLButtonElement;
+    var Close: HTMLButtonElement; 
     var btnDashboard: HTMLButtonElement;
     var btn_loguotuser: HTMLButtonElement;
     var SysSession: SystemSession = GetSystemSession();
@@ -22,16 +20,43 @@ namespace HomeComponent {
     export function OpenPage(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
-        debugger;
+        // debugger;
         let compCode = SysSession.CurrentEnvironment.CompCode;
         let branchCode = SysSession.CurrentEnvironment.BranchCode;
         let UserCode = SysSession.CurrentEnvironment.UserCode;
         let SystemCode = SysSession.CurrentEnvironment.SystemCode;
         let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
+        Ajax.Callsync({
+            type: "GET",
+            url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
+            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: Modulecode },
+            success: (d) => {
 
+                if (d == undefined) {
+                    window.open(Url.Action("LoginIndex", "Login"), "_self");
+                    return;
+                }
+                else {
+                    let result = JSON.parse(d) as UserPrivilege;
 
-        window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+                    if (result == null) {
+                        MessageBox.Show("Access denied", moduleCode);
+                        return;
+                    }
+                    if (result.Access == true) {
+                        SysSession.CurrentPrivileges = result;
+
+                        document.cookie = "Inv1_Privilage=" + JSON.stringify(result).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+                        window.open(Url.Action(moduleCode + "Index", "Home"), "_self");
+
+                    }
+                    else {
+                        MessageBox.Show("No Inv1_Privilage", moduleCode);
+                    }
+                }
+            }
+        });
     }
 
     export function OpenReportsPopup(moduleCode: string) {
@@ -47,7 +72,7 @@ namespace HomeComponent {
         Ajax.CallAsync({
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
 
-            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode, Modulecode: Modulecode },
+            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: Modulecode },
             success: (d) => {
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
@@ -87,25 +112,15 @@ namespace HomeComponent {
     }
 
     export function InitalizeComponent() {
-        debugger
-
-        if (localStorage.getItem('Inv1_Login_Data') == null) {
-
-            window.open(Url.Action("LoginIndex", "Login"), "_self");
-            localStorage.removeItem("Inv1_Login_Data");
-        }
-        else {
-            $('#hLoggedName').html(localStorage.getItem('Inv1_Login_Data'));
-        }
-
         Language();
         //GetBackgroundImage(); 
         // GetNotificationData();
         //Notifications_Message()
 
         // Apply user and company privilages 
-        //ApplyModules();
+        ApplyModules();
         ApplyCompanyPrivilages();
+        $("#btnHelpRep").click(() => { ScreenHelp(); })
 
         InitializePages();
         $("#DashButton").css('pointer-events', 'auto');
@@ -129,35 +144,21 @@ namespace HomeComponent {
         But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
         Close = document.getElementById('Close') as HTMLButtonElement
         But_Outlet.onclick = Cash_Box;
-        Close.onclick = Close_Day;
-        //Close.onclick = Check_Close_Day;
+        Close.onclick = Close_Day;        
         Check_Close_Day();
+
     }
 
     export function LogoutUserApi() {
-        debugger;
-
-        var loginData = localStorage.getItem("Inv1_Login_Data");
-
-        var data = JSON.parse(loginData);
-        data.USER_CODE;
-        data.USER_PASSWORD;
-
-
-
         let userCode = SysSession.CurrentEnvironment.UserCode;
         Ajax.Callsync({
             type: "GET",
-            url: sys.apiUrl("Login", "open_and_close_Login"),
-            data: { UserName: userCode, password: data.USER_PASSWORD, Open_Login: 0 },
+            url: sys.apiUrl("G_USERS", "LogoutUser"),
+            data: { user: userCode },
             success: (d) => {
-                debugger;
-                var res = d;
-                if (res.IsSuccess == true) {
-                    debugger
-                    var result = res.Response;
+                // debugger;
+                if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
-                    localStorage.removeItem("Inv1_Login_Data");
                     return;
                 }
             }
@@ -175,6 +176,7 @@ namespace HomeComponent {
 
 
     function ApplyModules() {
+        debugger
         var lis = document.getElementsByClassName("liItem");
         let obj = [document.getElementById('liItem')];
         let modules: Array<UserPrivilege> = new Array<UserPrivilege>();
@@ -187,7 +189,7 @@ namespace HomeComponent {
             type: "GET",
             url: sys.apiUrl("SystemTools", "GetAllUserPrivilage"),
             async: false,
-            data: { compCode: Number(compCode), branchCode: Number(branchCode), UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode },
+            data: { compCode: Number(compCode), branchCode: Number(branchCode), UserCode: UserCode, SystemCode: 1, SubSystemCode: 1 },
             success: (d) => {
 
                 modules = d as Array<UserPrivilege>;
@@ -195,8 +197,9 @@ namespace HomeComponent {
         });
         // filter moulules where isavailable = false or access = false 
         let li;
+        debugger
         for (var i = 0; i < modules.length; i++) {
-
+            debugger
             let singleUserModule: UserPrivilege = modules[i];
             //Notification control
             if (singleUserModule.MODULE_CODE.substring(0, 5) == "Note_") {
@@ -323,7 +326,7 @@ namespace HomeComponent {
         var condation = "CompCode = " + SysSession.CurrentEnvironment.CompCode;
         if ((ModuleCode == "Note_OPENINVOICE") || (ModuleCode == "Note_OPENTEMPINVOICE"))
             condation = condation + " and BranchCode = " + SysSession.CurrentEnvironment.BranchCode;
-        //sys.FindKey(ModuleCode, btnName, condation, () => { });
+        sys.FindKey(ModuleCode, btnName, condation, () => { });
     }
 
     function UpdateNotificationAndSendMsg() {
@@ -355,12 +358,12 @@ namespace HomeComponent {
         let SystemCode = SysSession.CurrentEnvironment.SystemCode;
         let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
-
+        debugger
         Ajax.Callsync({
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
-            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode, Modulecode: moduleCode },
+            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: moduleCode },
             success: (d) => {
-
+                debugger
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -386,22 +389,22 @@ namespace HomeComponent {
         });
     }
 
-    function GetBackgroundImage() {
+    //function GetBackgroundImage() {
 
-        $.ajax({
-            type: "GET",
-            async: false,
-            url: sys.apiUrl("SystemTools", "getBackgroundImage"),
-            data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode) },
-            success: (response) => {
-                let class_css = "<style>.hero-image {background-image: url(../../images/Background/" + response + ")!important;height: -webkit-fill-available;background-position: center!important;background-repeat: no-repeat;background-size: cover;position: relative;}</style>";
-                $("#cont").append(class_css);
-                $("#body_img").addClass("hero-image");
-                //$("#cont").html(' <img id="img_divcont" style="background-repeat: no-repeat;max-width: 104.9%;height: auto;margin: -15px -29px 0px -14px;" src="/images/Background/' + response + '" alt="Alternate Text" /> ');
+    //    $.ajax({
+    //        type: "GET",
+    //        async: false,
+    //        url: sys.apiUrl("SystemTools", "getBackgroundImage"),
+    //        data: { CompCode: Number(SysSession.CurrentEnvironment.CompCode) },
+    //        success: (response) => {
+    //            let class_css = "<style>.hero-image {background-image: url(../../images/Background/" + response + ")!important;height: -webkit-fill-available;background-position: center!important;background-repeat:repeat;background-size: cover;position: relative;}</style>";
+    //            $("#cont").append(class_css);
+    //            $("#body_img").addClass("hero-image");
+    //            //$("#cont").html(' <img id="img_divcont" style="background-repeat: no-repeat;max-width: 104.9%;height: auto;margin: -15px -29px 0px -14px;" src="/images/Background/' + response + '" alt="Alternate Text" /> ');
 
-            }
-        });
-    }
+    //        }
+    //    });
+    //}
     export function OpenView(controllerName: string, moduleCode: string) {
         debugger;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -416,7 +419,7 @@ namespace HomeComponent {
 
         Ajax.Callsync({
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
-            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: SystemCode, SubSystemCode: SubSystemCode, Modulecode: Modulecode },
+            data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: Modulecode },
             success: (d) => {
                 debugger;
                 if (d == undefined) {
@@ -517,21 +520,21 @@ namespace HomeComponent {
     }
     //By Muhammad Rajab
     export function Language() {
-        debugger
         if (SysSession.CurrentEnvironment.ScreenLanguage == "en") {
-
-
             RemoveStyleSheet("bootstrap-rtl");
             RemoveStyleSheet("responsive_AR");
             RemoveStylejs("mainAR");
             RemoveStyleSheet("Style_Arabic");
             RemoveStyleSheet("style");
             RemoveStyleSheet("StyleNewmassege");
+            $("#bootstrap_rtl").remove();
+            $("#Style_Arabic").remove();
 
             AppendStyleSheet("StyleEn");
             AppendStyleSheet("bootstrap.min");
             AppendStylejs("main");
             AppendStyleSheet("responsive");
+            SysSession.CurrentEnvironment.ScreenLanguage = "en"
             $("#btn_loguotuser").text("Logout");
         }
         else {
@@ -547,6 +550,8 @@ namespace HomeComponent {
             AppendStyleSheet("Style_Arabic");
             AppendStyleSheet("responsive_AR");
             //$('#langImg').attr('src', '../images/english.png');
+            SysSession.CurrentEnvironment.ScreenLanguage = "ar"
+
             $("#btn_loguotuser").text("الخروج من النظام")
         }
         //$("#SearchBox").draggable();
@@ -569,12 +574,39 @@ namespace HomeComponent {
 
         var script = document.createElement('script');
         script.src = "../Style_design/" + fileName + ".js";
-        //document.getElementById("caret_script").append(script);
+        document.getElementById("caret_script").appendChild(script);
     }
     //By Muhammad Rajab 
     function RemoveStylejs(fileName) {
         var href = "../Style_design/" + fileName + ".js";
         $("<script src=" + href + " ></script>").remove();
+    }
+    function ScreenHelp() {
+        let ModuleCode = SysSession.CurrentPrivileges.MODULE_CODE;
+        debugger
+
+        $.ajax({
+            type: "GET",
+            url: sys.apiUrl("SystemTools", "GetHelp"),
+            data: { ModuleCode: ModuleCode },
+            async: false,
+            success: (d) => {
+                debugger;
+                let result = d as BaseResponse;
+                let res = result.Response as G_ModuleHelp;
+                if (res != null) {
+                    if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
+                        $("#modalHelpRep").html(`<div style="direction:rtl" >` + res.HelpBody_Ar + `</div>`);
+                    }
+                    else {
+                        $("#modalHelpRep").html(`<div style="direction:ltr" >` + res.HelpBody_En + `</div>`);
+                    }
+                }
+            }
+
+
+        });
+
     }
 
     function Cash_Box() {
@@ -616,7 +648,6 @@ namespace HomeComponent {
             }
         });
     }
-
     function Close_Day() {
 
         //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;');
@@ -628,7 +659,7 @@ namespace HomeComponent {
                     url: sys.apiUrl("Close_Day", "Close"),
                     success: (d) => {
                         debugger
-                       
+
 
                         let result = d as BaseResponse;
                         if (result.IsSuccess == true) {
@@ -651,7 +682,6 @@ namespace HomeComponent {
 
 
     }
-
     function Check_Close_Day() {
 
 
@@ -687,4 +717,5 @@ namespace HomeComponent {
 
 
     }
+
 }

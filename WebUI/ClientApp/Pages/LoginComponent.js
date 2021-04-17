@@ -35,7 +35,7 @@ var LoginComponent;
         OnLoggedUrl = $("#OnLogged").val();
         btnBack.addEventListener("click", GoBack);
         btnLogin.addEventListener("click", Login);
-        cmbCompany.onchange = function () { cmbCompany_Onchange(Number(cmbCompany.value), SystemEnv.ScreenLanguage); };
+        //cmbCompany.onchange = function () { cmbCompany_Onchange(Number(cmbCompany.value), SystemEnv.ScreenLanguage); };
         MessageBox;
         var loginData = localStorage.getItem("Inv1_Login_Data");
         if (loginData != null) {
@@ -89,12 +89,11 @@ var LoginComponent;
     }
     LoginComponent.checkBrowser = checkBrowser;
     function Login() {
-        debugger;
         var userName = txtUserName.value;
         var userPassword = txtUserPassword.value;
-        var user = new LoginPage();
-        user.UserName = userName;
-        user.password = userPassword;
+        var user = new G_USERS();
+        user.USER_CODE = userName;
+        user.USER_PASSWORD = userPassword;
         var year = $("#txtYear").val();
         txtUserName.style.borderColor = "";
         txtUserPassword.style.borderColor = "";
@@ -107,45 +106,61 @@ var LoginComponent;
         SystemEnv.CurrentYear = txtYear.value;
         SystemEnv.UserCode = userName;
         SystemEnv.CompanyNameAr = "";
-        $("#tblLogin").css("display", "none");
-        $("#tblCompany").css("display", "block");
+        debugger;
         Ajax.Callsync({
             type: "GET",
-            url: sys.apiUrl("Login", "open_and_close_Login"),
-            data: { UserName: user.UserName, password: user.password, Open_Login: 1 },
+            url: sys.apiUrl("G_USERS", "UserLogin"),
+            data: { UserCode: user.USER_CODE, Password: user.USER_PASSWORD },
             success: function (d) {
-                debugger;
                 var res = d;
                 if (res.IsSuccess == true) {
-                    debugger;
                     var result = res.Response;
-                    if (result != null) {
+                    if (result != null && result.USER_CODE != null) {
                         $("#divLogin").css("display", "none");
                         $("#divCompanies").css("display", "block");
-                        debugger;
-                        //document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
-                        var compCode = Number(cmbCompany.value);
-                        //localStorage.setItem("comCode", cmbCompany.value);
+                        SystemEnv.Token = result.Tokenid;
+                        document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+                        //Ajax.Callsync({
+                        //    type: "GET",
+                        //    url: sys.apiUrl("SystemTools", "GetAppSettings"),
+                        //    data: { userCode: user.USER_CODE, SystemCode: 'I', SubSystemCode: 'I' },
+                        //    success: function (d) {
+                        //        compData = d;
+                        //        cmbCompany.innerHTML = "";
+                        //        if (user.USER_CODE == "safe") {
+                        //            compData.forEach(function (comp, index) {
+                        //                cmbCompany.add(new Option(lang == "en" ? (index + 1) + " - " + comp.CompanyNameE.toString() : (index + 1) + " - " + comp.CompanyNameA.toString(), comp.CompanyCode.toString()));
+                        //            });
+                        //        }
+                        //        else {
+                        //            compData.forEach(function (comp, index) {
+                        //                cmbCompany.add(new Option(lang == "en" ? comp.CompanyNameE.toString() : comp.CompanyNameA.toString(), comp.CompanyCode.toString()));
+                        //            });
+                        //        }
+                        //    }
+                        //});
+                        var compCode = Number(1);
+                        localStorage.setItem("comCode", compCode.toString());
                         //cmbCompany_Onchange(compCode, lang);
-                        var loginData = {
-                            USER_CODE: userName,
-                            USER_PASSWORD: userPassword,
-                            Year: txtYear.value,
-                            Language: cmbLanguage.value,
-                            compCode: compCode
-                        };
-                        localStorage.setItem("Inv1_Login_Data", JSON.stringify(loginData));
-                        //if (chkRemember.checked == true) {
-                        //}
-                        hLoggedName.innerText = user.UserName;
-                        //GoToCompanySelect();
+                        if (chkRemember.checked == true) {
+                            var loginData = {
+                                USER_CODE: userName,
+                                USER_PASSWORD: userPassword,
+                                Year: txtYear.value,
+                                Language: cmbLanguage.value,
+                                compCode: compCode
+                            };
+                            localStorage.setItem("Inv1_Login_Data", JSON.stringify(loginData));
+                        }
+                        hLoggedName.innerText = user.USER_CODE;
+                        SystemEnv = GetSystemEnvironment();
                         SystemEnv.CompCode = "1";
                         SystemEnv.BranchCode = "1";
-                        SystemEnv.CompanyName = "التوحيد سنتر";
-                        SystemEnv.CompanyNameAr = "التوحيد سنتر";
-                        SystemEnv.CurrentYear = txtYear.value;
+                        SystemEnv.CompanyName = 'Eltawhed';
+                        SystemEnv.CompanyNameAr = 'التوحيد';
+                        SystemEnv.CurrentYear = "2012";
                         SystemEnv.IsBiLingual = true;
-                        SystemEnv.Language = cmbLanguage.value;
+                        SystemEnv.Language = "ar";
                         SystemEnv.ScreenLanguage = cmbLanguage.value;
                         SystemEnv.SystemCode = 'I';
                         SystemEnv.SubSystemCode = 'I';
@@ -166,116 +181,129 @@ var LoginComponent;
         });
     }
     function GoToCompanySelect() {
+        debugger;
         $("#tblLogin").css("display", "none");
         $("#tblCompany").css("display", "block");
         document.getElementById("btnOk").addEventListener("click", function () {
             var compCode = $("#cmbCompany").val();
             var braCode = $("#cmbBranch").val();
-            var company = compData.filter(function (x) { return x.CompanyCode == cmbCompany.value; })[0];
-            var isActive = company.IsActive;
-            SystemEnv = GetSystemEnvironment();
-            if (isActive) {
-                $.ajax({
-                    type: "GET",
-                    url: sys.apiUrl("I_VW_GetCompStatus", "GetAll"),
-                    data: { Compcode: compCode },
-                    async: false,
-                    success: function (d) {
-                        var res = d;
-                        if (res.IsSuccess) {
-                            var CompanyStatus = res.Response;
-                            var status = CompanyStatus.CompStatus;
-                            var masg = CompanyStatus.LoginMsg;
-                            if (status == 0 || status == 1 || status == 2) {
-                                if (status == 1 || status == 2) {
-                                    MessageBox.Show(CompanyStatus.LoginMsg, "", function () {
-                                        $.ajax({
-                                            type: "GET",
-                                            url: sys.apiUrl("I_Control", "GetAll"),
-                                            data: { Compcode: compCode },
-                                            async: false,
-                                            success: function (d) {
-                                                var res = d;
-                                                if (res.IsSuccess) {
-                                                    var CompanyService = res.Response;
-                                                    if (CompanyService != null) {
-                                                        SystemEnv.I_Control = CompanyService;
-                                                        SystemEnv.CompCode = compCode;
-                                                        SystemEnv.BranchCode = braCode;
-                                                        SystemEnv.CompanyName = company.CompanyNameE;
-                                                        SystemEnv.CompanyNameAr = company.CompanyNameA;
-                                                        SystemEnv.CurrentYear = txtYear.value;
-                                                        SystemEnv.IsBiLingual = true;
-                                                        SystemEnv.Language = cmbLanguage.value;
-                                                        SystemEnv.ScreenLanguage = cmbLanguage.value;
-                                                        SystemEnv.SystemCode = 'I';
-                                                        SystemEnv.SubSystemCode = 'I';
-                                                        SystemEnv.UserCode = txtUserName.value;
-                                                        document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
-                                                        OnLogged();
-                                                    }
-                                                    else {
-                                                        var msg = SystemEnv.ScreenLanguage == "ar" ? "غير مصرح لك الدخول للفصل الدراسي" : "You are not allowed to enter the semester";
-                                                        MessageBox.Show(msg, "");
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    });
-                                }
-                                else {
-                                    MessageBox.Showwithoutclick(CompanyStatus.LoginMsg, "");
-                                    //setTimeout(function ()
-                                    {
-                                        $.ajax({
-                                            type: "GET",
-                                            url: sys.apiUrl("I_Control", "GetAll"),
-                                            data: { Compcode: compCode },
-                                            async: false,
-                                            success: function (d) {
-                                                var res = d;
-                                                if (res.IsSuccess) {
-                                                    var CompanyService = res.Response;
-                                                    if (CompanyService != null) {
-                                                        //debugger; 
-                                                        SystemEnv.I_Control = CompanyService;
-                                                        SystemEnv.CompCode = compCode;
-                                                        SystemEnv.BranchCode = braCode;
-                                                        SystemEnv.CompanyName = company.CompanyNameE;
-                                                        SystemEnv.CompanyNameAr = company.CompanyNameA;
-                                                        SystemEnv.CurrentYear = txtYear.value;
-                                                        SystemEnv.IsBiLingual = true;
-                                                        SystemEnv.Language = cmbLanguage.value;
-                                                        SystemEnv.ScreenLanguage = cmbLanguage.value;
-                                                        SystemEnv.SystemCode = 'I';
-                                                        SystemEnv.SubSystemCode = 'I';
-                                                        SystemEnv.UserCode = txtUserName.value;
-                                                        document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
-                                                        OnLogged();
-                                                    }
-                                                    else {
-                                                        var msg = SystemEnv.ScreenLanguage == "ar" ? "غير مصرح لك الدخول للفصل الدراسي" : "You are not allowed to enter the semester";
-                                                        MessageBox.Show(msg, "");
-                                                    }
-                                                }
-                                            }
-                                        });
-                                    }
-                                }
-                            }
-                            else if (status == 3) {
-                                MessageBox.Show(CompanyStatus.LoginMsg, "", function () {
-                                    window.location.href = "/Login/LoginIndex";
-                                });
-                            }
-                        }
-                    }
-                });
-            }
-            else {
-                var mg = SystemEnv.ScreenLanguage == "ar" ? "هذه الشركة غير متاحة" : "This company is not Active";
-                MessageBox.Show(mg, "");
-            }
+            //let company = compData.filter(x => x.CompanyCode == cmbCompany.value)[0];
+            //let isActive = company.IsActive;
+            //SystemEnv = GetSystemEnvironment(); 
+            //SystemEnv.CompCode = "1";
+            //SystemEnv.BranchCode = "1";
+            //SystemEnv.CompanyName = 'Eltawhed';
+            //SystemEnv.CompanyNameAr = 'التوحيد';
+            //SystemEnv.CurrentYear = "2012";
+            //SystemEnv.IsBiLingual = true;
+            //SystemEnv.Language = "ar";
+            //SystemEnv.ScreenLanguage = cmbLanguage.value;
+            //SystemEnv.SystemCode = 'I';
+            //SystemEnv.SubSystemCode = 'I';
+            //SystemEnv.UserCode = txtUserName.value;
+            //document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+            //OnLogged();
+            //if (isActive) {
+            //    $.ajax({
+            //        type: "GET",
+            //        url: sys.apiUrl("I_VW_GetCompStatus", "GetAll"),
+            //        data: { Compcode: compCode },
+            //        async: false,
+            //        success: (d) => {
+            //            let res = d as BaseResponse;
+            //            if (res.IsSuccess) {
+            //                var CompanyStatus = res.Response as I_VW_GetCompStatus;
+            //                var status = CompanyStatus.CompStatus;
+            //                var masg = CompanyStatus.LoginMsg;
+            //                if (status == 0 || status == 1 || status == 2) {
+            //                    if (status == 1 || status == 2) {
+            //                        MessageBox.Show(CompanyStatus.LoginMsg, "", function () {
+            //                            $.ajax({
+            //                                type: "GET",
+            //                                url: sys.apiUrl("I_Control", "GetAll"),
+            //                                data: { Compcode: compCode },
+            //                                async: false,
+            //                                success: (d) => {
+            //                                    let res = d as BaseResponse;
+            //                                    if (res.IsSuccess) {
+            //                                        var CompanyService = res.Response as I_Control;
+            //                                        if (CompanyService != null) {
+            //                                            SystemEnv.I_Control = CompanyService;
+            //                                            SystemEnv.CompCode = compCode;
+            //                                            SystemEnv.BranchCode = braCode;
+            //                                            SystemEnv.CompanyName = company.CompanyNameE;
+            //                                            SystemEnv.CompanyNameAr = company.CompanyNameA;
+            //                                            SystemEnv.CurrentYear = txtYear.value;
+            //                                            SystemEnv.IsBiLingual = true;
+            //                                            SystemEnv.Language = cmbLanguage.value;
+            //                                            SystemEnv.ScreenLanguage = cmbLanguage.value;
+            //                                            SystemEnv.SystemCode = 'I';
+            //                                            SystemEnv.SubSystemCode = 'I';
+            //                                            SystemEnv.UserCode = txtUserName.value;
+            //                                            document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+            //                                            OnLogged();
+            //                                        } else {
+            //                                            let msg = SystemEnv.ScreenLanguage == "ar" ? "غير مصرح لك الدخول للفصل الدراسي" : "You are not allowed to enter the semester";
+            //                                            MessageBox.Show(msg, "");
+            //                                        }
+            //                                    }
+            //                                }
+            //                            });
+            //                        });
+            //                    }
+            //                    else {
+            //                        MessageBox.Showwithoutclick(CompanyStatus.LoginMsg, "");
+            //                        //setTimeout(function ()
+            //                        {
+            //                            $.ajax({
+            //                                type: "GET",
+            //                                url: sys.apiUrl("I_Control", "GetAll"),
+            //                                data: { Compcode: compCode },
+            //                                async: false,
+            //                                success: (d) => {
+            //                                    let res = d as BaseResponse;
+            //                                    if (res.IsSuccess) {
+            //                                        var CompanyService = res.Response as I_Control;
+            //                                        if (CompanyService != null) {
+            //                                            //debugger; 
+            //                                            SystemEnv.I_Control = CompanyService;
+            //                                            SystemEnv.CompCode = compCode;
+            //                                            SystemEnv.BranchCode = braCode;
+            //                                            SystemEnv.CompanyName = company.CompanyNameE;
+            //                                            SystemEnv.CompanyNameAr = company.CompanyNameA;
+            //                                            SystemEnv.CurrentYear = txtYear.value;
+            //                                            SystemEnv.IsBiLingual = true;
+            //                                            SystemEnv.Language = cmbLanguage.value;
+            //                                            SystemEnv.ScreenLanguage = cmbLanguage.value;
+            //                                            SystemEnv.SystemCode = 'I';
+            //                                            SystemEnv.SubSystemCode = 'I';
+            //                                            SystemEnv.UserCode = txtUserName.value;
+            //                                            document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
+            //                                            OnLogged();
+            //                                        } else {
+            //                                            let msg = SystemEnv.ScreenLanguage == "ar" ? "غير مصرح لك الدخول للفصل الدراسي" : "You are not allowed to enter the semester";
+            //                                            MessageBox.Show(msg, "");
+            //                                        }
+            //                                    }
+            //                                }
+            //                            });
+            //                        }
+            //                        //, 1000);
+            //                    }
+            //                }
+            //                else if (status == 3) {
+            //                    MessageBox.Show(CompanyStatus.LoginMsg, "", function () {
+            //                        window.location.href = "/Login/LoginIndex";
+            //                    });
+            //                }
+            //            }
+            //        }
+            //    });
+            //}
+            //else {
+            //    let mg = SystemEnv.ScreenLanguage == "ar" ? "هذه الشركة غير متاحة" : "This company is not Active";
+            //    MessageBox.Show(mg, "");
+            //}
         });
     }
     function OnLogged() {

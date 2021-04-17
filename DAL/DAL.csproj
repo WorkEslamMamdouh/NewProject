@@ -88,6 +88,27 @@
     <Compile Include="Domain\Get_Settings_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\GFunc_GetPrivilageRole_Result.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\GFunc_GetPrivilage_Result.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_MODULES.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_ReportWebSetting.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_Role.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_RoleModule.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_RoleUsers.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\G_SearchForm.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
@@ -95,6 +116,15 @@
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\G_SearchFormSetting.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_SUB_SYSTEMS.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_SYSTEM.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\G_USERS.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\insert_Table_Result.cs">

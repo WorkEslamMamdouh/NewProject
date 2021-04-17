@@ -918,6 +918,18 @@ class IQ_Purchases_Details extends SecurityClass {
     public StatusFlag: string;
 }
 
+
+class familly_Cat extends SecurityClass {
+    constructor() {
+        super();
+        this.ID_familly_Cat = 0;
+        this.Name_familly_Cat = "";
+    }
+    public ID_familly_Cat: number;
+    public Name_familly_Cat: string;
+}
+
+
 class Purchases_Details extends SecurityClass {
     constructor() {
         super();
@@ -1479,11 +1491,13 @@ class CATEGRES extends SecurityClass {
         super();
         this.ID_CAT = 0;
         this.Name_CAT = "";
+        this.ID_familly_Cat = 0;
         this.StatusFlag = "";
 
     }
     public ID_CAT: number;
     public Name_CAT: string;
+    public ID_familly_Cat: number;
     public StatusFlag: string;
 
 }

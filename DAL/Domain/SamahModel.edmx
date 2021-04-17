@@ -32,6 +32,121 @@
           <Property Name="ID_User" Type="int" />
           <Property Name="id_Type_EMPLOYEE" Type="int" />
         </EntityType>
+        <EntityType Name="G_MODULES">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SUB_SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MODULE_CODE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="MENU_NO" Type="nvarchar" MaxLength="10" />
+          <Property Name="MENU_NAME" Type="nvarchar" MaxLength="30" />
+          <Property Name="MODULE_DESCE" Type="nvarchar" MaxLength="50" />
+          <Property Name="MODULE_DESCA" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATE" Type="bit" Nullable="false" />
+          <Property Name="EDIT" Type="bit" Nullable="false" />
+          <Property Name="DELETE" Type="bit" Nullable="false" />
+          <Property Name="PRINT" Type="bit" Nullable="false" />
+          <Property Name="VIEW" Type="bit" Nullable="false" />
+          <Property Name="CUSTOM1" Type="bit" Nullable="false" />
+          <Property Name="CUSTOM2" Type="bit" Nullable="false" />
+          <Property Name="CUSTOM3" Type="bit" Nullable="false" />
+          <Property Name="CUSTOM1_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM2_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM3_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM4" Type="bit" />
+          <Property Name="CUSTOM5" Type="bit" />
+          <Property Name="CUSTOM6" Type="bit" />
+          <Property Name="CUSTOM4_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM5_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM6_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM7" Type="bit" />
+          <Property Name="CUSTOM8" Type="bit" />
+          <Property Name="CUSTOM9" Type="bit" />
+          <Property Name="CUSTOM7_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM8_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOM9_DESC" Type="nvarchar" MaxLength="50" />
+          <Property Name="AVAILABLE" Type="bit" />
+          <Property Name="MODULE_TYPE" Type="nchar" MaxLength="1" />
+          <Property Name="Images_Enabled" Type="bit" />
+        </EntityType>
+        <EntityType Name="G_ReportWebSetting">
+          <Key>
+            <PropertyRef Name="ReportSettingID" />
+          </Key>
+          <Property Name="ReportSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SystemCode" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubSystemCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ReportID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameA" Type="nvarchar" MaxLength="100" />
+          <Property Name="NameE" Type="nvarchar" MaxLength="100" />
+          <Property Name="COMP_CODE" Type="int" />
+          <Property Name="BRA_Code" Type="int" />
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReportDesignNameEn" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportDesignNameAr" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportDataSouce" Type="nvarchar" MaxLength="100" />
+          <Property Name="RightMarginMM" Type="int" />
+          <Property Name="LeftMarginMM" Type="int" />
+          <Property Name="TopMarginMM" Type="int" />
+          <Property Name="BottomMarginMM" Type="int" />
+          <Property Name="IsLandScape" Type="bit" />
+          <Property Name="PageSizeID" Type="int" />
+          <Property Name="PageHightCM" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PageWidthCM" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PrinterName" Type="nvarchar" MaxLength="100" />
+          <Property Name="OutputTypeNo" Type="tinyint" />
+          <Property Name="OutputType" Type="varchar" MaxLength="5" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="G_Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DescA" Type="nvarchar" MaxLength="100" />
+          <Property Name="DescE" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="G_RoleModule">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SUB_SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="MODULE_CODE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="EXECUTE" Type="bit" />
+          <Property Name="CREATE" Type="bit" />
+          <Property Name="EDIT" Type="bit" />
+          <Property Name="DELETE" Type="bit" />
+          <Property Name="PRINT" Type="bit" />
+          <Property Name="VIEW" Type="bit" />
+          <Property Name="CUSTOM1" Type="bit" />
+          <Property Name="CUSTOM2" Type="bit" />
+          <Property Name="CUSTOM3" Type="bit" />
+          <Property Name="CUSTOM4" Type="bit" />
+          <Property Name="CUSTOM5" Type="bit" />
+          <Property Name="CUSTOM6" Type="bit" />
+          <Property Name="CUSTOM7" Type="bit" />
+          <Property Name="CUSTOM8" Type="bit" />
+          <Property Name="CUSTOM9" Type="bit" />
+          <Property Name="ViewImages" Type="bit" />
+          <Property Name="EditImages" Type="bit" />
+        </EntityType>
+        <EntityType Name="G_RoleUsers">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="ISActive" Type="bit" />
+        </EntityType>
         <EntityType Name="G_SearchForm">
           <Key>
             <PropertyRef Name="SearchFormCode" />
@@ -79,6 +194,67 @@
           <Property Name="UseSelectionOperator" Type="bit" />
           <Property Name="Language" Type="tinyint" />
           <Property Name="FieldTitleA" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="G_SUB_SYSTEMS">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SUB_SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SUB_SYSTEM_DESCA" Type="nvarchar" MaxLength="50" />
+          <Property Name="SUB_SYSTEM_DESCE" Type="nvarchar" MaxLength="50" />
+          <Property Name="ICON_PATH" Type="nvarchar" MaxLength="150" />
+          <Property Name="APPNAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="APPVERSION" Type="nvarchar" MaxLength="20" />
+          <Property Name="AppApiUrl" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="G_SYSTEM">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SYSTEM_DESCE" Type="nvarchar" MaxLength="50" />
+          <Property Name="SYSTEM_DESCA" Type="nvarchar" MaxLength="50" />
+          <Property Name="DB_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="ICON_PATH" Type="nvarchar" MaxLength="50" />
+          <Property Name="INIT_ORDER" Type="int" />
+          <Property Name="VER_PATH" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="G_USERS">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+          </Key>
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="USER_PASSWORD" Type="nvarchar" MaxLength="20" />
+          <Property Name="USER_ACTIVE" Type="bit" Nullable="false" />
+          <Property Name="USER_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompCode" Type="int" />
+          <Property Name="REGION_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="GRP_CODE" Type="int" />
+          <Property Name="USER_PASSWORD2" Type="nvarchar" MaxLength="20" />
+          <Property Name="CHANGE_PASS_DATE" Type="smalldatetime" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="15" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="15" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_TYPE" Type="tinyint" />
+          <Property Name="ManagedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LoginUrl" Type="bit" />
+          <Property Name="Tokenid" Type="nvarchar" MaxLength="250" />
+          <Property Name="LastLogin" Type="smalldatetime" />
+          <Property Name="FirstLogin" Type="smalldatetime" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedAt" Type="smalldatetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedAt" Type="smalldatetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CashBoxID" Type="int" />
+          <Property Name="SalesManID" Type="int" />
         </EntityType>
         <EntityType Name="ITEME">
           <Key>
@@ -422,6 +598,46 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="ID_User" Type="int" />
           <Property Name="EMPLOYEE_ID" Type="int" />
         </EntityType>
+        <Association Name="FK_G_RoleModule_G_MODULES">
+          <End Role="G_MODULES" Type="Self.G_MODULES" Multiplicity="1" />
+          <End Role="G_RoleModule" Type="Self.G_RoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_MODULES">
+              <PropertyRef Name="SYSTEM_CODE" />
+              <PropertyRef Name="SUB_SYSTEM_CODE" />
+              <PropertyRef Name="MODULE_CODE" />
+            </Principal>
+            <Dependent Role="G_RoleModule">
+              <PropertyRef Name="SYSTEM_CODE" />
+              <PropertyRef Name="SUB_SYSTEM_CODE" />
+              <PropertyRef Name="MODULE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_G_RoleModule_G_Role">
+          <End Role="G_Role" Type="Self.G_Role" Multiplicity="1" />
+          <End Role="G_RoleModule" Type="Self.G_RoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="G_RoleModule">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_G_RoleUsers_G_Role">
+          <End Role="G_Role" Type="Self.G_Role" Multiplicity="1" />
+          <End Role="G_RoleUsers" Type="Self.G_RoleUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="G_RoleUsers">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Add_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_name" Type="nvarchar" Mode="In" />
           <Parameter Name="passwrd" Type="nvarchar" Mode="In" />
@@ -494,6 +710,72 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
           <Parameter Name="Open_Login" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="GFunc_GetPrivilage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Comp" Type="int" Mode="In" />
+          <Parameter Name="bra" Type="int" Mode="In" />
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+          <Parameter Name="Sys" Type="nvarchar" Mode="In" />
+          <Parameter Name="sub" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mod" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="MODULE_CODE" Type="nvarchar" MaxLength="25" />
+                <Property Name="Access" Type="bit" />
+                <Property Name="Edit" Type="bit" />
+                <Property Name="AddNew" Type="bit" />
+                <Property Name="Remove" Type="bit" />
+                <Property Name="VIEW" Type="bit" />
+                <Property Name="PrintOut" Type="bit" />
+                <Property Name="CUSTOM1" Type="bit" />
+                <Property Name="CUSTOM2" Type="bit" />
+                <Property Name="CUSTOM3" Type="bit" />
+                <Property Name="CUSTOM4" Type="bit" />
+                <Property Name="CUSTOM5" Type="bit" />
+                <Property Name="CUSTOM6" Type="bit" />
+                <Property Name="CUSTOM7" Type="bit" />
+                <Property Name="CUSTOM8" Type="bit" />
+                <Property Name="CUSTOM9" Type="bit" />
+                <Property Name="ViewImages" Type="bit" />
+                <Property Name="EditImages" Type="bit" />
+                <Property Name="AVAILABLE" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GFunc_GetPrivilageRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Comp" Type="int" Mode="In" />
+          <Parameter Name="bra" Type="int" Mode="In" />
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+          <Parameter Name="Sys" Type="nvarchar" Mode="In" />
+          <Parameter Name="sub" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mod" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="MODULE_CODE" Type="nvarchar" MaxLength="25" />
+                <Property Name="Access" Type="bit" />
+                <Property Name="Edit" Type="bit" />
+                <Property Name="AddNew" Type="bit" />
+                <Property Name="Remove" Type="bit" />
+                <Property Name="VIEW" Type="bit" />
+                <Property Name="PrintOut" Type="bit" />
+                <Property Name="CUSTOM1" Type="bit" />
+                <Property Name="CUSTOM2" Type="bit" />
+                <Property Name="CUSTOM3" Type="bit" />
+                <Property Name="CUSTOM4" Type="bit" />
+                <Property Name="CUSTOM5" Type="bit" />
+                <Property Name="CUSTOM6" Type="bit" />
+                <Property Name="CUSTOM7" Type="bit" />
+                <Property Name="CUSTOM8" Type="bit" />
+                <Property Name="CUSTOM9" Type="bit" />
+                <Property Name="ViewImages" Type="bit" />
+                <Property Name="EditImages" Type="bit" />
+                <Property Name="AVAILABLE" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
         </Function>
         <Function Name="insert_castomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cast_name" Type="nvarchar" Mode="In" />
@@ -695,9 +977,17 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_MODULES" EntityType="Self.G_MODULES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_ReportWebSetting" EntityType="Self.G_ReportWebSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_Role" EntityType="Self.G_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_RoleModule" EntityType="Self.G_RoleModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_RoleUsers" EntityType="Self.G_RoleUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SearchForm" EntityType="Self.G_SearchForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SearchFormModule" EntityType="Self.G_SearchFormModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_SearchFormSetting" EntityType="Self.G_SearchFormSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_SUB_SYSTEMS" EntityType="Self.G_SUB_SYSTEMS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_SYSTEM" EntityType="Self.G_SYSTEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="G_USERS" EntityType="Self.G_USERS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ITEME" EntityType="Self.ITEME" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginPage" EntityType="Self.LoginPage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message_Chat" EntityType="Self.Message_Chat" Schema="dbo" store:Type="Tables" />
@@ -783,6 +1073,18 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
     [ReviewSalesMaster].[EMPLOYEE_ID] AS [EMPLOYEE_ID]
     FROM [dbo].[ReviewSalesMaster] AS [ReviewSalesMaster]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_G_RoleModule_G_MODULES" Association="Self.FK_G_RoleModule_G_MODULES">
+            <End Role="G_MODULES" EntitySet="G_MODULES" />
+            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_G_RoleModule_G_Role" Association="Self.FK_G_RoleModule_G_Role">
+            <End Role="G_Role" EntitySet="G_Role" />
+            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_G_RoleUsers_G_Role" Association="Self.FK_G_RoleUsers_G_Role">
+            <End Role="G_Role" EntitySet="G_Role" />
+            <End Role="G_RoleUsers" EntitySet="G_RoleUsers" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1108,6 +1410,42 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="Paid_Up" Mode="In" Type="Decimal" />
             <Parameter Name="To_be_Paid" Mode="In" Type="Decimal" />
             <Parameter Name="REMARKS" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="G_MODULES" EntityType="SamahModel.G_MODULES" />
+          <EntitySet Name="G_ReportWebSetting" EntityType="SamahModel.G_ReportWebSetting" />
+          <EntitySet Name="G_Role" EntityType="SamahModel.G_Role" />
+          <EntitySet Name="G_RoleModule" EntityType="SamahModel.G_RoleModule" />
+          <EntitySet Name="G_RoleUsers" EntityType="SamahModel.G_RoleUsers" />
+          <EntitySet Name="G_SUB_SYSTEMS" EntityType="SamahModel.G_SUB_SYSTEMS" />
+          <EntitySet Name="G_SYSTEM" EntityType="SamahModel.G_SYSTEM" />
+          <EntitySet Name="G_USERS" EntityType="SamahModel.G_USERS" />
+          <AssociationSet Name="FK_G_RoleModule_G_MODULES" Association="SamahModel.FK_G_RoleModule_G_MODULES">
+            <End Role="G_MODULES" EntitySet="G_MODULES" />
+            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_G_RoleModule_G_Role" Association="SamahModel.FK_G_RoleModule_G_Role">
+            <End Role="G_Role" EntitySet="G_Role" />
+            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_G_RoleUsers_G_Role" Association="SamahModel.FK_G_RoleUsers_G_Role">
+            <End Role="G_Role" EntitySet="G_Role" />
+            <End Role="G_RoleUsers" EntitySet="G_RoleUsers" />
+          </AssociationSet>
+          <FunctionImport Name="GFunc_GetPrivilage" IsComposable="true" ReturnType="Collection(SamahModel.GFunc_GetPrivilage_Result)">
+            <Parameter Name="Comp" Mode="In" Type="Int32" />
+            <Parameter Name="bra" Mode="In" Type="Int32" />
+            <Parameter Name="user" Mode="In" Type="String" />
+            <Parameter Name="Sys" Mode="In" Type="String" />
+            <Parameter Name="sub" Mode="In" Type="String" />
+            <Parameter Name="Mod" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GFunc_GetPrivilageRole" IsComposable="true" ReturnType="Collection(SamahModel.GFunc_GetPrivilageRole_Result)">
+            <Parameter Name="Comp" Mode="In" Type="Int32" />
+            <Parameter Name="bra" Mode="In" Type="Int32" />
+            <Parameter Name="user" Mode="In" Type="String" />
+            <Parameter Name="Sys" Mode="In" Type="String" />
+            <Parameter Name="sub" Mode="In" Type="String" />
+            <Parameter Name="Mod" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
@@ -1690,6 +2028,270 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Language" Type="Byte" />
           <Property Name="FieldTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="G_MODULES">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MENU_NO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MENU_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE" Type="Boolean" Nullable="false" />
+          <Property Name="EDIT" Type="Boolean" Nullable="false" />
+          <Property Name="DELETE" Type="Boolean" Nullable="false" />
+          <Property Name="PRINT" Type="Boolean" Nullable="false" />
+          <Property Name="VIEW" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM1" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM2" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM3" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM1_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM2_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM3_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM4" Type="Boolean" />
+          <Property Name="CUSTOM5" Type="Boolean" />
+          <Property Name="CUSTOM6" Type="Boolean" />
+          <Property Name="CUSTOM4_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM5_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM6_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM7" Type="Boolean" />
+          <Property Name="CUSTOM8" Type="Boolean" />
+          <Property Name="CUSTOM9" Type="Boolean" />
+          <Property Name="CUSTOM7_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM8_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM9_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AVAILABLE" Type="Boolean" />
+          <Property Name="MODULE_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Images_Enabled" Type="Boolean" />
+          <NavigationProperty Name="G_RoleModule" Relationship="SamahModel.FK_G_RoleModule_G_MODULES" FromRole="G_MODULES" ToRole="G_RoleModule" />
+        </EntityType>
+        <EntityType Name="G_ReportWebSetting">
+          <Key>
+            <PropertyRef Name="ReportSettingID" />
+          </Key>
+          <Property Name="ReportSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReportID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="BRA_Code" Type="Int32" />
+          <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDesignNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDesignNameAr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDataSouce" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RightMarginMM" Type="Int32" />
+          <Property Name="LeftMarginMM" Type="Int32" />
+          <Property Name="TopMarginMM" Type="Int32" />
+          <Property Name="BottomMarginMM" Type="Int32" />
+          <Property Name="IsLandScape" Type="Boolean" />
+          <Property Name="PageSizeID" Type="Int32" />
+          <Property Name="PageHightCM" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PageWidthCM" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrinterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeNo" Type="Byte" />
+          <Property Name="OutputType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="G_Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="G_RoleModule" Relationship="SamahModel.FK_G_RoleModule_G_Role" FromRole="G_Role" ToRole="G_RoleModule" />
+          <NavigationProperty Name="G_RoleUsers" Relationship="SamahModel.FK_G_RoleUsers_G_Role" FromRole="G_Role" ToRole="G_RoleUsers" />
+        </EntityType>
+        <EntityType Name="G_RoleModule">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EXECUTE" Type="Boolean" />
+          <Property Name="CREATE" Type="Boolean" />
+          <Property Name="EDIT" Type="Boolean" />
+          <Property Name="DELETE" Type="Boolean" />
+          <Property Name="PRINT" Type="Boolean" />
+          <Property Name="VIEW" Type="Boolean" />
+          <Property Name="CUSTOM1" Type="Boolean" />
+          <Property Name="CUSTOM2" Type="Boolean" />
+          <Property Name="CUSTOM3" Type="Boolean" />
+          <Property Name="CUSTOM4" Type="Boolean" />
+          <Property Name="CUSTOM5" Type="Boolean" />
+          <Property Name="CUSTOM6" Type="Boolean" />
+          <Property Name="CUSTOM7" Type="Boolean" />
+          <Property Name="CUSTOM8" Type="Boolean" />
+          <Property Name="CUSTOM9" Type="Boolean" />
+          <Property Name="ViewImages" Type="Boolean" />
+          <Property Name="EditImages" Type="Boolean" />
+          <NavigationProperty Name="G_MODULES" Relationship="SamahModel.FK_G_RoleModule_G_MODULES" FromRole="G_RoleModule" ToRole="G_MODULES" />
+          <NavigationProperty Name="G_Role" Relationship="SamahModel.FK_G_RoleModule_G_Role" FromRole="G_RoleModule" ToRole="G_Role" />
+        </EntityType>
+        <EntityType Name="G_RoleUsers">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ISActive" Type="Boolean" />
+          <NavigationProperty Name="G_Role" Relationship="SamahModel.FK_G_RoleUsers_G_Role" FromRole="G_RoleUsers" ToRole="G_Role" />
+        </EntityType>
+        <EntityType Name="G_SUB_SYSTEMS">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICON_PATH" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="APPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APPVERSION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppApiUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SYSTEM">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DB_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICON_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="INIT_ORDER" Type="Int32" />
+          <Property Name="VER_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_USERS">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GRP_CODE" Type="Int32" />
+          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_TYPE" Type="Byte" />
+          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginUrl" Type="Boolean" />
+          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="0" />
+          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CashBoxID" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_G_RoleModule_G_MODULES">
+          <End Type="SamahModel.G_MODULES" Role="G_MODULES" Multiplicity="1" />
+          <End Type="SamahModel.G_RoleModule" Role="G_RoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_MODULES">
+              <PropertyRef Name="SYSTEM_CODE" />
+              <PropertyRef Name="SUB_SYSTEM_CODE" />
+              <PropertyRef Name="MODULE_CODE" />
+            </Principal>
+            <Dependent Role="G_RoleModule">
+              <PropertyRef Name="SYSTEM_CODE" />
+              <PropertyRef Name="SUB_SYSTEM_CODE" />
+              <PropertyRef Name="MODULE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_G_RoleModule_G_Role">
+          <End Type="SamahModel.G_Role" Role="G_Role" Multiplicity="1" />
+          <End Type="SamahModel.G_RoleModule" Role="G_RoleModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="G_RoleModule">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_G_RoleUsers_G_Role">
+          <End Type="SamahModel.G_Role" Role="G_Role" Multiplicity="1" />
+          <End Type="SamahModel.G_RoleUsers" Role="G_RoleUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="G_Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="G_RoleUsers">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GFunc_GetPrivilage_Result">
+          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
+          <Property Type="Boolean" Name="Access" Nullable="true" />
+          <Property Type="Boolean" Name="Edit" Nullable="true" />
+          <Property Type="Boolean" Name="AddNew" Nullable="true" />
+          <Property Type="Boolean" Name="Remove" Nullable="true" />
+          <Property Type="Boolean" Name="VIEW" Nullable="true" />
+          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
+          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
+          <Property Type="Boolean" Name="EditImages" Nullable="true" />
+          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GFunc_GetPrivilageRole_Result">
+          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
+          <Property Type="Boolean" Name="Access" Nullable="true" />
+          <Property Type="Boolean" Name="Edit" Nullable="true" />
+          <Property Type="Boolean" Name="AddNew" Nullable="true" />
+          <Property Type="Boolean" Name="Remove" Nullable="true" />
+          <Property Type="Boolean" Name="VIEW" Nullable="true" />
+          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
+          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
+          <Property Type="Boolean" Name="EditImages" Nullable="true" />
+          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2396,6 +2998,233 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="SamahModel.Store.insert_Purchases_Master" />
           <FunctionImportMapping FunctionImportName="Processes_Purchases" FunctionName="SamahModel.Store.Processes_Purchases" />
           <FunctionImportMapping FunctionImportName="update_Purchases_Master" FunctionName="SamahModel.Store.update_Purchases_Master" />
+          <EntitySetMapping Name="G_MODULES">
+            <EntityTypeMapping TypeName="SamahModel.G_MODULES">
+              <MappingFragment StoreEntitySet="G_MODULES">
+                <ScalarProperty Name="Images_Enabled" ColumnName="Images_Enabled" />
+                <ScalarProperty Name="MODULE_TYPE" ColumnName="MODULE_TYPE" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+                <ScalarProperty Name="CUSTOM9_DESC" ColumnName="CUSTOM9_DESC" />
+                <ScalarProperty Name="CUSTOM8_DESC" ColumnName="CUSTOM8_DESC" />
+                <ScalarProperty Name="CUSTOM7_DESC" ColumnName="CUSTOM7_DESC" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM6_DESC" ColumnName="CUSTOM6_DESC" />
+                <ScalarProperty Name="CUSTOM5_DESC" ColumnName="CUSTOM5_DESC" />
+                <ScalarProperty Name="CUSTOM4_DESC" ColumnName="CUSTOM4_DESC" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM3_DESC" ColumnName="CUSTOM3_DESC" />
+                <ScalarProperty Name="CUSTOM2_DESC" ColumnName="CUSTOM2_DESC" />
+                <ScalarProperty Name="CUSTOM1_DESC" ColumnName="CUSTOM1_DESC" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PRINT" ColumnName="PRINT" />
+                <ScalarProperty Name="DELETE" ColumnName="DELETE" />
+                <ScalarProperty Name="EDIT" ColumnName="EDIT" />
+                <ScalarProperty Name="CREATE" ColumnName="CREATE" />
+                <ScalarProperty Name="MODULE_DESCA" ColumnName="MODULE_DESCA" />
+                <ScalarProperty Name="MODULE_DESCE" ColumnName="MODULE_DESCE" />
+                <ScalarProperty Name="MENU_NAME" ColumnName="MENU_NAME" />
+                <ScalarProperty Name="MENU_NO" ColumnName="MENU_NO" />
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="SUB_SYSTEM_CODE" ColumnName="SUB_SYSTEM_CODE" />
+                <ScalarProperty Name="SYSTEM_CODE" ColumnName="SYSTEM_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_ReportWebSetting">
+            <EntityTypeMapping TypeName="SamahModel.G_ReportWebSetting">
+              <MappingFragment StoreEntitySet="G_ReportWebSetting">
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="OutputTypeNo" ColumnName="OutputTypeNo" />
+                <ScalarProperty Name="PrinterName" ColumnName="PrinterName" />
+                <ScalarProperty Name="PageWidthCM" ColumnName="PageWidthCM" />
+                <ScalarProperty Name="PageHightCM" ColumnName="PageHightCM" />
+                <ScalarProperty Name="PageSizeID" ColumnName="PageSizeID" />
+                <ScalarProperty Name="IsLandScape" ColumnName="IsLandScape" />
+                <ScalarProperty Name="BottomMarginMM" ColumnName="BottomMarginMM" />
+                <ScalarProperty Name="TopMarginMM" ColumnName="TopMarginMM" />
+                <ScalarProperty Name="LeftMarginMM" ColumnName="LeftMarginMM" />
+                <ScalarProperty Name="RightMarginMM" ColumnName="RightMarginMM" />
+                <ScalarProperty Name="ReportDataSouce" ColumnName="ReportDataSouce" />
+                <ScalarProperty Name="ReportDesignNameAr" ColumnName="ReportDesignNameAr" />
+                <ScalarProperty Name="ReportDesignNameEn" ColumnName="ReportDesignNameEn" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="BRA_Code" ColumnName="BRA_Code" />
+                <ScalarProperty Name="COMP_CODE" ColumnName="COMP_CODE" />
+                <ScalarProperty Name="NameE" ColumnName="NameE" />
+                <ScalarProperty Name="NameA" ColumnName="NameA" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+                <ScalarProperty Name="SubSystemCode" ColumnName="SubSystemCode" />
+                <ScalarProperty Name="SystemCode" ColumnName="SystemCode" />
+                <ScalarProperty Name="ReportSettingID" ColumnName="ReportSettingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_Role">
+            <EntityTypeMapping TypeName="SamahModel.G_Role">
+              <MappingFragment StoreEntitySet="G_Role">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DescE" ColumnName="DescE" />
+                <ScalarProperty Name="DescA" ColumnName="DescA" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_RoleModule">
+            <EntityTypeMapping TypeName="SamahModel.G_RoleModule">
+              <MappingFragment StoreEntitySet="G_RoleModule">
+                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
+                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PRINT" ColumnName="PRINT" />
+                <ScalarProperty Name="DELETE" ColumnName="DELETE" />
+                <ScalarProperty Name="EDIT" ColumnName="EDIT" />
+                <ScalarProperty Name="CREATE" ColumnName="CREATE" />
+                <ScalarProperty Name="EXECUTE" ColumnName="EXECUTE" />
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="SUB_SYSTEM_CODE" ColumnName="SUB_SYSTEM_CODE" />
+                <ScalarProperty Name="SYSTEM_CODE" ColumnName="SYSTEM_CODE" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_RoleUsers">
+            <EntityTypeMapping TypeName="SamahModel.G_RoleUsers">
+              <MappingFragment StoreEntitySet="G_RoleUsers">
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SUB_SYSTEMS">
+            <EntityTypeMapping TypeName="SamahModel.G_SUB_SYSTEMS">
+              <MappingFragment StoreEntitySet="G_SUB_SYSTEMS">
+                <ScalarProperty Name="AppApiUrl" ColumnName="AppApiUrl" />
+                <ScalarProperty Name="APPVERSION" ColumnName="APPVERSION" />
+                <ScalarProperty Name="APPNAME" ColumnName="APPNAME" />
+                <ScalarProperty Name="ICON_PATH" ColumnName="ICON_PATH" />
+                <ScalarProperty Name="SUB_SYSTEM_DESCE" ColumnName="SUB_SYSTEM_DESCE" />
+                <ScalarProperty Name="SUB_SYSTEM_DESCA" ColumnName="SUB_SYSTEM_DESCA" />
+                <ScalarProperty Name="SUB_SYSTEM_CODE" ColumnName="SUB_SYSTEM_CODE" />
+                <ScalarProperty Name="SYSTEM_CODE" ColumnName="SYSTEM_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SYSTEM">
+            <EntityTypeMapping TypeName="SamahModel.G_SYSTEM">
+              <MappingFragment StoreEntitySet="G_SYSTEM">
+                <ScalarProperty Name="VER_PATH" ColumnName="VER_PATH" />
+                <ScalarProperty Name="INIT_ORDER" ColumnName="INIT_ORDER" />
+                <ScalarProperty Name="ICON_PATH" ColumnName="ICON_PATH" />
+                <ScalarProperty Name="DB_NAME" ColumnName="DB_NAME" />
+                <ScalarProperty Name="SYSTEM_DESCA" ColumnName="SYSTEM_DESCA" />
+                <ScalarProperty Name="SYSTEM_DESCE" ColumnName="SYSTEM_DESCE" />
+                <ScalarProperty Name="SYSTEM_CODE" ColumnName="SYSTEM_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_USERS">
+            <EntityTypeMapping TypeName="SamahModel.G_USERS">
+              <MappingFragment StoreEntitySet="G_USERS">
+                <ScalarProperty Name="SalesManID" ColumnName="SalesManID" />
+                <ScalarProperty Name="CashBoxID" ColumnName="CashBoxID" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Tokenid" ColumnName="Tokenid" />
+                <ScalarProperty Name="LoginUrl" ColumnName="LoginUrl" />
+                <ScalarProperty Name="ManagedBy" ColumnName="ManagedBy" />
+                <ScalarProperty Name="USER_TYPE" ColumnName="USER_TYPE" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CHANGE_PASS_DATE" ColumnName="CHANGE_PASS_DATE" />
+                <ScalarProperty Name="USER_PASSWORD2" ColumnName="USER_PASSWORD2" />
+                <ScalarProperty Name="GRP_CODE" ColumnName="GRP_CODE" />
+                <ScalarProperty Name="REGION_CODE" ColumnName="REGION_CODE" />
+                <ScalarProperty Name="CompCode" ColumnName="CompCode" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ACTIVE" ColumnName="USER_ACTIVE" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilage" FunctionName="SamahModel.Store.GFunc_GetPrivilage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilage_Result">
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+                <ScalarProperty Name="Edit" ColumnName="Edit" />
+                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
+                <ScalarProperty Name="Remove" ColumnName="Remove" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
+                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilageRole" FunctionName="SamahModel.Store.GFunc_GetPrivilageRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilageRole_Result">
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+                <ScalarProperty Name="Edit" ColumnName="Edit" />
+                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
+                <ScalarProperty Name="Remove" ColumnName="Remove" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
+                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

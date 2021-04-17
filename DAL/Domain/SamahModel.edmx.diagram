@@ -38,6 +38,17 @@
         <EntityTypeShape EntityType="SamahModel.G_SearchForm" Width="1.5" PointX="0.75" PointY="14.75" />
         <EntityTypeShape EntityType="SamahModel.G_SearchFormModule" Width="1.5" PointX="2.75" PointY="14.75" />
         <EntityTypeShape EntityType="SamahModel.G_SearchFormSetting" Width="1.5" PointX="4.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SamahModel.G_MODULES" Width="1.5" PointX="15.375" PointY="18.375" />
+        <EntityTypeShape EntityType="SamahModel.G_ReportWebSetting" Width="1.5" PointX="7.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SamahModel.G_Role" Width="1.5" PointX="15.375" PointY="4.125" />
+        <EntityTypeShape EntityType="SamahModel.G_RoleModule" Width="1.5" PointX="17.625" PointY="2.5" />
+        <EntityTypeShape EntityType="SamahModel.G_RoleUsers" Width="1.5" PointX="17.625" PointY="10.5" />
+        <EntityTypeShape EntityType="SamahModel.G_SUB_SYSTEMS" Width="1.5" PointX="15.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SamahModel.G_SYSTEM" Width="1.5" PointX="9.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SamahModel.G_USERS" Width="1.5" PointX="17.375" PointY="13.75" />
+        <AssociationConnector Association="SamahModel.FK_G_RoleModule_G_MODULES" />
+        <AssociationConnector Association="SamahModel.FK_G_RoleModule_G_Role" />
+        <AssociationConnector Association="SamahModel.FK_G_RoleUsers_G_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

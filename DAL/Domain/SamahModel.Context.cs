@@ -60,6 +60,14 @@ namespace DAL.Domain
         public virtual DbSet<G_SearchForm> G_SearchForm { get; set; }
         public virtual DbSet<G_SearchFormModule> G_SearchFormModule { get; set; }
         public virtual DbSet<G_SearchFormSetting> G_SearchFormSetting { get; set; }
+        public virtual DbSet<G_MODULES> G_MODULES { get; set; }
+        public virtual DbSet<G_ReportWebSetting> G_ReportWebSetting { get; set; }
+        public virtual DbSet<G_Role> G_Role { get; set; }
+        public virtual DbSet<G_RoleModule> G_RoleModule { get; set; }
+        public virtual DbSet<G_RoleUsers> G_RoleUsers { get; set; }
+        public virtual DbSet<G_SUB_SYSTEMS> G_SUB_SYSTEMS { get; set; }
+        public virtual DbSet<G_SYSTEM> G_SYSTEM { get; set; }
+        public virtual DbSet<G_USERS> G_USERS { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -1050,6 +1058,66 @@ namespace DAL.Domain
                 new ObjectParameter("REMARKS", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_Purchases_Master", trNoParameter, tr_DateParameter, iD_SupplierParameter, type_DebitParameter, total_AmountParameter, paid_UpParameter, to_be_PaidParameter, rEMARKSParameter);
+        }
+    
+        [DbFunction("SamahEntities", "GFunc_GetPrivilage")]
+        public virtual IQueryable<GFunc_GetPrivilage_Result> GFunc_GetPrivilage(Nullable<int> comp, Nullable<int> bra, string user, string sys, string sub, string mod)
+        {
+            var compParameter = comp.HasValue ?
+                new ObjectParameter("Comp", comp) :
+                new ObjectParameter("Comp", typeof(int));
+    
+            var braParameter = bra.HasValue ?
+                new ObjectParameter("bra", bra) :
+                new ObjectParameter("bra", typeof(int));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            var sysParameter = sys != null ?
+                new ObjectParameter("Sys", sys) :
+                new ObjectParameter("Sys", typeof(string));
+    
+            var subParameter = sub != null ?
+                new ObjectParameter("sub", sub) :
+                new ObjectParameter("sub", typeof(string));
+    
+            var modParameter = mod != null ?
+                new ObjectParameter("Mod", mod) :
+                new ObjectParameter("Mod", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GFunc_GetPrivilage_Result>("[SamahEntities].[GFunc_GetPrivilage](@Comp, @bra, @user, @Sys, @sub, @Mod)", compParameter, braParameter, userParameter, sysParameter, subParameter, modParameter);
+        }
+    
+        [DbFunction("SamahEntities", "GFunc_GetPrivilageRole")]
+        public virtual IQueryable<GFunc_GetPrivilageRole_Result> GFunc_GetPrivilageRole(Nullable<int> comp, Nullable<int> bra, string user, string sys, string sub, string mod)
+        {
+            var compParameter = comp.HasValue ?
+                new ObjectParameter("Comp", comp) :
+                new ObjectParameter("Comp", typeof(int));
+    
+            var braParameter = bra.HasValue ?
+                new ObjectParameter("bra", bra) :
+                new ObjectParameter("bra", typeof(int));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            var sysParameter = sys != null ?
+                new ObjectParameter("Sys", sys) :
+                new ObjectParameter("Sys", typeof(string));
+    
+            var subParameter = sub != null ?
+                new ObjectParameter("sub", sub) :
+                new ObjectParameter("sub", typeof(string));
+    
+            var modParameter = mod != null ?
+                new ObjectParameter("Mod", mod) :
+                new ObjectParameter("Mod", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GFunc_GetPrivilageRole_Result>("[SamahEntities].[GFunc_GetPrivilageRole](@Comp, @bra, @user, @Sys, @sub, @Mod)", compParameter, braParameter, userParameter, sysParameter, subParameter, modParameter);
         }
     }
 }

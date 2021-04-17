@@ -25,7 +25,10 @@ namespace DAL.Domain
     {
 
     }
+    public partial class G_USERS : SecurityClass
+    {
 
+    }
     public partial class PRODUCT : SecurityandUpdateFlagClass
     {
 

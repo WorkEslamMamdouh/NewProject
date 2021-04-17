@@ -5,6 +5,7 @@ using System.Web;
 using Unity;
 using System.Web.Http.Dependencies;
 using BLL.Services.Login;
+using Inv.BLL.Services.GUSERS;
 using BLL.Services.Item;
 using BLL.Services.Category;
 using BLL.Services.insert_Table;
@@ -24,6 +25,7 @@ namespace Infrastructure
         public static void RegisterServices(IUnityContainer container)
         {
             container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IG_USERSService, G_USERSService>();
             container.RegisterType<Iinsert_TableServices, insert_TableServices>();
             container.RegisterType<ILoginServices, LoginServices>();
             container.RegisterType<IItemServices, ItemServices>();

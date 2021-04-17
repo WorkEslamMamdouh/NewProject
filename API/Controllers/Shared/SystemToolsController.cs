@@ -26,6 +26,7 @@ using System.Net.Http.Formatting;
 using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Drawing;
+using API.Models.CustomEntities;
 //using API.Models.CustomEntities;
 
 namespace Inv.API.Controllers
@@ -455,86 +456,87 @@ namespace Inv.API.Controllers
         //}
 
 
-        //        [HttpGet]
-        //        public IHttpActionResult GetAppSettings(string userCode,string SystemCode,string SubSystemCode)
-        //        {
-        //            char[] splitChar = { '|' };
-        //            char[] splitQMark = { '?' };
-        //            XmlDocument doc = new XmlDocument();
-        //            List<CompainesData> companyList = new List<CompainesData>();
-        //            List<CompainesData> companyListFinal = new List<CompainesData>();
-        //            List<string> gUserCompanyList = new List<string>();
+//        [HttpGet]
+//        public IHttpActionResult GetAppSettings(string userCode, string SystemCode, string SubSystemCode)
+//        {
+//            char[] splitChar = { '|' };
+//            char[] splitQMark = { '?' };
+//            XmlDocument doc = new XmlDocument();
+//            List<CompainesData> companyList = new List<CompainesData>();
+//            List<CompainesData> companyListFinal = new List<CompainesData>();
+//            List<string> gUserCompanyList = new List<string>();
 
-        //            string Defaultlanguage = ConfigurationManager.AppSettings["Defaultlanguage"];
-        //            string DefaultYear = ConfigurationManager.AppSettings["DefaultYear"];
+//            string Defaultlanguage = ConfigurationManager.AppSettings["Defaultlanguage"];
+//            string DefaultYear = ConfigurationManager.AppSettings["DefaultYear"];
 
-        //            var enc = SecuritySystem.Encrypt("BSE");
-        //            var dec=SecuritySystem.Decrypt(enc);
+//            var enc = SecuritySystem.Encrypt("BSE");
+//            var dec = SecuritySystem.Decrypt(enc);
 
-        //            doc.LoadXml(SecuritySystem.Decrypt(ConfigurationManager.AppSettings["ConnectionInfo"]).ToString());
-        //            XmlNodeList compines = doc.GetElementsByTagName("Companies");
+//            doc.LoadXml(SecuritySystem.Decrypt(ConfigurationManager.AppSettings["ConnectionInfo"]).ToString());
+//            XmlNodeList compines = doc.GetElementsByTagName("Companies");
 
-        //            string[] all_data = compines[0].FirstChild.Value.Split(splitQMark, StringSplitOptions.RemoveEmptyEntries);
-        //            foreach (var item in all_data)
-        //            {
-        //                CompainesData compaines = new CompainesData();
-        //                string[] myData = item.Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
-        //                compaines.companyCode = Convert.ToInt32(myData[0].ToString());
-        //                compaines.comanyNameAr = myData[1].ToString();
-        //                compaines.comanyNameEn = myData[2].ToString();
-        //                compaines.Code = myData[3].ToString();
+//            string[] all_data = compines[0].FirstChild.Value.Split(splitQMark, StringSplitOptions.RemoveEmptyEntries);
+//            foreach (var item in all_data)
+//            {
+//                CompainesData compaines = new CompainesData();
+//                string[] myData = item.Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
+//                compaines.companyCode = Convert.ToInt32(myData[0].ToString());
+//                compaines.comanyNameAr = myData[1].ToString();
+//                compaines.comanyNameEn = myData[2].ToString();
+//                compaines.Code = myData[3].ToString();
 
-        //                string subSystems = returnSubSystems(compaines.Code, SystemCode + "(", ")");
-        //                if (subSystems != "")
-        //                    if (subSystems.Contains(SubSystemCode))
-        //                        companyList.Add(compaines);
+//                string subSystems = returnSubSystems(compaines.Code, SystemCode + "(", ")");
+//                if (subSystems != "")
+//                    if (subSystems.Contains(SubSystemCode))
+//                        companyList.Add(compaines);
 
-        //                companyListFinal = companyList.ToList();
-        //            }
+//                companyListFinal = companyList.ToList();
+//            }
 
-        //            foreach (var item in companyList)
-        //            {
-        //                int index = companyList.FindIndex(xx => xx.companyCode == item.companyCode);
-        //                var userCompany = db.G_USER_COMPANY
-        //                    .Where(row => (row.COMP_CODE == item.companyCode) &
-        //                        (row.USER_CODE == userCode) & (row.EXECUTE == true))
-        //                    .Select(t => new
-        //                    {
-        //                        t.COMP_CODE,
-        //                        t.EXECUTE,
-        //                        t.USER_CODE,
-        //                    }).ToJsonString();
+//            foreach (var item in companyList)
+//            {
+//                int index = companyList.FindIndex(xx => xx.companyCode == item.companyCode);
+//                var userCompany = db.G_USER_COMPANY
+//                    .Where(row => (row.COMP_CODE == item.companyCode) &
+//                        (row.USER_CODE == userCode) & (row.EXECUTE == true))
+//                    .Select(t => new
+//                    {
+//                        t.COMP_CODE,
+//                        t.EXECUTE,
+//                        t.USER_CODE,
+//                    }).ToJsonString();
 
-        //                if (userCompany == "[]")
-        //                    companyListFinal.RemoveAt(index);
-        //            }
+//                if (userCompany == "[]")
+//                    companyListFinal.RemoveAt(index);
+//            }
 
-        //            var obj = new
-        //            {
-        //                Defaultlanguage = Defaultlanguage,
-        //                DefaultYear = DefaultYear,
+//            var obj = new
+//            {
+//                Defaultlanguage = Defaultlanguage,
+//                DefaultYear = DefaultYear,
 
-        //                CompanyCode = companyListFinal[0].companyCode,
-        //                CompanyArabicDescription = companyListFinal[0].comanyNameAr,
-        //                CompanyEnglishDescription = companyListFinal[0].comanyNameEn,
-        //            };
+//                CompanyCode = companyListFinal[0].companyCode,
+//                CompanyArabicDescription = companyListFinal[0].comanyNameAr,
+//                CompanyEnglishDescription = companyListFinal[0].comanyNameEn,
+//            };
 
-        //            List<SystemParameters> data = new List<SystemParameters>();
-        //            data.Add(new SystemParameters() {
-        //                Defaultlanguage = obj.Defaultlanguage,
-        //                DefaultYear = obj.DefaultYear,
+//            List<SystemParameters> data = new List<SystemParameters>();
+//            data.Add(new SystemParameters()
+//            {
+//                Defaultlanguage = obj.Defaultlanguage,
+//                DefaultYear = obj.DefaultYear,
 
-        //                CompanyCode = obj.CompanyCode.ToString(),
-        //                CompanyArabicDescription = obj.CompanyArabicDescription,
-        //                CompanyEnglishDescription = obj.CompanyEnglishDescription,
+//                CompanyCode = obj.CompanyCode.ToString(),
+//                CompanyArabicDescription = obj.CompanyArabicDescription,
+//                CompanyEnglishDescription = obj.CompanyEnglishDescription,
 
-        //            });
-        //            // var result = JsonConvert.SerializeObject(obj);
-        //            // return result;
+//            });
+//            // var result = JsonConvert.SerializeObject(obj);
+//            // return result;
 
-        //            return Ok(data
-        //);
-        //        }
+//            return Ok(data
+//);
+//        }
 
 
         //[HttpGet]
@@ -552,7 +554,7 @@ namespace Inv.API.Controllers
         //        comp.IsActive = Convert.ToBoolean(company.IsActive);
         //        companiesList.Add(comp);
         //    };
-        //    return Ok(companiesList); 
+        //    return Ok(companiesList);
         //}
 
 
@@ -566,7 +568,7 @@ namespace Inv.API.Controllers
         //        return Ok(new BaseResponse(query));
         //    }
         //    return BadRequest(ModelState);
-            
+
 
         //}
 
@@ -584,7 +586,7 @@ namespace Inv.API.Controllers
 
         //}
 
-   
+
         public IHttpActionResult GetK_control(int comCode)
         {
             //if (ModelState.IsValid)
@@ -671,17 +673,17 @@ namespace Inv.API.Controllers
         }
 
 
-        //[HttpGet]
-        //public IHttpActionResult GetUserPrivilage(int compCode, int branchCode, string UserCode, string SystemCode, string SubSystemCode, string Modulecode)
-        //{
+        [HttpGet]
+        public IHttpActionResult GetUserPrivilage(int compCode, int branchCode, string UserCode, string SystemCode, string SubSystemCode, string Modulecode)
+        {
 
-        //    var query = "SELECT * FROM [dbo].[GFunc_GetPrivilage] (" + compCode + "," + branchCode + ",'" + UserCode + "', '" + SystemCode + "','" + SubSystemCode + "','" + Modulecode + "')";
+            var query = "SELECT * FROM [dbo].[GFunc_GetPrivilage] (" + compCode + "," + branchCode + ",'" + UserCode + "', '" + SystemCode + "','" + SubSystemCode + "','" + Modulecode + "')";
 
-        //    var result = db.Database.SqlQuery<UserPrivilege>(query).FirstOrDefault();
-        //    result.MODULE_DESCA = "";
-        //    //result = result.ToJsonString();
-        //    return Ok(result.ToJsonString());
-        //}
+            var result = db.Database.SqlQuery<UserPrivilege>(query).FirstOrDefault();
+
+            //result = result.ToJsonString();
+            return Ok(result.ToJsonString());
+        }
 
         [HttpGet]
         public IHttpActionResult SwitchUserFavorite(string UserCode, string Modulecode, string SubSystemCode)
@@ -747,14 +749,14 @@ namespace Inv.API.Controllers
         //}
 
 
-        //[HttpGet]
-        //public IHttpActionResult GetAllUserPrivilage(int compCode, int branchCode, string UserCode, string SystemCode, string SubSystemCode)
-        //{
-        //    string Modulecode = "";
-        //    var query = "SELECT * FROM [dbo].[GFunc_GetPrivilage] (" + compCode + "," + branchCode + ",'" + UserCode + "', '" + SystemCode + "','" + SubSystemCode + "','" + Modulecode + "')";
-        //    var result = db.Database.SqlQuery<UserPrivilege>(query).Where(row => row.Access == false || row.AVAILABLE == false).ToList();
-        //    return Ok(result);
-        //}
+        [HttpGet]
+        public IHttpActionResult GetAllUserPrivilage(int compCode, int branchCode, string UserCode, string SystemCode, string SubSystemCode)
+        {
+            string Modulecode = "";
+            var query = "SELECT * FROM [dbo].[GFunc_GetPrivilage] (" + compCode + "," + branchCode + ",'" + UserCode + "', '" + SystemCode + "','" + SubSystemCode + "','" + Modulecode + "')";
+            var result = db.Database.SqlQuery<UserPrivilege>(query).Where(row => row.Access == false && row.AVAILABLE == false).ToList();
+            return Ok(result);
+        }
 
         [HttpGet]
         public IHttpActionResult GetUserControl(int CompCode)
