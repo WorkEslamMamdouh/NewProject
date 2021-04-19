@@ -15,7 +15,9 @@ var Categories;
     var btnEdit;
     var MSG_ID;
     var Details = new Array();
+    var Details1 = new Array();
     var Model = new CATEGRES();
+    var ID_familly_Cat;
     function InitalizeComponent() {
         debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
@@ -28,6 +30,7 @@ var Categories;
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         InitalizeControls();
         InitalizeEvents();
+        Display_DrpPaymentType();
         Display();
     }
     Categories.InitalizeComponent = InitalizeComponent;
@@ -45,6 +48,31 @@ var Categories;
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         btnEdit.onclick = btnEdit_onclick;
+    }
+    $('#drpPaymentType').on('change', function () {
+        Display();
+    });
+    function Display_DrpPaymentType() {
+        //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    debugger;
+                    Details1 = result.Response;
+                    DisplayStkDefCategorys();
+                }
+            }
+        });
+    }
+    function DisplayStkDefCategorys() {
+        debugger;
+        for (var i = 0; i < Details1.length; i++) {
+            $('#drpPaymentType').append('<option data-ItemID="' + Details1[i].ID_familly_Cat + '" value="' + Details1[i].ID_familly_Cat + '">' + Details1[i].Name_familly_Cat + '</option>');
+        }
+        $('#drpPaymentType').prop('selectindex', 0);
     }
     function Update() {
         debugger;
@@ -199,10 +227,11 @@ var Categories;
     }
     function Display() {
         debugger;
+        ID_familly_Cat = Number($('#drpPaymentType').val());
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Category", "GetAll"),
-            data: { CompCode: compcode },
+            url: sys.apiUrl("Category", "GetAll_Item_by_Familly_Cat"),
+            data: { ID_familly_Cat: ID_familly_Cat },
             success: function (d) {
                 debugger;
                 var result = d;

@@ -1,8 +1,8 @@
 ﻿$(document).ready(() => {
     //debugger;
-    Categories.InitalizeComponent();
+    familly_Cate.InitalizeComponent();
 })
-namespace Categories {
+namespace familly_Cate {
     var sys: SystemTools = new SystemTools();
     var SysSession: SystemSession = GetSystemSession();
     var compcode: Number;
@@ -13,12 +13,9 @@ namespace Categories {
     var btnAddDetails: HTMLButtonElement;
     var btnEdit: HTMLButtonElement;
     var MSG_ID: number;
-    var Details: Array<CATEGRES> = new Array<CATEGRES>();
+    var Details: Array<familly_Cat> = new Array<familly_Cat>();
     var Details1: Array<familly_Cat> = new Array<familly_Cat>();
-    var Model: CATEGRES = new CATEGRES();
-
-
-    var ID_familly_Cat;
+    var Model: familly_Cat = new familly_Cat();
     export function InitalizeComponent() {
         debugger
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
@@ -32,7 +29,6 @@ namespace Categories {
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         InitalizeControls();
         InitalizeEvents();
-        Display_DrpPaymentType();
         Display();
     }
 
@@ -62,60 +58,18 @@ namespace Categories {
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         btnEdit.onclick = btnEdit_onclick;
-
-
     }
-
-    $('#drpPaymentType').on('change', function() {
-     Display();
-    })
-   
-
-    function Display_DrpPaymentType() {
-        //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
-        Ajax.Callsync({
-            type: "Get",
-            url: sys.apiUrl("familly_Cat", "GetAll"),            
-            success: (d) => {
-                let result = d as BaseResponse;
-                if (result.IsSuccess) {
-                    debugger
-                    Details1 = result.Response as Array<familly_Cat>;
-
-                    DisplayStkDefCategorys();
-                }
-            }
-        });
-    }
-
-    function DisplayStkDefCategorys() {
-
-        debugger
-        for (var i = 0; i < Details1.length; i++) {
-
-            $('#drpPaymentType').append('<option data-ItemID="' + Details1[i].ID_familly_Cat + '" value="' + Details1[i].ID_familly_Cat + '">' + Details1[i].Name_familly_Cat + '</option>');
-
-
-        }
-
-        $('#drpPaymentType').prop('selectindex', 0);
-        
-    }
-
-
-
-
-
+                                              
     function Update() {
         debugger;
         Assign();
         debugger;
 
 
-        //if (Details.filter(x => x.Name_CAT == "").length > 0) {
-        //    MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
-        //    return;
-        //}
+        if (Details.filter(x => x.Name_familly_Cat == "").length > 0) {
+            MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
+            return;
+        }
 
        
 
@@ -123,7 +77,7 @@ namespace Categories {
         Ajax.Callsync({
 
             type: "POST",
-            url: sys.apiUrl("Category", "UpdateLst"),
+            url: sys.apiUrl("familly_Cat", "UpdateLst"),
             data: JSON.stringify(Details),
             success: (d) => {
                 debugger
@@ -157,9 +111,9 @@ namespace Categories {
 
         var StatusFlag: String;
         debugger
-        Details = new Array<CATEGRES>();
+        Details = new Array<familly_Cat>();
         for (var i = 0; i < CountGrid; i++) {
-            Model = new CATEGRES();
+            Model = new familly_Cat();
 
             StatusFlag = $("#txt_StatusFlag" + i).val();
             $("#txt_StatusFlag" + i).val("");
@@ -168,8 +122,8 @@ namespace Categories {
 
             if (StatusFlag == "i") {
                 Model.StatusFlag = StatusFlag.toString(); 
-                Model.ID_CAT = 0;
-                Model.Name_CAT = $("#txtDescA" + i).val();
+                Model.ID_familly_Cat = 0;
+                Model.Name_familly_Cat = $("#txtDescA" + i).val();
                
 
                 Details.push(Model);
@@ -181,8 +135,8 @@ namespace Categories {
                 
 
                 Model.StatusFlag = StatusFlag.toString();
-                Model.ID_CAT = $("#txt_ID" + i).val();
-                Model.Name_CAT = $("#txtDescA" + i).val();
+                Model.ID_familly_Cat = $("#txt_ID" + i).val();
+                Model.Name_familly_Cat = $("#txtDescA" + i).val();
                
 
                 $("#txt_StatusFlag" + i).val("");
@@ -196,7 +150,9 @@ namespace Categories {
 
                     
                     Model.StatusFlag = StatusFlag.toString();
-                    Model.ID_CAT = $("#txt_ID" + i).val();
+                    Model.ID_familly_Cat = $("#txt_ID" + i).val();
+                    Model.Name_familly_Cat = $("#txtDescA" + i).val();
+
                     Details.push(Model);
 
                     
@@ -223,7 +179,7 @@ namespace Categories {
             //$("#txtCode" + CountGrid).removeAttr("disabled");
             $("#txtCode" + CountGrid).val(CountGrid + 1);
             $("#txtDescA" + CountGrid).removeAttr("disabled");
-            $("#txtDescL" + CountGrid).removeAttr("disabled");
+            
 
             // can delete new inserted record  without need for delete privilage
             $("#btn_minus" + CountGrid).removeClass("display_none");
@@ -278,9 +234,14 @@ namespace Categories {
     }
     function btnsave_onClick() {
         //debugger;
-
-        if (Validation_Grid(CountGrid - 1))
+        var CanAdd: boolean = true;
+        if (CountGrid > 0) {
+            var LastRowNo = CountGrid - 1;
+            CanAdd = Validation_Grid(LastRowNo);
+        }
+        if (CanAdd) {
             Update();
+        }
     }
     function BuildControls(cnt: number) {
         var html;
@@ -294,7 +255,7 @@ namespace Categories {
         $("#txtDescA" + cnt).on('change', function () {
           
             for (var i = 0; i < Details.length; i++) {
-                if ($("#txtDescA" + cnt).val() == Details[i].Name_CAT) {
+                if ($("#txtDescA" + cnt).val() == Details[i].Name_familly_Cat) {
                     MessageBox.Show("لا يمكن تكرار اسم صنف", "خطأ")
                     $("#txtDescA" + cnt).val("");
                 }
@@ -318,23 +279,24 @@ namespace Categories {
 
             $("#No_Row" + RecNo).attr("hidden", "true");
             $("#txt_StatusFlag" + RecNo).val("d");
-            //$("#txtCode" + RecNo).val("");
-
+            $("#txtDescA" + RecNo).val("00000");
             $("#txtCode" + RecNo).val("000");
         });
     }
+
+
+
     function Display() {
         debugger
-        ID_familly_Cat = Number($('#drpPaymentType').val());
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Category", "GetAll_Item_by_Familly_Cat"),
-            data: { ID_familly_Cat: ID_familly_Cat },
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            data: { CompCode: compcode },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                    Details = result.Response as Array<CATEGRES>;
+                    Details = result.Response as Array<familly_Cat>;
 
                     DisplayStkDefCategory();
                 }
@@ -346,13 +308,13 @@ namespace Categories {
         for (var i = 0; i < Details.length; i++) {
 
             BuildControls(CountGrid);
-            CountGrid++;
-            $("#txt_ID" + i).val(Details[i].ID_CAT);
+            $("#txt_ID" + i).val(Details[i].ID_familly_Cat);
             $("#txtCode" + i).val(i + 1);
-            $("#txtDescA" + i).val(Details[i].Name_CAT);
+            $("#txtDescA" + i).val(Details[i].Name_familly_Cat);
 
 
             $("#txt_StatusFlag" + i).val("");
+            CountGrid++;
 
 
 
@@ -363,16 +325,12 @@ namespace Categories {
     }
     function Validation_Grid(rowcount: number) {
 
-        if ($("#txtDescA" + rowcount).val() == "") {
-            $("#txtDescA" + rowcount).val($("#txtDescL" + rowcount).val());
-        }
-        if ($("#txtDescL" + rowcount).val() == "") {
-            $("#txtDescL" + rowcount).val($("#txtDescL" + rowcount).val());
-        }
+                           
+     
+        
 
         if (
-            ($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "")
-            && $("#txt_StatusFlag" + rowcount).val() != "d") {
+            ($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
             MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
             return false;
         }

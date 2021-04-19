@@ -1224,6 +1224,7 @@
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
     <TypeScriptCompile Include="ClientApp\Shared.ts" />
+    <TypeScriptCompile Include="ClientApp\stock\familly_Cat.ts" />
     <TypeScriptCompile Include="ClientApp\stock\Categories.ts" />
     <TypeScriptCompile Include="ClientApp\stock\Items.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />

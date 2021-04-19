@@ -15,6 +15,7 @@ using BLL.Services.Outletpirce;
 using BLL.Services.Stok_ORDER;
 using BLL.Services.Vendor;
 using BLL.Services.Purchases;
+using BLL.Services.familly_Cate;
 using WebUl.DAL.Repository;
 
 namespace Infrastructure
@@ -36,6 +37,7 @@ namespace Infrastructure
             container.RegisterType<IStok_ORDERServices, Stok_ORDERServices>();
             container.RegisterType<IVendorServices, VendorServices>();
             container.RegisterType<IPurchases_MasterServices, Purchases_MasterServices>();
+            container.RegisterType<Ifamilly_CatServices, familly_CatServices>();
 
 
 

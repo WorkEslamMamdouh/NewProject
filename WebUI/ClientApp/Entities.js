@@ -653,6 +653,7 @@ var familly_Cat = (function (_super) {
         var _this = _super.call(this) || this;
         _this.ID_familly_Cat = 0;
         _this.Name_familly_Cat = "";
+        _this.StatusFlag = '';
         return _this;
     }
     return familly_Cat;

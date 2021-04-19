@@ -1,5 +1,5 @@
 ﻿using API.Models;
-using BLL.Services.Category;
+using BLL.Services.familly_Cate;
 using DAL.Domain;
 using System;
 using System.Collections.Generic;
@@ -18,23 +18,23 @@ using Newtonsoft.Json;
 namespace API.Controllers
 {
     [EnableCorsAttribute("*", "*", "*")]
-    public class CategoryController : BaseController
+    public class familly_CatController : BaseController
     {
          
-        private readonly ICategoryServices CategoryServices;
+        private readonly Ifamilly_CatServices familly_CatServices;
 
-        public CategoryController(ICategoryServices _ICategoryServices)
+        public familly_CatController(Ifamilly_CatServices _Ifamilly_CatServices)
         {
-            CategoryServices = _ICategoryServices;
+            familly_CatServices = _Ifamilly_CatServices;
 
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll(int CompCode)
+        public IHttpActionResult GetAll()
         {
             if (ModelState.IsValid)
             {
-                var Cat = CategoryServices.GetAll().ToList();
+                var Cat = familly_CatServices.GetAll().ToList();
                 
                     return Ok(new BaseResponse(Cat));
               
@@ -47,26 +47,13 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Item = CategoryServices.GetAll(x => x.ID_CAT == Cat ).ToList();
+                var Item = familly_CatServices.GetAll(x => x.ID_familly_Cat == Cat ).ToList();
                
                 return Ok(new BaseResponse(Item));
 
             }
             return BadRequest(ModelState);
         }
-        [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll_Item_by_Familly_Cat(int ID_familly_Cat)
-        {
-            if (ModelState.IsValid)
-            {
-                var Item = CategoryServices.GetAll(x => x.ID_familly_Cat == ID_familly_Cat).ToList();
-
-                return Ok(new BaseResponse(Item));
-
-            }
-            return BadRequest(ModelState);
-        }
-
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult open_and_close_Login(string UserName, string password , int Open_Login)
@@ -219,13 +206,13 @@ namespace API.Controllers
 
 
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert([FromBody]CATEGRE Nation)
+        public IHttpActionResult Insert([FromBody]familly_Cat Nation)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var Nationality = CategoryServices.Insert(Nation);
+                    var Nationality = familly_CatServices.Insert(Nation);
                     return Ok(new BaseResponse(Nationality));
                 }
                 catch (Exception ex)
@@ -242,7 +229,7 @@ namespace API.Controllers
             {
                 try
                 {
-                    CategoryServices.Delete(ID);
+                    familly_CatServices.Delete(ID);
                     return Ok(new BaseResponse());
                 }
                 catch (Exception ex)
@@ -257,13 +244,13 @@ namespace API.Controllers
             }
         }
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Update([FromBody]CATEGRE Nation)
+        public IHttpActionResult Update([FromBody]familly_Cat Nation)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var Nationality = CategoryServices.Update(Nation);
+                    var Nationality = familly_CatServices.Update(Nation);
                     return Ok(new BaseResponse(Nationality));
                 }
                 catch (Exception ex)
@@ -278,11 +265,11 @@ namespace API.Controllers
 
         //***************asmaa********************//
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult UpdateLst(List<CATEGRE> CATEGRE)
+        public IHttpActionResult UpdateLst(List<familly_Cat> familly_Cat)
         {
             try
             {
-                CategoryServices.UpdateList(CATEGRE);
+                familly_CatServices.UpdateList(familly_Cat);
                 return Ok(new BaseResponse());
             }
             catch (Exception ex)

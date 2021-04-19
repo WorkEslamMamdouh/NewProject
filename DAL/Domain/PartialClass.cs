@@ -65,4 +65,8 @@ namespace DAL.Domain
     {
 
     }
+    public partial class familly_Cat : SecurityandUpdateFlagClass
+    {
+
+    }
 }

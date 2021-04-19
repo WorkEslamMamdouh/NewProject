@@ -924,9 +924,11 @@ class familly_Cat extends SecurityClass {
         super();
         this.ID_familly_Cat = 0;
         this.Name_familly_Cat = "";
+        this.StatusFlag = '';
     }
     public ID_familly_Cat: number;
     public Name_familly_Cat: string;
+    public StatusFlag: string;
 }
 
 
