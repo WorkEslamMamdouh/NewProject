@@ -74,7 +74,7 @@ namespace API.Controllers
                     OutletpirceServices.Delete(ID);
                     return Ok(new BaseResponse());
                 }
-                catch (Exception ex)
+                catch (Exception  )
                 {
                     return Ok(new BaseResponse(0, "Error"));
                 }

@@ -55,7 +55,7 @@ namespace API.Controllers
                 if (CustomerId != 0 && CustomerId != null)
                     condition = condition + " and CUSTOMER_ID =" + CustomerId;
 
-                if (ID_User != 0 && ID_User != null)
+                if (ID_User != 0  )
                     condition = condition + " and ID_User =" + ID_User;
        
 

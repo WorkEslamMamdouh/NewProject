@@ -175,27 +175,9 @@ namespace Kids.WebUI.Controllers
 
         private class SystemResource
         {
-            internal static readonly object ResourceManager;
+ 
         }
-        //public JsonResult GetSession()
-        //{
-        //    var obj = new
-        //    {
-        //        SessionRecord = SessionManager.SessionRecord,
-        //        Me = SessionManager.Me,
-        //        PageIndex = SessionManager.PageIndex,
-        //        ModelCount = SessionManager.ModelCount
-        //    };
-        //    return Shared.JsonObject(obj);
-        //}
-        //public void SetScreenLang(string lang)
-        //{
-        //    Session["ScreenLanguage"] = lang;
-        //}
-        //public JsonResult GetValueFromSession(string key)
-        //{
-        //    return Shared.JsonObject(Session[key]);
-        //}
+        
 
     }
 }

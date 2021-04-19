@@ -117,64 +117,7 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
 
-        protected IEnumerable<T> Get<T>(string SqlStatement)
-        {
-            //var companiesList = new List<Supplier>();
-            //foreach (var company in companies)
-            //{
-            //    var comp = new Supplier();
-            //    comp.ID = company.ID;
-            //    comp.Num= company.Num;
-            //    comp.Name= SecuritySystem.Decrypt(company.Name);
-            //    comp.Phone= SecuritySystem.Decrypt(company.Phone);
-            //    comp.Type = SecuritySystem.Decrypt(company.Type);
-            //    comp.Message= SecuritySystem.Decrypt(company.Message);
-            //    comp.cheak = Convert.ToBoolean(company.cheak);
-            //    comp.StatusFlag = SecuritySystem.Decrypt(company.StatusFlag);
-            //    companiesList.Add(comp);
-            //};
-            //return Ok(companiesList);
-
-
-
-            //var SqlStatment = "insert_Table  '" + Name + "','" + Phone + "','" + Type + "','" + Message + "'";
-
-            ////string result = this.ExecuteScalar(SqlStatment);
-
-            //var result = this.Get<object>(SqlStatment);
-
-            //return Ok(new BaseResponse(companiesList));   
-            //SqlParameter[] Param = new SqlParameter[] {
-            //       new SqlParameter("@Name",Name),
-            //       new SqlParameter("@Phone",Phone),
-            //       new SqlParameter("@Type",Type),
-            //       new SqlParameter("@Message",Message)
-
-            //};
-            //db.Database.SqlQuery<string>("Select name from sys.tables").ToList();
-            //var data = db.Database.SqlQuery<string>("insert_Table  '"+ Name + "','" + Phone + "','" + Type + "','" + Message + "'").ToList();
-
-            string connectionString = db.Database.Connection.ConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = SqlStatement;
-                    connection.Open();
-                    Supplier table = new Supplier();
-                    //table.Load(command.ExecuteReader());
-                    connection.Close();
-                    command.Dispose();
-                    connection.Dispose();
-
-                    var result = JsonConvert.DeserializeObject<IEnumerable<T>>(JsonConvert.SerializeObject(table));
-                    return result;
-                }
-            }
-
-        }
-
+      
         public string ExecuteScalar(string SqlStatement)
         {
             string connectionString = db.Database.Connection.ConnectionString;
@@ -231,7 +174,7 @@ namespace API.Controllers
                     VendorServices.Delete(ID);
                     return Ok(new BaseResponse());
                 }
-                catch (Exception ex)
+                catch (Exception  )
                 {
                     return Ok(new BaseResponse(0, "Error"));
                 }
@@ -313,7 +256,7 @@ namespace API.Controllers
 
                 return Ok(new BaseResponse("ok"));
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
                 return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, "الصنف مستخدم بافعل لا يمكنك تغيره"));
             }

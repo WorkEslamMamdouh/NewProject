@@ -55,7 +55,7 @@ namespace API.Controllers
                 if (ID_Supplier != 0 && ID_Supplier != null)
                     condition = condition + " and ID_Supplier =" + ID_Supplier;
 
-                if (Type_Debit != 2 && Type_Debit != null)
+                if (Type_Debit != 2  )
                     condition = condition + " and Type_Debit =" + Type_Debit;
 
 
@@ -113,7 +113,7 @@ namespace API.Controllers
 
                 return Ok(new BaseResponse("ok"));
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
                 return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, "الصنف مستخدم بافعل لا يمكنك تغيره"));
             }
@@ -136,7 +136,7 @@ namespace API.Controllers
                 var deletedOperationItems = Operation.Purchases_Details.Where(x => x.StatusFlag == "d").ToList();
 
 
-                if (Operation.Purchases_Master.TrNo != null && Operation.Purchases_Master.TrNo != 0)
+                if ( Operation.Purchases_Master.TrNo != 0)
                 {
                     string Tr_Date = Operation.Purchases_Master.Tr_Date;
                     int ID_Supplier = Convert.ToInt16(Operation.Purchases_Master.ID_Supplier);
@@ -157,7 +157,7 @@ namespace API.Controllers
                 if (insertOperationItems.Count > 0)
                 {
 
-                    if (insertOperationItems[0].TrNo == null || insertOperationItems[0].TrNo == 0)
+                    if (  insertOperationItems[0].TrNo == 0)
                     {
                         string Tr_Date = Operation.Purchases_Master.Tr_Date;
                         int ID_Supplier = Convert.ToInt16(Operation.Purchases_Master.ID_Supplier);
