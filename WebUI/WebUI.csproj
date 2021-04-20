@@ -52,6 +52,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -160,6 +161,21 @@
     <Compile Include="Models\CustomModels\SessionRecord.cs" />
     <Compile Include="Models\CustomModels\UserPrivilege.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\Forms\ClassPrint.cs" />
+    <Compile Include="Reports\Forms\EntityConnectionStringBuilder.cs" />
+    <Compile Include="Reports\Forms\ReportsDetails.cs" />
+    <Compile Include="Reports\Forms\ReportsForm.aspx.cs">
+      <DependentUpon>ReportsForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Forms\ReportsForm.aspx.designer.cs">
+      <DependentUpon>ReportsForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Models\ReportParameters.cs" />
+    <Compile Include="Reports\Models\ReportService.cs" />
+    <Compile Include="Reports\Models\SessionRecord.cs" />
+    <Compile Include="Reports\Models\Settings_Report.cs" />
+    <Compile Include="Reports\Models\UserTools.cs" />
     <Compile Include="Tools\GeneralHtmlHelper.cs" />
     <Compile Include="Tools\PropertiesPage.cs" />
     <Compile Include="Tools\SessionManager.cs" />
@@ -533,6 +549,7 @@
     <Content Include="login\js\npm.js" />
     <Content Include="login\js\rAF.js" />
     <Content Include="login\js\TweenLite.min.js" />
+    <Content Include="Reports\Forms\ReportsForm.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1082,6 +1099,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="ClientApp\Component\" />
     <Folder Include="ClientApp\Partial\" />
+    <Folder Include="Reports\Report\Print\" />
+    <Folder Include="Reports\Report\Slip\" />
     <Folder Include="Style_design\.vs\config\" />
     <Folder Include="Style_design\.vs\Style_design\v15\" />
   </ItemGroup>
@@ -1162,6 +1181,9 @@
       <Project>{5befbe82-b961-4041-b2d1-bdde8d3d93d3}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_AccAdjustListAr.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
