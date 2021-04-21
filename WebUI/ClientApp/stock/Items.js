@@ -7,6 +7,8 @@ var Items;
     var MSG_ID;
     var Details = new Array();
     var Display_Type = new Array();
+    var Display_Filtr = new Array();
+    var Detailsfamilly = new Array();
     //var Display_STORE: Array<G_STORE> = new Array<G_STORE>();
     //var Display_D_UOM: Array<I_D_UOM> = new Array<I_D_UOM>();
     //var Display_ItemFamily: Array<CATEGRES> = new Array<CATEGRES>();
@@ -36,7 +38,7 @@ var Items;
     var flag_Display = 0;
     var StocK = "All";
     function InitalizeComponent() {
-        // 
+        debugger;
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
             document.getElementById('Screen_name').innerHTML = "الاصناف";
         }
@@ -47,6 +49,8 @@ var Items;
         InitalizeControls();
         InitalizeEvents();
         Display_DrpPaymentType();
+        Displayfamilly();
+        Display_All();
     }
     Items.InitalizeComponent = InitalizeComponent;
     $('#btnedite').on('click', function () {
@@ -70,18 +74,18 @@ var Items;
         $(".fa-minus-circle").removeClass("display_none");
     });
     function InitalizeControls() {
-        // 
+        //                               يث
         btnAddDetails = document.getElementById("btnAddDetails");
         btnEdit = document.getElementById("btnedite");
         btnsave = document.getElementById("btnsave");
         btnback = document.getElementById("btnback");
-        btnShow = document.getElementById("btnShow");
+        //btnShow = document.getElementById("btnShow") as HTMLButtonElement;
     }
     function InitalizeEvents() {
         btnAddDetails.onclick = AddNewRow;
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
-        btnShow.onclick = btnShow_onclick;
+        //btnShow.onclick = btnShow_onclick;
     }
     function btnShow_onclick() {
         btnback_onclick();
@@ -201,7 +205,23 @@ var Items;
             Update();
         flag_Assign = 0;
     }
+    $('#drbfamilly_cat').on('change', function () {
+        if ($('#drbfamilly_cat').val() == "Null") {
+            $('#drpPaymentType').attr('disabled', 'disabled');
+            $('#drpPaymentType').html('');
+            $('#drpPaymentType').append('<option   value="null">اختر الفئه</option>');
+        }
+        else {
+            Display_Type = Display_Filtr.filter(function (x) { return x.ID_familly_Cat == Number($('#drbfamilly_cat').val()); });
+            DisplayStkDefCategory();
+            $('#drpPaymentType').removeAttr('disabled');
+        }
+    });
+    $('#drpPaymentType').on('change', function () {
+        Display();
+    });
     function Display_DrpPaymentType() {
+        debugger;
         //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
         Ajax.Callsync({
             type: "Get",
@@ -210,16 +230,39 @@ var Items;
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
-                    Display_Type = result.Response;
-                    DisplayStkDefCategory();
+                    Display_Filtr = result.Response;
                 }
             }
         });
     }
     function DisplayStkDefCategory() {
-        ;
+        debugger;
+        $('#drpPaymentType').html('');
+        $('#drpPaymentType').append('<option   value="null">اختر الفئه</option>');
         for (var i = 0; i < Display_Type.length; i++) {
             $('#drpPaymentType').append('<option data-ItemID="' + Display_Type[i].Name_CAT + '" value="' + Display_Type[i].ID_CAT + '">' + Display_Type[i].Name_CAT + '</option>');
+        }
+    }
+    function Displayfamilly() {
+        debugger;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            data: { CompCode: compcode },
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess) {
+                    Detailsfamilly = result.Response;
+                    DisplayStkDefCategoryfamilly();
+                }
+            }
+        });
+    }
+    function DisplayStkDefCategoryfamilly() {
+        debugger;
+        for (var i = 0; i < Detailsfamilly.length; i++) {
+            $('#drbfamilly_cat').append('<option value="' + Detailsfamilly[i].ID_familly_Cat + '">' + Detailsfamilly[i].Name_familly_Cat + '</option>');
         }
     }
     function refresh() {
