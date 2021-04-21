@@ -112,22 +112,28 @@
         <div class="row">
             <div class="col-lg-12">
 
-
-
                 <div class="col-lg-1 pad_">
-                    <label class=" style_pading_lepel2 ">الفئة</label>
+                    <label class=" style_pading_lepel2 ">نوع الفئة</label>
                 </div>
                 <div class="col-lg-3">
-                    <select id="drpPaymentType" class="form-control">
+                    <select id="drbfamilly_cat" class="form-control">
+                        <option value="Null">اختر نوع الفئة</option>
+                    </select>
+                </div>
+                
+
+                <div class="col-lg-1 pad_">
+                    <label class=" style_pading_lepel2  ">الفئة</label>
+                </div>
+                <div class="col-lg-3">
+                    <select id="drpPaymentType" disabled class="form-control">
                         <option value="Null">اختر الفئة</option>
                     </select>
                 </div>
-                <div class="col-lg-4"></div>
-                <div class="col-lg-2">
-                    <button type="button" class="btn btn-primary" id="btnShow" style="width: 179px;">
-                        <span class="glyphicon ">عرض</span>
-                    </button>
+                <div class="col-lg-1">
+
                 </div>
+
                 <div class="col-lg-2">
                     <button type="button" class="btn btn-warning display_none" id="btnback">
                         <span class="glyphicon glyphicon-backward">رجوع</span>
@@ -190,4 +196,4 @@
 
     @Scripts.Render("~/Bundles/ClientApp")
     @*<script src="~/ClientApp/JsGrid.js"></script>*@
-    <script src="~/ClientApp/stock/Items.js"></script>
+<script src="~/ClientApp/stock/Items.js"></script>

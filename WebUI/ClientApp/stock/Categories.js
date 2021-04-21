@@ -50,6 +50,7 @@ var Categories;
         btnEdit.onclick = btnEdit_onclick;
     }
     $('#drpPaymentType').on('change', function () {
+        $("#div_Data").html("");
         Display();
     });
     function Display_DrpPaymentType() {
@@ -227,6 +228,7 @@ var Categories;
     }
     function Display() {
         debugger;
+        Details = new Array();
         ID_familly_Cat = Number($('#drpPaymentType').val());
         Ajax.Callsync({
             type: "Get",
@@ -244,6 +246,7 @@ var Categories;
     }
     function DisplayStkDefCategory() {
         debugger;
+        CountGrid = 0;
         for (var i = 0; i < Details.length; i++) {
             BuildControls(CountGrid);
             CountGrid++;

@@ -9,6 +9,8 @@ namespace Items {
     var MSG_ID: number;
     var Details: Array<PRODUCT> = new Array<PRODUCT>();
     var Display_Type: Array<CATEGRES> = new Array<CATEGRES>();
+    var Display_Filtr: Array<CATEGRES> = new Array<CATEGRES>();
+    var Detailsfamilly: Array<familly_Cat> = new Array<familly_Cat>();
     //var Display_STORE: Array<G_STORE> = new Array<G_STORE>();
     //var Display_D_UOM: Array<I_D_UOM> = new Array<I_D_UOM>();
 
@@ -43,7 +45,7 @@ namespace Items {
     var flag_Display = 0;
     var StocK = "All";
     export function InitalizeComponent() {
-        // 
+        debugger
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
             document.getElementById('Screen_name').innerHTML = "الاصناف";
 
@@ -56,6 +58,8 @@ namespace Items {
         InitalizeControls();
         InitalizeEvents(); 
         Display_DrpPaymentType(); 
+        Displayfamilly();
+        Display_All();
     }
 
     $('#btnedite').on('click', function () {
@@ -88,12 +92,12 @@ namespace Items {
     });
 
     function InitalizeControls() {
-        // 
+        //                               يث
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
         btnEdit = document.getElementById("btnedite") as HTMLButtonElement;
         btnsave = document.getElementById("btnsave") as HTMLButtonElement;
         btnback = document.getElementById("btnback") as HTMLButtonElement;
-        btnShow = document.getElementById("btnShow") as HTMLButtonElement;
+        //btnShow = document.getElementById("btnShow") as HTMLButtonElement;
 
        
     }
@@ -105,7 +109,7 @@ namespace Items {
         btnAddDetails.onclick = AddNewRow; 
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
-        btnShow.onclick = btnShow_onclick;
+        //btnShow.onclick = btnShow_onclick;
        
     }
 
@@ -280,27 +284,47 @@ namespace Items {
             Update();
         flag_Assign = 0;
     }
+    $('#drbfamilly_cat').on('change', function () {
+        if ($('#drbfamilly_cat').val() == "Null") {
+            $('#drpPaymentType').attr('disabled', 'disabled');
+            $('#drpPaymentType').html('');
+            $('#drpPaymentType').append('<option   value="null">اختر الفئه</option>');
+            
+        } else {
+            Display_Type = Display_Filtr.filter(x => x.ID_familly_Cat == Number($('#drbfamilly_cat').val()))
+            DisplayStkDefCategory();
+            $('#drpPaymentType').removeAttr('disabled');
+        }
+        
+    });
 
+    $('#drpPaymentType').on('change', function () {
+        Display();
+
+    });
     
     function Display_DrpPaymentType() {
+        debugger;
         //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
         Ajax.Callsync({
-            type: "Get",
+            type: "Get" ,
             url: sys.apiUrl("Category", "GetAll"),
             data: { CompCode: compcode },
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                    Display_Type = result.Response as Array<CATEGRES>;
+                    Display_Filtr = result.Response as Array<CATEGRES>;
 
-                    DisplayStkDefCategory();
+                   
                 }
             }
         });
     }
 
     function DisplayStkDefCategory() {
-        ;
+        debugger;
+        $('#drpPaymentType').html('');
+        $('#drpPaymentType').append('<option   value="null">اختر الفئه</option>');
         for (var i = 0; i < Display_Type.length; i++) {
 
             $('#drpPaymentType').append('<option data-ItemID="' + Display_Type[i].Name_CAT + '" value="' + Display_Type[i].ID_CAT + '">' + Display_Type[i].Name_CAT + '</option>');
@@ -310,7 +334,34 @@ namespace Items {
 
     }
 
-    
+    function Displayfamilly() {
+        debugger
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            data: { CompCode: compcode },
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    Detailsfamilly = result.Response as Array<familly_Cat>;
+
+                    DisplayStkDefCategoryfamilly();
+                }
+            }
+        });
+    }
+    function DisplayStkDefCategoryfamilly() {
+        debugger
+        for (var i = 0; i < Detailsfamilly.length; i++) {
+
+            $('#drbfamilly_cat').append('<option value="' + Detailsfamilly[i].ID_familly_Cat + '">' + Detailsfamilly[i].Name_familly_Cat + '</option>');
+
+
+        }
+
+
+    }
     
 
     function refresh() {

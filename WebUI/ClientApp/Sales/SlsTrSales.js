@@ -103,6 +103,9 @@ var SlsTrSales;
         Display_Category();
         Display_But();
         GetAllCustomer();
+        var Ul_Div = document.createElement('ul');
+        Ul_Div.setAttribute('id', 'Ul_Div');
+        document.getElementById("mCSB_3_container").appendChild(Ul_Div);
     }
     SlsTrSales.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -507,13 +510,13 @@ var SlsTrSales;
             P += 1;
             scro += 80;
             var Qet = 1;
-            if (CChat.getAttribute('style') != "display: block") {
-                if (document.getElementById("mCSB_3_container").innerHTML == '') {
-                    var Ul_Div = document.createElement('ul');
-                    Ul_Div.setAttribute('id', 'Ul_Div');
-                    document.getElementById("mCSB_3_container").appendChild(Ul_Div);
-                }
-            }
+            //if (CChat.getAttribute('style') != "display: block") {
+            //    if (document.getElementById("mCSB_3_container").innerHTML != '') {
+            //        var Ul_Div = document.createElement('ul');
+            //        Ul_Div.setAttribute('id', 'Ul_Div');
+            //        document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+            //    }
+            //}
             var Li_Ul_Div = document.createElement('ul');
             Li_Ul_Div.setAttribute('id', 'Li_Ul_Div' + P);
             Li_Ul_Div.setAttribute('style', 'margin: 14px 0px 0px 0px;');
@@ -591,11 +594,7 @@ var SlsTrSales;
     }
     function Remove_Item_in_Basket() {
         ////debugger
-        var liuu = document.getElementById("Ul_Div");
-        document.getElementById("mCSB_3_container").removeChild(liuu);
-        var Ul_Div = document.createElement('ul');
-        Ul_Div.setAttribute('id', 'Ul_Div');
-        document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+        $('#Ul_Div').html('');
         P = 0;
         Num_Qty = 0;
         //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";

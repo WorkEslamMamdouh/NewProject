@@ -66,8 +66,10 @@ namespace Categories {
 
     }
 
-    $('#drpPaymentType').on('change', function() {
-     Display();
+    $('#drpPaymentType').on('change', function () {
+        $("#div_Data").html("");
+        Display();
+
     })
    
 
@@ -325,6 +327,7 @@ namespace Categories {
     }
     function Display() {
         debugger
+        Details = new Array<CATEGRES>();
         ID_familly_Cat = Number($('#drpPaymentType').val());
         Ajax.Callsync({
             type: "Get",
@@ -343,15 +346,14 @@ namespace Categories {
     }
     function DisplayStkDefCategory() {
         debugger
+        CountGrid = 0;
         for (var i = 0; i < Details.length; i++) {
 
             BuildControls(CountGrid);
             CountGrid++;
             $("#txt_ID" + i).val(Details[i].ID_CAT);
             $("#txtCode" + i).val(i + 1);
-            $("#txtDescA" + i).val(Details[i].Name_CAT);
-
-
+            $("#txtDescA" + i).val(Details[i].Name_CAT);    
             $("#txt_StatusFlag" + i).val("");
 
 
