@@ -15,13 +15,12 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Text;
 using System.Web.Configuration;
+using WebUI.Reports.Models;
 using WebUI.Reports.Forms;
 using System.Net.Http;
-using Microsoft.Reporting.WebForms;
-using DAL.Domain;
 using WebUl.DAL.Repository;
-using WebUI.Reports.Models;
-using System.Configuration;
+using DAL.Domain;
+using Microsoft.Reporting.WebForms;
 using System.Data;
 
 
@@ -29,6 +28,8 @@ namespace RS.WebUI.Reports.Forms
 {//eslam 1 dec 2020
     public partial class ReportsForm : System.Web.UI.Page
     {
+
+
         //SessionRecord CurrentSession;
         StdParamters CurrentReportParameters;
         Settings_Report_StdParamters Repor;
@@ -38,10 +39,12 @@ namespace RS.WebUI.Reports.Forms
         ClassPrint Printer = new ClassPrint();
 
         protected SamahEntities db = UnitOfWork.context(BuildConnectionString());
-        string cs = ConfigurationManager.ConnectionStrings["SamahEntities"].ConnectionString;
+        //private SamahEntities _db = new SamahEntities();
+        //string cs = ConfigurationManager.ConnectionStrings["SamahEntities"].ConnectionString;
+        string cs = "data source=.;initial catalog=ElWassem;persist security info=True;user id=sa;password=619619;MultipleActiveResultSets=True;";
 
         string Par;
-  
+
         public static string BuildConnectionString()
         {
             var httpClient = new HttpClient();
@@ -54,6 +57,7 @@ namespace RS.WebUI.Reports.Forms
         {
             if (!IsPostBack)
             {
+
                 string x = Request["rpt"];
                 string y = Request["par"];
                 y = y.Replace("*", "+");
@@ -62,7 +66,7 @@ namespace RS.WebUI.Reports.Forms
                 if (Request["par"] != null)
                 {   //mahroos 
                     Par = Reports.Models.UserTools.Decrypt(y, "Business-Systems");
- 
+
                     CurrentReportParameters = JsonConvert.DeserializeObject<StdParamters>(Par);
                 }
                 //add api call returns boolean mahroos 
@@ -88,7 +92,7 @@ namespace RS.WebUI.Reports.Forms
         private void BindReport(string reportName, int OutputTypeNo, string OutputType, ReportsDetails ReportsDetail, params object[] models)
         {
 
- 
+
             if (OutputTypeNo == 2) { OutputType = "PDF"; }
             else { OutputType = "Excel"; }
             //reportViewer1.LocalReport.ReportPath = Se"Excel"rver.MapPath("../Report/" + reportName + ".rdlc");
@@ -359,69 +363,54 @@ namespace RS.WebUI.Reports.Forms
 
             string PO;
             RepFinancials RepPar = JsonConvert.DeserializeObject<RepFinancials>(Par);
-            PO  = RepPar.Data_Report.ToString();
+            PO = RepPar.Data_Report.ToString();
             List<Settings_Report_StdParamters> POR = JsonConvert.DeserializeObject<List<Settings_Report_StdParamters>>(PO);
-            
-            using (SqlConnection con = new SqlConnection(cs))
+            //var query = db.Database.SqlQuery<IProc_Rep_AccAdjustList_Result>(_Query).ToList();
+            foreach (var item in POR)
             {
-                foreach (var item in POR)
+
+                var data3 = db.Get_Settings_Report_and_Parameter(item.ID_Button_Print).ToList();
+
+                value1 = item.Parameter_1;
+                value2 = item.Parameter_2;
+                value3 = item.Parameter_3;
+                value4 = item.Parameter_4;
+                value5 = item.Parameter_5;
+                value6 = item.Parameter_6;
+                value7 = item.Parameter_7;
+                value8 = item.Parameter_8;
+                value9 = item.Parameter_9;
+
+
+                foreach (var data in data3)
                 {
-                    con.Open();
 
-                    SqlCommand cmd = new SqlCommand("Get_Settings_Report_and_Parameter", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter parameter = new SqlParameter("@ID_Button_Print", item.ID_Button_Print);
-                    cmd.Parameters.Add(parameter);
+                    Repor.ID_Button_Print = data.ID_Button_Print;
+                    Repor.Name_Report = data.Name_Report;
 
-                    value1 = item.Parameter_1;
-                    value2 = item.Parameter_2;
-                    value3 = item.Parameter_3;
-                    value4 = item.Parameter_4;
-                    value5 = item.Parameter_5;
-                    value6 = item.Parameter_6;
-                    value7 = item.Parameter_7;
-                    value8 = item.Parameter_8;
-                    value9 = item.Parameter_9;
+                    Repor.Name_Stored_Report = data.Name_Stored_Report;
+                    Repor.Parameter_1 = data.Parameter_1;
+                    Repor.Parameter_2 =data.Parameter_2;
+                    Repor.Parameter_3 =data.Parameter_3;
+                    Repor.Parameter_4 =data.Parameter_4;
+                    Repor.Parameter_5 =data.Parameter_5;
+                    Repor.Parameter_6 =data.Parameter_6;
+                    Repor.Parameter_7 =data.Parameter_7;
+                    Repor.Parameter_8 =data.Parameter_8;
+                    Repor.Parameter_9 =data.Parameter_9;
 
 
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-
-
-                        Repor.ID_Button_Print = reader["ID_Button_Print"].ToString();
-                        Repor.Name_Report = reader["Name_Report"].ToString();
-                        Repor.Name_Stored_Report = reader["Name_Stored_Report"].ToString();
-                        Repor.Parameter_1 = reader["Parameter_1"].ToString();
-                        Repor.Parameter_2 = reader["Parameter_2"].ToString();
-                        Repor.Parameter_3 = reader["Parameter_3"].ToString();
-                        Repor.Parameter_4 = reader["Parameter_4"].ToString();
-                        Repor.Parameter_5 = reader["Parameter_5"].ToString();
-                        Repor.Parameter_6 = reader["Parameter_6"].ToString();
-                        Repor.Parameter_7 = reader["Parameter_7"].ToString();
-                        Repor.Parameter_8 = reader["Parameter_8"].ToString();
-                        Repor.Parameter_9 = reader["Parameter_9"].ToString();
-
-
-
-
-                    }
-
-
+                    DataTable dt = GetData_toParameter();
+                    BindReport(Repor.Name_Report, 1, "PDF", ReportsDetail, dt);
 
 
                 }
-
-
-                //ShowReport_toParameter();
-                DataTable dt = GetData_toParameter();
-                BindReport(Repor.Name_Report, 1, "PDF", ReportsDetail, dt);
-
             }
-
-
+           
+                 
+             
         }
-         
+
         public DataTable GetData_toParameter()
         {
             DataTable dt = new DataTable();
@@ -491,7 +480,7 @@ namespace RS.WebUI.Reports.Forms
 
 
         }
-         
+
         public void ReportsDetails()
         {
 
@@ -509,7 +498,7 @@ namespace RS.WebUI.Reports.Forms
 
         #endregion
 
-       
+
 
     }
 

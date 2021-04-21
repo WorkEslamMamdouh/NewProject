@@ -149,6 +149,23 @@ var ReportParameters = (function () {
     }
     return ReportParameters;
 }());
+var Settings_Report = (function () {
+    function Settings_Report() {
+        this.ID_Button_Print = "";
+        this.Name_Report = "";
+        this.Name_Stored_Report = "";
+        this.Parameter_1 = "";
+        this.Parameter_2 = "";
+        this.Parameter_3 = "";
+        this.Parameter_4 = "";
+        this.Parameter_5 = "";
+        this.Parameter_6 = "";
+        this.Parameter_7 = "";
+        this.Parameter_8 = "";
+        this.Parameter_9 = "";
+    }
+    return Settings_Report;
+}());
 var G_BRANCH = (function (_super) {
     __extends(G_BRANCH, _super);
     function G_BRANCH() {

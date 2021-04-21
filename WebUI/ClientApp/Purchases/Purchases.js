@@ -68,6 +68,7 @@ var Purchases;
     var searchbutmemreport;
     var txtPaid_Up;
     var txtTo_be_Paid;
+    var btnPrint;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
@@ -110,6 +111,7 @@ var Purchases;
         btnSupplierSearch = document.getElementById("btnSupplierSearch");
         btnPaid_Up = document.getElementById("btnPaid_Up");
         btnAddDetails = document.getElementById("btnAddDetails");
+        btnPrint = document.getElementById("btnPrint");
     }
     function IntializeEvents() {
         searchbutmemreport.onkeydown = _SearchBox_Change;
@@ -123,6 +125,7 @@ var Purchases;
         btnSupplierSearch.onclick = Search;
         txtPaid_Up.onkeyup = txtPaid_Up_onchange;
         btnPaid_Up.onclick = btnExecute_onclick;
+        btnPrint.onclick = PrintReport;
     }
     function txtPaid_Up_onchange() {
         ComputeTotals();
@@ -939,7 +942,7 @@ var Purchases;
             }
         });
     }
-    ////-----------------------------------------------------------------------------------------------------------------------
+    ////----------------------------------------------------------------------------------------------------------------------------
     ////-------------------------------------------------------button---Save and Back and Eidt--------------------------------------
     function btnAdd_onclick() {
         AddNew = true;
@@ -1091,6 +1094,33 @@ var Purchases;
             $("#Sales_Price" + i).attr("disabled", "disabled");
             $("#txtMinPrice" + i).attr("disabled", "disabled");
         }
+    }
+    function PrintReport() {
+        debugger;
+        var _StockList = new Array();
+        var _Stock = new Settings_Report();
+        _Stock.ID_Button_Print = 'Receipt_dlev_in';
+        _Stock.Parameter_1 = "2242";
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+        _StockList.push(_Stock);
+        var rp = new ReportParameters();
+        rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: function (d) {
+                debugger;
+                var result = d.result;
+                window.open(result, "_blank");
+            }
+        });
     }
 })(Purchases || (Purchases = {}));
 //# sourceMappingURL=Purchases.js.map

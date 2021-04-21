@@ -178,7 +178,38 @@ class ReportParameters {
     public id: number;
     public ExpenseStatementID: number;
     public User_Code: string;
+    public Data_Report: string;
 
+}
+
+class Settings_Report {
+    constructor() {
+        this.ID_Button_Print = "";
+        this.Name_Report = "";
+        this.Name_Stored_Report = "";
+        this.Parameter_1 = "";
+        this.Parameter_2 = "";
+        this.Parameter_3 = "";
+        this.Parameter_4 = "";
+        this.Parameter_5 = "";
+        this.Parameter_6 = "";
+        this.Parameter_7 = "";
+        this.Parameter_8 = "";
+        this.Parameter_9 = "";
+
+    }
+    public ID_Button_Print: string;
+    public Name_Report: string;
+    public Name_Stored_Report: string;
+    public Parameter_1: string;
+    public Parameter_2: string;
+    public Parameter_3: string;
+    public Parameter_4: string;
+    public Parameter_5: string;
+    public Parameter_6: string;
+    public Parameter_7: string;
+    public Parameter_8: string;
+    public Parameter_9: string;
 }
 
 class G_BRANCH extends SecurityClass {

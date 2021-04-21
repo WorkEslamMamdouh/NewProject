@@ -85,7 +85,7 @@ namespace Purchases {
     var searchbutmemreport: HTMLInputElement;
     var txtPaid_Up: HTMLInputElement;
     var txtTo_be_Paid: HTMLInputElement;
-
+    var btnPrint: HTMLButtonElement;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
@@ -143,7 +143,7 @@ namespace Purchases {
         btnPaid_Up = document.getElementById("btnPaid_Up") as HTMLButtonElement;
 
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
-
+        btnPrint = document.getElementById("btnPrint") as HTMLButtonElement;
 
 
     }
@@ -167,7 +167,7 @@ namespace Purchases {
         txtPaid_Up.onkeyup = txtPaid_Up_onchange;
 
         btnPaid_Up.onclick = btnExecute_onclick;
-
+        btnPrint.onclick = PrintReport;
 
     }
 
@@ -1181,7 +1181,7 @@ namespace Purchases {
         });
 
     }
-    ////-----------------------------------------------------------------------------------------------------------------------
+    ////----------------------------------------------------------------------------------------------------------------------------
 
 
     ////-------------------------------------------------------button---Save and Back and Eidt--------------------------------------
@@ -1390,6 +1390,46 @@ namespace Purchases {
         }
     }
 
+
+    function PrintReport( ) {
+        debugger
+
+        let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
+        let _Stock: Settings_Report = new Settings_Report();
+
+        _Stock.ID_Button_Print = 'Receipt_dlev_in';
+        _Stock.Parameter_1 = "2242";
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+
+
+        _StockList.push(_Stock);
+
+
+        let rp: ReportParameters = new ReportParameters();
+        rp.Data_Report = JSON.stringify(_StockList);//output report as View
+      
+
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: (d) => {
+                debugger
+                let result = d.result as string;
+
+
+                window.open(result, "_blank");
+            }
+        })
+    }
+
+    
 
 
 }
