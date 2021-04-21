@@ -32,7 +32,7 @@ namespace RS.WebUI.Reports.Forms
 
         //SessionRecord CurrentSession;
         StdParamters CurrentReportParameters;
-        Settings_Report_StdParamters Repor;
+        Settings_Report_StdParamters Repor = new Settings_Report_StdParamters();
 
         ReportsDetails ReportsDetail = new ReportsDetails();
         ReportInfo Rep = new ReportInfo();
@@ -41,7 +41,7 @@ namespace RS.WebUI.Reports.Forms
         protected SamahEntities db = UnitOfWork.context(BuildConnectionString());
         //private SamahEntities _db = new SamahEntities();
         //string cs = ConfigurationManager.ConnectionStrings["SamahEntities"].ConnectionString;
-        string cs = "data source=.;initial catalog=ElWassem;persist security info=True;user id=sa;password=619619;MultipleActiveResultSets=True;";
+        string cs = "Data Source= . ; database = ElWassem ; user id = sa ; Password= 619619 ;";
 
         string Par;
 
@@ -417,55 +417,61 @@ namespace RS.WebUI.Reports.Forms
             using (SqlConnection con = new SqlConnection(cs))
             {
 
+                 
                 SqlCommand cmd = new SqlCommand("" + Repor.Name_Stored_Report + "", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
 
-                if ((Repor.Parameter_1) != "")
+                if ((Repor.Parameter_1) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_1 + "", value1));
                 }
-                if ((Repor.Parameter_2) != "")
+                if ((Repor.Parameter_2) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_2 + "", value2));
                 }
-                if ((Repor.Parameter_3) != "")
+                if ((Repor.Parameter_3) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_3 + "", value3));
                 }
-                if ((Repor.Parameter_4) != "")
+                if ((Repor.Parameter_4) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_4 + "", value4));
                 }
-                if ((Repor.Parameter_5) != "")
+                if ((Repor.Parameter_5) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_5 + "", value5));
                 }
-                if ((Repor.Parameter_6) != "")
+                if ((Repor.Parameter_6) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_6 + "", value6));
                 }
-                if ((Repor.Parameter_7) != "")
+                if ((Repor.Parameter_7) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_7 + "", value7));
                 }
-                if ((Repor.Parameter_8) != "")
+                if ((Repor.Parameter_8) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_8 + "", value8));
                 }
-                if ((Repor.Parameter_9) != "")
+                if ((Repor.Parameter_9) != null)
                 {
                     cmd.Parameters.Add(new SqlParameter("@" + Repor.Parameter_9 + "", value9));
                 }
 
-
-
-                con.Open();
-
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.SelectCommand = cmd;
+               
 
-                adp.Fill(dt);
-
+                try
+                {
+                    con.Open(); 
+                    adp.Fill(dt);
+                }
+                catch (Exception sqlEx)
+                {
+                    Console.WriteLine(@"：Unable to establish a connection: {0}", sqlEx);
+                }
 
 
 
