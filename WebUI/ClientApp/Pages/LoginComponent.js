@@ -116,8 +116,8 @@ var LoginComponent;
                 if (res.IsSuccess == true) {
                     var result = res.Response;
                     if (result != null && result.USER_CODE != null) {
-                        $("#divLogin").css("display", "none");
-                        $("#divCompanies").css("display", "block");
+                        //$("#divLogin").css("display", "none");
+                        //$("#divCompanies").css("display", "block");
                         SystemEnv.Token = result.Tokenid;
                         document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
                         //Ajax.Callsync({

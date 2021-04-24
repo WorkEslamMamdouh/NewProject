@@ -120,6 +120,8 @@ namespace RS.WebUI.Reports.Forms
             if (OutputTypeNo == 1)
             {
                 reportViewer1.DataBind();
+                //Printer.PrintToPrinter(reportViewer1.LocalReport, ReportsDetail);
+
 
             }
             else if (OutputTypeNo == 4)

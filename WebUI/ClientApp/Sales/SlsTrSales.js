@@ -361,7 +361,7 @@ var SlsTrSales;
         else {
             $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
             $('#Men_popu').attr('style', 'display:block;');
-            $('#Men_popu').attr('class', 'popu animated zoomInLeft');
+            $('#Men_popu').attr('class', 'popu animated zoomIn');
             $('#txtQuantity').val('1');
             $('#txtPrice').val($(this).attr('data-pirce'));
             ItemID = $(this).attr('data-itemid');
@@ -610,6 +610,11 @@ var SlsTrSales;
         Num_Add_List = 0;
         ValidationMinUnitPrice = 0;
         Validation_Insert = 0;
+        FamilyDetails = new Array();
+        ID_Customer = null;
+        idCust.value = "";
+        hide_Custm();
+        flag_Cust = false;
     }
     function click_Remove_Item_in_Basket() {
         var coment = document.getElementById($(this).attr('id'));
@@ -694,7 +699,7 @@ var SlsTrSales;
         //$('#id_Labol').html(New_Name);
         $('#id_Labol').html('متاح (' + New_OnhandQty + ') من  ' + New_Name + '');
         $('#Men_popu').attr('style', 'display:block;');
-        $('#Men_popu').attr('class', 'popu animated zoomInLeft');
+        $('#Men_popu').attr('class', 'popu animated zoomIn');
         $('#txtQuantity').val(new_Qet);
         $('#txtPrice').val(New_Pirce);
         $("#PopupDialog").modal("show");
@@ -746,30 +751,23 @@ var SlsTrSales;
         }
     }
     function Finsh_Order_onclick() {
-        if (flag_Cust == false) {
-            show_Cutomr();
-            flag_Cust = true;
-            return;
-        }
         if (P != 0) {
             debugger;
             //if (!SysSession.CurrentPrivileges.AddNew) return;
             //if (!ValidationHeader_On_Chanege()) return;
+            if (flag_Cust == false) {
+                show_Cutomr();
+                flag_Cust = true;
+                return;
+            }
             ValidationMinUnitPrice = 1;
             Assign_Get_Data();
             if (Validation_Insert != 1) {
                 Insert_Basket();
                 if (Success == true) {
                     Remove_Item_in_Basket();
-                    ValidationMinUnitPrice = 0;
-                    Validation_Insert = 0;
-                    FamilyDetails = new Array();
                     $('#uul').html('');
                     Display_But();
-                    ID_Customer = null;
-                    idCust.value = "";
-                    hide_Custm();
-                    flag_Cust = false;
                 }
             }
             else {
