@@ -172,6 +172,7 @@ namespace Categories {
                 Model.StatusFlag = StatusFlag.toString(); 
                 Model.ID_CAT = 0;
                 Model.Name_CAT = $("#txtDescA" + i).val();
+                Model.ID_familly_Cat = $("#drpPaymentType").val();
                
 
                 Details.push(Model);
@@ -185,7 +186,8 @@ namespace Categories {
                 Model.StatusFlag = StatusFlag.toString();
                 Model.ID_CAT = $("#txt_ID" + i).val();
                 Model.Name_CAT = $("#txtDescA" + i).val();
-               
+                Model.ID_familly_Cat = $("#drpPaymentType").val();
+
 
                 $("#txt_StatusFlag" + i).val("");
                 Details.push(Model);
@@ -246,6 +248,7 @@ namespace Categories {
         $("#div_ContentData :input").removeAttr("disabled");
         $("#btnedite").toggleClass("display_none");
 
+        $("#drpPaymentType").attr("disabled", "disabled");
 
         $(".btnAddDetails").removeAttr("disabled");
         $('#btnAddDetails').attr('class', 'glyphicon glyphicon-plus-sign')
@@ -275,6 +278,8 @@ namespace Categories {
         CountGrid = 0;
         $("#div_Data").html("");
         Display();
+
+        $("#drpPaymentType").removeAttr("disabled");
 
 
     }

@@ -13,6 +13,8 @@ var SlsTrSales;
     var SearchDetails = new Array();
     var CustomerDetails = new Array();
     var CategoryDetails = new Array();
+    var Category = new Array();
+    var familly_CatDetails = new Array();
     var MasterDetailModel = new SlsInvoiceMasterDetails();
     var InvoiceModel = new ORDER_Master();
     var List = new Array();
@@ -71,6 +73,9 @@ var SlsTrSales;
     var Num_Add_List = 0;
     var num_item_IN_Menu = 0;
     var CatPlus = 0;
+    var famillyPlus = 0;
+    var famillyID;
+    var familly_NAME;
     var CatID;
     var Category_NAME;
     var class_input;
@@ -100,6 +105,7 @@ var SlsTrSales;
         $('#sidebarCollapse').addClass('display_none');
         InitalizeControls();
         InitializeEvents();
+        Display_familly_Cate();
         Display_Category();
         Display_But();
         GetAllCustomer();
@@ -187,6 +193,56 @@ var SlsTrSales;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     }
+    //--------------------------------------------------Display_familly_Cate--------------------------------
+    function Display_familly_Cate() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            data: { CompCode: 1 },
+            success: function (d) {
+                ////////debugger;
+                var result = d;
+                if (result.IsSuccess) {
+                    familly_CatDetails = result.Response;
+                    for (var i = 0; i < familly_CatDetails.length; i++) {
+                        familly_NAME = familly_CatDetails[i].Name_familly_Cat;
+                        famillyID = familly_CatDetails[i].ID_familly_Cat;
+                        famillyPlus = i;
+                        Create_familly_Cate();
+                    }
+                }
+            }
+        });
+    }
+    function Create_familly_Cate() {
+        var button_Category = document.createElement('button');
+        button_Category.setAttribute('id', 'id_familly' + famillyPlus);
+        button_Category.setAttribute('type', 'button');
+        button_Category.setAttribute('data-famillyID', famillyID);
+        button_Category.setAttribute('class', 'btn btn-info Style_familly');
+        button_Category.setAttribute('value', familly_NAME);
+        document.getElementById("div_familly").appendChild(button_Category);
+        document.getElementById('id_familly' + famillyPlus + '').innerHTML = familly_NAME;
+        $('#id_familly' + famillyPlus + '').click(Selecte_familly_Cate);
+    }
+    function Selecte_familly_Cate() {
+        blur_but();
+        Category = new Array();
+        famillyID = $(this).attr('data-famillyID');
+        Category = CategoryDetails.filter(function (x) { return x.ID_familly_Cat == Number(famillyID); });
+        document.getElementById("div_Category").innerHTML = "";
+        document.getElementById("uul").innerHTML = '';
+        blur_but();
+        for (var i = 0; i < Category.length; i++) {
+            Category_NAME = Category[i].Name_CAT;
+            CatID = Category[i].ID_CAT;
+            CatPlus = i;
+            Create_Category();
+            var Family = FamilyDetails.filter(function (x) { return x.ID_CAT == Number(Category[i].ID_CAT); });
+            DisplayItems(Family);
+        }
+        //document.getElementById("uul").innerHTML = '';
+    }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
         Ajax.Callsync({
@@ -198,17 +254,12 @@ var SlsTrSales;
                 var result = d;
                 if (result.IsSuccess) {
                     CategoryDetails = result.Response;
-                    for (var i = 0; i < CategoryDetails.length; i++) {
-                        Category_NAME = CategoryDetails[i].Name_CAT;
-                        CatID = CategoryDetails[i].ID_CAT;
-                        CatPlus = i;
-                        Create_Category();
-                    }
                 }
             }
         });
     }
     function Create_Category() {
+        debugger;
         var test_Category = document.getElementById("button_Category" + CatPlus);
         if (test_Category == null) {
             var button_Category = document.createElement('button');

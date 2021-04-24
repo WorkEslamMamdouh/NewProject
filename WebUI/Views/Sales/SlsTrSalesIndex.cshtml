@@ -489,9 +489,18 @@
         background-color: #2196F3;
         color: #fff;
     }*/
+    .Style_familly {
+        width: 110px;
+        margin-left: 5px;
+        margin-top: 3px;
+        /*background: linear-gradient(to right, #510000 0%, #ff7600 100%);*/
+        background: linear-gradient(to right, #2c3625 0%, #10ff00 100%);
+    }
+
+
     .Style_Category {
         width: 186px;
-        background-color: #2e8f7459;
+        background-color: #1368d200;
         margin-left: 15px;
         margin-top: 4px;
     }
@@ -531,6 +540,36 @@
     .header_1 {
         margin-right: 8%;
     }
+
+    #wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+        #wrapper .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px 16px;
+            font-family: sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 50%;
+            box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+            transition: margin-top 650ms ease-out, box-shadow 120ms, transform 120ms;
+            will-change: margin-top, box-shadow, transform;
+            user-select: none;
+            cursor: pointer;
+        }
+
+            #wrapper .container:hover:not(:active) {
+                box-shadow: 0 5px 4px -4px rgba(0, 0, 0, 0.1), 0 2px 10px 0px rgba(0, 0, 0, 0.08), 0 0px 10px 0px rgba(0, 0, 0, 0.08);
+            }
+
+            #wrapper .container:active {
+                transform: scale(1.4) translateY(5px);
+                box-shadow: 0 9px 11px -5px rgba(0, 0, 0, 0.2), 0 18px 28px 2px rgba(0, 0,0, 0.14), 0 7px 34px 6px rgba(0, 0, 0, 0.12);
+            }
 </style>
 <link href="~/Style_design/Stylecheckbox.css" rel="stylesheet" />
 
@@ -541,21 +580,36 @@
             <div id="informtionReserved" class="col-lg-13 margingred ">
 
 
+                <div class="col-lg-12">
+                    <div class="col-lg-11">
 
-                <div id="div_Category" class="col-lg-11">
-                    <button id="All_item" type="button" class="btn btn-info Style_Category" style="">
+                    </div>
+                    <div id="" class="col-lg-1" style="top: 3px;left: -2%;">
+                        <div id="But_Cutomr" title="Customer" class="pull-right adminpro-icon adminpro-user-rounded header-riht-inf castmr-button">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-1">
+
+
+                </div>
+
+                <div id="div_familly" class="col-lg-10" style="border: solid 4px;border-radius: 44px;background: linear-gradient(to right, rgb(3 208 151) 0%, #173c00 100%);margin-top: -3%;">
+                    <button id="All_item" type="button" class="btn btn-info Style_Category" style="background: linear-gradient(to right, #17672c 0%, #000000 100%);">
                         جميع الاصناف  <span class="glyphicon glyphicon-download-alt" style="margin-top: -27px;"></span>
                     </button>
 
+
                 </div>
 
-                <div id="" class="col-lg-1">
-                    <div id="But_Cutomr" title="Customer" class="pull-right adminpro-icon adminpro-user-rounded header-riht-inf castmr-button">
-                        <span class=" " style="font-size: 20px;margin-right: -23px;color: #d7f2ff;">
-                            Customer
-                        </span>
-                    </div>
+
+                <div id="div_Category" class="col-lg-12" style="border: solid 4px;border-radius: 44px;background: linear-gradient(to right, rgb(87 86 85) 0%, #0092a9 100%);">
+
+
                 </div>
+
 
 
 
@@ -600,11 +654,11 @@
 @*--------------------------------------------------------Basket-------------------------------*@
 <div>
 
-    <div class="chat-button">
+    <div id="wrapper" class="chat-button ">
         <span1>
-            <span data-toggle="collapse" id="Basket" data-target="" class=" Basket   animated zoomInLeft">
+            <span data-toggle="collapse" id="Basket" data-target="" class=" Basket   animated zoomInLeft container">
                 <i id="" class="" style="background-color: black;color: antiquewhite;width: 51px;height: 36px;text-align: center;border-radius: 85px;">
-                    <i id="remo" class="fa fa-shopping-cart" style="margin-top: 10px;font-size: 29px;"></i>
+                    <i id="remo" class="fa fa-shopping-cart" style="margin-top: 4px;font-size: 29px;"></i>
                 </i>
             </span>
             <span data-toggle="collapse" id="CChat" data-target="" style="display: none;" class=" Basket Num_Basket animated zoomInDown">
@@ -623,6 +677,7 @@
         </span1>
 
     </div>
+
     <div id="chat" class="collapse chat-box-wrap shadow-reset animated zoomInLeft" style="width: 28%;border-radius: 16px;">
         <div class="chat-main-list">
             <div class="chat-heading">
@@ -879,7 +934,7 @@
                                 Customer
                             </span>
                         </div>
-                        <div class="col-lg-5"style="width: 37%;">
+                        <div class="col-lg-5" style="width: 37%;">
                             <input id="idCust" type="hidden" />
                             <input id="cust_search_phone" class="form-control" type="text" placeholder="بحث" style="margin-top: 13px;">
                         </div>
@@ -966,6 +1021,15 @@
     </div>
 
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let el = document.querySelector('#wrapper .container');
+
+        setTimeout(() => (el.style.marginTop = '20px'), 500);
+    }, false);
+</script>
 
 @Scripts.Render("~/Bundles/ClientApp")
 <script src="~/ClientApp/JsGrid.js"></script>

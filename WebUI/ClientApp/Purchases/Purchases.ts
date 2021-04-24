@@ -1411,8 +1411,8 @@ namespace Purchases {
 
         _StockList.push(_Stock);
 
-
         let rp: ReportParameters = new ReportParameters();
+
         rp.Data_Report = JSON.stringify(_StockList);//output report as View
       
 

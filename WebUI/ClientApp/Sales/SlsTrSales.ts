@@ -14,6 +14,8 @@ namespace SlsTrSales {
     var SearchDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
     var CustomerDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
     var CategoryDetails: Array<CATEGRES> = new Array<CATEGRES>();
+    var Category: Array<CATEGRES> = new Array<CATEGRES>();
+    var familly_CatDetails: Array<familly_Cat> = new Array<familly_Cat>();
     var MasterDetailModel: SlsInvoiceMasterDetails = new SlsInvoiceMasterDetails();
     var InvoiceModel: ORDER_Master = new ORDER_Master();
     var List: Array<Stok_ORDER_DELIVERY> = new Array<Stok_ORDER_DELIVERY>();
@@ -74,6 +76,9 @@ namespace SlsTrSales {
     var Num_Add_List = 0;
     var num_item_IN_Menu = 0;
     var CatPlus = 0;
+    var famillyPlus = 0;
+    var famillyID;
+    var familly_NAME;
     var CatID;
     var Category_NAME;
     var class_input;
@@ -105,6 +110,7 @@ namespace SlsTrSales {
 
         InitalizeControls();
         InitializeEvents();
+        Display_familly_Cate();
         Display_Category();
         Display_But();
         GetAllCustomer();
@@ -214,6 +220,72 @@ namespace SlsTrSales {
         return strTime;
          
     }
+    //--------------------------------------------------Display_familly_Cate--------------------------------
+    function Display_familly_Cate() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            data: { CompCode: 1 },
+            success: (d) => {
+                ////////debugger;
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    familly_CatDetails = result.Response as Array<familly_Cat>;
+                    for (var i = 0; i < familly_CatDetails.length; i++) {
+
+                        familly_NAME = familly_CatDetails[i].Name_familly_Cat;
+                        famillyID = familly_CatDetails[i].ID_familly_Cat;
+                        famillyPlus = i;
+                        Create_familly_Cate()
+                    }
+
+                }
+            }
+        });
+    }
+    function Create_familly_Cate() {
+
+   
+            var button_Category = document.createElement('button');
+            button_Category.setAttribute('id', 'id_familly' + famillyPlus);
+            button_Category.setAttribute('type', 'button');
+            button_Category.setAttribute('data-famillyID', famillyID);
+            button_Category.setAttribute('class', 'btn btn-info Style_familly');
+            button_Category.setAttribute('value', familly_NAME);
+            document.getElementById("div_familly").appendChild(button_Category);
+            document.getElementById('id_familly' + famillyPlus + '').innerHTML = familly_NAME;
+            $('#id_familly' + famillyPlus + '').click(Selecte_familly_Cate);
+
+       
+
+
+    } 
+    function Selecte_familly_Cate() {
+
+        blur_but();
+
+          Category = new Array<CATEGRES>();
+
+        famillyID = $(this).attr('data-famillyID');
+        Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(famillyID));
+        document.getElementById("div_Category").innerHTML = "";
+        document.getElementById("uul").innerHTML = '';
+        blur_but();
+         for (var i = 0; i < Category.length; i++) {
+
+             Category_NAME = Category[i].Name_CAT;
+             CatID = Category[i].ID_CAT;
+            CatPlus = i;
+            Create_Category();
+
+            var Family = FamilyDetails.filter(x => x.ID_CAT == Number(Category[i].ID_CAT));
+            DisplayItems(Family);
+
+        }
+        //document.getElementById("uul").innerHTML = '';
+
+
+    }
     //--------------------------------------------------Display_Category--------------------------------
     function Display_Category() {
         Ajax.Callsync({
@@ -225,20 +297,14 @@ namespace SlsTrSales {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     CategoryDetails = result.Response as Array<CATEGRES>;
-                    for (var i = 0; i < CategoryDetails.length; i++) {
-
-                        Category_NAME = CategoryDetails[i].Name_CAT;
-                        CatID = CategoryDetails[i].ID_CAT;
-                        CatPlus = i;
-                        Create_Category();
-                    }
+              
 
                 }
             }
         });
     }
     function Create_Category() {
-
+        debugger
         var test_Category = document.getElementById("button_Category" + CatPlus);
         if (test_Category == null) {
             var button_Category = document.createElement('button');
@@ -260,6 +326,8 @@ namespace SlsTrSales {
         document.getElementById("uul").innerHTML = '';
 
         blur_but();
+
+
         DisplayItems(FamilyDetails);
 
     }
