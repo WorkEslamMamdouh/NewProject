@@ -44,6 +44,7 @@ namespace Items {
     var Itm_DescA;
     var flag_Display = 0;
     var StocK = "All";
+    var ID_CAT;
     export function InitalizeComponent() {
         debugger
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
@@ -86,8 +87,10 @@ namespace Items {
         $('#btnAddDetails').attr('class', 'glyphicon glyphicon-plus-sign')
 
         $(".fa-minus-circle").removeClass("display_none");
-        
 
+        $("#drbfamilly_cat").attr("disabled", "disabled");
+
+        
 
     });
 
@@ -191,6 +194,9 @@ namespace Items {
             '<input id="txtID' + cnt + '" name=" " type="hidden" class="form-control" value=""> ' +
             '</div> ';
         $("#div_Data").append(html);
+
+        
+        Display_Type = Display_Filtr;
 
         $('#select_Type_Item' + cnt).append('<option value="10101">أختر الفئه</option>');
         for (var i = 0; i < Display_Type.length; i++) {
@@ -537,6 +543,8 @@ namespace Items {
         $("#div_Data").html('');
         for (var i = 0; i < Details.length; i++) {
 
+            ID_CAT = Details[i].ID_CAT;
+
             BuildControls(CountGrid);
 
 
@@ -712,6 +720,7 @@ namespace Items {
         $("#drpPaymentType").removeAttr("disabled");
         $("#drpitem_family").removeAttr("disabled");
         $("#drp_StocK").removeAttr("disabled");
+        $("#drbfamilly_cat").removeAttr("disabled");
 
     }
 

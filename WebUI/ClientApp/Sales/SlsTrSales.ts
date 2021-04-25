@@ -101,6 +101,8 @@ namespace SlsTrSales {
     var Num_Order;
     var Success;
     var flag_Cust = false;
+    var id_Family;
+    var id_Category;
     export function InitalizeComponent() {
         debugger
         $('#cont').toggleClass('colapsdivcont');
@@ -264,7 +266,15 @@ namespace SlsTrSales {
 
         blur_but();
 
+        try {
+            id_Family.attr('style', '');
+
+        } catch (e) {
+
+        }
           Category = new Array<CATEGRES>();
+
+
 
         famillyID = $(this).attr('data-famillyID');
         Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(famillyID));
@@ -284,6 +294,9 @@ namespace SlsTrSales {
         }
         //document.getElementById("uul").innerHTML = '';
 
+         $(this).attr('style', 'background: #e58828;');
+
+         id_Family = $(this);
 
     }
     //--------------------------------------------------Display_Category--------------------------------
@@ -323,22 +336,46 @@ namespace SlsTrSales {
     }
     function GetAll_item_onclick() {
         debugger
+        try {
+            id_Category.attr('style', '');
+
+        } catch (e) {
+
+        }
+
         document.getElementById("uul").innerHTML = '';
 
         blur_but();
+        
+        //DisplayItems(FamilyDetails);
 
 
-        DisplayItems(FamilyDetails);
+        for (var i = 0; i < Category.length; i++) {
+             
+            var Family = FamilyDetails.filter(x => x.ID_CAT == Number(Category[i].ID_CAT));
+            DisplayItems(Family);
+
+        }
 
     }
     function Selecte_Category() {
 
+        try {
+            id_Category.attr('style', '');
+
+        } catch (e) {
+
+        }
         blur_but();
         CatID = $(this).attr('data-CatID');
         var Category = FamilyDetails.filter(x => x.ID_CAT == Number(CatID));
         document.getElementById("uul").innerHTML = '';
 
         DisplayItems(Category);
+
+        $(this).attr('style', 'background: #e58828;');
+
+        id_Category = $(this);
 
     }
     //--------------------------------------------------Display_But--------------------------------
@@ -354,7 +391,22 @@ namespace SlsTrSales {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     FamilyDetails = result.Response as Array<PRODUCT>;
-                    DisplayItems(FamilyDetails);
+                  
+                    Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(12));
+                    document.getElementById("div_Category").innerHTML = "";
+                    document.getElementById("uul").innerHTML = '';
+                    blur_but();
+                    for (var i = 0; i < Category.length; i++) {
+
+                        Category_NAME = Category[i].Name_CAT;
+                        CatID = Category[i].ID_CAT;
+                        CatPlus = i;
+                        Create_Category();
+
+                        var Family = FamilyDetails.filter(x => x.ID_CAT == Number(Category[i].ID_CAT));
+                        DisplayItems(Family);
+
+                    }
 
                 }
             }
@@ -366,11 +418,19 @@ namespace SlsTrSales {
         debugger
         for (var i = 0; i < ItemList.length; i++) {
 
-            if (ItemList[i].ID_CAT == 1) {
-                class_input = "input_fruits";
-            } else if (ItemList[i].ID_CAT == 2) {
+            if (ItemList[i].ID_CAT == 1283) {
+                class_input = "input_etisalat";
+            } else if (ItemList[i].ID_CAT == 1285) {
 
-                class_input = "input_greens";
+                class_input = "input_vodafone";
+            }
+            else if (ItemList[i].ID_CAT == 1284) {
+
+                class_input = "input_orange";
+            }
+            else if (ItemList[i].ID_CAT == 1286) {
+
+                class_input = "input_we";
             } else {
 
                 class_input = "input_blue";
@@ -381,7 +441,7 @@ namespace SlsTrSales {
             PRICE = ItemList[i].PRODUCT_PRICE;
             MinUnitPrice = ItemList[i].PRODUCT_Purchasing_price;
             ItemID = ItemList[i].PRODUCT_ID;
-            IDPlus = i;
+            IDPlus = ItemID ;
             AddBut();
         }
     }
