@@ -10,12 +10,14 @@ namespace HomeComponent {
     var sys: SystemTools = new SystemTools();
 
     var But_Outlet: HTMLButtonElement;
+    var But_Input: HTMLButtonElement;
+    var btnCash: HTMLButtonElement;
     var Close: HTMLButtonElement; 
     var btnDashboard: HTMLButtonElement;
     var btn_loguotuser: HTMLButtonElement;
     var SysSession: SystemSession = GetSystemSession();
     var systemEnv: SystemEnvironment = SysSession.CurrentEnvironment;
-
+    var Balance = 0;
 
     export function OpenPage(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
@@ -141,14 +143,41 @@ namespace HomeComponent {
         btn_loguotuser = DocumentActions.GetElementById<HTMLButtonElement>("btn_loguotuser");
         btn_loguotuser.onclick = LogoutUserApi;
 
+        btnCash = document.getElementById('btnCash') as HTMLButtonElement
+        But_Input = document.getElementById('But_Input') as HTMLButtonElement
         But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
         Close = document.getElementById('Close') as HTMLButtonElement
+        But_Input.onclick = Enter_Money;
         But_Outlet.onclick = Cash_Box;
+        btnCash.onclick = Get_balance;
         Close.onclick = Close_Day;        
         Check_Close_Day();
 
     }
 
+    function Get_balance() {
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Get_Balance"), 
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                      Balance = result.Response;
+
+                    $('#Balance').html(' المبلغ (' + Balance + ')');
+                     
+
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+
+    }
     export function LogoutUserApi() {
         let userCode = SysSession.CurrentEnvironment.UserCode;
         Ajax.Callsync({
@@ -635,6 +664,8 @@ namespace HomeComponent {
 
                         $('#id_Dasc_Name').val('');
                         $('#id_pirce').val('');
+                        $('#Balance').html(' المبلغ (' + (Balance - pirce) + ')');
+
                     }
                     else {
                         MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
@@ -650,6 +681,41 @@ namespace HomeComponent {
             }
         });
     }
+
+    function Enter_Money() {
+
+
+        if ($('#id_pirce').val() == '' || $('#id_Dasc_Name').val() == '') {
+            MessageBox.Show("  خطأ  يجب ادخل المبلغ والوصف ", "خطأ");
+            return
+        }
+
+        var Dasc_Name = $('#id_Dasc_Name').val();
+        var pirce = Number($('#id_pirce').val());
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Outlet = result.Response;
+                    MessageBox.Show("تم ", "الحفظ");
+
+                    $('#id_Dasc_Name').val('');
+                    $('#id_pirce').val('');
+                    $('#Balance').html(' المبلغ (' + (Balance - Outlet) + ')');
+
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+    }
+
     function Close_Day() {
 
         //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;');

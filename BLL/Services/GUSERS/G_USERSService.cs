@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using WebUl.DAL.Repository;
 
-namespace Inv.BLL.Services.GUSERS
+namespace BLL.Services.GUSERS
 {
     public class G_USERSService : IG_USERSService
     {

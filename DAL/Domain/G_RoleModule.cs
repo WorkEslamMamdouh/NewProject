@@ -35,8 +35,5 @@ namespace DAL.Domain
         public Nullable<bool> CUSTOM9 { get; set; }
         public Nullable<bool> ViewImages { get; set; }
         public Nullable<bool> EditImages { get; set; }
-    
-        public virtual G_MODULES G_MODULES { get; set; }
-        public virtual G_Role G_Role { get; set; }
     }
 }

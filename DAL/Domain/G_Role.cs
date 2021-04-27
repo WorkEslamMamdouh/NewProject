@@ -14,21 +14,9 @@ namespace DAL.Domain
     
     public partial class G_Role
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public G_Role()
-        {
-            this.G_RoleModule = new HashSet<G_RoleModule>();
-            this.G_RoleUsers = new HashSet<G_RoleUsers>();
-        }
-    
         public int RoleId { get; set; }
         public string DescA { get; set; }
         public string DescE { get; set; }
         public string Remarks { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<G_RoleModule> G_RoleModule { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<G_RoleUsers> G_RoleUsers { get; set; }
     }
 }

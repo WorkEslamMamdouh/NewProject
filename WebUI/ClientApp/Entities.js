@@ -347,11 +347,15 @@ var ReviewSalesMaster = (function (_super) {
         _this.CUSTOMER_NAME = "";
         _this.CUSTOMER_ADDRES = "";
         _this.PHONE = "";
-        _this.CUSTOMER_ID = 0;
         _this.CUSTOMER_ADDRES_2 = "";
         _this.Total_All;
         _this.EMPLOYEE_NAME = "";
         _this.Date = "";
+        _this.EMPLOYEE_ID = 0;
+        _this.Tax = 0;
+        _this.Confirmation = false;
+        _this.USER_CODE = "";
+        _this.CUSTOMER_ID = 0;
         return _this;
     }
     return ReviewSalesMaster;

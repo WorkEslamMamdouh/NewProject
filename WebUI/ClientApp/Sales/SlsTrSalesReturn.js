@@ -158,14 +158,14 @@ var SlsTrSalesReturn;
         debugger;
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Login", "GetAllUser"),
+            url: sys.apiUrl("G_USERS", "GetAllUser"),
             data: {},
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
                     UserDetails = result.Response;
                     debugger;
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "ID_User", "UserName", "اختار البائع");
+                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
                 }
             }
         });
@@ -197,9 +197,9 @@ var SlsTrSalesReturn;
         var startdt = DateFormatDataBes(txtFromDate.value).toString();
         var enddt = DateFormatDataBes(txtToDate.value).toString();
         var CustomerId = 0;
-        var ID_User = 0;
+        var USER_CODE = "null";
         if (ddlUserMaster.value != "null") {
-            ID_User = Number(ddlUserMaster.value.toString());
+            USER_CODE = ddlUserMaster.value;
         }
         if (ddlCustomerMaster.value != "null") {
             CustomerId = Number(ddlCustomerMaster.value.toString());
@@ -207,7 +207,7 @@ var SlsTrSalesReturn;
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("ReviewSales", "GetAll_IQ_ReviewSalesMaster"),
-            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, ID_User: ID_User },
+            data: { startDate: startdt, endDate: enddt, CustomerId: CustomerId, USER_CODE: USER_CODE },
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -256,7 +256,7 @@ var SlsTrSalesReturn;
             { title: " التاريخ  ", name: "Date", type: "text", width: "12%" },
             { title: "البائع", name: "EMPLOYEE_NAME", type: "text", width: "20%" },
             { title: "العميل", name: "CUSTOMER_NAME", type: "text", width: "20%" },
-            { title: "اجمالي الفاتوره", name: "Total_All", type: "text", width: "16%" },
+            { title: "اجمالي الفاتوره", name: "Tax", type: "text", width: "16%" },
         ];
     }
     function MasterGridDoubleClick() {
@@ -856,7 +856,7 @@ var SlsTrSalesReturn;
                 OperationItemSingleModel.Name_Product_sell = $("#ddlItem" + i + " option:selected").text();
                 OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
                 OperationItemSingleModel.price_One_part = $("#txtPrice" + i).val();
-                OperationItemSingleModel.Quantity_sell = $('#txtQuantity' + i).val();
+                OperationItemSingleModel.Quantity_sell = $('#txtReturn' + i).val();
                 OperationItemSingleModel.Total_Price_One_Part = $("#txtTotal" + i).val();
                 OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
                 OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
@@ -864,10 +864,12 @@ var SlsTrSalesReturn;
             }
             if (StatusFlag == "d") {
                 if ($("#ReciveDetailsID" + i).val() != "") {
+                    $('#txtReturn' + i).val((Number($('#txtQuantity' + i).val()) + Number($('#txtReturn' + i).val())));
                     var OperationItemID = $("#txt_ID" + i).val();
                     OperationItemSingleModel.StatusFlag = StatusFlag.toString();
                     OperationItemSingleModel.ID_DELIVERY = OperationItemID;
                     OperationItemSingleModel.PRODUCT_ID = $('#PRODUCT_ID' + i).val();
+                    OperationItemSingleModel.Quantity_sell = $('#txtReturn' + i).val();
                     OperationItemSingleModel.UserCode = SysSession.CurrentEnvironment.UserCode;
                     OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                     SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);

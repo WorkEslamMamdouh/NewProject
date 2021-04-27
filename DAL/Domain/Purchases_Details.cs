@@ -20,7 +20,7 @@ namespace DAL.Domain
         public Nullable<int> PRODUCT_ID { get; set; }
         public Nullable<int> Purchases_Quantity { get; set; }
         public Nullable<decimal> Purchases_Price { get; set; }
-        public Nullable<decimal> MinUnitPrice { get; set; }
         public Nullable<decimal> Sales_Price { get; set; }
+        public Nullable<decimal> MinUnitPrice { get; set; }
     }
 }

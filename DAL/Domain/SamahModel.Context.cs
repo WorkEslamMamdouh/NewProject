@@ -30,6 +30,18 @@ namespace DAL.Domain
         public virtual DbSet<CATEGRE> CATEGRES { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
+        public virtual DbSet<familly_Cat> familly_Cat { get; set; }
+        public virtual DbSet<G_MODULES> G_MODULES { get; set; }
+        public virtual DbSet<G_ReportWebSetting> G_ReportWebSetting { get; set; }
+        public virtual DbSet<G_Role> G_Role { get; set; }
+        public virtual DbSet<G_RoleModule> G_RoleModule { get; set; }
+        public virtual DbSet<G_RoleUsers> G_RoleUsers { get; set; }
+        public virtual DbSet<G_SearchForm> G_SearchForm { get; set; }
+        public virtual DbSet<G_SearchFormModule> G_SearchFormModule { get; set; }
+        public virtual DbSet<G_SearchFormSetting> G_SearchFormSetting { get; set; }
+        public virtual DbSet<G_SUB_SYSTEMS> G_SUB_SYSTEMS { get; set; }
+        public virtual DbSet<G_SYSTEM> G_SYSTEM { get; set; }
+        public virtual DbSet<G_USERS> G_USERS { get; set; }
         public virtual DbSet<ITEME> ITEMEs { get; set; }
         public virtual DbSet<LoginPage> LoginPages { get; set; }
         public virtual DbSet<Message_Chat> Message_Chat { get; set; }
@@ -38,37 +50,27 @@ namespace DAL.Domain
         public virtual DbSet<ORDER_TECAYE> ORDER_TECAYE { get; set; }
         public virtual DbSet<Outlet> Outlets { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
+        public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
+        public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
         public virtual DbSet<Send_Message> Send_Message { get; set; }
         public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<Settings_Report> Settings_Report { get; set; }
         public virtual DbSet<SOFRA> SOFRAs { get; set; }
         public virtual DbSet<Stock_ORDER_TECAYE> Stock_ORDER_TECAYE { get; set; }
+        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
         public virtual DbSet<STORE> STOREs { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Table_two_days> Table_two_days { get; set; }
+        public virtual DbSet<The_Gard> The_Gard { get; set; }
         public virtual DbSet<Type_EMPLOYEE> Type_EMPLOYEE { get; set; }
         public virtual DbSet<User_sales> User_sales { get; set; }
-        public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
-        public virtual DbSet<Stok_ORDER_DELIVERY> Stok_ORDER_DELIVERY { get; set; }
-        public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
-        public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
-        public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
-        public virtual DbSet<G_SearchForm> G_SearchForm { get; set; }
-        public virtual DbSet<G_SearchFormModule> G_SearchFormModule { get; set; }
-        public virtual DbSet<G_SearchFormSetting> G_SearchFormSetting { get; set; }
-        public virtual DbSet<G_MODULES> G_MODULES { get; set; }
-        public virtual DbSet<G_ReportWebSetting> G_ReportWebSetting { get; set; }
-        public virtual DbSet<G_Role> G_Role { get; set; }
-        public virtual DbSet<G_RoleModule> G_RoleModule { get; set; }
-        public virtual DbSet<G_RoleUsers> G_RoleUsers { get; set; }
-        public virtual DbSet<G_SUB_SYSTEMS> G_SUB_SYSTEMS { get; set; }
-        public virtual DbSet<G_SYSTEM> G_SYSTEM { get; set; }
-        public virtual DbSet<G_USERS> G_USERS { get; set; }
-        public virtual DbSet<familly_Cat> familly_Cat { get; set; }
+        public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
+        public virtual DbSet<Enter_Money> Enter_Money { get; set; }
+        public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -1119,6 +1121,28 @@ namespace DAL.Domain
                 new ObjectParameter("Mod", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GFunc_GetPrivilageRole_Result>("[SamahEntities].[GFunc_GetPrivilageRole](@Comp, @bra, @user, @Sys, @sub, @Mod)", compParameter, braParameter, userParameter, sysParameter, subParameter, modParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> Get_Balance()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Get_Balance");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> Insert_Enter_Money(string dasc_Name, Nullable<decimal> pirce, string userName)
+        {
+            var dasc_NameParameter = dasc_Name != null ?
+                new ObjectParameter("Dasc_Name", dasc_Name) :
+                new ObjectParameter("Dasc_Name", typeof(string));
+    
+            var pirceParameter = pirce.HasValue ?
+                new ObjectParameter("pirce", pirce) :
+                new ObjectParameter("pirce", typeof(decimal));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Insert_Enter_Money", dasc_NameParameter, pirceParameter, userNameParameter);
         }
     }
 }

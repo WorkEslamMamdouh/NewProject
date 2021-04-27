@@ -44,7 +44,7 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult GetAll_IQ_ReviewSalesMaster(string startDate, string endDate, int? CustomerId, int ID_User)
+        public IHttpActionResult GetAll_IQ_ReviewSalesMaster(string startDate, string endDate, int? CustomerId, string USER_CODE)
         {
             if (ModelState.IsValid )
             {
@@ -55,8 +55,8 @@ namespace API.Controllers
                 if (CustomerId != 0 && CustomerId != null)
                     condition = condition + " and CUSTOMER_ID =" + CustomerId;
 
-                if (ID_User != 0  )
-                    condition = condition + " and ID_User =" + ID_User;
+                if (USER_CODE != "null"  )
+                    condition = condition + " and USER_CODE = '" + USER_CODE+"'";
        
 
 

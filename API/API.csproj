@@ -254,7 +254,6 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ReviewSales.cs" />
     <Compile Include="Controllers\SlsTrSalesController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Shared\SystemToolsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

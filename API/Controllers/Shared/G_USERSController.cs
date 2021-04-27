@@ -1,6 +1,6 @@
 ﻿using API.Models;
 using DAL.Domain;
-using Inv.BLL.Services.GUSERS;
+using BLL.Services.GUSERS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +36,18 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
 
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult GetAllUser()
+        {
+            if (ModelState.IsValid)
+            {
+                var Login = G_USERSService.GetAll().ToList();
+
+                return Ok(new BaseResponse(Login));
+
+            }
+            return BadRequest(ModelState);
+        }
 
         [HttpGet, AllowAnonymous]
         public IHttpActionResult UserLogin(string UserCode, string Password)

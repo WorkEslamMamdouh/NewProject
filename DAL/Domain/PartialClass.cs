@@ -25,10 +25,7 @@ namespace DAL.Domain
     {
 
     }
-    public partial class G_USERS : SecurityClass
-    {
-
-    }
+    
     public partial class PRODUCT : SecurityandUpdateFlagClass
     {
 
@@ -66,6 +63,10 @@ namespace DAL.Domain
 
     }
     public partial class familly_Cat : SecurityandUpdateFlagClass
+    {
+
+    }
+    public partial class G_USERS : SecurityandUpdateFlagClass
     {
 
     }

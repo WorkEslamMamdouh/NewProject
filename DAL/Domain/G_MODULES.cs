@@ -14,12 +14,6 @@ namespace DAL.Domain
     
     public partial class G_MODULES
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public G_MODULES()
-        {
-            this.G_RoleModule = new HashSet<G_RoleModule>();
-        }
-    
         public string SYSTEM_CODE { get; set; }
         public string SUB_SYSTEM_CODE { get; set; }
         public string MODULE_CODE { get; set; }
@@ -53,8 +47,5 @@ namespace DAL.Domain
         public Nullable<bool> AVAILABLE { get; set; }
         public string MODULE_TYPE { get; set; }
         public Nullable<bool> Images_Enabled { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<G_RoleModule> G_RoleModule { get; set; }
     }
 }

@@ -17,7 +17,5 @@ namespace DAL.Domain
         public string USER_CODE { get; set; }
         public int RoleId { get; set; }
         public Nullable<bool> ISActive { get; set; }
-    
-        public virtual G_Role G_Role { get; set; }
     }
 }

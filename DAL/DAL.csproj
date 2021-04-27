@@ -70,6 +70,9 @@
     <Compile Include="Domain\Enter_Customer_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Enter_Money.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\familly_Cat.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
@@ -262,6 +265,9 @@
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Table_two_days.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\The_Gard.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Type_EMPLOYEE.cs">

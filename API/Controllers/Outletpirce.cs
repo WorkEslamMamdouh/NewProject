@@ -42,9 +42,29 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
 
-         
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Insert(string Dasc_Name , decimal pirce , string UserName)
+        public IHttpActionResult Get_Balance()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //var Outlet = db.insert_Outlet(Dasc_Name, pirce, UserName).ToString();
+                    string quer = "Get_Balance";
+                    var Outlet = db.Database.SqlQuery<decimal>(quer); 
+                    return Ok(new BaseResponse(Outlet));
+
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Insert(string Dasc_Name, decimal pirce, string UserName)
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +72,28 @@ namespace API.Controllers
                 {
                     //var Outlet = db.insert_Outlet(Dasc_Name, pirce, UserName).ToString();
                     string quer = "insert_Outlet '" + Dasc_Name + "', " + pirce + ", '" + UserName + "'";
+                    var Outlet = db.Database.SqlQuery<decimal>(quer);
+
+                    return Ok(new BaseResponse(Outlet));
+
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Insert_Enter_Money(string Dasc_Name , decimal pirce , string UserName)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //var Outlet = db.insert_Outlet(Dasc_Name, pirce, UserName).ToString();
+                    string quer = "Insert_Enter_Money '" + Dasc_Name + "', " + pirce + ", '" + UserName + "'";
                     var Outlet = db.Database.SqlQuery<decimal>(quer);
                      
                     return Ok(new BaseResponse(Outlet));

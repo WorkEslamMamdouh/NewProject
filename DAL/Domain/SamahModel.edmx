@@ -32,6 +32,17 @@
           <Property Name="EMPLOYEE_PHONE" Type="nvarchar" MaxLength="50" />
           <Property Name="ID_User" Type="int" />
           <Property Name="id_Type_EMPLOYEE" Type="int" />
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Enter_Money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dasc_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pirce" Type="money" />
+          <Property Name="Num_Day" Type="int" />
+          <Property Name="EMPLOYEE_ID" Type="int" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -488,11 +499,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ElWassem.dbo.Table_test' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Table_test">
-          <Property Name="tchke" Type="bit" />
-        </EntityType>-->
         <EntityType Name="Table_two_days">
           <Key>
             <PropertyRef Name="Num_Day" />
@@ -500,10 +506,11 @@ warning 6013: The table/view 'ElWassem.dbo.Table_test' does not have a primary k
           <Property Name="Num_Day" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="The_Gard">
-          <Property Name="id_Num" Type="int" />
+          <Key>
+            <PropertyRef Name="id_Num" />
+          </Key>
+          <Property Name="id_Num" Type="int" Nullable="false" />
           <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="PRODUCT_Purchasing_price" Type="money" />
           <Property Name="PRODUCT_PRICE" Type="money" />
@@ -514,7 +521,7 @@ warning 6013: The table/view 'ElWassem.dbo.The_Gard' does not have a primary key
           <Property Name="Task" Type="float" />
           <Property Name="Day_Date" Type="nvarchar" MaxLength="50" />
           <Property Name="Shift_User" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="Type_EMPLOYEE">
           <Key>
             <PropertyRef Name="id_Type_EMPLOYEE" />
@@ -591,61 +598,22 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
         <EntityType Name="ReviewSalesMaster">
           <Key>
             <PropertyRef Name="ID_ORDER_Delivery" />
-            <PropertyRef Name="CUSTOMER_ID" />
           </Key>
           <Property Name="ID_ORDER_Delivery" Type="int" Nullable="false" />
           <Property Name="Date_Order_Delivery" Type="nvarchar" MaxLength="50" />
           <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="CUSTOMER_ADDRES" Type="nvarchar" MaxLength="50" />
           <Property Name="PHONE" Type="nvarchar" MaxLength="50" />
-          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
           <Property Name="CUSTOMER_ADDRES_2" Type="nvarchar" MaxLength="50" />
           <Property Name="Total_All" Type="money" />
           <Property Name="EMPLOYEE_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
-          <Property Name="ID_User" Type="int" />
           <Property Name="EMPLOYEE_ID" Type="int" />
+          <Property Name="Tax" Type="float" />
+          <Property Name="Confirmation" Type="bit" />
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="CUSTOMER_ID" Type="int" />
         </EntityType>
-        <Association Name="FK_G_RoleModule_G_MODULES">
-          <End Role="G_MODULES" Type="Self.G_MODULES" Multiplicity="1" />
-          <End Role="G_RoleModule" Type="Self.G_RoleModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_MODULES">
-              <PropertyRef Name="SYSTEM_CODE" />
-              <PropertyRef Name="SUB_SYSTEM_CODE" />
-              <PropertyRef Name="MODULE_CODE" />
-            </Principal>
-            <Dependent Role="G_RoleModule">
-              <PropertyRef Name="SYSTEM_CODE" />
-              <PropertyRef Name="SUB_SYSTEM_CODE" />
-              <PropertyRef Name="MODULE_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_G_RoleModule_G_Role">
-          <End Role="G_Role" Type="Self.G_Role" Multiplicity="1" />
-          <End Role="G_RoleModule" Type="Self.G_RoleModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="G_RoleModule">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_G_RoleUsers_G_Role">
-          <End Role="G_Role" Type="Self.G_Role" Multiplicity="1" />
-          <End Role="G_RoleUsers" Type="Self.G_RoleUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="G_RoleUsers">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="Add_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="user_name" Type="nvarchar" Mode="In" />
           <Parameter Name="passwrd" Type="nvarchar" Mode="In" />
@@ -696,6 +664,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="open_user" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="Get_Balance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="get_emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="newphone" Type="nvarchar" Mode="In" />
         </Function>
@@ -793,6 +762,11 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
         </Function>
         <Function Name="insert_Cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name_CAT" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Insert_Enter_Money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="pirce" Type="money" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_ORDER_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -985,6 +959,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="CATEGRES" EntityType="Self.CATEGRES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enter_Money" EntityType="Self.Enter_Money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="familly_Cat" EntityType="Self.familly_Cat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_MODULES" EntityType="Self.G_MODULES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="G_ReportWebSetting" EntityType="Self.G_ReportWebSetting" Schema="dbo" store:Type="Tables" />
@@ -1018,6 +993,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Table_two_days" EntityType="Self.Table_two_days" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="The_Gard" EntityType="Self.The_Gard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="Self.Type_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_sales" EntityType="Self.User_sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="Self.IQ_Purchases_Details" store:Type="Views" store:Schema="dbo">
@@ -1073,27 +1049,17 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
     [ReviewSalesMaster].[CUSTOMER_NAME] AS [CUSTOMER_NAME], 
     [ReviewSalesMaster].[CUSTOMER_ADDRES] AS [CUSTOMER_ADDRES], 
     [ReviewSalesMaster].[PHONE] AS [PHONE], 
-    [ReviewSalesMaster].[CUSTOMER_ID] AS [CUSTOMER_ID], 
     [ReviewSalesMaster].[CUSTOMER_ADDRES_2] AS [CUSTOMER_ADDRES_2], 
     [ReviewSalesMaster].[Total_All] AS [Total_All], 
     [ReviewSalesMaster].[EMPLOYEE_NAME] AS [EMPLOYEE_NAME], 
     [ReviewSalesMaster].[Date] AS [Date], 
-    [ReviewSalesMaster].[ID_User] AS [ID_User], 
-    [ReviewSalesMaster].[EMPLOYEE_ID] AS [EMPLOYEE_ID]
+    [ReviewSalesMaster].[EMPLOYEE_ID] AS [EMPLOYEE_ID], 
+    [ReviewSalesMaster].[Tax] AS [Tax], 
+    [ReviewSalesMaster].[Confirmation] AS [Confirmation], 
+    [ReviewSalesMaster].[USER_CODE] AS [USER_CODE], 
+    [ReviewSalesMaster].[CUSTOMER_ID] AS [CUSTOMER_ID]
     FROM [dbo].[ReviewSalesMaster] AS [ReviewSalesMaster]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_G_RoleModule_G_MODULES" Association="Self.FK_G_RoleModule_G_MODULES">
-            <End Role="G_MODULES" EntitySet="G_MODULES" />
-            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_G_RoleModule_G_Role" Association="Self.FK_G_RoleModule_G_Role">
-            <End Role="G_Role" EntitySet="G_Role" />
-            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_G_RoleUsers_G_Role" Association="Self.FK_G_RoleUsers_G_Role">
-            <End Role="G_Role" EntitySet="G_Role" />
-            <End Role="G_RoleUsers" EntitySet="G_RoleUsers" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1344,29 +1310,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="Open_Login" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <EntitySet Name="CATEGRES" EntityType="SamahModel.CATEGRE" />
-          <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
-          <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
-          <EntitySet Name="ITEMEs" EntityType="SamahModel.ITEME" />
-          <EntitySet Name="LoginPages" EntityType="SamahModel.LoginPage" />
-          <EntitySet Name="Message_Chat" EntityType="SamahModel.Message_Chat" />
-          <EntitySet Name="ORDER_DELIVERY" EntityType="SamahModel.ORDER_DELIVERY" />
-          <EntitySet Name="ORDER_SOFRA" EntityType="SamahModel.ORDER_SOFRA" />
-          <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
-          <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
-          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
-          <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
-          <EntitySet Name="Send_Message" EntityType="SamahModel.Send_Message" />
-          <EntitySet Name="Settings" EntityType="SamahModel.Setting" />
-          <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
-          <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
-          <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
-          <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
-          <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
-          <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
-          <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
-          <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
-          <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           <FunctionImport Name="update_SalesReturn">
             <Parameter Name="PRODUCT_ID" Mode="In" Type="Int32" />
             <Parameter Name="Quantity_sell" Mode="In" Type="Int32" />
@@ -1380,16 +1323,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="ID_ORDER" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Close_days" />
-          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
-          <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
-          <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
-          <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
-          <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
-          <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
-          <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
-          <EntitySet Name="G_SearchForm" EntityType="SamahModel.G_SearchForm" />
-          <EntitySet Name="G_SearchFormModule" EntityType="SamahModel.G_SearchFormModule" />
-          <EntitySet Name="G_SearchFormSetting" EntityType="SamahModel.G_SearchFormSetting" />
           <FunctionImport Name="insert_Purchases_Master">
             <Parameter Name="Tr_Date" Mode="In" Type="String" />
             <Parameter Name="ID_Supplier" Mode="In" Type="Int32" />
@@ -1420,26 +1353,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="To_be_Paid" Mode="In" Type="Decimal" />
             <Parameter Name="REMARKS" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="G_MODULES" EntityType="SamahModel.G_MODULES" />
-          <EntitySet Name="G_ReportWebSetting" EntityType="SamahModel.G_ReportWebSetting" />
-          <EntitySet Name="G_Role" EntityType="SamahModel.G_Role" />
-          <EntitySet Name="G_RoleModule" EntityType="SamahModel.G_RoleModule" />
-          <EntitySet Name="G_RoleUsers" EntityType="SamahModel.G_RoleUsers" />
-          <EntitySet Name="G_SUB_SYSTEMS" EntityType="SamahModel.G_SUB_SYSTEMS" />
-          <EntitySet Name="G_SYSTEM" EntityType="SamahModel.G_SYSTEM" />
-          <EntitySet Name="G_USERS" EntityType="SamahModel.G_USERS" />
-          <AssociationSet Name="FK_G_RoleModule_G_MODULES" Association="SamahModel.FK_G_RoleModule_G_MODULES">
-            <End Role="G_MODULES" EntitySet="G_MODULES" />
-            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_G_RoleModule_G_Role" Association="SamahModel.FK_G_RoleModule_G_Role">
-            <End Role="G_Role" EntitySet="G_Role" />
-            <End Role="G_RoleModule" EntitySet="G_RoleModule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_G_RoleUsers_G_Role" Association="SamahModel.FK_G_RoleUsers_G_Role">
-            <End Role="G_Role" EntitySet="G_Role" />
-            <End Role="G_RoleUsers" EntitySet="G_RoleUsers" />
-          </AssociationSet>
           <FunctionImport Name="GFunc_GetPrivilage" IsComposable="true" ReturnType="Collection(SamahModel.GFunc_GetPrivilage_Result)">
             <Parameter Name="Comp" Mode="In" Type="Int32" />
             <Parameter Name="bra" Mode="In" Type="Int32" />
@@ -1456,7 +1369,56 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="sub" Mode="In" Type="String" />
             <Parameter Name="Mod" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="CATEGRES" EntityType="SamahModel.CATEGRE" />
+          <EntitySet Name="CUSTOMERs" EntityType="SamahModel.CUSTOMER" />
+          <EntitySet Name="EMPLOYEEs" EntityType="SamahModel.EMPLOYEE" />
           <EntitySet Name="familly_Cat" EntityType="SamahModel.familly_Cat" />
+          <EntitySet Name="G_MODULES" EntityType="SamahModel.G_MODULES" />
+          <EntitySet Name="G_ReportWebSetting" EntityType="SamahModel.G_ReportWebSetting" />
+          <EntitySet Name="G_Role" EntityType="SamahModel.G_Role" />
+          <EntitySet Name="G_RoleModule" EntityType="SamahModel.G_RoleModule" />
+          <EntitySet Name="G_RoleUsers" EntityType="SamahModel.G_RoleUsers" />
+          <EntitySet Name="G_SearchForm" EntityType="SamahModel.G_SearchForm" />
+          <EntitySet Name="G_SearchFormModule" EntityType="SamahModel.G_SearchFormModule" />
+          <EntitySet Name="G_SearchFormSetting" EntityType="SamahModel.G_SearchFormSetting" />
+          <EntitySet Name="G_SUB_SYSTEMS" EntityType="SamahModel.G_SUB_SYSTEMS" />
+          <EntitySet Name="G_SYSTEM" EntityType="SamahModel.G_SYSTEM" />
+          <EntitySet Name="G_USERS" EntityType="SamahModel.G_USERS" />
+          <EntitySet Name="ITEMEs" EntityType="SamahModel.ITEME" />
+          <EntitySet Name="LoginPages" EntityType="SamahModel.LoginPage" />
+          <EntitySet Name="Message_Chat" EntityType="SamahModel.Message_Chat" />
+          <EntitySet Name="ORDER_DELIVERY" EntityType="SamahModel.ORDER_DELIVERY" />
+          <EntitySet Name="ORDER_SOFRA" EntityType="SamahModel.ORDER_SOFRA" />
+          <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
+          <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
+          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
+          <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
+          <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
+          <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
+          <EntitySet Name="Send_Message" EntityType="SamahModel.Send_Message" />
+          <EntitySet Name="Settings" EntityType="SamahModel.Setting" />
+          <EntitySet Name="Settings_Report" EntityType="SamahModel.Settings_Report" />
+          <EntitySet Name="SOFRAs" EntityType="SamahModel.SOFRA" />
+          <EntitySet Name="Stock_ORDER_TECAYE" EntityType="SamahModel.Stock_ORDER_TECAYE" />
+          <EntitySet Name="Stok_ORDER_DELIVERY" EntityType="SamahModel.Stok_ORDER_DELIVERY" />
+          <EntitySet Name="STOREs" EntityType="SamahModel.STORE" />
+          <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
+          <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
+          <EntitySet Name="The_Gard" EntityType="SamahModel.The_Gard" />
+          <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
+          <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
+          <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
+          <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
+          <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
+          <EntitySet Name="Enter_Money" EntityType="SamahModel.Enter_Money" />
+          <FunctionImport Name="Get_Balance" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="Insert_Enter_Money" ReturnType="Collection(Decimal)">
+            <Parameter Name="Dasc_Name" Mode="In" Type="String" />
+            <Parameter Name="pirce" Mode="In" Type="Decimal" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -1649,6 +1611,48 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Type="String" Name="WepFormLoad" Nullable="true" MaxLength="50" />
           <Property Type="Boolean" Name="Open_Login" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="GFunc_GetPrivilage_Result">
+          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
+          <Property Type="Boolean" Name="Access" Nullable="true" />
+          <Property Type="Boolean" Name="Edit" Nullable="true" />
+          <Property Type="Boolean" Name="AddNew" Nullable="true" />
+          <Property Type="Boolean" Name="Remove" Nullable="true" />
+          <Property Type="Boolean" Name="VIEW" Nullable="true" />
+          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
+          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
+          <Property Type="Boolean" Name="EditImages" Nullable="true" />
+          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GFunc_GetPrivilageRole_Result">
+          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
+          <Property Type="Boolean" Name="Access" Nullable="true" />
+          <Property Type="Boolean" Name="Edit" Nullable="true" />
+          <Property Type="Boolean" Name="AddNew" Nullable="true" />
+          <Property Type="Boolean" Name="Remove" Nullable="true" />
+          <Property Type="Boolean" Name="VIEW" Nullable="true" />
+          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
+          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
+          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
+          <Property Type="Boolean" Name="EditImages" Nullable="true" />
+          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
+        </ComplexType>
         <EntityType Name="CATEGRE">
           <Key>
             <PropertyRef Name="ID_CAT" />
@@ -1676,6 +1680,238 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="EMPLOYEE_PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_User" Type="Int32" />
           <Property Name="id_Type_EMPLOYEE" Type="Int32" />
+          <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="familly_Cat">
+          <Key>
+            <PropertyRef Name="ID_familly_Cat" />
+          </Key>
+          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_MODULES">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MENU_NO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MENU_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE" Type="Boolean" Nullable="false" />
+          <Property Name="EDIT" Type="Boolean" Nullable="false" />
+          <Property Name="DELETE" Type="Boolean" Nullable="false" />
+          <Property Name="PRINT" Type="Boolean" Nullable="false" />
+          <Property Name="VIEW" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM1" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM2" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM3" Type="Boolean" Nullable="false" />
+          <Property Name="CUSTOM1_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM2_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM3_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM4" Type="Boolean" />
+          <Property Name="CUSTOM5" Type="Boolean" />
+          <Property Name="CUSTOM6" Type="Boolean" />
+          <Property Name="CUSTOM4_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM5_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM6_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM7" Type="Boolean" />
+          <Property Name="CUSTOM8" Type="Boolean" />
+          <Property Name="CUSTOM9" Type="Boolean" />
+          <Property Name="CUSTOM7_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM8_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOM9_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AVAILABLE" Type="Boolean" />
+          <Property Name="MODULE_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Images_Enabled" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="G_ReportWebSetting">
+          <Key>
+            <PropertyRef Name="ReportSettingID" />
+          </Key>
+          <Property Name="ReportSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReportID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMP_CODE" Type="Int32" />
+          <Property Name="BRA_Code" Type="Int32" />
+          <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDesignNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDesignNameAr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportDataSouce" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RightMarginMM" Type="Int32" />
+          <Property Name="LeftMarginMM" Type="Int32" />
+          <Property Name="TopMarginMM" Type="Int32" />
+          <Property Name="BottomMarginMM" Type="Int32" />
+          <Property Name="IsLandScape" Type="Boolean" />
+          <Property Name="PageSizeID" Type="Int32" />
+          <Property Name="PageHightCM" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PageWidthCM" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrinterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OutputTypeNo" Type="Byte" />
+          <Property Name="OutputType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="G_Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_RoleModule">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+            <PropertyRef Name="MODULE_CODE" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EXECUTE" Type="Boolean" />
+          <Property Name="CREATE" Type="Boolean" />
+          <Property Name="EDIT" Type="Boolean" />
+          <Property Name="DELETE" Type="Boolean" />
+          <Property Name="PRINT" Type="Boolean" />
+          <Property Name="VIEW" Type="Boolean" />
+          <Property Name="CUSTOM1" Type="Boolean" />
+          <Property Name="CUSTOM2" Type="Boolean" />
+          <Property Name="CUSTOM3" Type="Boolean" />
+          <Property Name="CUSTOM4" Type="Boolean" />
+          <Property Name="CUSTOM5" Type="Boolean" />
+          <Property Name="CUSTOM6" Type="Boolean" />
+          <Property Name="CUSTOM7" Type="Boolean" />
+          <Property Name="CUSTOM8" Type="Boolean" />
+          <Property Name="CUSTOM9" Type="Boolean" />
+          <Property Name="ViewImages" Type="Boolean" />
+          <Property Name="EditImages" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="G_RoleUsers">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="ISActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="G_SearchForm">
+          <Key>
+            <PropertyRef Name="SearchFormCode" />
+          </Key>
+          <Property Name="SearchFormCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDataPropertyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SerachFormTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullScreen" Type="Boolean" Nullable="false" />
+          <Property Name="Left" Type="Int32" Nullable="false" />
+          <Property Name="Top" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="PageSize" Type="Int32" Nullable="false" />
+          <Property Name="DataSourceName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SearchInterval" Type="Int32" Nullable="false" />
+          <Property Name="SerachFormTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SearchFormModule">
+          <Key>
+            <PropertyRef Name="SystemCode" />
+            <PropertyRef Name="SubSystemCode" />
+            <PropertyRef Name="ModuleCode" />
+            <PropertyRef Name="ControlCode" />
+          </Key>
+          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ControlCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SearchFormSetting">
+          <Key>
+            <PropertyRef Name="SearchFormSettingID" />
+          </Key>
+          <Property Name="SearchFormSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FieldSequence" Type="Byte" />
+          <Property Name="DataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateDataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FieldTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="IsReadOnly" Type="Boolean" Nullable="false" />
+          <Property Name="Datatype" Type="Byte" Nullable="false" />
+          <Property Name="FieldWidth" Type="Int32" Nullable="false" />
+          <Property Name="UseSelectionOperator" Type="Boolean" />
+          <Property Name="Language" Type="Byte" />
+          <Property Name="FieldTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SUB_SYSTEMS">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+            <PropertyRef Name="SUB_SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SUB_SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICON_PATH" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="APPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APPVERSION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppApiUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_SYSTEM">
+          <Key>
+            <PropertyRef Name="SYSTEM_CODE" />
+          </Key>
+          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DB_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ICON_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="INIT_ORDER" Type="Int32" />
+          <Property Name="VER_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="G_USERS">
+          <Key>
+            <PropertyRef Name="USER_CODE" />
+          </Key>
+          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompCode" Type="Int32" />
+          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="GRP_CODE" Type="Int32" />
+          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_TYPE" Type="Byte" />
+          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginUrl" Type="Boolean" />
+          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LastLogin" Type="DateTime" Precision="0" />
+          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CashBoxID" Type="Int32" />
+          <Property Name="SalesManID" Type="Int32" />
         </EntityType>
         <EntityType Name="ITEME">
           <Key>
@@ -1769,9 +2005,36 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="PRODUCT_QET" Type="Int32" />
           <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_CAT" Type="Int32" />
           <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_CAT" Type="Int32" />
           <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Purchases_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Purchases_Quantity" Type="Int32" />
+          <Property Name="Purchases_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Sales_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Day" Type="Int32" />
         </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
@@ -1834,12 +2097,35 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ID_Order_Tecaye" Type="Int32" />
         </EntityType>
+        <EntityType Name="Stok_ORDER_DELIVERY">
+          <Key>
+            <PropertyRef Name="ID_DELIVERY" />
+          </Key>
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+        </EntityType>
         <EntityType Name="STORE">
           <Key>
             <PropertyRef Name="ID_STORE" />
           </Key>
           <Property Name="ID_STORE" Type="Int32" Nullable="false" />
           <Property Name="NAME_STORE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="ID_Supplier" />
+          </Key>
+          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1858,6 +2144,22 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Num_Day" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="The_Gard">
+          <Key>
+            <PropertyRef Name="id_Num" />
+          </Key>
+          <Property Name="id_Num" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_Qut" Type="Double" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Shortage" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Outlet" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Task" Type="Double" />
+          <Property Name="Day_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Type_EMPLOYEE">
           <Key>
             <PropertyRef Name="id_Type_EMPLOYEE" />
@@ -1871,90 +2173,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           </Key>
           <Property Name="id_User_sales" Type="Int32" Nullable="false" />
           <Property Name="id_Settings" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ReviewSalesMaster">
-          <Key>
-            <PropertyRef Name="ID_ORDER_Delivery" />
-            <PropertyRef Name="CUSTOMER_ID" />
-          </Key>
-          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" />
-          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
-          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="ID_User" Type="Int32" />
-          <Property Name="EMPLOYEE_ID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Stok_ORDER_DELIVERY">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ReviewSalesItemInfo">
-          <Key>
-            <PropertyRef Name="ID_DELIVERY" />
-          </Key>
-          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" />
-          <Property Name="Quantity_sell" Type="Double" />
-          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FK_ORDER_Delivery" Type="Int32" />
-          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_CAT" Type="Int32" />
-          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PRODUCT_QET" Type="Int32" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Purchases_Details">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="ID_CAT" Type="Int32" />
-          <Property Name="PRODUCT_ID" Type="Int32" />
-          <Property Name="Purchases_Quantity" Type="Int32" />
-          <Property Name="Purchases_Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Sales_Price" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Num_Day" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="ID_Supplier" />
-          </Key>
-          <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
         </EntityType>
         <EntityType Name="IQ_Purchases_Details">
           <Key>
@@ -1991,324 +2209,50 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="G_SearchForm">
+        <EntityType Name="ReviewSalesItemInfo">
           <Key>
-            <PropertyRef Name="SearchFormCode" />
+            <PropertyRef Name="ID_DELIVERY" />
           </Key>
-          <Property Name="SearchFormCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReturnDataPropertyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SerachFormTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-          <Property Name="IsFullScreen" Type="Boolean" Nullable="false" />
-          <Property Name="Left" Type="Int32" Nullable="false" />
-          <Property Name="Top" Type="Int32" Nullable="false" />
-          <Property Name="Height" Type="Int32" Nullable="false" />
-          <Property Name="Width" Type="Int32" Nullable="false" />
-          <Property Name="PageSize" Type="Int32" Nullable="false" />
-          <Property Name="DataSourceName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SearchInterval" Type="Int32" Nullable="false" />
-          <Property Name="SerachFormTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="ID_DELIVERY" Type="Int32" Nullable="false" />
+          <Property Name="Quantity_sell" Type="Double" />
+          <Property Name="price_One_part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Notes_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FK_ORDER_Delivery" Type="Int32" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_QET" Type="Int32" />
+          <Property Name="PRODUCT_ID" Type="Int32" />
         </EntityType>
-        <EntityType Name="G_SearchFormModule">
+        <EntityType Name="Enter_Money">
           <Key>
-            <PropertyRef Name="SystemCode" />
-            <PropertyRef Name="SubSystemCode" />
-            <PropertyRef Name="ModuleCode" />
-            <PropertyRef Name="ControlCode" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ModuleCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="ControlCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Num_Day" Type="Int32" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
         </EntityType>
-        <EntityType Name="G_SearchFormSetting">
+        <EntityType Name="ReviewSalesMaster">
           <Key>
-            <PropertyRef Name="SearchFormSettingID" />
+            <PropertyRef Name="ID_ORDER_Delivery" />
           </Key>
-          <Property Name="SearchFormSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SearchFormCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FieldSequence" Type="Byte" />
-          <Property Name="DataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="AlternateDataMember" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="FieldTitle" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-          <Property Name="IsReadOnly" Type="Boolean" Nullable="false" />
-          <Property Name="Datatype" Type="Byte" Nullable="false" />
-          <Property Name="FieldWidth" Type="Int32" Nullable="false" />
-          <Property Name="UseSelectionOperator" Type="Boolean" />
-          <Property Name="Language" Type="Byte" />
-          <Property Name="FieldTitleA" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="G_MODULES">
-          <Key>
-            <PropertyRef Name="SYSTEM_CODE" />
-            <PropertyRef Name="SUB_SYSTEM_CODE" />
-            <PropertyRef Name="MODULE_CODE" />
-          </Key>
-          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MENU_NO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MENU_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="MODULE_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MODULE_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CREATE" Type="Boolean" Nullable="false" />
-          <Property Name="EDIT" Type="Boolean" Nullable="false" />
-          <Property Name="DELETE" Type="Boolean" Nullable="false" />
-          <Property Name="PRINT" Type="Boolean" Nullable="false" />
-          <Property Name="VIEW" Type="Boolean" Nullable="false" />
-          <Property Name="CUSTOM1" Type="Boolean" Nullable="false" />
-          <Property Name="CUSTOM2" Type="Boolean" Nullable="false" />
-          <Property Name="CUSTOM3" Type="Boolean" Nullable="false" />
-          <Property Name="CUSTOM1_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM2_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM3_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM4" Type="Boolean" />
-          <Property Name="CUSTOM5" Type="Boolean" />
-          <Property Name="CUSTOM6" Type="Boolean" />
-          <Property Name="CUSTOM4_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM5_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM6_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM7" Type="Boolean" />
-          <Property Name="CUSTOM8" Type="Boolean" />
-          <Property Name="CUSTOM9" Type="Boolean" />
-          <Property Name="CUSTOM7_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM8_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CUSTOM9_DESC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AVAILABLE" Type="Boolean" />
-          <Property Name="MODULE_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="Images_Enabled" Type="Boolean" />
-          <NavigationProperty Name="G_RoleModule" Relationship="SamahModel.FK_G_RoleModule_G_MODULES" FromRole="G_MODULES" ToRole="G_RoleModule" />
-        </EntityType>
-        <EntityType Name="G_ReportWebSetting">
-          <Key>
-            <PropertyRef Name="ReportSettingID" />
-          </Key>
-          <Property Name="ReportSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SystemCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SubSystemCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ReportID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NameA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NameE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="COMP_CODE" Type="Int32" />
-          <Property Name="BRA_Code" Type="Int32" />
+          <Property Name="ID_ORDER_Delivery" Type="Int32" Nullable="false" />
+          <Property Name="Date_Order_Delivery" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ADDRES_2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total_All" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Tax" Type="Double" />
+          <Property Name="Confirmation" Type="Boolean" />
           <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReportDesignNameEn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReportDesignNameAr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReportDataSouce" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RightMarginMM" Type="Int32" />
-          <Property Name="LeftMarginMM" Type="Int32" />
-          <Property Name="TopMarginMM" Type="Int32" />
-          <Property Name="BottomMarginMM" Type="Int32" />
-          <Property Name="IsLandScape" Type="Boolean" />
-          <Property Name="PageSizeID" Type="Int32" />
-          <Property Name="PageHightCM" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PageWidthCM" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PrinterName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OutputTypeNo" Type="Byte" />
-          <Property Name="OutputType" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="G_Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="DescA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DescE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="G_RoleModule" Relationship="SamahModel.FK_G_RoleModule_G_Role" FromRole="G_Role" ToRole="G_RoleModule" />
-          <NavigationProperty Name="G_RoleUsers" Relationship="SamahModel.FK_G_RoleUsers_G_Role" FromRole="G_Role" ToRole="G_RoleUsers" />
-        </EntityType>
-        <EntityType Name="G_RoleModule">
-          <Key>
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="SYSTEM_CODE" />
-            <PropertyRef Name="SUB_SYSTEM_CODE" />
-            <PropertyRef Name="MODULE_CODE" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="MODULE_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EXECUTE" Type="Boolean" />
-          <Property Name="CREATE" Type="Boolean" />
-          <Property Name="EDIT" Type="Boolean" />
-          <Property Name="DELETE" Type="Boolean" />
-          <Property Name="PRINT" Type="Boolean" />
-          <Property Name="VIEW" Type="Boolean" />
-          <Property Name="CUSTOM1" Type="Boolean" />
-          <Property Name="CUSTOM2" Type="Boolean" />
-          <Property Name="CUSTOM3" Type="Boolean" />
-          <Property Name="CUSTOM4" Type="Boolean" />
-          <Property Name="CUSTOM5" Type="Boolean" />
-          <Property Name="CUSTOM6" Type="Boolean" />
-          <Property Name="CUSTOM7" Type="Boolean" />
-          <Property Name="CUSTOM8" Type="Boolean" />
-          <Property Name="CUSTOM9" Type="Boolean" />
-          <Property Name="ViewImages" Type="Boolean" />
-          <Property Name="EditImages" Type="Boolean" />
-          <NavigationProperty Name="G_MODULES" Relationship="SamahModel.FK_G_RoleModule_G_MODULES" FromRole="G_RoleModule" ToRole="G_MODULES" />
-          <NavigationProperty Name="G_Role" Relationship="SamahModel.FK_G_RoleModule_G_Role" FromRole="G_RoleModule" ToRole="G_Role" />
-        </EntityType>
-        <EntityType Name="G_RoleUsers">
-          <Key>
-            <PropertyRef Name="USER_CODE" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="ISActive" Type="Boolean" />
-          <NavigationProperty Name="G_Role" Relationship="SamahModel.FK_G_RoleUsers_G_Role" FromRole="G_RoleUsers" ToRole="G_Role" />
-        </EntityType>
-        <EntityType Name="G_SUB_SYSTEMS">
-          <Key>
-            <PropertyRef Name="SYSTEM_CODE" />
-            <PropertyRef Name="SUB_SYSTEM_CODE" />
-          </Key>
-          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SUB_SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SUB_SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SUB_SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ICON_PATH" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="APPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="APPVERSION" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AppApiUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="G_SYSTEM">
-          <Key>
-            <PropertyRef Name="SYSTEM_CODE" />
-          </Key>
-          <Property Name="SYSTEM_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SYSTEM_DESCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SYSTEM_DESCA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DB_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ICON_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="INIT_ORDER" Type="Int32" />
-          <Property Name="VER_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="G_USERS">
-          <Key>
-            <PropertyRef Name="USER_CODE" />
-          </Key>
-          <Property Name="USER_CODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="USER_ACTIVE" Type="Boolean" Nullable="false" />
-          <Property Name="USER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CompCode" Type="Int32" />
-          <Property Name="REGION_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="GRP_CODE" Type="Int32" />
-          <Property Name="USER_PASSWORD2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CHANGE_PASS_DATE" Type="DateTime" Precision="0" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Tel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="USER_TYPE" Type="Byte" />
-          <Property Name="ManagedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LoginUrl" Type="Boolean" />
-          <Property Name="Tokenid" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LastLogin" Type="DateTime" Precision="0" />
-          <Property Name="FirstLogin" Type="DateTime" Precision="0" />
-          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="0" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CashBoxID" Type="Int32" />
-          <Property Name="SalesManID" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_G_RoleModule_G_MODULES">
-          <End Type="SamahModel.G_MODULES" Role="G_MODULES" Multiplicity="1" />
-          <End Type="SamahModel.G_RoleModule" Role="G_RoleModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_MODULES">
-              <PropertyRef Name="SYSTEM_CODE" />
-              <PropertyRef Name="SUB_SYSTEM_CODE" />
-              <PropertyRef Name="MODULE_CODE" />
-            </Principal>
-            <Dependent Role="G_RoleModule">
-              <PropertyRef Name="SYSTEM_CODE" />
-              <PropertyRef Name="SUB_SYSTEM_CODE" />
-              <PropertyRef Name="MODULE_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_G_RoleModule_G_Role">
-          <End Type="SamahModel.G_Role" Role="G_Role" Multiplicity="1" />
-          <End Type="SamahModel.G_RoleModule" Role="G_RoleModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="G_RoleModule">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_G_RoleUsers_G_Role">
-          <End Type="SamahModel.G_Role" Role="G_Role" Multiplicity="1" />
-          <End Type="SamahModel.G_RoleUsers" Role="G_RoleUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="G_Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="G_RoleUsers">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="GFunc_GetPrivilage_Result">
-          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="Access" Nullable="true" />
-          <Property Type="Boolean" Name="Edit" Nullable="true" />
-          <Property Type="Boolean" Name="AddNew" Nullable="true" />
-          <Property Type="Boolean" Name="Remove" Nullable="true" />
-          <Property Type="Boolean" Name="VIEW" Nullable="true" />
-          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
-          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
-          <Property Type="Boolean" Name="EditImages" Nullable="true" />
-          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GFunc_GetPrivilageRole_Result">
-          <Property Type="String" Name="MODULE_CODE" Nullable="true" MaxLength="25" />
-          <Property Type="Boolean" Name="Access" Nullable="true" />
-          <Property Type="Boolean" Name="Edit" Nullable="true" />
-          <Property Type="Boolean" Name="AddNew" Nullable="true" />
-          <Property Type="Boolean" Name="Remove" Nullable="true" />
-          <Property Type="Boolean" Name="VIEW" Nullable="true" />
-          <Property Type="Boolean" Name="PrintOut" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM1" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM2" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM3" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM4" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM5" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM6" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM7" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM8" Nullable="true" />
-          <Property Type="Boolean" Name="CUSTOM9" Nullable="true" />
-          <Property Type="Boolean" Name="ViewImages" Nullable="true" />
-          <Property Type="Boolean" Name="EditImages" Nullable="true" />
-          <Property Type="Boolean" Name="AVAILABLE" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="familly_Cat">
-          <Key>
-            <PropertyRef Name="ID_familly_Cat" />
-          </Key>
-          <Property Name="ID_familly_Cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_familly_Cat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CUSTOMER_ID" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2594,6 +2538,62 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
+          <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
+          <FunctionImportMapping FunctionImportName="Close_days" FunctionName="SamahModel.Store.Close_days" />
+          <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="SamahModel.Store.insert_Purchases_Master" />
+          <FunctionImportMapping FunctionImportName="Processes_Purchases" FunctionName="SamahModel.Store.Processes_Purchases" />
+          <FunctionImportMapping FunctionImportName="update_Purchases_Master" FunctionName="SamahModel.Store.update_Purchases_Master" />
+          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilage" FunctionName="SamahModel.Store.GFunc_GetPrivilage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilage_Result">
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+                <ScalarProperty Name="Edit" ColumnName="Edit" />
+                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
+                <ScalarProperty Name="Remove" ColumnName="Remove" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
+                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilageRole" FunctionName="SamahModel.Store.GFunc_GetPrivilageRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilageRole_Result">
+                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
+                <ScalarProperty Name="Access" ColumnName="Access" />
+                <ScalarProperty Name="Edit" ColumnName="Edit" />
+                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
+                <ScalarProperty Name="Remove" ColumnName="Remove" />
+                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
+                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
+                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
+                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
+                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
+                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
+                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
+                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
+                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
+                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
+                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
+                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
+                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="CATEGRES">
             <EntityTypeMapping TypeName="SamahModel.CATEGRE">
               <MappingFragment StoreEntitySet="CATEGRES">
@@ -2617,6 +2617,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="EMPLOYEEs">
             <EntityTypeMapping TypeName="SamahModel.EMPLOYEE">
               <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
                 <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="EMPLOYEE_PHONE" ColumnName="EMPLOYEE_PHONE" />
@@ -2625,398 +2626,14 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ITEMEs">
-            <EntityTypeMapping TypeName="SamahModel.ITEME">
-              <MappingFragment StoreEntitySet="ITEME">
-                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
-                <ScalarProperty Name="Supplier_Iteme" ColumnName="Supplier_Iteme" />
-                <ScalarProperty Name="DATE_Expir_Iteme" ColumnName="DATE_Expir_Iteme" />
-                <ScalarProperty Name="DATE_Iteme" ColumnName="DATE_Iteme" />
-                <ScalarProperty Name="Pirce_Iteme" ColumnName="Pirce_Iteme" />
-                <ScalarProperty Name="QONTTE_Iteme" ColumnName="QONTTE_Iteme" />
-                <ScalarProperty Name="Type_Iteme" ColumnName="Type_Iteme" />
-                <ScalarProperty Name="ID_Iteme" ColumnName="ID_Iteme" />
+          <EntitySetMapping Name="familly_Cat">
+            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
+              <MappingFragment StoreEntitySet="familly_Cat">
+                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LoginPages">
-            <EntityTypeMapping TypeName="SamahModel.LoginPage">
-              <MappingFragment StoreEntitySet="LoginPage">
-                <ScalarProperty Name="Open_Login" ColumnName="Open_Login" />
-                <ScalarProperty Name="WepFormLoad" ColumnName="WepFormLoad" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Message_Chat">
-            <EntityTypeMapping TypeName="SamahModel.Message_Chat">
-              <MappingFragment StoreEntitySet="Message_Chat">
-                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
-                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
-                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
-                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="ORDER_DELIVERY">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
-                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
-                <ScalarProperty Name="type_order" ColumnName="type_order" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
-                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
-                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_SOFRA">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_SOFRA">
-              <MappingFragment StoreEntitySet="ORDER_SOFRA">
-                <ScalarProperty Name="Date_Order_Sofra" ColumnName="Date_Order_Sofra" />
-                <ScalarProperty Name="Namber_Order_Sofra" ColumnName="Namber_Order_Sofra" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
-                <ScalarProperty Name="SERVICE_ORDER_SOFRA" ColumnName="SERVICE_ORDER_SOFRA" />
-                <ScalarProperty Name="TAX_ORDER_SOFRA" ColumnName="TAX_ORDER_SOFRA" />
-                <ScalarProperty Name="QONTTE_ORDER_SOFRA" ColumnName="QONTTE_ORDER_SOFRA" />
-                <ScalarProperty Name="ID_ORDER_SOFRA" ColumnName="ID_ORDER_SOFRA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORDER_TECAYE">
-            <EntityTypeMapping TypeName="SamahModel.ORDER_TECAYE">
-              <MappingFragment StoreEntitySet="ORDER_TECAYE">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="type_order" ColumnName="type_order" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="Namber_Order_Tecaye" ColumnName="Namber_Order_Tecaye" />
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Date_Order_Tecaye" ColumnName="Date_Order_Tecaye" />
-                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Outlets">
-            <EntityTypeMapping TypeName="SamahModel.Outlet">
-              <MappingFragment StoreEntitySet="Outlet">
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="pirce" ColumnName="pirce" />
-                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRODUCTs">
-            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
-              <MappingFragment StoreEntitySet="PRODUCT">
-                <ScalarProperty Name="serial" ColumnName="serial" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
-                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
-                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Report_Parameters">
-            <EntityTypeMapping TypeName="SamahModel.Report_Parameters">
-              <MappingFragment StoreEntitySet="Report_Parameters">
-                <ScalarProperty Name="Parameter_9" ColumnName="Parameter_9" />
-                <ScalarProperty Name="Parameter_8" ColumnName="Parameter_8" />
-                <ScalarProperty Name="Parameter_7" ColumnName="Parameter_7" />
-                <ScalarProperty Name="Parameter_6" ColumnName="Parameter_6" />
-                <ScalarProperty Name="Parameter_5" ColumnName="Parameter_5" />
-                <ScalarProperty Name="Parameter_4" ColumnName="Parameter_4" />
-                <ScalarProperty Name="Parameter_3" ColumnName="Parameter_3" />
-                <ScalarProperty Name="Parameter_2" ColumnName="Parameter_2" />
-                <ScalarProperty Name="Parameter_1" ColumnName="Parameter_1" />
-                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Send_Message">
-            <EntityTypeMapping TypeName="SamahModel.Send_Message">
-              <MappingFragment StoreEntitySet="Send_Message">
-                <ScalarProperty Name="open_user" ColumnName="open_user" />
-                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
-                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
-                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
-                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settings">
-            <EntityTypeMapping TypeName="SamahModel.Setting">
-              <MappingFragment StoreEntitySet="Settings">
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Settings_Report">
-            <EntityTypeMapping TypeName="SamahModel.Settings_Report">
-              <MappingFragment StoreEntitySet="Settings_Report">
-                <ScalarProperty Name="Name_Stored_Report" ColumnName="Name_Stored_Report" />
-                <ScalarProperty Name="Name_Report" ColumnName="Name_Report" />
-                <ScalarProperty Name="ID_Button_Print" ColumnName="ID_Button_Print" />
-                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SOFRAs">
-            <EntityTypeMapping TypeName="SamahModel.SOFRA">
-              <MappingFragment StoreEntitySet="SOFRA">
-                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stock_ORDER_TECAYE">
-            <EntityTypeMapping TypeName="SamahModel.Stock_ORDER_TECAYE">
-              <MappingFragment StoreEntitySet="Stock_ORDER_TECAYE">
-                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
-                <ScalarProperty Name="ID_TECAYE" ColumnName="ID_TECAYE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="STOREs">
-            <EntityTypeMapping TypeName="SamahModel.STORE">
-              <MappingFragment StoreEntitySet="STORE">
-                <ScalarProperty Name="NAME_STORE" ColumnName="NAME_STORE" />
-                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="SamahModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Table_two_days">
-            <EntityTypeMapping TypeName="SamahModel.Table_two_days">
-              <MappingFragment StoreEntitySet="Table_two_days">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Type_EMPLOYEE">
-            <EntityTypeMapping TypeName="SamahModel.Type_EMPLOYEE">
-              <MappingFragment StoreEntitySet="Type_EMPLOYEE">
-                <ScalarProperty Name="Type_EMP" ColumnName="Type_EMP" />
-                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User_sales">
-            <EntityTypeMapping TypeName="SamahModel.User_sales">
-              <MappingFragment StoreEntitySet="User_sales">
-                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
-                <ScalarProperty Name="id_User_sales" ColumnName="id_User_sales" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReviewSalesMasters">
-            <EntityTypeMapping TypeName="SamahModel.ReviewSalesMaster">
-              <MappingFragment StoreEntitySet="ReviewSalesMaster">
-                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
-                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
-                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
-                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
-                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
-                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
-                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
-                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="update_SalesReturn" FunctionName="SamahModel.Store.update_SalesReturn" />
-          <FunctionImportMapping FunctionImportName="update_Sales_Master" FunctionName="SamahModel.Store.update_Sales_Master" />
-          <FunctionImportMapping FunctionImportName="Close_days" FunctionName="SamahModel.Store.Close_days" />
-          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
-            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
-              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReviewSalesItemInfoes">
-            <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
-              <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
-                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
-                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
-                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Purchases_Details">
-            <EntityTypeMapping TypeName="SamahModel.Purchases_Details">
-              <MappingFragment StoreEntitySet="Purchases_Details">
-                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
-                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Purchases_Master">
-            <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
-              <MappingFragment StoreEntitySet="Purchases_Master">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="SamahModel.Supplier">
-              <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="IQ_Purchases_Details">
-            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Details">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Details">
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
-                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
-                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="IQ_Purchases_Master">
-            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="G_SearchForm">
-            <EntityTypeMapping TypeName="SamahModel.G_SearchForm">
-              <MappingFragment StoreEntitySet="G_SearchForm">
-                <ScalarProperty Name="SerachFormTitleA" ColumnName="SerachFormTitleA" />
-                <ScalarProperty Name="SearchInterval" ColumnName="SearchInterval" />
-                <ScalarProperty Name="DataSourceName" ColumnName="DataSourceName" />
-                <ScalarProperty Name="PageSize" ColumnName="PageSize" />
-                <ScalarProperty Name="Width" ColumnName="Width" />
-                <ScalarProperty Name="Height" ColumnName="Height" />
-                <ScalarProperty Name="Top" ColumnName="Top" />
-                <ScalarProperty Name="Left" ColumnName="Left" />
-                <ScalarProperty Name="IsFullScreen" ColumnName="IsFullScreen" />
-                <ScalarProperty Name="SerachFormTitle" ColumnName="SerachFormTitle" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ReturnDataPropertyName" ColumnName="ReturnDataPropertyName" />
-                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="G_SearchFormModule">
-            <EntityTypeMapping TypeName="SamahModel.G_SearchFormModule">
-              <MappingFragment StoreEntitySet="G_SearchFormModule">
-                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
-                <ScalarProperty Name="ControlCode" ColumnName="ControlCode" />
-                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
-                <ScalarProperty Name="SubSystemCode" ColumnName="SubSystemCode" />
-                <ScalarProperty Name="SystemCode" ColumnName="SystemCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="G_SearchFormSetting">
-            <EntityTypeMapping TypeName="SamahModel.G_SearchFormSetting">
-              <MappingFragment StoreEntitySet="G_SearchFormSetting">
-                <ScalarProperty Name="FieldTitleA" ColumnName="FieldTitleA" />
-                <ScalarProperty Name="Language" ColumnName="Language" />
-                <ScalarProperty Name="UseSelectionOperator" ColumnName="UseSelectionOperator" />
-                <ScalarProperty Name="FieldWidth" ColumnName="FieldWidth" />
-                <ScalarProperty Name="Datatype" ColumnName="Datatype" />
-                <ScalarProperty Name="IsReadOnly" ColumnName="IsReadOnly" />
-                <ScalarProperty Name="FieldTitle" ColumnName="FieldTitle" />
-                <ScalarProperty Name="AlternateDataMember" ColumnName="AlternateDataMember" />
-                <ScalarProperty Name="DataMember" ColumnName="DataMember" />
-                <ScalarProperty Name="FieldSequence" ColumnName="FieldSequence" />
-                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
-                <ScalarProperty Name="SearchFormSettingID" ColumnName="SearchFormSettingID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="insert_Purchases_Master" FunctionName="SamahModel.Store.insert_Purchases_Master" />
-          <FunctionImportMapping FunctionImportName="Processes_Purchases" FunctionName="SamahModel.Store.Processes_Purchases" />
-          <FunctionImportMapping FunctionImportName="update_Purchases_Master" FunctionName="SamahModel.Store.update_Purchases_Master" />
           <EntitySetMapping Name="G_MODULES">
             <EntityTypeMapping TypeName="SamahModel.G_MODULES">
               <MappingFragment StoreEntitySet="G_MODULES">
@@ -3131,6 +2748,54 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchForm">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchForm">
+              <MappingFragment StoreEntitySet="G_SearchForm">
+                <ScalarProperty Name="SerachFormTitleA" ColumnName="SerachFormTitleA" />
+                <ScalarProperty Name="SearchInterval" ColumnName="SearchInterval" />
+                <ScalarProperty Name="DataSourceName" ColumnName="DataSourceName" />
+                <ScalarProperty Name="PageSize" ColumnName="PageSize" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Top" ColumnName="Top" />
+                <ScalarProperty Name="Left" ColumnName="Left" />
+                <ScalarProperty Name="IsFullScreen" ColumnName="IsFullScreen" />
+                <ScalarProperty Name="SerachFormTitle" ColumnName="SerachFormTitle" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReturnDataPropertyName" ColumnName="ReturnDataPropertyName" />
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchFormModule">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchFormModule">
+              <MappingFragment StoreEntitySet="G_SearchFormModule">
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+                <ScalarProperty Name="ControlCode" ColumnName="ControlCode" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="SubSystemCode" ColumnName="SubSystemCode" />
+                <ScalarProperty Name="SystemCode" ColumnName="SystemCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="G_SearchFormSetting">
+            <EntityTypeMapping TypeName="SamahModel.G_SearchFormSetting">
+              <MappingFragment StoreEntitySet="G_SearchFormSetting">
+                <ScalarProperty Name="FieldTitleA" ColumnName="FieldTitleA" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="UseSelectionOperator" ColumnName="UseSelectionOperator" />
+                <ScalarProperty Name="FieldWidth" ColumnName="FieldWidth" />
+                <ScalarProperty Name="Datatype" ColumnName="Datatype" />
+                <ScalarProperty Name="IsReadOnly" ColumnName="IsReadOnly" />
+                <ScalarProperty Name="FieldTitle" ColumnName="FieldTitle" />
+                <ScalarProperty Name="AlternateDataMember" ColumnName="AlternateDataMember" />
+                <ScalarProperty Name="DataMember" ColumnName="DataMember" />
+                <ScalarProperty Name="FieldSequence" ColumnName="FieldSequence" />
+                <ScalarProperty Name="SearchFormCode" ColumnName="SearchFormCode" />
+                <ScalarProperty Name="SearchFormSettingID" ColumnName="SearchFormSettingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="G_SUB_SYSTEMS">
             <EntityTypeMapping TypeName="SamahModel.G_SUB_SYSTEMS">
               <MappingFragment StoreEntitySet="G_SUB_SYSTEMS">
@@ -3194,61 +2859,373 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilage" FunctionName="SamahModel.Store.GFunc_GetPrivilage">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilage_Result">
-                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
-                <ScalarProperty Name="Access" ColumnName="Access" />
-                <ScalarProperty Name="Edit" ColumnName="Edit" />
-                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
-                <ScalarProperty Name="Remove" ColumnName="Remove" />
-                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
-                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
-                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
-                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
-                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
-                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
-                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
-                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
-                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
-                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
-                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
-                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
-                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
-                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GFunc_GetPrivilageRole" FunctionName="SamahModel.Store.GFunc_GetPrivilageRole">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SamahModel.GFunc_GetPrivilageRole_Result">
-                <ScalarProperty Name="MODULE_CODE" ColumnName="MODULE_CODE" />
-                <ScalarProperty Name="Access" ColumnName="Access" />
-                <ScalarProperty Name="Edit" ColumnName="Edit" />
-                <ScalarProperty Name="AddNew" ColumnName="AddNew" />
-                <ScalarProperty Name="Remove" ColumnName="Remove" />
-                <ScalarProperty Name="VIEW" ColumnName="VIEW" />
-                <ScalarProperty Name="PrintOut" ColumnName="PrintOut" />
-                <ScalarProperty Name="CUSTOM1" ColumnName="CUSTOM1" />
-                <ScalarProperty Name="CUSTOM2" ColumnName="CUSTOM2" />
-                <ScalarProperty Name="CUSTOM3" ColumnName="CUSTOM3" />
-                <ScalarProperty Name="CUSTOM4" ColumnName="CUSTOM4" />
-                <ScalarProperty Name="CUSTOM5" ColumnName="CUSTOM5" />
-                <ScalarProperty Name="CUSTOM6" ColumnName="CUSTOM6" />
-                <ScalarProperty Name="CUSTOM7" ColumnName="CUSTOM7" />
-                <ScalarProperty Name="CUSTOM8" ColumnName="CUSTOM8" />
-                <ScalarProperty Name="CUSTOM9" ColumnName="CUSTOM9" />
-                <ScalarProperty Name="ViewImages" ColumnName="ViewImages" />
-                <ScalarProperty Name="EditImages" ColumnName="EditImages" />
-                <ScalarProperty Name="AVAILABLE" ColumnName="AVAILABLE" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="familly_Cat">
-            <EntityTypeMapping TypeName="SamahModel.familly_Cat">
-              <MappingFragment StoreEntitySet="familly_Cat">
-                <ScalarProperty Name="Name_familly_Cat" ColumnName="Name_familly_Cat" />
-                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
+          <EntitySetMapping Name="ITEMEs">
+            <EntityTypeMapping TypeName="SamahModel.ITEME">
+              <MappingFragment StoreEntitySet="ITEME">
+                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
+                <ScalarProperty Name="Supplier_Iteme" ColumnName="Supplier_Iteme" />
+                <ScalarProperty Name="DATE_Expir_Iteme" ColumnName="DATE_Expir_Iteme" />
+                <ScalarProperty Name="DATE_Iteme" ColumnName="DATE_Iteme" />
+                <ScalarProperty Name="Pirce_Iteme" ColumnName="Pirce_Iteme" />
+                <ScalarProperty Name="QONTTE_Iteme" ColumnName="QONTTE_Iteme" />
+                <ScalarProperty Name="Type_Iteme" ColumnName="Type_Iteme" />
+                <ScalarProperty Name="ID_Iteme" ColumnName="ID_Iteme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginPages">
+            <EntityTypeMapping TypeName="SamahModel.LoginPage">
+              <MappingFragment StoreEntitySet="LoginPage">
+                <ScalarProperty Name="Open_Login" ColumnName="Open_Login" />
+                <ScalarProperty Name="WepFormLoad" ColumnName="WepFormLoad" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message_Chat">
+            <EntityTypeMapping TypeName="SamahModel.Message_Chat">
+              <MappingFragment StoreEntitySet="Message_Chat">
+                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
+                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
+                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
+                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="ORDER_DELIVERY">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="Name_Pilot" ColumnName="Name_Pilot" />
+                <ScalarProperty Name="type_order" ColumnName="type_order" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="Namber_Order_Delivery" ColumnName="Namber_Order_Delivery" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_SOFRA">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_SOFRA">
+              <MappingFragment StoreEntitySet="ORDER_SOFRA">
+                <ScalarProperty Name="Date_Order_Sofra" ColumnName="Date_Order_Sofra" />
+                <ScalarProperty Name="Namber_Order_Sofra" ColumnName="Namber_Order_Sofra" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
+                <ScalarProperty Name="SERVICE_ORDER_SOFRA" ColumnName="SERVICE_ORDER_SOFRA" />
+                <ScalarProperty Name="TAX_ORDER_SOFRA" ColumnName="TAX_ORDER_SOFRA" />
+                <ScalarProperty Name="QONTTE_ORDER_SOFRA" ColumnName="QONTTE_ORDER_SOFRA" />
+                <ScalarProperty Name="ID_ORDER_SOFRA" ColumnName="ID_ORDER_SOFRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_TECAYE">
+            <EntityTypeMapping TypeName="SamahModel.ORDER_TECAYE">
+              <MappingFragment StoreEntitySet="ORDER_TECAYE">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="type_order" ColumnName="type_order" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="Namber_Order_Tecaye" ColumnName="Namber_Order_Tecaye" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Date_Order_Tecaye" ColumnName="Date_Order_Tecaye" />
+                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outlets">
+            <EntityTypeMapping TypeName="SamahModel.Outlet">
+              <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="serial" ColumnName="serial" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
+                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases_Details">
+            <EntityTypeMapping TypeName="SamahModel.Purchases_Details">
+              <MappingFragment StoreEntitySet="Purchases_Details">
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
+                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
+                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
+              <MappingFragment StoreEntitySet="Purchases_Master">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report_Parameters">
+            <EntityTypeMapping TypeName="SamahModel.Report_Parameters">
+              <MappingFragment StoreEntitySet="Report_Parameters">
+                <ScalarProperty Name="Parameter_9" ColumnName="Parameter_9" />
+                <ScalarProperty Name="Parameter_8" ColumnName="Parameter_8" />
+                <ScalarProperty Name="Parameter_7" ColumnName="Parameter_7" />
+                <ScalarProperty Name="Parameter_6" ColumnName="Parameter_6" />
+                <ScalarProperty Name="Parameter_5" ColumnName="Parameter_5" />
+                <ScalarProperty Name="Parameter_4" ColumnName="Parameter_4" />
+                <ScalarProperty Name="Parameter_3" ColumnName="Parameter_3" />
+                <ScalarProperty Name="Parameter_2" ColumnName="Parameter_2" />
+                <ScalarProperty Name="Parameter_1" ColumnName="Parameter_1" />
+                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Send_Message">
+            <EntityTypeMapping TypeName="SamahModel.Send_Message">
+              <MappingFragment StoreEntitySet="Send_Message">
+                <ScalarProperty Name="open_user" ColumnName="open_user" />
+                <ScalarProperty Name="Text_Send" ColumnName="Text_Send" />
+                <ScalarProperty Name="Date_Send" ColumnName="Date_Send" />
+                <ScalarProperty Name="Name_Send_Message" ColumnName="Name_Send_Message" />
+                <ScalarProperty Name="id_Message" ColumnName="id_Message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="SamahModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings_Report">
+            <EntityTypeMapping TypeName="SamahModel.Settings_Report">
+              <MappingFragment StoreEntitySet="Settings_Report">
+                <ScalarProperty Name="Name_Stored_Report" ColumnName="Name_Stored_Report" />
+                <ScalarProperty Name="Name_Report" ColumnName="Name_Report" />
+                <ScalarProperty Name="ID_Button_Print" ColumnName="ID_Button_Print" />
+                <ScalarProperty Name="ID_Report" ColumnName="ID_Report" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOFRAs">
+            <EntityTypeMapping TypeName="SamahModel.SOFRA">
+              <MappingFragment StoreEntitySet="SOFRA">
+                <ScalarProperty Name="SOFRA_ID" ColumnName="SOFRA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock_ORDER_TECAYE">
+            <EntityTypeMapping TypeName="SamahModel.Stock_ORDER_TECAYE">
+              <MappingFragment StoreEntitySet="Stock_ORDER_TECAYE">
+                <ScalarProperty Name="ID_Order_Tecaye" ColumnName="ID_Order_Tecaye" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="Name_Product_sell" ColumnName="Name_Product_sell" />
+                <ScalarProperty Name="ID_TECAYE" ColumnName="ID_TECAYE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stok_ORDER_DELIVERY">
+            <EntityTypeMapping TypeName="SamahModel.Stok_ORDER_DELIVERY">
+              <MappingFragment StoreEntitySet="Stok_ORDER_DELIVERY">
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOREs">
+            <EntityTypeMapping TypeName="SamahModel.STORE">
+              <MappingFragment StoreEntitySet="STORE">
+                <ScalarProperty Name="NAME_STORE" ColumnName="NAME_STORE" />
+                <ScalarProperty Name="ID_STORE" ColumnName="ID_STORE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="SamahModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SamahModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_two_days">
+            <EntityTypeMapping TypeName="SamahModel.Table_two_days">
+              <MappingFragment StoreEntitySet="Table_two_days">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="The_Gard">
+            <EntityTypeMapping TypeName="SamahModel.The_Gard">
+              <MappingFragment StoreEntitySet="The_Gard">
+                <ScalarProperty Name="Shift_User" ColumnName="Shift_User" />
+                <ScalarProperty Name="Day_Date" ColumnName="Day_Date" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="Outlet" ColumnName="Outlet" />
+                <ScalarProperty Name="Shortage" ColumnName="Shortage" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="PRODUCT_Qut" ColumnName="PRODUCT_Qut" />
+                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
+                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="id_Num" ColumnName="id_Num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_EMPLOYEE">
+            <EntityTypeMapping TypeName="SamahModel.Type_EMPLOYEE">
+              <MappingFragment StoreEntitySet="Type_EMPLOYEE">
+                <ScalarProperty Name="Type_EMP" ColumnName="Type_EMP" />
+                <ScalarProperty Name="id_Type_EMPLOYEE" ColumnName="id_Type_EMPLOYEE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_sales">
+            <EntityTypeMapping TypeName="SamahModel.User_sales">
+              <MappingFragment StoreEntitySet="User_sales">
+                <ScalarProperty Name="id_Settings" ColumnName="id_Settings" />
+                <ScalarProperty Name="id_User_sales" ColumnName="id_User_sales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Purchases_Details">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Details">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Details">
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
+                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
+                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewSalesItemInfoes">
+            <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
+              <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enter_Money">
+            <EntityTypeMapping TypeName="SamahModel.Enter_Money">
+              <MappingFragment StoreEntitySet="Enter_Money">
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Get_Balance" FunctionName="SamahModel.Store.Get_Balance" />
+          <FunctionImportMapping FunctionImportName="Insert_Enter_Money" FunctionName="SamahModel.Store.Insert_Enter_Money" />
+          <EntitySetMapping Name="ReviewSalesMasters">
+            <EntityTypeMapping TypeName="SamahModel.ReviewSalesMaster">
+              <MappingFragment StoreEntitySet="ReviewSalesMaster">
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

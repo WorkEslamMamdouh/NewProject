@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Inv.BLL.Services.GUSERS
+namespace BLL.Services.GUSERS
 {
     public interface IG_USERSService
     {

@@ -61,8 +61,6 @@
     <Compile Include="Services\Item\ItemServices.cs" />
     <Compile Include="Services\SlsTrSales\ISlsTrSalesServices.cs" />
     <Compile Include="Services\SlsTrSales\SlsTrSalesServices.cs" />
-    <Compile Include="Services\Login\LoginServices.cs" />
-    <Compile Include="Services\Login\ILoginServices.cs" />
     <Compile Include="Services\insert_Table\insert_TableServices.cs" />
     <Compile Include="Services\insert_Table\Iinsert_TableServices.cs" />
   </ItemGroup>

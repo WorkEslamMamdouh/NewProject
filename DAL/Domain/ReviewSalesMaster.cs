@@ -19,12 +19,14 @@ namespace DAL.Domain
         public string CUSTOMER_NAME { get; set; }
         public string CUSTOMER_ADDRES { get; set; }
         public string PHONE { get; set; }
-        public int CUSTOMER_ID { get; set; }
         public string CUSTOMER_ADDRES_2 { get; set; }
         public Nullable<decimal> Total_All { get; set; }
         public string EMPLOYEE_NAME { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> ID_User { get; set; }
         public Nullable<int> EMPLOYEE_ID { get; set; }
+        public Nullable<double> Tax { get; set; }
+        public Nullable<bool> Confirmation { get; set; }
+        public string USER_CODE { get; set; }
+        public Nullable<int> CUSTOMER_ID { get; set; }
     }
 }

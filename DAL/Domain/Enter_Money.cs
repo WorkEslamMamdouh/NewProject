@@ -12,13 +12,12 @@ namespace DAL.Domain
     using System;
     using System.Collections.Generic;
     
-    public partial class EMPLOYEE
+    public partial class Enter_Money
     {
-        public int EMPLOYEE_ID { get; set; }
-        public string EMPLOYEE_NAME { get; set; }
-        public string EMPLOYEE_PHONE { get; set; }
-        public Nullable<int> ID_User { get; set; }
-        public Nullable<int> id_Type_EMPLOYEE { get; set; }
-        public string USER_CODE { get; set; }
+        public int id { get; set; }
+        public string Dasc_Name { get; set; }
+        public Nullable<decimal> pirce { get; set; }
+        public Nullable<int> Num_Day { get; set; }
+        public Nullable<int> EMPLOYEE_ID { get; set; }
     }
 }

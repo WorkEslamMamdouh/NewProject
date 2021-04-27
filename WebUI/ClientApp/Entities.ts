@@ -497,23 +497,32 @@ class ReviewSalesMaster extends SecurityClass {
         this.CUSTOMER_NAME = "";
         this.CUSTOMER_ADDRES = "";
         this.PHONE = "";
-        this.CUSTOMER_ID = 0;
         this.CUSTOMER_ADDRES_2 = "";
         this.Total_All
         this.EMPLOYEE_NAME = "";
         this.Date = "";
+        this.EMPLOYEE_ID = 0;
+        this.Tax = 0;
+        this.Confirmation = false;
+        this.USER_CODE = "";
+        this.CUSTOMER_ID = 0;
     }
     public ID_ORDER_Delivery: number;
     public Date_Order_Delivery: string;
     public CUSTOMER_NAME: string;
     public CUSTOMER_ADDRES: string;
     public PHONE: string;
-    public CUSTOMER_ID: number;
     public CUSTOMER_ADDRES_2: string;
     public Total_All: any;
     public EMPLOYEE_NAME: string;
     public Date: string;
+    public EMPLOYEE_ID: number;
+    public Tax: number;
+    public Confirmation: boolean;
+    public USER_CODE: string;
+    public CUSTOMER_ID: number;
 }
+
 
 
 
