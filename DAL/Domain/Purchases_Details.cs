@@ -16,6 +16,7 @@ namespace DAL.Domain
     {
         public int ID { get; set; }
         public int TrNo { get; set; }
+        public Nullable<int> ID_familly_Cat { get; set; }
         public Nullable<int> ID_CAT { get; set; }
         public Nullable<int> PRODUCT_ID { get; set; }
         public Nullable<int> Purchases_Quantity { get; set; }

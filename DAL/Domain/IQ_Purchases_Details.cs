@@ -24,5 +24,6 @@ namespace DAL.Domain
         public Nullable<decimal> MinUnitPrice { get; set; }
         public Nullable<int> PRODUCT_ID { get; set; }
         public int ID_CAT { get; set; }
+        public Nullable<int> ID_familly_Cat { get; set; }
     }
 }

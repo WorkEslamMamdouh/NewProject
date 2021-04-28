@@ -943,6 +943,7 @@ class IQ_Purchases_Details extends SecurityClass {
         this.MinUnitPrice = 0;
         this.PRODUCT_ID = 0;
         this.ID_CAT = 0;
+        this.ID_familly_Cat = 0;
         this.StatusFlag = "";
     }
     public ID: number;
@@ -955,6 +956,7 @@ class IQ_Purchases_Details extends SecurityClass {
     public MinUnitPrice: any;
     public PRODUCT_ID: number;
     public ID_CAT: number;
+    public ID_familly_Cat: number;
     public StatusFlag: string;
 }
 
@@ -977,6 +979,7 @@ class Purchases_Details extends SecurityClass {
         super();
         this.ID = 0;
         this.TrNo = 0;
+        this.ID_familly_Cat = 0;
         this.ID_CAT = 0;
         this.PRODUCT_ID = 0;
         this.Purchases_Quantity = 0;
@@ -987,6 +990,7 @@ class Purchases_Details extends SecurityClass {
     }
     public ID: number;
     public TrNo: number;
+    public ID_familly_Cat: number;
     public ID_CAT: number;
     public PRODUCT_ID: number;
     public Purchases_Quantity: number;

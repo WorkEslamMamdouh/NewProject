@@ -176,7 +176,7 @@ namespace API.Controllers
 
                             //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(TrNo), Convert.ToInt16(item.ID), "i");
 
-                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(TrNo) + "," + Convert.ToInt16(item.ID) + ",'i'";
+                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(TrNo) + "," + Convert.ToInt16(item.ID) + ","+ Convert.ToInt16(item.ID_familly_Cat) + ",'i'";
                             db.Database.ExecuteSqlCommand(Pro_qury);
 
                         }
@@ -188,7 +188,7 @@ namespace API.Controllers
                         {
                             //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "i");
 
-                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'i'";
+                            string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + "," + Convert.ToInt16(item.ID_familly_Cat) + ",'i'";
                             db.Database.ExecuteSqlCommand(Pro_qury);
                             TrNo = item.TrNo;
                         }
@@ -207,7 +207,7 @@ namespace API.Controllers
                         //[Processes_Purchases] 'نتاناتاتييع',11,15,10,30,'NEW MOBILES',2,4,'u'
                         //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "u");
                          
-                        string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'u'";
+                        string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + "," + Convert.ToInt16(item.ID_familly_Cat) + ",'u'";
                         db.Database.ExecuteSqlCommand(Pro_qury);
                         TrNo = item.TrNo;
                     }
@@ -217,7 +217,7 @@ namespace API.Controllers
                 {
                     //db.Processes_Purchases(item.PRODUCT_NAME, Convert.ToInt16(item.Purchases_Quantity), Convert.ToDecimal(item.Purchases_Price), Convert.ToDecimal(item.Sales_Price), Convert.ToDecimal(item.MinUnitPrice), item.Name_CAT, Convert.ToInt16(item.TrNo), Convert.ToInt16(item.ID), "d");
 
-                    string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + ",'d'";
+                    string Pro_qury = "Processes_Purchases  '" + item.PRODUCT_NAME + "'," + Convert.ToInt16(item.Purchases_Quantity) + "," + Convert.ToDecimal(item.Purchases_Price) + ", " + Convert.ToDecimal(item.Sales_Price) + " ," + Convert.ToDecimal(item.MinUnitPrice) + ",'" + item.Name_CAT + "'," + Convert.ToInt16(item.TrNo) + "," + Convert.ToInt16(item.ID) + "," + Convert.ToInt16(item.ID_familly_Cat) + ",'d'";
                     db.Database.ExecuteSqlCommand(Pro_qury);
                     TrNo = item.TrNo;
 

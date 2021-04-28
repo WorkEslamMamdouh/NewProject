@@ -30,6 +30,7 @@ var Purchases;
     var FilteredModel = new Array();
     var GetAllVendorDetails = new Array();
     var SearchVendorDetails = new Array();
+    var Detailsfamilly_Cat = new Array();
     //DropDownlist
     var ddlStateType;
     var ddlVendor;
@@ -84,6 +85,7 @@ var Purchases;
         FillddlVendor();
         FillddlFamily();
         GetAllIItem();
+        FillddlPaymentType();
     }
     Purchases.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -371,6 +373,20 @@ var Purchases;
             }
         });
     }
+    function FillddlPaymentType() {
+        //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("familly_Cat", "GetAll"),
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    debugger;
+                    Detailsfamilly_Cat = result.Response;
+                }
+            }
+        });
+    }
     function FillddlFamily() {
         Ajax.Callsync({
             type: "Get",
@@ -427,176 +443,56 @@ var Purchases;
     function BuildControls(cnt) {
         var html;
         html = '<div id= "No_Row' + cnt + '" class="container-fluid style_border" > <div class="" > <div class="col-lg-12" > ' +
-            '<div class="col-lg-1"style="left: -4%!important;">' +
+            '<div class="col-lg-1"style="width: 3%;">' +
             '<span id="btn_minus' + cnt + '" class="fa fa-minus-circle fontitm3 display_none" style="font-size: 28px;"></span></div>' +
-            '<div class="col-lg-2"style="left:1%!important">' +
+            '<div class="col-lg-2">' +
+            '<select id="ddlfamilly_Cat' + cnt + '" disabled class="form-control"><option value="Null">اختر نوع الفئة</option></select></div>' +
+            '<div class="col-lg-2"style=" ">' +
             '<form> <input list="ddlFamily' + cnt + '"  disabled name="Family' + cnt + '" class="form-control" id="Family' + cnt + '">  <datalist id="ddlFamily' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
-            '<div class="col-lg-2"style="left:1%!important">' +
+            '<div class="col-lg-2"style=" ">' +
             '<form> <input list="ddlItem' + cnt + '" disabled name="Items' + cnt + '" class="form-control" id="Items' + cnt + '">  <datalist id="ddlItem' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
             '<div class="col-lg-1" style=""><input id="txtQuantity' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '<div class="col-lg-1" style=""><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '<div class="col-lg-1" style=""><input id="Sales_Price' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '<div class="col-lg-1" style=""><input id="MinUnitPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             //'<div class="col-lg-1" style=""><input id="txtReturn' + cnt + '" type="number" disabled class="form-control right2"   value=""/></div>' +
-            '<div class="col-lg-2" style=""><input id="txtTotal' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-2" style="width: 12%;"><input id="txtTotal' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             '</div></div></div>' +
             '<input id="txt_StatusFlag' + cnt + '" name = " " type = "hidden" class="form-control"/><input id="txt_ID' + cnt + '" name = " " type = "hidden" class="form-control" /><input id="PRODUCT_ID' + cnt + '" name = " " type = "hidden" class="form-control" />';
         $("#div_Data").append(html);
-        //$("#Family" + cnt).on('input', function () {
-        //    var val = this.value;
-        //    if ($('#ddlFamily' + cnt + ' option').filter(function () {
-        //        return this.value.toUpperCase() === val.toUpperCase();
-        //    }).length) {
-        //        //send ajax request
-        //        //alert(this.getAttribute('data-ID_CAT'));
-        //        //$('#ddlFamily' + cnt + ' option').attr('data-ID_CAT');
-        //        //alert($('option:selected', $('#ddlFamily' + 0 + '')).attr('data-id_cat'));
-        //    }
-        //});
+        for (var i = 0; i < Detailsfamilly_Cat.length; i++) {
+            $('#ddlfamilly_Cat' + cnt).append('<option value="' + Detailsfamilly_Cat[i].ID_familly_Cat + '">' + Detailsfamilly_Cat[i].Name_familly_Cat + '</option>');
+        }
         debugger;
-        $('.btn-number1' + cnt).click(function (e) {
-            e.preventDefault();
-            var fieldName = $(this).attr('data-field');
-            var type = $(this).attr('data-type');
-            var input = $("input[name='" + fieldName + "']");
-            var currentVal = parseFloat(input.val());
-            if (!isNaN(currentVal)) {
-                if (type == 'minus') {
-                    if (currentVal > Number(input.attr('min'))) {
-                        input.val((currentVal - 1)).change();
-                    }
-                    if (parseFloat(input.val()) == Number(input.attr('min'))) {
-                        $(this).val(input.attr('min'));
-                    }
-                }
-                else if (type == 'plus') {
-                    if (currentVal < Number(input.attr('max'))) {
-                        input.val((currentVal + 1)).change();
-                    }
-                    if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
-                        $(this).val(input.attr('max'));
-                    }
+        $("#ddlfamilly_Cat" + cnt).on('change', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i")
+                $("#txt_StatusFlag" + cnt).val("u");
+            debugger;
+            if ($("#ddlfamilly_Cat" + cnt).val() != "Null") {
+                $('#Family' + cnt).removeAttr('disabled');
+                var FamilyDetailsfilter = FamilyDetails.filter(function (x) { return x.ID_familly_Cat == Number($("#ddlfamilly_Cat" + cnt).val()); });
+                $('#ddlFamily' + cnt).empty();
+                for (var i = 0; i < FamilyDetailsfilter.length; i++) {
+                    $('#ddlFamily' + cnt).append('<option data-ID_CAT="' + FamilyDetailsfilter[i].ID_CAT + '" value="' + FamilyDetailsfilter[i].Name_CAT + '">');
                 }
             }
             else {
-                input.val(1);
+                $('#Family' + cnt).attr('disabled', 'disabled');
+                $("#Items" + cnt).attr('disabled', 'disabled');
+                $("#txtQuantity" + cnt).attr('disabled', 'disabled');
+                $("#txtPrice" + cnt).attr('disabled', 'disabled');
+                $("#Sales_Price" + cnt).attr('disabled', 'disabled');
+                $("#MinUnitPrice" + cnt).attr('disabled', 'disabled');
             }
+            $('#Family' + cnt).val("");
+            $("#Items" + cnt).val("");
+            $("#txtQuantity" + cnt).val(0);
+            $("#txtPrice" + cnt).val(0);
+            $("#Sales_Price" + cnt).val(0);
+            $("#MinUnitPrice" + cnt).val(0);
         });
-        $('.input-number1' + cnt).focusin(function () {
-            $(this).data('oldValue', $(this).val());
-        });
-        $('.input-number1' + cnt).change(function () {
-            var minValue = parseInt($(this).attr('min'));
-            var maxValue = parseInt($(this).attr('max'));
-            var valueCurrent = parseInt($(this).val());
-            var name = $(this).attr('name');
-            if (valueCurrent >= minValue) {
-                $(".btn-number1[data-type='minus'][data-field='" + name + "']").removeAttr('disabled');
-            }
-            else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-            if (valueCurrent <= maxValue) {
-                $(".btn-number1[data-type='plus'][data-field='" + name + "']").removeAttr('disabled');
-            }
-            else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-        });
-        $('.input-number1' + cnt).keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
-        //script
-        //script
-        $('.btn-number2' + cnt).click(function (e) {
-            e.preventDefault();
-            var fieldName = $(this).attr('data-field');
-            var type = $(this).attr('data-type');
-            var input = $("input[name='" + fieldName + "']");
-            var currentVal = parseFloat(input.val());
-            if (!isNaN(currentVal)) {
-                if (type == 'minus') {
-                    if (currentVal > Number(input.attr('min'))) {
-                        input.val((currentVal - 1)).change();
-                    }
-                    if (parseFloat(input.val()) == Number(input.attr('min'))) {
-                        $(this).val(input.attr('min'));
-                    }
-                }
-                else if (type == 'plus') {
-                    if (currentVal < Number(input.attr('max'))) {
-                        input.val((currentVal + 1)).change();
-                    }
-                    if (parseFloat(input.val()) == parseFloat(input.attr('max'))) {
-                        $(this).val(input.attr('max'));
-                    }
-                }
-            }
-            else {
-                input.val(1);
-            }
-        });
-        $('.input-number2' + cnt).focusin(function () {
-            $(this).data('oldValue', $(this).val());
-        });
-        $('.input-number2' + cnt).change(function () {
-            var minValue = parseInt($(this).attr('min'));
-            var maxValue = parseInt($(this).attr('max'));
-            var valueCurrent = parseInt($(this).val());
-            var name = $(this).attr('name');
-            if (valueCurrent >= minValue) {
-                $(".btn-number2[data-type='minus'][data-field='" + name + "']").removeAttr('disabled');
-            }
-            else {
-                alert('Sorry, the minimum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-            if (valueCurrent <= maxValue) {
-                $(".btn-number2[data-type='plus'][data-field='" + name + "']").removeAttr('disabled');
-            }
-            else {
-                alert('Sorry, the maximum value was reached');
-                $(this).val($(this).data('oldValue'));
-            }
-        });
-        $('.input-number2' + cnt).keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                // let it happen, don't do anything
-                return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-        });
-        //script
-        //fill dropdownlist
         debugger;
         var drop = '#ddlFamily' + cnt;
-        $('#ddlFamily' + cnt).empty();
-        //$('#ddlFamily' + cnt).append('<option value="' + null + '">' + "اختر النوع" + '</option>');
-        for (var i = 0; i < FamilyDetails.length; i++) {
-            $('#ddlFamily' + cnt).append('<option data-ID_CAT="' + FamilyDetails[i].ID_CAT + '" value="' + FamilyDetails[i].Name_CAT + '">');
-        }
         $('#Family' + cnt).change(function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
@@ -616,6 +512,11 @@ var Purchases;
             $("#txtQuantity" + cnt).val('0');
             $("#txtPrice" + cnt).val('0');
             $("#txtTotal" + cnt).val('0');
+            $("#Items" + cnt).removeAttr("disabled");
+            $("#txtQuantity" + cnt).removeAttr("disabled");
+            $("#txtPrice" + cnt).removeAttr("disabled");
+            $("#Sales_Price" + cnt).removeAttr("disabled");
+            $("#MinUnitPrice" + cnt).removeAttr("disabled");
             ComputeTotals();
         });
         var dropddlItem = '#ddlItem' + cnt;
@@ -727,6 +628,7 @@ var Purchases;
         $("#btnAddDetails").addClass("display_none");
         $("#btn_minus" + cnt).addClass("display_none");
         $("#txt_StatusFlag" + cnt).val("");
+        $("#ddlfamilly_Cat" + cnt).prop("value", AllGetStokItemInfo[cnt].ID_familly_Cat);
         $("#Family" + cnt).prop("value", AllGetStokItemInfo[cnt].Name_CAT);
         var itemcode = AllGetStokItemInfo[cnt].PRODUCT_NAME;
         $("#txt_ID" + cnt).prop("value", AllGetStokItemInfo[cnt].ID);
@@ -763,12 +665,13 @@ var Purchases;
             CountItems = CountItems + 1;
             BuildControls(CountGrid);
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
-            $("#Family" + CountGrid).removeAttr("disabled");
-            $("#Items" + CountGrid).removeAttr("disabled");
-            $("#txtQuantity" + CountGrid).removeAttr("disabled");
-            $("#txtPrice" + CountGrid).removeAttr("disabled");
-            $("#Sales_Price" + CountGrid).removeAttr("disabled");
-            $("#MinUnitPrice" + CountGrid).removeAttr("disabled");
+            $("#ddlfamilly_Cat" + CountGrid).removeAttr("disabled");
+            //$("#Family" + CountGrid).removeAttr("disabled");
+            //$("#Items" + CountGrid).removeAttr("disabled");
+            //$("#txtQuantity" + CountGrid).removeAttr("disabled");
+            //$("#txtPrice" + CountGrid).removeAttr("disabled");
+            //$("#Sales_Price" + CountGrid).removeAttr("disabled");
+            //$("#MinUnitPrice" + CountGrid).removeAttr("disabled");
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
             ComputeTotals();
@@ -782,6 +685,7 @@ var Purchases;
             $("#txt_StatusFlag" + RecNo).val("d");
             CountItems = CountItems - 1;
             ComputeTotals();
+            $("#ddlfamilly_Cat" + RecNo).val("1");
             $("#ddlFamily" + RecNo).val("1");
             $("#ddlItem" + RecNo).val("2");
             $("#txtQuantity" + RecNo).val("1");
@@ -825,11 +729,15 @@ var Purchases;
     function Validation_Grid(rowcount) {
         //else
         debugger;
-        if ($("#Family" + rowcount).val() == "النوع" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-            MessageBox.Show(" برجاءادخال النوع", "خطأ");
+        if ($("#ddlfamilly_Cat" + rowcount).val() == "Null" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            MessageBox.Show(" برجاء أختيار نوع الفئة", "خطأ");
             return false;
         }
-        else if (($("#Items" + rowcount).val() == "null" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+        else if ($("#Family" + rowcount).val() == "" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+            MessageBox.Show(" برجاءادخال الفئة", "خطأ");
+            return false;
+        }
+        else if (($("#Items" + rowcount).val() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال الصنف", "خطأ");
             return false;
         }
@@ -866,6 +774,7 @@ var Purchases;
                 OperationItemSingleModel.ID = 0;
                 OperationItemSingleModel.PRODUCT_ID = 0;
                 OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                 OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                 OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
                 OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
@@ -880,6 +789,7 @@ var Purchases;
                 OperationItemSingleModel.ID = OperationItemID;
                 OperationItemSingleModel.PRODUCT_ID = 0;
                 OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                 OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                 OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
                 OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
@@ -894,6 +804,7 @@ var Purchases;
                     OperationItemSingleModel.StatusFlag = StatusFlag.toString();
                     OperationItemSingleModel.ID = OperationItemID;
                     OperationItemSingleModel.TrNo = $('#txtNumber').val();
+                    OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                     OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                     OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
                     OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
@@ -1072,6 +983,7 @@ var Purchases;
         //$("#txtTo_be_Paid").removeAttr("disabled");
         $("#txtRemarks").removeAttr("disabled");
         for (var i = 0; i < CountGrid + 1; i++) {
+            $("#ddlfamilly_Cat" + i).removeAttr("disabled");
             $("#Family" + i).removeAttr("disabled");
             $("#Items" + i).removeAttr("disabled");
             $("#txtQuantity" + i).removeAttr("disabled");
@@ -1087,6 +999,7 @@ var Purchases;
         $("#txtTo_be_Paid").attr("disabled", "disabled");
         $("#txtRemarks").attr("disabled", "disabled");
         for (var i = 0; i < CountGrid + 1; i++) {
+            $("#ddlfamilly_Cat" + i).attr("disabled", "disabled");
             $("#Family" + i).attr("disabled", "disabled");
             $("#Items" + i).attr("disabled", "disabled");
             $("#txtQuantity" + i).attr("disabled", "disabled");

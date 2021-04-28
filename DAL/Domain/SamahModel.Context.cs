@@ -50,7 +50,6 @@ namespace DAL.Domain
         public virtual DbSet<ORDER_TECAYE> ORDER_TECAYE { get; set; }
         public virtual DbSet<Outlet> Outlets { get; set; }
         public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
-        public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
         public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
         public virtual DbSet<Send_Message> Send_Message { get; set; }
@@ -66,11 +65,12 @@ namespace DAL.Domain
         public virtual DbSet<The_Gard> The_Gard { get; set; }
         public virtual DbSet<Type_EMPLOYEE> Type_EMPLOYEE { get; set; }
         public virtual DbSet<User_sales> User_sales { get; set; }
-        public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
         public virtual DbSet<Enter_Money> Enter_Money { get; set; }
         public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
+        public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
+        public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -985,7 +985,7 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Purchases_Master", tr_DateParameter, iD_SupplierParameter, type_DebitParameter, total_AmountParameter, paid_UpParameter, to_be_PaidParameter, rEMARKSParameter);
         }
     
-        public virtual ObjectResult<string> Processes_Purchases(string pRODUCT_NAME, Nullable<int> pRODUCT_QET, Nullable<decimal> pRODUCT_Purchasing_price, Nullable<decimal> pRODUCT_PRICE, Nullable<decimal> minUnitPrice, string name_CAT, Nullable<int> trNo, Nullable<int> iD_Details, string statusFlag)
+        public virtual ObjectResult<string> Processes_Purchases(string pRODUCT_NAME, Nullable<int> pRODUCT_QET, Nullable<decimal> pRODUCT_Purchasing_price, Nullable<decimal> pRODUCT_PRICE, Nullable<decimal> minUnitPrice, string name_CAT, Nullable<int> trNo, Nullable<int> iD_Details, Nullable<int> iD_familly_Cat, string statusFlag)
         {
             var pRODUCT_NAMEParameter = pRODUCT_NAME != null ?
                 new ObjectParameter("PRODUCT_NAME", pRODUCT_NAME) :
@@ -1019,11 +1019,15 @@ namespace DAL.Domain
                 new ObjectParameter("ID_Details", iD_Details) :
                 new ObjectParameter("ID_Details", typeof(int));
     
+            var iD_familly_CatParameter = iD_familly_Cat.HasValue ?
+                new ObjectParameter("ID_familly_Cat", iD_familly_Cat) :
+                new ObjectParameter("ID_familly_Cat", typeof(int));
+    
             var statusFlagParameter = statusFlag != null ?
                 new ObjectParameter("StatusFlag", statusFlag) :
                 new ObjectParameter("StatusFlag", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Processes_Purchases", pRODUCT_NAMEParameter, pRODUCT_QETParameter, pRODUCT_Purchasing_priceParameter, pRODUCT_PRICEParameter, minUnitPriceParameter, name_CATParameter, trNoParameter, iD_DetailsParameter, statusFlagParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Processes_Purchases", pRODUCT_NAMEParameter, pRODUCT_QETParameter, pRODUCT_Purchasing_priceParameter, pRODUCT_PRICEParameter, minUnitPriceParameter, name_CATParameter, trNoParameter, iD_DetailsParameter, iD_familly_CatParameter, statusFlagParameter);
         }
     
         public virtual int update_Purchases_Master(Nullable<int> trNo, string tr_Date, Nullable<int> iD_Supplier, Nullable<bool> type_Debit, Nullable<decimal> total_Amount, Nullable<decimal> paid_Up, Nullable<decimal> to_be_Paid, string rEMARKS)
