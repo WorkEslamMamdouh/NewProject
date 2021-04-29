@@ -28,7 +28,6 @@
         <EntityTypeShape EntityType="SamahModel.ORDER_TECAYE" Width="1.5" PointX="2.75" PointY="13.75" />
         <EntityTypeShape EntityType="SamahModel.Outlet" Width="1.5" PointX="4.75" PointY="13.75" />
         <EntityTypeShape EntityType="SamahModel.PRODUCT" Width="1.5" PointX="14.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SamahModel.Purchases_Master" Width="1.5" PointX="14.75" PointY="8.75" />
         <EntityTypeShape EntityType="SamahModel.Report_Parameters" Width="1.5" PointX="10.75" PointY="14.75" />
         <EntityTypeShape EntityType="SamahModel.Send_Message" Width="1.5" PointX="14.75" PointY="12.75" />
         <EntityTypeShape EntityType="SamahModel.Setting" Width="1.5" PointX="12.75" PointY="15.75" />
@@ -43,12 +42,13 @@
         <EntityTypeShape EntityType="SamahModel.The_Gard" Width="1.5" PointX="16.75" PointY="15.75" />
         <EntityTypeShape EntityType="SamahModel.Type_EMPLOYEE" Width="1.5" PointX="0.75" PointY="17.75" />
         <EntityTypeShape EntityType="SamahModel.User_sales" Width="1.5" PointX="18.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Master" Width="1.5" PointX="18.75" PointY="7.75" />
         <EntityTypeShape EntityType="SamahModel.ReviewSalesItemInfo" Width="1.5" PointX="8.75" PointY="18.75" />
         <EntityTypeShape EntityType="SamahModel.Enter_Money" Width="1.5" PointX="11.375" PointY="18.75" />
         <EntityTypeShape EntityType="SamahModel.ReviewSalesMaster" Width="1.5" PointX="13.375" PointY="18.75" />
         <EntityTypeShape EntityType="SamahModel.Purchases_Details" Width="1.5" PointX="19.375" PointY="3.75" />
-        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Details" Width="1.5" PointX="19.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Details" Width="1.875" PointX="19.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SamahModel.Purchases_Master" Width="1.5" PointX="19.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SamahModel.IQ_Purchases_Master" Width="1.5" PointX="15.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

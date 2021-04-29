@@ -94,6 +94,9 @@ namespace Purchases {
     var ID_Supp;
     var AddNew;
     var CashTot;
+    var Success_Balance = true;
+    var Bal = 0;
+    var IsSuccess = false;
 
     export function InitalizeComponent() {
 
@@ -360,6 +363,7 @@ namespace Purchases {
     }
     function btnExecute_onclick() {
         debugger
+        Bal = 0;
         var ValidDataFlag = true;
         FilteredModel = divMasterGrid.DataSource;
         /////////
@@ -376,59 +380,77 @@ namespace Purchases {
                     break;
                 }
 
+                Bal += cash;
+
+            }
+        }
+
+
+        Get_balance();// Chack Balance
+        if (Success_Balance == false) {
+
+            Success_Balance = true;
+            ValidDataFlag = false;
+
+        } else {
+
+            if (ValidDataFlag == true) {
+                ValidDataFlag = false;
+                UpdatedModel = divMasterGrid.DataSource;
+                UpdatedModel = UpdatedModel.filter(s => s.CashPaidAmount != 0 && s.CashPaidAmount != null);
+                for (var i = 0; i < UpdatedModel.length; i++) {
+                    var cash: number = UpdatedModel[i].CashPaidAmount;
+                    var Paid_Up: number = UpdatedModel[i].Paid_Up;
+                    var To_be_Paid: number = UpdatedModel[i].To_be_Paid;
+
+                    UpdatedModel[i].Paid_Up = Paid_Up + cash;
+                    UpdatedModel[i].To_be_Paid = To_be_Paid - cash;
+                    UpdatedModel[i].Type_Debit = UpdatedModel[i].To_be_Paid == 0 ? true : false;
+
+                }
+
+                if (UpdatedModel.length > 0) {
+                    console.log(UpdatedModel);
+                    Ajax.Callsync({
+                        type: "POST",
+                        url: sys.apiUrl("Purchases", "UpdatePurchases_Master"),
+                        data: JSON.stringify(UpdatedModel),
+                        success: (d) => {
+                            let result = d as BaseResponse;
+                            if (result.IsSuccess) {
+                                debugger
+                                let res = result.Response
+                                MessageBox.Show("تم الحفظ بنجاح", "تم");
+
+                                btnBack_onclick();
+
+                                //Display();
+                                btnShow_onclick();
+                                IsSuccess = true;
+
+                            }
+                            else {
+                                MessageBox.Show("خطأء", "خطأء");
+
+                            }
+                        }
+                    });
+                }
+                else {
+
+                    MessageBox.Show('( لا توجد فواتير مسدده كي يتم التنفيذ )', "تم");
+
+                }
+
+            }
+
+            if (IsSuccess != false) {
+                Outpirce(Bal);
             }
         }
 
         ////////////////
-        if (ValidDataFlag == true) {
-            ValidDataFlag = false;
-            UpdatedModel = divMasterGrid.DataSource;
-            UpdatedModel = UpdatedModel.filter(s => s.CashPaidAmount != 0 && s.CashPaidAmount != null);
-            for (var i = 0; i < UpdatedModel.length; i++) {
-                var cash: number = UpdatedModel[i].CashPaidAmount;
-                var Paid_Up: number = UpdatedModel[i].Paid_Up;
-                var To_be_Paid: number = UpdatedModel[i].To_be_Paid;
 
-                UpdatedModel[i].Paid_Up = Paid_Up + cash;
-                UpdatedModel[i].To_be_Paid = To_be_Paid - cash;
-                UpdatedModel[i].Type_Debit = UpdatedModel[i].To_be_Paid == 0 ? true : false;
-
-            }
-
-            if (UpdatedModel.length > 0) {
-                console.log(UpdatedModel);
-                Ajax.Callsync({
-                    type: "POST",
-                    url: sys.apiUrl("Purchases", "UpdatePurchases_Master"),
-                    data: JSON.stringify(UpdatedModel),
-                    success: (d) => {
-                        let result = d as BaseResponse;
-                        if (result.IsSuccess) {
-                            debugger
-                            let res = result.Response
-                            MessageBox.Show("تم الحفظ بنجاح", "تم");
-
-                            btnBack_onclick();
-
-                            //Display();
-                            btnShow_onclick();
-
-
-                        }
-                        else {
-                            MessageBox.Show("خطأء", "خطأء");
-
-                        }
-                    }
-                });
-            }
-            else {
-
-                MessageBox.Show('( لا توجد فواتير مسدده كي يتم التنفيذ )', "تم");
-
-            }
-
-        }
     }
 
 
@@ -575,10 +597,11 @@ namespace Purchases {
             '<form> <input list="ddlFamily' + cnt + '"  disabled name="Family' + cnt + '" class="form-control" id="Family' + cnt + '">  <datalist id="ddlFamily' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
             '<div class="col-lg-2"style=" ">' +
             '<form> <input list="ddlItem' + cnt + '" disabled name="Items' + cnt + '" class="form-control" id="Items' + cnt + '">  <datalist id="ddlItem' + cnt + '"> <option value="اختر النوع"> </datalist>  </form></div>' +
-            '<div class="col-lg-1" style=""><input id="txtQuantity' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
-            '<div class="col-lg-1" style=""><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
-            '<div class="col-lg-1" style=""><input id="Sales_Price' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
-            '<div class="col-lg-1" style=""><input id="MinUnitPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style="width: 7%;"><input id="txtQuantity' + cnt + '" data-qet="0" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style="width: 7%;"><input id="txtQuantityRetrun' + cnt + '" data-product_qet_stock="0" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style="width: 7%;"><input id="txtPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1" style="width: 7%;"><input id="Sales_Price' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
+            '<div class="col-lg-1"style="width: 7%;"><input id="MinUnitPrice' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
             //'<div class="col-lg-1" style=""><input id="txtReturn' + cnt + '" type="number" disabled class="form-control right2"   value=""/></div>' +
             '<div class="col-lg-2" style="width: 12%;"><input id="txtTotal' + cnt + '" type="number" disabled class="form-control right2"   value="0"/></div>' +
 
@@ -623,7 +646,7 @@ namespace Purchases {
                 $("#Sales_Price" + cnt).attr('disabled', 'disabled');
                 $("#MinUnitPrice" + cnt).attr('disabled', 'disabled');
 
-            
+
 
             }
             $('#Family' + cnt).val("");
@@ -773,7 +796,13 @@ namespace Purchases {
         $("#Sales_Price" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
-            $("#MinUnitPrice" + cnt).val($("#Sales_Price" + cnt).val() - 1);
+
+            if (Number($("#Sales_Price" + cnt).val()) < 0) {
+                $("#Sales_Price" + cnt).val("0");
+            }
+            else {
+                $("#MinUnitPrice" + cnt).val($("#Sales_Price" + cnt).val() - 1);
+            }
         });
         $("#MinUnitPrice" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -794,7 +823,57 @@ namespace Purchases {
 
         });
 
+        $("#txtQuantityRetrun" + cnt).on('keyup', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != "i")
+                $("#txt_StatusFlag" + cnt).val("u");
 
+            debugger
+            if (Number($("#txtQuantityRetrun" + cnt).val()) < 0) {
+                $("#txtQuantityRetrun" + cnt).val("0");
+            }
+            else {
+
+                let chack
+
+                if (Number($("#txtQuantity" + cnt).attr('data-qet')) < Number($("#txtQuantityRetrun" + cnt).attr('data-product_qet_stock'))) {
+                    chack = Number($("#txtQuantity" + cnt).attr('data-qet'));
+                }
+                else {
+                    chack = Number($("#txtQuantityRetrun" + cnt).attr('data-product_qet_stock'));
+
+                }
+
+
+
+                if ($("#txtQuantity" + cnt).val() != "" || $("#Sales_Price" + cnt).val() != 0) {
+
+                    let qet = Number($("#txtQuantity" + cnt).attr('data-qet')) - Number($("#txtQuantityRetrun" + cnt).val())
+                    $("#txtQuantity" + cnt).val(qet);
+
+                }
+                if (Number(chack) < Number($("#txtQuantityRetrun" + cnt).val())) {
+                    MessageBox.Show('يجب ان يكون متساوي للكميه الموجوده ( ' + chack + ' )', 'خطأ');
+
+                    let quut = chack - Number($("#txtQuantity" + cnt).attr('data-qet'));
+
+                    if (quut < 0) {
+                        quut = quut * -1;
+                    }
+
+                    $("#txtQuantity" + cnt).val(quut);
+                    $("#txtQuantityRetrun" + cnt).val(chack);
+
+                }
+
+                var total = (Number($("#txtQuantity" + cnt).val()) * Number($("#txtPrice" + cnt).val()))/* - (Number(txtQuantityReturnValue) *0)*/;
+                $("#txtTotal" + cnt).val(total);
+
+                ComputeTotals();
+            }
+
+          
+
+        });
 
 
         $("#btn_minus" + cnt).on('click', function () {
@@ -826,6 +905,8 @@ namespace Purchases {
         $('#PRODUCT_ID' + cnt).val(AllGetStokItemInfo[cnt].PRODUCT_ID);
         $("#Items" + cnt).prop("value", itemcode.toString());
         $("#txtQuantity" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
+        $("#txtQuantity" + cnt).attr("data-Qet", ((AllGetStokItemInfo[cnt].Purchases_Quantity == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Quantity));
+        $("#txtQuantityRetrun" + cnt).attr("data-PRODUCT_QET_Stock", ((AllGetStokItemInfo[cnt].PRODUCT_QET == null || undefined) ? 0 : AllGetStokItemInfo[cnt].PRODUCT_QET));
         $("#txtPrice" + cnt).prop("value", (AllGetStokItemInfo[cnt].Purchases_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Purchases_Price);
         $("#Sales_Price" + cnt).prop("value", ((AllGetStokItemInfo[cnt].Sales_Price == null || undefined) ? 0 : AllGetStokItemInfo[cnt].Sales_Price));
         $("#MinUnitPrice" + cnt).prop("value", ((AllGetStokItemInfo[cnt].MinUnitPrice == null || undefined) ? 0 : AllGetStokItemInfo[cnt].MinUnitPrice));
@@ -885,22 +966,35 @@ namespace Purchases {
         if (!SysSession.CurrentPrivileges.Remove) return;
         WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
             //////debugger;
-            $("#txt_StatusFlag" + RecNo).val("d");
-            CountItems = CountItems - 1;
-            ComputeTotals();
-            
-            $("#ddlfamilly_Cat" + RecNo).val("1");
-            $("#ddlFamily" + RecNo).val("1");
-            $("#ddlItem" + RecNo).val("2");
-            $("#txtQuantity" + RecNo).val("1");
-            $("#txtPrice" + RecNo).val("1");
-            $("#txtQuantityReturnValue" + RecNo).val("0");
-            $("#txtAddons" + RecNo).val("0");
-            $("#txtTotAddons" + RecNo).val("0");
-            $("#txtTax" + RecNo).val("0");
-            $("#No_Row" + RecNo).attr("hidden", "true");
-            $("#txtCode" + RecNo).val("000");
-            ComputeTotals();
+            let chack
+
+            if (Number($("#txtQuantity" + RecNo).attr('data-qet')) <= Number($("#txtQuantityRetrun" + RecNo).attr('data-product_qet_stock'))) {
+                chack = Number($("#txtQuantity" + RecNo).attr('data-qet'));
+
+                $("#txt_StatusFlag" + RecNo).val("d");
+                CountItems = CountItems - 1;
+                ComputeTotals();
+
+                $("#ddlfamilly_Cat" + RecNo).val("1");
+                $("#ddlFamily" + RecNo).val("1");
+                $("#ddlItem" + RecNo).val("2");
+                $("#txtQuantity" + RecNo).val("1");
+                $("#txtPrice" + RecNo).val("1");
+                $("#txtQuantityRetrun" + RecNo).val("0");
+                $("#txtAddons" + RecNo).val("0");
+                $("#txtTotAddons" + RecNo).val("0");
+                $("#txtTax" + RecNo).val("0");
+                $("#No_Row" + RecNo).attr("hidden", "true");
+                $("#txtCode" + RecNo).val("000");
+                ComputeTotals();
+            }
+            else {
+                chack = Number($("#txtQuantityRetrun" + RecNo).attr('data-product_qet_stock'));
+
+                alert('لا يمكنك الحزف لانه تم السحب منه في عملية البيع ');
+            }
+
+
         });
     }
     function checkRepeatedItems(itemValue: number, familyValue: number) {
@@ -1001,12 +1095,11 @@ namespace Purchases {
         var StatusFlag: String;
 
 
-
+        Bal = 0;
 
         for (var i = 0; i <= CountGrid + 1; i++) {
             OperationItemSingleModel = new IQ_Purchases_Details();
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            $("#txt_StatusFlag" + i).val("");
 
             if (StatusFlag == "i") {
                 OperationItemSingleModel.StatusFlag = StatusFlag.toString();
@@ -1071,6 +1164,11 @@ namespace Purchases {
         PurMasterDetails.Purchases_Master.Paid_Up = $('#txtPaid_Up').val();
         PurMasterDetails.Purchases_Master.To_be_Paid = $('#txtTo_be_Paid').val();
         PurMasterDetails.Purchases_Master.REMARKS = $('#txtRemarks').val();
+
+        Bal = Number($('#txtPaid_Up').val());
+
+
+
     }
     function Update() {
         debugger
@@ -1083,7 +1181,8 @@ namespace Purchases {
                 if (result.IsSuccess) {
                     debugger
                     let res = result.Response
-                    MessageBox.Show("تم الحفظ بنجاح", "تم");
+                    //MessageBox.Show("تم الحفظ بنجاح", "تم");
+                    alert('تم الحفظ بنجاح');
 
                     btnBack_onclick();
 
@@ -1100,8 +1199,13 @@ namespace Purchases {
                     $("#divTotalSatistics").removeClass("display_none");
                     DisplayData(Selected_Data);
 
+                    IsSuccess = true;
+
                 }
                 else {
+
+                    IsSuccess = false;
+
                     MessageBox.Show("خطأء", "خطأء");
 
                 }
@@ -1109,11 +1213,93 @@ namespace Purchases {
         });
 
     }
+    function Get_balance() {
+
+        Success_Balance = true;
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Get_Balance"),
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Balance = result.Response;
+
+                    if (Balance < Number(Bal)) {
+                        MessageBox.Show('لا يوجد مبلغ كافي لاتمام الشراء ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
+
+                        Success_Balance = false;
+                    }
+
+                }
+                else {
+                    Success_Balance = false;
+
+
+
+                }
+            }
+        });
+
+
+
+    }
+    function Outpirce(pirce: number) {
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Insert"),
+            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Outlet = result.Response;
+                    if (Outlet == pirce) {
+
+
+                    }
+                    else {
+                        MessageBox.Show(" خطأ لا يوجد مبلغ كافي  (" + Outlet + ")", "خطأ");
+                    }
+
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+
+
+    }
+    function Enter_Money(pirce: number) {
+
+
+        var Dasc_Name = 'مرتجع مشتريات';
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Outlet = result.Response;
+                }
+                else {
+
+                    MessageBox.Show(result.ErrorMessage, "خطأ");
+                }
+            }
+        });
+    }
     ////----------------------------------------------------------------------------------------------------------------------------
 
 
-    ////-------------------------------------------------------button---Save and Back and Eidt--------------------------------------
-
+    ////-------------------------------------------------------button---Save and Back and Eidt-------------------------------------- 
     function btnAdd_onclick() {
 
         AddNew = true;
@@ -1149,6 +1335,8 @@ namespace Purchases {
 
         $("#rowData").removeClass("display_none");
         $("#divTotalSatistics").removeClass("display_none");
+
+        ID_Supp = 0;
     }
     function Update_onclick() {
 
@@ -1165,7 +1353,19 @@ namespace Purchases {
         $(".fontitm3").removeClass("display_none");
         $("#btnAddDetails").removeClass("display_none");
 
-        remove_disabled_Grid_Controls();
+        $("#txtDate").removeAttr("disabled");
+        //$("#txtPaid_Up").removeAttr("disabled");
+        //$("#txtTo_be_Paid").removeAttr("disabled");
+        $("#txtRemarks").removeAttr("disabled");
+        //remove_disabled_Grid_Controls();
+        for (var i = 0; i < CountGrid + 1; i++) {
+
+            $("#txtQuantityRetrun" + i).removeAttr("disabled");
+            $("#txtPrice" + i).removeAttr("disabled");
+            $("#Sales_Price" + i).removeAttr("disabled");
+            $("#MinUnitPrice" + i).removeAttr("disabled");
+
+        }
 
 
     }
@@ -1213,11 +1413,9 @@ namespace Purchases {
     function btnSave_onclick() {
         //alert('ok');
         debugger
+        if (ID_Supp == 0) {
 
-
-        if (Number($("#txtTo_be_Paid").val()) < 0 || Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
-
-            MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+            MessageBox.Show(" برجاءادخال المورد ", "خطأ");
 
             return false
         }
@@ -1227,6 +1425,13 @@ namespace Purchases {
 
             return false
         }
+        if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
+
+            MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+
+            return false
+        }
+
         else {
 
             var CanAdd: boolean = true;
@@ -1239,10 +1444,53 @@ namespace Purchases {
                     }
                 }
             }
-            if (CanAdd) {
+            if (CanAdd) {//add
+                IsSuccess = false;
+                if ($('#txtNumber').val() == '') {
 
-                Assign();
-                Update();
+                    //alert('Add');
+                    Assign();
+                    Get_balance();
+                    if (Success_Balance == false) {
+
+                        Success_Balance = true;
+                        return
+                    } else {
+
+                        Update();
+
+                        if (IsSuccess != false) {
+                            Outpirce(Bal);
+                        }
+                    }
+
+                }
+                else {//Edit
+
+                    if (Number($("#txtTo_be_Paid").val()) < 0) {
+
+                        let Paid = Number($("#txtTo_be_Paid").val()) * -1;
+
+                        WorningMessage(" برجاءاستلام (" + Paid + ")ج من المورد ", "Do you want to delete?", "تحذير", "worning", () => {
+
+                            $("#txtPaid_Up").val((Number($("#txtPaid_Up").val()) - Paid).toString());
+                            $("#txtTo_be_Paid").val(0);
+                            Assign();
+                            Update();
+                            if (IsSuccess != false) {
+                                Enter_Money(Paid);
+                            }
+                        });
+
+                    }
+                    else {
+                        Assign();
+                        Update();
+                    }
+
+
+                }
+
             }
         }
 
@@ -1265,8 +1513,6 @@ namespace Purchases {
         });
 
     }
-
-
     function clear() {
         $('#txtNumber').val('');
         $('#txtName_Supplier').val('');
@@ -1277,6 +1523,8 @@ namespace Purchases {
         $('#txtRemarks').val('');
         $('#txtTotal').val('');
         $('#txtItemCount').val('');
+
+
     }
     function remove_disabled_Grid_Controls() {
 
@@ -1294,6 +1542,8 @@ namespace Purchases {
             $("#txtPrice" + i).removeAttr("disabled");
             $("#Sales_Price" + i).removeAttr("disabled");
             $("#MinUnitPrice" + i).removeAttr("disabled");
+            $("#txt_StatusFlag" + i).val("");
+
             //$("#txtTotal" + i).removeAttr("disabled");
 
         }
@@ -1313,13 +1563,15 @@ namespace Purchases {
             $("#Family" + i).attr("disabled", "disabled");
             $("#Items" + i).attr("disabled", "disabled");
             $("#txtQuantity" + i).attr("disabled", "disabled");
+            $("#txtQuantityRetrun" + i).attr("disabled", "disabled");
             $("#txtPrice" + i).attr("disabled", "disabled");
             $("#Sales_Price" + i).attr("disabled", "disabled");
             $("#txtMinPrice" + i).attr("disabled", "disabled");
+            $("#txt_StatusFlag" + i).val("");
+
             //$("#txtScrapQty" + i).attr("disabled", "disabled");
         }
     }
-
     function PrintReport() {
         debugger
 

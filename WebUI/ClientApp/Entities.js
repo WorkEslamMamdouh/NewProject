@@ -664,6 +664,7 @@ var IQ_Purchases_Details = (function (_super) {
         _this.PRODUCT_ID = 0;
         _this.ID_CAT = 0;
         _this.ID_familly_Cat = 0;
+        _this.PRODUCT_QET = 0;
         _this.StatusFlag = "";
         return _this;
     }

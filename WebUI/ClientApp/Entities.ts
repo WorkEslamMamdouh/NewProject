@@ -944,6 +944,7 @@ class IQ_Purchases_Details extends SecurityClass {
         this.PRODUCT_ID = 0;
         this.ID_CAT = 0;
         this.ID_familly_Cat = 0;
+        this.PRODUCT_QET = 0; 
         this.StatusFlag = "";
     }
     public ID: number;
@@ -957,6 +958,7 @@ class IQ_Purchases_Details extends SecurityClass {
     public PRODUCT_ID: number;
     public ID_CAT: number;
     public ID_familly_Cat: number;
+    public PRODUCT_QET: number;
     public StatusFlag: string;
 }
 

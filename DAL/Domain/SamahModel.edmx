@@ -396,7 +396,7 @@
           <Property Name="Total_Amount" Type="money" />
           <Property Name="Paid_Up" Type="money" />
           <Property Name="To_be_Paid" Type="money" />
-          <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="1000" />
           <Property Name="Num_Day" Type="int" />
         </EntityType>
         <EntityType Name="Report_Parameters">
@@ -556,6 +556,7 @@ warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Details' does not have a
           <Property Name="PRODUCT_ID" Type="int" />
           <Property Name="ID_CAT" Type="int" Nullable="false" />
           <Property Name="ID_familly_Cat" Type="int" />
+          <Property Name="PRODUCT_QET" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Master' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -575,7 +576,7 @@ warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Master' does not have a 
           <Property Name="IS_Active" Type="bit" />
           <Property Name="Paid_Up" Type="money" />
           <Property Name="To_be_Paid" Type="money" />
-          <Property Name="REMARKS" Type="nvarchar" MaxLength="500" />
+          <Property Name="REMARKS" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.ReviewSalesItemInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1011,7 +1012,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
     [IQ_Purchases_Details].[MinUnitPrice] AS [MinUnitPrice], 
     [IQ_Purchases_Details].[PRODUCT_ID] AS [PRODUCT_ID], 
     [IQ_Purchases_Details].[ID_CAT] AS [ID_CAT], 
-    [IQ_Purchases_Details].[ID_familly_Cat] AS [ID_familly_Cat]
+    [IQ_Purchases_Details].[ID_familly_Cat] AS [ID_familly_Cat], 
+    [IQ_Purchases_Details].[PRODUCT_QET] AS [PRODUCT_QET]
     FROM [dbo].[IQ_Purchases_Details] AS [IQ_Purchases_Details]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="IQ_Purchases_Master" EntityType="Self.IQ_Purchases_Master" store:Type="Views" store:Schema="dbo">
@@ -1397,7 +1399,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
           <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
           <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
-          <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
           <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
           <EntitySet Name="Send_Message" EntityType="SamahModel.Send_Message" />
           <EntitySet Name="Settings" EntityType="SamahModel.Setting" />
@@ -1412,7 +1413,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="The_Gard" EntityType="SamahModel.The_Gard" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
           <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
-          <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
           <EntitySet Name="Enter_Money" EntityType="SamahModel.Enter_Money" />
           <FunctionImport Name="Get_Balance" ReturnType="Collection(Decimal)" />
@@ -1424,6 +1424,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
+          <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
+          <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -2014,20 +2016,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="ID_CAT" Type="Int32" />
           <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Num_Day" Type="Int32" />
-        </EntityType>
         <EntityType Name="Report_Parameters">
           <Key>
             <PropertyRef Name="id" />
@@ -2166,24 +2154,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="id_User_sales" Type="Int32" Nullable="false" />
           <Property Name="id_Settings" Type="Int32" />
         </EntityType>
-        <EntityType Name="IQ_Purchases_Master">
-          <Key>
-            <PropertyRef Name="TrNo" />
-          </Key>
-          <Property Name="TrNo" Type="Int32" Nullable="false" />
-          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Supplier" Type="Int32" />
-          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Debit" Type="Boolean" />
-          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IS_Active" Type="Boolean" />
-          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="REMARKS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="ReviewSalesItemInfo">
           <Key>
             <PropertyRef Name="ID_DELIVERY" />
@@ -2260,6 +2230,39 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="PRODUCT_ID" Type="Int32" />
           <Property Name="ID_CAT" Type="Int32" Nullable="false" />
           <Property Name="ID_familly_Cat" Type="Int32" />
+          <Property Name="PRODUCT_QET" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Day" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IQ_Purchases_Master">
+          <Key>
+            <PropertyRef Name="TrNo" />
+          </Key>
+          <Property Name="TrNo" Type="Int32" Nullable="false" />
+          <Property Name="Tr_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Supplier" Type="Int32" />
+          <Property Name="Name_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Debit" Type="Boolean" />
+          <Property Name="Total_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Supplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Active" Type="Boolean" />
+          <Property Name="Paid_Up" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2970,21 +2973,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Purchases_Master">
-            <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
-              <MappingFragment StoreEntitySet="Purchases_Master">
-                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Report_Parameters">
             <EntityTypeMapping TypeName="SamahModel.Report_Parameters">
               <MappingFragment StoreEntitySet="Report_Parameters">
@@ -3137,25 +3125,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IQ_Purchases_Master">
-            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
-              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
-                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
-                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
-                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
-                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
-                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
-                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
-                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
-                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
-                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ReviewSalesItemInfoes">
             <EntityTypeMapping TypeName="SamahModel.ReviewSalesItemInfo">
               <MappingFragment StoreEntitySet="ReviewSalesItemInfo">
@@ -3224,6 +3193,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="IQ_Purchases_Details">
             <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Details">
               <MappingFragment StoreEntitySet="IQ_Purchases_Details">
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
                 <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
                 <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
                 <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
@@ -3235,6 +3205,40 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
                 <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
                 <ScalarProperty Name="TrNo" ColumnName="TrNo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.Purchases_Master">
+              <MappingFragment StoreEntitySet="Purchases_Master">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Purchases_Master">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Purchases_Master">
+              <MappingFragment StoreEntitySet="IQ_Purchases_Master">
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
