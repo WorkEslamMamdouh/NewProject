@@ -60,9 +60,11 @@ var SlsTrSalesReturn;
     var btnAddDetailsCharge;
     var btnAddDetailslebel;
     var searchbutmemreport;
+    var Success_Balance = true;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
+    var Bal = 0;
     function InitalizeComponent() {
         debugger;
         InitalizeControls();
@@ -843,6 +845,7 @@ var SlsTrSalesReturn;
         var StatusFlag;
         SlsMasterDetils.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
         SlsMasterDetils.UserCode = SysSession.CurrentEnvironment.UserCode;
+        Bal = 0;
         for (var i = 0; i <= CountGrid + 1; i++) {
             OperationItemSingleModel = new Stok_ORDER_DELIVERY();
             StatusFlag = $("#txt_StatusFlag" + i).val();
@@ -874,6 +877,10 @@ var SlsTrSalesReturn;
                     OperationItemSingleModel.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
                     SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
                 }
+            }
+            debugger;
+            if ($('#txtReturn' + i).val() > 0) {
+                Bal += (Number($('#txtReturn' + i).val()) * Number($("#txtPrice" + i).val()));
             }
         }
         SlsMasterDetils.I_Sls_TR_Invoice.Total_All = $('#txtTotal').val();
@@ -944,7 +951,35 @@ var SlsTrSalesReturn;
         //alert('ok');
         debugger;
         Assign();
-        Update();
+        Get_balance();
+        if (Success_Balance == false) {
+            Success_Balance = true;
+            return;
+        }
+        else {
+            Update();
+        }
+    }
+    function Get_balance() {
+        Success_Balance = true;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Get_Balance"),
+            success: function (d) {
+                debugger;
+                var result = d;
+                if (result.IsSuccess == true) {
+                    var Balance = result.Response;
+                    if (Balance < Number(Bal)) {
+                        MessageBox.Show('لا يوجد مبلغ كافي لاتمام المرتجع ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
+                        Success_Balance = false;
+                    }
+                }
+                else {
+                    Success_Balance = false;
+                }
+            }
+        });
     }
     function remove_disabled_Grid_Controls() {
         for (var i = 0; i < CountGrid + 1; i++) {

@@ -71,10 +71,11 @@ namespace SlsTrSalesReturn {
     var btnAddDetailsCharge: HTMLButtonElement;
     var btnAddDetailslebel: HTMLButtonElement;
     var searchbutmemreport: HTMLInputElement;
-
+    var Success_Balance = true;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
+    var Bal = 0;
 
     export function InitalizeComponent() {
 
@@ -257,10 +258,10 @@ namespace SlsTrSalesReturn {
         var startdt = DateFormatDataBes(txtFromDate.value).toString();
         var enddt = DateFormatDataBes(txtToDate.value).toString();
         var CustomerId = 0;
-        var USER_CODE ="null" ;
+        var USER_CODE = "null";
 
 
-        if (ddlUserMaster.value != "null") { USER_CODE =  ddlUserMaster.value; }
+        if (ddlUserMaster.value != "null") { USER_CODE = ddlUserMaster.value; }
         if (ddlCustomerMaster.value != "null") { CustomerId = Number(ddlCustomerMaster.value.toString()); }
 
 
@@ -1047,7 +1048,7 @@ namespace SlsTrSalesReturn {
         SlsMasterDetils.Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
         SlsMasterDetils.UserCode = SysSession.CurrentEnvironment.UserCode;
 
-
+        Bal = 0;
         for (var i = 0; i <= CountGrid + 1; i++) {
             OperationItemSingleModel = new Stok_ORDER_DELIVERY();
             StatusFlag = $("#txt_StatusFlag" + i).val();
@@ -1101,13 +1102,21 @@ namespace SlsTrSalesReturn {
                     SlsMasterDetils.I_Sls_TR_InvoiceItems.push(OperationItemSingleModel);
                 }
             }
+            debugger
+            if ($('#txtReturn' + i).val() >0) {
+                Bal += (Number($('#txtReturn' + i).val()) * Number($("#txtPrice" + i).val()));
 
-
+            }
+        
         }
+
+       
 
 
         SlsMasterDetils.I_Sls_TR_Invoice.Total_All = $('#txtTotal').val();
         SlsMasterDetils.I_Sls_TR_Invoice.ID_ORDER_Delivery = $('#txtNumber').val();
+      
+
     }
     function Update() {
         debugger
@@ -1200,10 +1209,49 @@ namespace SlsTrSalesReturn {
         //alert('ok');
         debugger
         Assign();
+        Get_balance();
+        if (Success_Balance == false) {
+            
+            Success_Balance = true; 
+            return
+        } else {
+
         Update();
+        }
 
     }
+    function Get_balance() {
 
+        Success_Balance = true;
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("Outletpirce", "Get_Balance"),
+            success: (d) => {
+                debugger
+                let result = d as BaseResponse;
+                if (result.IsSuccess == true) {
+                    var Balance = result.Response;
+                    
+                    if (Balance < Number(Bal)) {
+                        MessageBox.Show('لا يوجد مبلغ كافي لاتمام المرتجع ( المبلغ المتواجد ( ' + Balance + ' )ج ) ', '');
+                      
+                        Success_Balance = false;
+                    }
+
+                }
+                else {
+                    Success_Balance = false;
+
+                    
+
+                }
+            }
+        });
+
+      
+
+    }
 
     function remove_disabled_Grid_Controls() {
         for (var i = 0; i < CountGrid + 1; i++) {
