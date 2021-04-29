@@ -402,6 +402,7 @@ var SlsTrSales;
             div.setAttribute('data-div_menu', 'div_menu' + IDPlus);
             div.setAttribute('data-Name', PRODUCT_NAME);
             div.setAttribute('data-Qty', Qty.toString());
+            div.setAttribute('title', 'الكمية (' + Qty.toString() + ')');
             div.setAttribute('data-pirce', PRICE.toString());
             div.setAttribute('data-MinUnitPrice', MinUnitPrice);
             div.setAttribute('style', 'zoom:2.4;font-size: 8px;font-weight: bold;');
