@@ -704,7 +704,7 @@ var SlsTrSales;
         Num_Add_List = 0;
         ValidationMinUnitPrice = 0;
         Validation_Insert = 0;
-        FamilyDetails = new Array();
+        //FamilyDetails = new Array<PRODUCT>();
         ID_Customer = null;
         idCust.value = "";
         hide_Custm();

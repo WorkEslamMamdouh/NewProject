@@ -650,10 +650,11 @@ namespace HomeComponent {
 
         var Dasc_Name = $('#id_Dasc_Name').val();
         var pirce = Number($('#id_pirce').val());
+        var Tr_Type = 'مصروفات';
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
@@ -692,10 +693,12 @@ namespace HomeComponent {
 
         var Dasc_Name = $('#id_Dasc_Name').val();
         var pirce = Number($('#id_pirce').val());
+
+        var Tr_Type = 'أيرادات'; 
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;

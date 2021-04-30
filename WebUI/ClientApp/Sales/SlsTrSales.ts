@@ -890,7 +890,7 @@ namespace SlsTrSales {
         Validation_Insert = 0;
 
  
-        FamilyDetails = new Array<PRODUCT>();
+        //FamilyDetails = new Array<PRODUCT>();
    
         ID_Customer = null;
         idCust.value = "";

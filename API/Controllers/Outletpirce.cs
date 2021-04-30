@@ -64,14 +64,14 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Insert(string Dasc_Name, decimal pirce, string UserName)
+        public IHttpActionResult Insert(string Dasc_Name, decimal pirce, string UserName , string Tr_Type)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     //var Outlet = db.insert_Outlet(Dasc_Name, pirce, UserName).ToString();
-                    string quer = "insert_Outlet '" + Dasc_Name + "', " + pirce + ", '" + UserName + "'";
+                    string quer = "insert_Outlet '" + Dasc_Name + "', " + pirce + ", '" + UserName + "', '"+ Tr_Type + "'";
                     var Outlet = db.Database.SqlQuery<decimal>(quer);
 
                     return Ok(new BaseResponse(Outlet));
@@ -86,14 +86,14 @@ namespace API.Controllers
         }
 
         [HttpGet, AllowAnonymous]
-        public IHttpActionResult Insert_Enter_Money(string Dasc_Name , decimal pirce , string UserName)
+        public IHttpActionResult Insert_Enter_Money(string Dasc_Name , decimal pirce , string UserName, string Tr_Type)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     //var Outlet = db.insert_Outlet(Dasc_Name, pirce, UserName).ToString();
-                    string quer = "Insert_Enter_Money '" + Dasc_Name + "', " + pirce + ", '" + UserName + "'";
+                    string quer = "Insert_Enter_Money '" + Dasc_Name + "', " + pirce + ", '" + UserName + "' , '"+ Tr_Type + "'";
                     var Outlet = db.Database.SqlQuery<decimal>(quer);
                      
                     return Ok(new BaseResponse(Outlet));

@@ -1247,10 +1247,11 @@ namespace Purchases {
     }
     function Outpirce(pirce: number) {
 
+        let Tr_Type = 'مشتريات';
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert"),
-            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type},
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;
@@ -1277,12 +1278,12 @@ namespace Purchases {
     function Enter_Money(pirce: number) {
 
 
-        var Dasc_Name = 'مرتجع مشتريات';
-
+        var Dasc_Name = 'مشتريات';
+        var Tr_Type = "مرتجع مشتريات";
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: (d) => {
                 debugger
                 let result = d as BaseResponse;

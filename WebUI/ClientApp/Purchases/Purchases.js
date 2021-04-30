@@ -944,10 +944,11 @@ var Purchases;
         });
     }
     function Outpirce(pirce) {
+        var Tr_Type = 'مشتريات';
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert"),
-            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: "مشتريات", pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
                 debugger;
                 var result = d;
@@ -966,11 +967,12 @@ var Purchases;
         });
     }
     function Enter_Money(pirce) {
-        var Dasc_Name = 'مرتجع مشتريات';
+        var Dasc_Name = 'مشتريات';
+        var Tr_Type = "مرتجع مشتريات";
         Ajax.Callsync({
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
-            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode },
+            data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
                 debugger;
                 var result = d;
