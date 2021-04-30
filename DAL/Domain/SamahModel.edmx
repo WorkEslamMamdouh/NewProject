@@ -43,6 +43,8 @@
           <Property Name="pirce" Type="money" />
           <Property Name="Num_Day" Type="int" />
           <Property Name="EMPLOYEE_ID" Type="int" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="familly_Cat">
           <Key>
@@ -357,6 +359,8 @@
           <Property Name="pirce" Type="money" />
           <Property Name="Num_Day" Type="int" />
           <Property Name="EMPLOYEE_ID" Type="int" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -514,11 +518,12 @@
           <Property Name="id_Num" Type="int" Nullable="false" />
           <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="PRODUCT_Purchasing_price" Type="money" />
-          <Property Name="PRODUCT_PRICE" Type="money" />
+          <Property Name="MinUnitPrice" Type="money" />
           <Property Name="PRODUCT_Qut" Type="float" />
           <Property Name="Total_Price_One_Part" Type="money" />
           <Property Name="Shortage" Type="money" />
           <Property Name="Outlet" Type="money" />
+          <Property Name="Enter_Money" Type="money" />
           <Property Name="Task" Type="float" />
           <Property Name="Day_Date" Type="nvarchar" MaxLength="50" />
           <Property Name="Shift_User" Type="nvarchar" MaxLength="50" />
@@ -536,6 +541,23 @@
           </Key>
           <Property Name="id_User_sales" Type="int" Nullable="false" />
           <Property Name="id_Settings" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ElWassem.dbo.IQ_Outlet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IQ_Outlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="EMPLOYEE_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dasc_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pirce" Type="money" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tr_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMPLOYEE_ID" Type="int" />
+          <Property Name="USER_CODE" Type="nvarchar" MaxLength="50" />
+          <Property Name="Num_Day" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ElWassem.dbo.IQ_Purchases_Details' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -645,7 +667,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="passwrd_emp" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="all_The_Gard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="EMPLOYEE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="FromDate" Type="date" Mode="In" />
           <Parameter Name="ToDate" Type="date" Mode="In" />
         </Function>
@@ -770,6 +792,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
           <Parameter Name="pirce" Type="money" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_ORDER_DELIVERY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
@@ -792,6 +815,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
           <Parameter Name="pirce" Type="money" Mode="In" />
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tr_Type" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="insert_Purchases_Master" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Tr_Date" Type="nvarchar" Mode="In" />
@@ -915,6 +939,12 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="PRODUCT_QET" Type="decimal" Mode="In" />
           <Parameter Name="Name_CAT" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="Stord_Get_Outlet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromDate" Type="nvarchar" Mode="In" />
+          <Parameter Name="ToDate" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_CODE" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="int" Mode="In" />
+        </Function>
         <Function Name="update_customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CUSTOMER_NAME" Type="nvarchar" Mode="In" />
           <Parameter Name="CUSTOMER_ADDRES" Type="nvarchar" Mode="In" />
@@ -1000,6 +1030,20 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="The_Gard" EntityType="Self.The_Gard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="Self.Type_EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_sales" EntityType="Self.User_sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IQ_Outlet" EntityType="Self.IQ_Outlet" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IQ_Outlet].[id] AS [id], 
+    [IQ_Outlet].[EMPLOYEE_NAME] AS [EMPLOYEE_NAME], 
+    [IQ_Outlet].[Dasc_Name] AS [Dasc_Name], 
+    [IQ_Outlet].[pirce] AS [pirce], 
+    [IQ_Outlet].[Date] AS [Date], 
+    [IQ_Outlet].[Time] AS [Time], 
+    [IQ_Outlet].[Tr_Type] AS [Tr_Type], 
+    [IQ_Outlet].[EMPLOYEE_ID] AS [EMPLOYEE_ID], 
+    [IQ_Outlet].[USER_CODE] AS [USER_CODE], 
+    [IQ_Outlet].[Num_Day] AS [Num_Day]
+    FROM [dbo].[IQ_Outlet] AS [IQ_Outlet]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="IQ_Purchases_Details" EntityType="Self.IQ_Purchases_Details" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [IQ_Purchases_Details].[ID] AS [ID], 
@@ -1119,7 +1163,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="passwrd_emp" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="all_The_Gard" ReturnType="Collection(SamahModel.all_The_Gard_Result)">
-            <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
           </FunctionImport>
@@ -1187,6 +1231,7 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="Dasc_Name" Mode="In" Type="String" />
             <Parameter Name="pirce" Mode="In" Type="Decimal" />
             <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Tr_Type" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="insert_Stock_ORDER_TECAYE">
             <Parameter Name="Name_Product_sell" Mode="In" Type="String" />
@@ -1410,7 +1455,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="Suppliers" EntityType="SamahModel.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="SamahModel.sysdiagram" />
           <EntitySet Name="Table_two_days" EntityType="SamahModel.Table_two_days" />
-          <EntitySet Name="The_Gard" EntityType="SamahModel.The_Gard" />
           <EntitySet Name="Type_EMPLOYEE" EntityType="SamahModel.Type_EMPLOYEE" />
           <EntitySet Name="User_sales" EntityType="SamahModel.User_sales" />
           <EntitySet Name="ReviewSalesItemInfoes" EntityType="SamahModel.ReviewSalesItemInfo" />
@@ -1420,12 +1464,21 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="Dasc_Name" Mode="In" Type="String" />
             <Parameter Name="pirce" Mode="In" Type="Decimal" />
             <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Tr_Type" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="ReviewSalesMasters" EntityType="SamahModel.ReviewSalesMaster" />
           <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
           <EntitySet Name="IQ_Purchases_Details" EntityType="SamahModel.IQ_Purchases_Details" />
           <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
           <EntitySet Name="IQ_Purchases_Master" EntityType="SamahModel.IQ_Purchases_Master" />
+          <EntitySet Name="The_Gard" EntityType="SamahModel.The_Gard" />
+          <EntitySet Name="IQ_Outlet" EntityType="SamahModel.IQ_Outlet" />
+          <FunctionImport Name="Stord_Get_Outlet" ReturnType="Collection(SamahModel.Stord_Get_Outlet_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="ToDate" Mode="In" Type="String" />
+            <Parameter Name="USER_CODE" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -2002,6 +2055,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Num_Day" Type="Int32" />
           <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PRODUCT">
           <Key>
@@ -2124,22 +2179,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Num_Day" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="The_Gard">
-          <Key>
-            <PropertyRef Name="id_Num" />
-          </Key>
-          <Property Name="id_Num" Type="Int32" Nullable="false" />
-          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PRODUCT_Qut" Type="Double" />
-          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Shortage" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Outlet" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Task" Type="Double" />
-          <Property Name="Day_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Shift_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Type_EMPLOYEE">
           <Key>
             <PropertyRef Name="id_Type_EMPLOYEE" />
@@ -2179,6 +2218,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Num_Day" Type="Int32" />
           <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ReviewSalesMaster">
           <Key>
@@ -2264,6 +2305,50 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="To_be_Paid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="REMARKS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="The_Gard">
+          <Key>
+            <PropertyRef Name="id_Num" />
+          </Key>
+          <Property Name="id_Num" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_Qut" Type="Double" />
+          <Property Name="Total_Price_One_Part" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Shortage" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Outlet" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Enter_Money" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Task" Type="Double" />
+          <Property Name="Day_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Shift_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IQ_Outlet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="EMPLOYEE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dasc_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pirce" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMPLOYEE_ID" Type="Int32" />
+          <Property Name="USER_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Day" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="Stord_Get_Outlet_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="EMPLOYEE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Dasc_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="pirce" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="String" Name="Time" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Tr_Type" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="EMPLOYEE_ID" Nullable="true" />
+          <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Num_Day" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2951,6 +3036,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="Outlets">
             <EntityTypeMapping TypeName="SamahModel.Outlet">
               <MappingFragment StoreEntitySet="Outlet">
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
                 <ScalarProperty Name="pirce" ColumnName="pirce" />
@@ -3092,23 +3179,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="The_Gard">
-            <EntityTypeMapping TypeName="SamahModel.The_Gard">
-              <MappingFragment StoreEntitySet="The_Gard">
-                <ScalarProperty Name="Shift_User" ColumnName="Shift_User" />
-                <ScalarProperty Name="Day_Date" ColumnName="Day_Date" />
-                <ScalarProperty Name="Task" ColumnName="Task" />
-                <ScalarProperty Name="Outlet" ColumnName="Outlet" />
-                <ScalarProperty Name="Shortage" ColumnName="Shortage" />
-                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
-                <ScalarProperty Name="PRODUCT_Qut" ColumnName="PRODUCT_Qut" />
-                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
-                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="id_Num" ColumnName="id_Num" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Type_EMPLOYEE">
             <EntityTypeMapping TypeName="SamahModel.Type_EMPLOYEE">
               <MappingFragment StoreEntitySet="Type_EMPLOYEE">
@@ -3145,6 +3215,8 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySetMapping Name="Enter_Money">
             <EntityTypeMapping TypeName="SamahModel.Enter_Money">
               <MappingFragment StoreEntitySet="Enter_Money">
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
                 <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
                 <ScalarProperty Name="pirce" ColumnName="pirce" />
@@ -3242,6 +3314,56 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="The_Gard">
+            <EntityTypeMapping TypeName="SamahModel.The_Gard">
+              <MappingFragment StoreEntitySet="The_Gard">
+                <ScalarProperty Name="Shift_User" ColumnName="Shift_User" />
+                <ScalarProperty Name="Day_Date" ColumnName="Day_Date" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="Enter_Money" ColumnName="Enter_Money" />
+                <ScalarProperty Name="Outlet" ColumnName="Outlet" />
+                <ScalarProperty Name="Shortage" ColumnName="Shortage" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="PRODUCT_Qut" ColumnName="PRODUCT_Qut" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="id_Num" ColumnName="id_Num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IQ_Outlet">
+            <EntityTypeMapping TypeName="SamahModel.IQ_Outlet">
+              <MappingFragment StoreEntitySet="IQ_Outlet">
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Stord_Get_Outlet" FunctionName="SamahModel.Store.Stord_Get_Outlet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.Stord_Get_Outlet_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Dasc_Name" ColumnName="Dasc_Name" />
+                <ScalarProperty Name="pirce" ColumnName="pirce" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Tr_Type" ColumnName="Tr_Type" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="Num_Day" ColumnName="Num_Day" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
