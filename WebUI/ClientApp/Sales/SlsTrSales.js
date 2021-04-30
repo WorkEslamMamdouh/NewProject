@@ -687,7 +687,6 @@ var SlsTrSales;
         Num_Add_List += 1;
     }
     function Remove_Item_in_Basket() {
-        ////debugger
         $('#Ul_Div').html('');
         P = 0;
         Num_Qty = 0;
