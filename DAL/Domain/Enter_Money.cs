@@ -19,5 +19,7 @@ namespace DAL.Domain
         public Nullable<decimal> pirce { get; set; }
         public Nullable<int> Num_Day { get; set; }
         public Nullable<int> EMPLOYEE_ID { get; set; }
+        public string Time { get; set; }
+        public string Tr_Type { get; set; }
     }
 }

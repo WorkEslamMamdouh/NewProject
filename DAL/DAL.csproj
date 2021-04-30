@@ -139,6 +139,9 @@
     <Compile Include="Domain\insert_Table_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\IQ_Outlet.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\IQ_Purchases_Details.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
@@ -253,6 +256,9 @@
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\Stok_ORDER_DELIVERY.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Stord_Get_Outlet_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\STORE.cs">

@@ -61,7 +61,6 @@ namespace DAL.Domain
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Table_two_days> Table_two_days { get; set; }
-        public virtual DbSet<The_Gard> The_Gard { get; set; }
         public virtual DbSet<Type_EMPLOYEE> Type_EMPLOYEE { get; set; }
         public virtual DbSet<User_sales> User_sales { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
@@ -71,6 +70,8 @@ namespace DAL.Domain
         public virtual DbSet<IQ_Purchases_Details> IQ_Purchases_Details { get; set; }
         public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
+        public virtual DbSet<The_Gard> The_Gard { get; set; }
+        public virtual DbSet<IQ_Outlet> IQ_Outlet { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -229,11 +230,11 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addemp", emp_namParameter, emp_phoneParameter, usar_name_empParameter, passwrd_empParameter);
         }
     
-        public virtual ObjectResult<all_The_Gard_Result> all_The_Gard(string eMPLOYEE_NAME, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        public virtual ObjectResult<all_The_Gard_Result> all_The_Gard(string userName, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
         {
-            var eMPLOYEE_NAMEParameter = eMPLOYEE_NAME != null ?
-                new ObjectParameter("EMPLOYEE_NAME", eMPLOYEE_NAME) :
-                new ObjectParameter("EMPLOYEE_NAME", typeof(string));
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
     
             var fromDateParameter = fromDate.HasValue ?
                 new ObjectParameter("FromDate", fromDate) :
@@ -243,7 +244,7 @@ namespace DAL.Domain
                 new ObjectParameter("ToDate", toDate) :
                 new ObjectParameter("ToDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Result>("all_The_Gard", eMPLOYEE_NAMEParameter, fromDateParameter, toDateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Result>("all_The_Gard", userNameParameter, fromDateParameter, toDateParameter);
         }
     
         public virtual ObjectResult<Nullable<System.DateTime>> Date_Time_Now()
@@ -442,7 +443,7 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_ORDER_TECAYE", userNameParameter, namber_Order_TecayeParameter, total_AllParameter, date_Order_TecayeParameter, type_orderParameter);
         }
     
-        public virtual int insert_Outlet(string dasc_Name, Nullable<decimal> pirce, string userName)
+        public virtual int insert_Outlet(string dasc_Name, Nullable<decimal> pirce, string userName, string tr_Type)
         {
             var dasc_NameParameter = dasc_Name != null ?
                 new ObjectParameter("Dasc_Name", dasc_Name) :
@@ -456,7 +457,11 @@ namespace DAL.Domain
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter);
+            var tr_TypeParameter = tr_Type != null ?
+                new ObjectParameter("Tr_Type", tr_Type) :
+                new ObjectParameter("Tr_Type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_Outlet", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter);
         }
     
         public virtual int insert_Stock_ORDER_TECAYE(string name_Product_sell, Nullable<double> quantity_sell, Nullable<decimal> price_One_part, Nullable<decimal> total_Price_One_Part, string notes_Order)
@@ -1132,7 +1137,7 @@ namespace DAL.Domain
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Get_Balance");
         }
     
-        public virtual ObjectResult<Nullable<decimal>> Insert_Enter_Money(string dasc_Name, Nullable<decimal> pirce, string userName)
+        public virtual ObjectResult<Nullable<decimal>> Insert_Enter_Money(string dasc_Name, Nullable<decimal> pirce, string userName, string tr_Type)
         {
             var dasc_NameParameter = dasc_Name != null ?
                 new ObjectParameter("Dasc_Name", dasc_Name) :
@@ -1146,7 +1151,32 @@ namespace DAL.Domain
                 new ObjectParameter("UserName", userName) :
                 new ObjectParameter("UserName", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Insert_Enter_Money", dasc_NameParameter, pirceParameter, userNameParameter);
+            var tr_TypeParameter = tr_Type != null ?
+                new ObjectParameter("Tr_Type", tr_Type) :
+                new ObjectParameter("Tr_Type", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Insert_Enter_Money", dasc_NameParameter, pirceParameter, userNameParameter, tr_TypeParameter);
+        }
+    
+        public virtual ObjectResult<Stord_Get_Outlet_Result> Stord_Get_Outlet(string fromDate, string toDate, string uSER_CODE, Nullable<int> type)
+        {
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            var uSER_CODEParameter = uSER_CODE != null ?
+                new ObjectParameter("USER_CODE", uSER_CODE) :
+                new ObjectParameter("USER_CODE", typeof(string));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter);
         }
     }
 }
