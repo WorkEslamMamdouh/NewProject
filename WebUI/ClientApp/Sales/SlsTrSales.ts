@@ -866,10 +866,7 @@ namespace SlsTrSales {
     }
 
     function Remove_Item_in_Basket() {
-        ////debugger
-
-
-        
+      
         $('#Ul_Div').html('');
 
 
