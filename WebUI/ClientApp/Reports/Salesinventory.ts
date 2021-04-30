@@ -7,11 +7,11 @@ $(document).ready(() => {
 namespace Salesinventory {
 
     var AccType = 3;
-    var compcode: Number;
+    var CompCode: Number;
     var SysSession: SystemSession = GetSystemSession();
     var sys: SystemTools = new SystemTools();
     //Arrays     
-    var UserDetails: Array<LoginPage> = new Array<LoginPage>();
+    var UserDetails: Array<G_USERS> = new Array<G_USERS>();
     var CustomerDetails: Array<CUSTOMER> = new Array<CUSTOMER>();
 
     var Get_IQ_The_Gard: Array<The_Gard> = new Array<The_Gard>();
@@ -97,7 +97,7 @@ namespace Salesinventory {
         }
 
 
-        compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        CompCode = Number(SysSession.CurrentEnvironment.CompCode);
         //Drop Downlists
 
         txtFromDate = document.getElementById("txtFromDate") as HTMLInputElement;
@@ -133,15 +133,15 @@ namespace Salesinventory {
         debugger
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Login", "GetAllUser"),
+            url: sys.apiUrl("G_USERS", "GetAllUser"),
             data: {},
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
-                    UserDetails = result.Response as Array<LoginPage>;
+                    UserDetails = result.Response as Array<G_USERS>;
                     debugger
 
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "UserName", "UserName", "اختار البائع");
+                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
 
 
                 }
@@ -186,14 +186,14 @@ namespace Salesinventory {
         debugger
         var startdt = DateFormatDataBes(txtFromDate.value).toString();
         var enddt = DateFormatDataBes(txtToDate.value).toString();
-        var ID_User ;
+        var ID_User;
 
 
-        
+
         //if (ddlCustomerMaster.value != "null") { CustomerId = Number(ddlCustomerMaster.value.toString()); }
 
         ID_User = ddlUserMaster.value == "null" ? 'All User' : ddlUserMaster.value;
-        
+
 
         Ajax.Callsync({
             type: "Get",

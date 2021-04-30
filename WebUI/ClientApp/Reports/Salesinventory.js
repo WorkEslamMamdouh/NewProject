@@ -5,7 +5,7 @@ $(document).ready(function () {
 var Salesinventory;
 (function (Salesinventory) {
     var AccType = 3;
-    var compcode;
+    var CompCode;
     var SysSession = GetSystemSession();
     var sys = new SystemTools();
     //Arrays     
@@ -77,7 +77,7 @@ var Salesinventory;
         else {
             document.getElementById('Screen_name').innerHTML = "Salesinventory";
         }
-        compcode = Number(SysSession.CurrentEnvironment.CompCode);
+        CompCode = Number(SysSession.CurrentEnvironment.CompCode);
         //Drop Downlists
         txtFromDate = document.getElementById("txtFromDate");
         txtToDate = document.getElementById("txtToDate");
@@ -109,14 +109,14 @@ var Salesinventory;
         debugger;
         Ajax.Callsync({
             type: "Get",
-            url: sys.apiUrl("Login", "GetAllUser"),
+            url: sys.apiUrl("G_USERS", "GetAllUser"),
             data: {},
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
                     UserDetails = result.Response;
                     debugger;
-                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "UserName", "UserName", "اختار البائع");
+                    DocumentActions.FillCombowithdefult(UserDetails, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار البائع");
                 }
             }
         });

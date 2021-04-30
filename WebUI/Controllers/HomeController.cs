@@ -130,6 +130,11 @@ namespace WebUI.Controllers
 
             return View("~/Views/Report/Salesinventory.cshtml");
         }
+          public ActionResult Income_expensesIndex()
+        { 
+
+            return View("~/Views/Report/Income_expenses.cshtml");
+        }
 
 
         #endregion  Open Pages 
