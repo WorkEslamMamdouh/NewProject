@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\all_The_Gard_Details_Result.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\all_The_Gard_Result.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>

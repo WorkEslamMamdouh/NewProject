@@ -1178,5 +1178,22 @@ namespace DAL.Domain
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Stord_Get_Outlet_Result>("Stord_Get_Outlet", fromDateParameter, toDateParameter, uSER_CODEParameter, typeParameter);
         }
+    
+        public virtual ObjectResult<all_The_Gard_Details_Result> all_The_Gard_Details(string userName, Nullable<System.DateTime> fromDate, Nullable<System.DateTime> toDate)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var fromDateParameter = fromDate.HasValue ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Details_Result>("all_The_Gard_Details", userNameParameter, fromDateParameter, toDateParameter);
+        }
     }
 }
