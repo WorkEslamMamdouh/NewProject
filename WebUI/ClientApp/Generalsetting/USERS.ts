@@ -492,6 +492,7 @@ namespace USERS {
             DocumentActions.AssignToModel(Model);//Insert Update
             if (chk_IsActive.checked) { Model.USER_ACTIVE = true; }
             else { Model.USER_ACTIVE = false; }
+            Model.USER_CODE = Selecteditem[0].USER_CODE;
             Model.CompCode = 1;
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }

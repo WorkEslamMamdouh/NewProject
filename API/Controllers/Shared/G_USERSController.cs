@@ -195,6 +195,8 @@ namespace API.Controllers
             {
                 try
                 {
+                    string EMPLOY = " insert_EMPLOYEE '"+ USER.USER_NAME + "','"+ USER.USER_CODE + "'";
+                    var EMPL = db.Database.ExecuteSqlCommand(EMPLOY);
                     var USERrr = G_USERSService.Insert(USER);
                     return Ok(new BaseResponse(USERrr));
                 }
