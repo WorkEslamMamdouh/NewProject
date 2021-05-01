@@ -1195,6 +1195,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_AccAdjustListAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCExpensesAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCIncomeAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardDetailAr.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
