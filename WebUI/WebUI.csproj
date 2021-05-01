@@ -1104,6 +1104,7 @@
     <Content Include="Views\Report\Salesinventory.cshtml" />
     <Content Include="Views\Stock\familly_Cat.cshtml" />
     <Content Include="Views\Report\Income_expenses.cshtml" />
+    <Content Include="Views\Generalsetting\USERSIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1163,6 +1164,7 @@
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
     <TypeScriptCompile Include="ClientApp\Entities.ts" />
+    <TypeScriptCompile Include="ClientApp\Generalsetting\USERS.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\Supplier.ts" />
     <TypeScriptCompile Include="ClientApp\HomeComponent.ts" />
     <TypeScriptCompile Include="ClientApp\IgGrid.ts" />

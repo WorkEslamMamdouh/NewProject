@@ -56,10 +56,10 @@ namespace Salesinventory {
     }
     function IntializeEvents() {
 
-        btnPrint.onclick = () => { printreport(1) };
-        btnPrintTrview.onclick = () => { printreport(2) };
-        btnPrintTrPDF.onclick = () => { printreport(3) };
-        btnPrintTrEXEL.onclick = () => { printreport(4) };
+        btnPrint.onclick = () => { printreport(4) };
+        btnPrintTrview.onclick = () => { printreport(1) };
+        btnPrintTrPDF.onclick = () => { printreport(2) };
+        btnPrintTrEXEL.onclick = () => { printreport(3) };
 
 
 
@@ -116,6 +116,7 @@ namespace Salesinventory {
             _Stock.ID_Button_Print = 'GardDetail';
         }
 
+        _Stock.Type_Print = type;
         _Stock.Parameter_1 = UserVal;
         _Stock.Parameter_2 = DateFormatDataBes(txtFromDate.value);
         _Stock.Parameter_3 = DateFormatDataBes(txtToDate.value);

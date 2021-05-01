@@ -116,7 +116,7 @@ var Categories;
         for (var i = 0; i < CountGrid; i++) {
             Model = new CATEGRES();
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            $("#txt_StatusFlag" + i).val("");
+            //$("#txt_StatusFlag" + i).val("");
             debugger;
             if (StatusFlag == "i") {
                 Model.StatusFlag = StatusFlag.toString();

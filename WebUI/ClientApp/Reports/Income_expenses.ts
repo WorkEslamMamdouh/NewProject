@@ -74,16 +74,12 @@ namespace Income_expenses {
     function IntializeEvents() {
 
         
-        //searchbutmemreport.onkeydown = _SearchBox_Change;
-        //searchbutmemreport.onkeyup = _SearchBox_Change;
+        btnPrint.onclick = () => { printreport(4) };
+        btnPrintTrview.onclick = () => { printreport(1) };
+        btnPrintTrPDF.onclick = () => { printreport(2) };
+        btnPrintTrEXEL.onclick = () => { printreport(3) };
 
 
-
-
-        btnPrint.onclick = ()=>{printreport(1) };
-        btnPrintTrview.onclick = () => { printreport(2) };
-        btnPrintTrPDF.onclick = () => { printreport(3) };
-        btnPrintTrEXEL.onclick = () => { printreport(4) };
     }
     function GetDate() {
         debugger

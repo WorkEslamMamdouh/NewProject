@@ -19,7 +19,7 @@ var HomeComponent;
     function OpenPage(moduleCode) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
-        // debugger;
+        // //debugger;
         var compCode = SysSession.CurrentEnvironment.CompCode;
         var branchCode = SysSession.CurrentEnvironment.BranchCode;
         var UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -145,7 +145,7 @@ var HomeComponent;
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Get_Balance"),
             success: function (d) {
-                debugger;
+                //debugger
                 var result = d;
                 if (result.IsSuccess == true) {
                     Balance = result.Response;
@@ -164,7 +164,7 @@ var HomeComponent;
             url: sys.apiUrl("G_USERS", "LogoutUser"),
             data: { user: userCode },
             success: function (d) {
-                // debugger;
+                // //debugger;
                 if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -186,7 +186,7 @@ var HomeComponent;
         $('#sidebar').toggleClass('active');
     }
     function ApplyModules() {
-        debugger;
+        //debugger
         var lis = document.getElementsByClassName("liItem");
         var obj = [document.getElementById('liItem')];
         var modules = new Array();
@@ -206,9 +206,9 @@ var HomeComponent;
         });
         // filter moulules where isavailable = false or access = false 
         var li;
-        debugger;
+        //debugger
         for (var i = 0; i < modules.length; i++) {
-            debugger;
+            //debugger
             var singleUserModule = modules[i];
             //Notification control
             if (singleUserModule.MODULE_CODE.substring(0, 5) == "Note_") {
@@ -350,12 +350,12 @@ var HomeComponent;
         var SystemCode = SysSession.CurrentEnvironment.SystemCode;
         var SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         var Modulecode = SysSession.CurrentEnvironment.ModuleCode;
-        debugger;
+        //debugger
         Ajax.Callsync({
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: moduleCode },
             success: function (d) {
-                debugger;
+                //debugger
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -395,7 +395,7 @@ var HomeComponent;
     //    });
     //}
     function OpenView(controllerName, moduleCode) {
-        debugger;
+        //debugger;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         var compCode = SysSession.CurrentEnvironment.CompCode;
         var branchCode = SysSession.CurrentEnvironment.BranchCode;
@@ -408,7 +408,7 @@ var HomeComponent;
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: Modulecode },
             success: function (d) {
-                debugger;
+                //debugger;
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -437,7 +437,7 @@ var HomeComponent;
     }
     HomeComponent.OpenView = OpenView;
     function InitializePages() {
-        debugger;
+        //debugger;
         $("#btnHome").click(function () { OpenPage(Modules.Home); });
         $("#btnSlsTrSales").click(function () { OpenPage(Modules.SlsTrSales); });
         $("#btnSlsTrReturn").click(function () { OpenPage(Modules.SlsTrReturn); });
@@ -448,6 +448,7 @@ var HomeComponent;
         $("#btnSalesinventory").click(function () { OpenPage(Modules.Salesinventory); });
         $("#btnfamilly_Cat").click(function () { OpenPage(Modules.familly_Cat); });
         $("#btnIncome_expenses").click(function () { OpenPage(Modules.Income_expenses); });
+        $("#btnUSERS").click(function () { OpenPage(Modules.USERS); });
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
     }
     function Notifications_Message() {
@@ -524,7 +525,7 @@ var HomeComponent;
             AppendStyleSheet("responsive_AR");
             //$('#langImg').attr('src', '../images/english.png');
             SysSession.CurrentEnvironment.ScreenLanguage = "ar";
-            $("#btn_loguotuser").text("الخروج من النظام");
+            $("#btn_loguotuser").html('  الخروج من النظام <span class="adminpro-icon adminpro-locked author-log-ic"></span>');
         }
         //$("#SearchBox").draggable();
         App.Startup();
@@ -554,14 +555,14 @@ var HomeComponent;
     }
     function ScreenHelp() {
         var ModuleCode = SysSession.CurrentPrivileges.MODULE_CODE;
-        debugger;
+        //debugger
         $.ajax({
             type: "GET",
             url: sys.apiUrl("SystemTools", "GetHelp"),
             data: { ModuleCode: ModuleCode },
             async: false,
             success: function (d) {
-                debugger;
+                //debugger;
                 var result = d;
                 var res = result.Response;
                 if (res != null) {
@@ -588,7 +589,7 @@ var HomeComponent;
             url: sys.apiUrl("Outletpirce", "Insert"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
-                debugger;
+                //debugger
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -623,7 +624,7 @@ var HomeComponent;
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type: Tr_Type },
             success: function (d) {
-                debugger;
+                //debugger
                 var result = d;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -646,7 +647,7 @@ var HomeComponent;
                     type: "Post",
                     url: sys.apiUrl("Close_Day", "Close"),
                     success: function (d) {
-                        debugger;
+                        //debugger
                         var result = d;
                         if (result.IsSuccess == true) {
                             $('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
@@ -665,7 +666,7 @@ var HomeComponent;
             type: "Get",
             url: sys.apiUrl("Close_Day", "Check_Close_Day"),
             success: function (d) {
-                debugger;
+                //debugger
                 var result = d;
                 if (result.IsSuccess == true) {
                     var res = result.Response;

@@ -188,6 +188,41 @@ namespace API.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult Insert_USER([FromBody]G_USERS USER)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var USERrr = G_USERSService.Insert(USER);
+                    return Ok(new BaseResponse(USERrr));
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost, AllowAnonymous]
+        public IHttpActionResult Update_USER([FromBody] G_USERS USER)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var USERrr = G_USERSService.Update(USER);
+                    return Ok(new BaseResponse(USERrr));
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+            return BadRequest(ModelState);
+        }
 
         //[HttpPost, AllowAnonymous]
         //public IHttpActionResult Update(Models.CustomModel.MasterDetailsUsers Model)

@@ -49,10 +49,10 @@ var Salesinventory;
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
     }
     function IntializeEvents() {
-        btnPrint.onclick = function () { printreport(1); };
-        btnPrintTrview.onclick = function () { printreport(2); };
-        btnPrintTrPDF.onclick = function () { printreport(3); };
-        btnPrintTrEXEL.onclick = function () { printreport(4); };
+        btnPrint.onclick = function () { printreport(4); };
+        btnPrintTrview.onclick = function () { printreport(1); };
+        btnPrintTrPDF.onclick = function () { printreport(2); };
+        btnPrintTrEXEL.onclick = function () { printreport(3); };
     }
     function GetDate() {
         debugger;
@@ -97,6 +97,7 @@ var Salesinventory;
         else {
             _Stock.ID_Button_Print = 'GardDetail';
         }
+        _Stock.Type_Print = type;
         _Stock.Parameter_1 = UserVal;
         _Stock.Parameter_2 = DateFormatDataBes(txtFromDate.value);
         _Stock.Parameter_3 = DateFormatDataBes(txtToDate.value);

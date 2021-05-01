@@ -196,6 +196,7 @@ class Settings_Report {
         this.Parameter_7 = "";
         this.Parameter_8 = "";
         this.Parameter_9 = "";
+        this.Type_Print = 1;
 
     }
     public ID_Button_Print: string;
@@ -210,7 +211,36 @@ class Settings_Report {
     public Parameter_7: string;
     public Parameter_8: string;
     public Parameter_9: string;
+    public Type_Print: number;
 }
+
+class G_Role extends SecurityClass {
+    constructor() {
+        super();
+        this.RoleId = 0;
+        this.DescA = "";
+        this.DescE = "";
+        this.Remarks = "";
+    }
+    public RoleId: number;
+    public DescA: string;
+    public DescE: string;
+    public Remarks: string;
+}
+class G_RoleUsers extends SecurityClass {
+    constructor() {
+        super();
+        this.USER_CODE = "";
+        this.RoleId = 0;
+        this.ISActive = false;
+    }
+    public USER_CODE: string;
+    public RoleId: number;
+    public ISActive: boolean;
+}
+
+
+
 
 class G_BRANCH extends SecurityClass {
     constructor() {
@@ -1168,15 +1198,13 @@ class G_USERS extends SecurityClass {
         this.USER_CODE = "";
         this.USER_PASSWORD = "";
         this.USER_ACTIVE = false;
+        this.USER_ACTIVE_Name = "";
         this.USER_NAME = "";
         this.CompCode = 0;
         this.REGION_CODE = "";
         this.GRP_CODE = 0;
         this.USER_PASSWORD2 = "";
-        this.USER_PASSWORD3 = "";
         this.CHANGE_PASS_DATE = "";
-        this.MANUAL_VC = "";
-        this.MASTER_USER_CODE = "";
         this.City = "";
         this.Address = "";
         this.Tel = "";
@@ -1187,24 +1215,28 @@ class G_USERS extends SecurityClass {
         this.JobTitle = "";
         this.USER_TYPE = 0;
         this.ManagedBy = "";
-        this.SYSTEM_CODE = "";
-        this.SUB_SYSTEM_CODE = "";
+        this.LoginUrl = false;
         this.Tokenid = "";
         this.LastLogin = "";
-
+        this.FirstLogin = "";
+        this.Remarks = "";
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+        this.CashBoxID = 0;
+        this.SalesManID = 0;
     }
     public USER_CODE: string;
     public USER_PASSWORD: string;
     public USER_ACTIVE: boolean;
+    public USER_ACTIVE_Name: string;
     public USER_NAME: string;
     public CompCode: number;
     public REGION_CODE: string;
     public GRP_CODE: number;
     public USER_PASSWORD2: string;
-    public USER_PASSWORD3: string;
     public CHANGE_PASS_DATE: string;
-    public MANUAL_VC: string;
-    public MASTER_USER_CODE: string;
     public City: string;
     public Address: string;
     public Tel: string;
@@ -1215,11 +1247,19 @@ class G_USERS extends SecurityClass {
     public JobTitle: string;
     public USER_TYPE: number;
     public ManagedBy: string;
-    public SYSTEM_CODE: string;
-    public SUB_SYSTEM_CODE: string;
+    public LoginUrl: boolean;
+    public Tokenid: string;
     public LastLogin: string;
-    public Tokenid: string
+    public FirstLogin: string;
+    public Remarks: string;
+    public CreatedAt: string;
+    public CreatedBy: string;
+    public UpdatedAt: string;
+    public UpdatedBy: string;
+    public CashBoxID: number;
+    public SalesManID: number;
 }
+
 
 class I_Control {
     constructor() {

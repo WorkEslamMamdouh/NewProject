@@ -136,6 +136,12 @@ namespace WebUI.Controllers
             return View("~/Views/Report/Income_expenses.cshtml");
         }
 
+        public ActionResult USERSIndex()
+        {
+
+            return View("~/Views/Generalsetting/USERSIndex.cshtml");
+        }
+        
 
         #endregion  Open Pages 
 

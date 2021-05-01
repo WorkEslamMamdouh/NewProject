@@ -202,7 +202,7 @@ namespace Items {
         $("#div_Data").append(html);
 
         
-        Display_Type = Display_Filtr;
+        //Display_Type = Display_Filtr;
 
         $('#select_Type_Item' + cnt).append('<option value="10101">أختر الفئه</option>');
         for (var i = 0; i < Display_Type.length; i++) {

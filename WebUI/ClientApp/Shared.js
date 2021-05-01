@@ -227,7 +227,7 @@ function GetSystemEnvironment() {
 //    }
 //}
 function GetSystemSession() {
-    debugger;
+    //debugger
     if (document.cookie.length > 0) {
         // 
         var SysSession = new SystemSession;

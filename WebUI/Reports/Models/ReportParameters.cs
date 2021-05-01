@@ -23,6 +23,7 @@ namespace WebUI.Reports.Models
         public string Parameter_8 { get; set; }
         public string Parameter_9 { get; set; }
         public string Parameter_ { get; set; }
+        public int Type_Print { get; set; }
 
     }
 

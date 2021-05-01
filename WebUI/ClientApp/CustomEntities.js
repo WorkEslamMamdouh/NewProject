@@ -18,4 +18,11 @@ var Custom_AlertLog = (function (_super) {
     }
     return Custom_AlertLog;
 }(SecurityClass));
+var MasterDetailsUserRoles = (function (_super) {
+    __extends(MasterDetailsUserRoles, _super);
+    function MasterDetailsUserRoles() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MasterDetailsUserRoles;
+}(SecurityClass));
 //# sourceMappingURL=CustomEntities.js.map

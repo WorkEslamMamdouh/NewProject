@@ -358,6 +358,7 @@ namespace RS.WebUI.Reports.Forms
         string value7;
         string value8;
         string value9;
+        int Type_Print = 1;
 
 
         public void Get_Name_Report_toParameter()
@@ -382,7 +383,7 @@ namespace RS.WebUI.Reports.Forms
                 value7 = item.Parameter_7;
                 value8 = item.Parameter_8;
                 value9 = item.Parameter_9;
-
+                Type_Print = item.Type_Print;
 
                 foreach (var data in data3)
                 {
@@ -403,7 +404,7 @@ namespace RS.WebUI.Reports.Forms
 
 
                     DataTable dt = GetData_toParameter();
-                    BindReport(Repor.Name_Report, 1, "PDF", ReportsDetail, dt);
+                    BindReport(Repor.Name_Report, Type_Print, "PDF", ReportsDetail, dt);
 
 
                 }

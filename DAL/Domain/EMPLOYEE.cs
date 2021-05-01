@@ -16,9 +16,6 @@ namespace DAL.Domain
     {
         public int EMPLOYEE_ID { get; set; }
         public string EMPLOYEE_NAME { get; set; }
-        public string EMPLOYEE_PHONE { get; set; }
-        public Nullable<int> ID_User { get; set; }
-        public Nullable<int> id_Type_EMPLOYEE { get; set; }
         public string USER_CODE { get; set; }
     }
 }

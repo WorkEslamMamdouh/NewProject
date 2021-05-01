@@ -189,18 +189,7 @@ namespace API.Controllers
         public IHttpActionResult Update([FromBody]PRODUCT Nation)
         {
             if (ModelState.IsValid)
-            {
-
-
-
-
-
-
-
-
-
-
-
+            { 
                 try
                 {
                     var Nationality = ItemServices.Update(Nation);

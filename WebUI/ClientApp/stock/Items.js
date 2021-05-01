@@ -144,7 +144,7 @@ var Items;
             '<input id="txtID' + cnt + '" name=" " type="hidden" class="form-control" value=""> ' +
             '</div> ';
         $("#div_Data").append(html);
-        Display_Type = Display_Filtr;
+        //Display_Type = Display_Filtr;
         $('#select_Type_Item' + cnt).append('<option value="10101">أختر الفئه</option>');
         for (var i = 0; i < Display_Type.length; i++) {
             $('#select_Type_Item' + cnt).append('<option value="' + Display_Type[i].ID_CAT + '">' + Display_Type[i].Name_CAT + '</option>');

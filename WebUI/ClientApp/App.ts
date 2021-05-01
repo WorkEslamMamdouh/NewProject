@@ -21,7 +21,8 @@ var Modules = {
     Supplier: "Supplier",
     Salesinventory: "Salesinventory" ,
     familly_Cat: "familly_Cat" ,
-    Income_expenses: "Income_expenses"
+    Income_expenses: "Income_expenses",
+    USERS: "USERS"
 
     //Nationality: "Nationality",
     

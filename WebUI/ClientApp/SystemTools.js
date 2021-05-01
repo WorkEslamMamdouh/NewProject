@@ -5,7 +5,6 @@ var SystemTools = (function () {
         this.SysSession = GetSystemSession();
     }
     SystemTools.prototype.apiUrl = function (controller, action) {
-        debugger;
         var apiUrl = $("#GetAPIUrl").val() + controller + "/" + action;
         return (apiUrl);
     };

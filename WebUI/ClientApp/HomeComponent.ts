@@ -23,7 +23,7 @@ namespace HomeComponent {
     export function OpenPage(moduleCode: string) {
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
-        // debugger;
+        // //debugger;
         let compCode = SysSession.CurrentEnvironment.CompCode;
         let branchCode = SysSession.CurrentEnvironment.BranchCode;
         let UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -165,7 +165,7 @@ namespace HomeComponent {
             type: "Get",
             url: sys.apiUrl("Outletpirce", "Get_Balance"), 
             success: (d) => {
-                debugger
+                //debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                       Balance = result.Response;
@@ -189,7 +189,7 @@ namespace HomeComponent {
             url: sys.apiUrl("G_USERS", "LogoutUser"),
             data: { user: userCode },
             success: (d) => {
-                // debugger;
+                // //debugger;
                 if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -216,7 +216,7 @@ namespace HomeComponent {
     }
 
     function ApplyModules() {
-        debugger
+        //debugger
         var lis = document.getElementsByClassName("liItem");
         let obj = [document.getElementById('liItem')];
         let modules: Array<UserPrivilege> = new Array<UserPrivilege>();
@@ -237,9 +237,9 @@ namespace HomeComponent {
         });
         // filter moulules where isavailable = false or access = false 
         let li;
-        debugger
+        //debugger
         for (var i = 0; i < modules.length; i++) {
-            debugger
+            //debugger
             let singleUserModule: UserPrivilege = modules[i];
             //Notification control
             if (singleUserModule.MODULE_CODE.substring(0, 5) == "Note_") {
@@ -398,12 +398,12 @@ namespace HomeComponent {
         let SystemCode = SysSession.CurrentEnvironment.SystemCode;
         let SubSystemCode = SysSession.CurrentEnvironment.SubSystemCode;
         let Modulecode = SysSession.CurrentEnvironment.ModuleCode;
-        debugger
+        //debugger
         Ajax.Callsync({
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: moduleCode },
             success: (d) => {
-                debugger
+                //debugger
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -446,7 +446,7 @@ namespace HomeComponent {
     //    });
     //}
     export function OpenView(controllerName: string, moduleCode: string) {
-        debugger;
+        //debugger;
         SysSession.CurrentEnvironment.ModuleCode = moduleCode;
 
         let compCode = SysSession.CurrentEnvironment.CompCode;
@@ -461,7 +461,7 @@ namespace HomeComponent {
             url: sys.apiUrl("SystemTools", "GetUserPrivilage"),
             data: { compCode: compCode, branchCode: branchCode, UserCode: UserCode, SystemCode: 1, SubSystemCode: 1, Modulecode: Modulecode },
             success: (d) => {
-                debugger;
+                //debugger;
                 if (d == undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
                     return;
@@ -493,7 +493,7 @@ namespace HomeComponent {
     }
 
     function InitializePages() {
-        debugger;
+        //debugger;
         $("#btnHome").click(() => { OpenPage(Modules.Home); })
 
 
@@ -506,6 +506,7 @@ namespace HomeComponent {
         $("#btnSalesinventory").click(() => { OpenPage(Modules.Salesinventory); })
         $("#btnfamilly_Cat").click(() => { OpenPage(Modules.familly_Cat); })
         $("#btnIncome_expenses").click(() => { OpenPage(Modules.Income_expenses); })
+        $("#btnUSERS").click(() => { OpenPage(Modules.USERS); })
 
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
@@ -595,7 +596,7 @@ namespace HomeComponent {
             //$('#langImg').attr('src', '../images/english.png');
             SysSession.CurrentEnvironment.ScreenLanguage = "ar"
 
-            $("#btn_loguotuser").text("الخروج من النظام")
+            $("#btn_loguotuser").html('  الخروج من النظام <span class="adminpro-icon adminpro-locked author-log-ic"></span>')
         }
         //$("#SearchBox").draggable();
         App.Startup();
@@ -626,7 +627,7 @@ namespace HomeComponent {
     }
     function ScreenHelp() {
         let ModuleCode = SysSession.CurrentPrivileges.MODULE_CODE;
-        debugger
+        //debugger
 
         $.ajax({
             type: "GET",
@@ -634,7 +635,7 @@ namespace HomeComponent {
             data: { ModuleCode: ModuleCode },
             async: false,
             success: (d) => {
-                debugger;
+                //debugger;
                 let result = d as BaseResponse;
                 let res = result.Response as G_ModuleHelp;
                 if (res != null) {
@@ -668,7 +669,7 @@ namespace HomeComponent {
             url: sys.apiUrl("Outletpirce", "Insert"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
             success: (d) => {
-                debugger
+                //debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -712,7 +713,7 @@ namespace HomeComponent {
             url: sys.apiUrl("Outletpirce", "Insert_Enter_Money"),
             data: { Dasc_Name: Dasc_Name, pirce: pirce, UserName: SysSession.CurrentEnvironment.UserCode, Tr_Type },
             success: (d) => {
-                debugger
+                //debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     var Outlet = result.Response;
@@ -741,7 +742,7 @@ namespace HomeComponent {
                     type: "Post",
                     url: sys.apiUrl("Close_Day", "Close"),
                     success: (d) => {
-                        debugger
+                        //debugger
 
 
                         let result = d as BaseResponse;
@@ -772,7 +773,7 @@ namespace HomeComponent {
             type: "Get",
             url: sys.apiUrl("Close_Day", "Check_Close_Day"),
             success: (d) => {
-                debugger
+                //debugger
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
                     let res = result.Response

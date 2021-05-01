@@ -164,7 +164,7 @@ namespace Categories {
             Model = new CATEGRES();
 
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            $("#txt_StatusFlag" + i).val("");
+            //$("#txt_StatusFlag" + i).val("");
             debugger;
 
 

@@ -116,7 +116,7 @@ namespace familly_Cate {
             Model = new familly_Cat();
 
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            $("#txt_StatusFlag" + i).val("");
+            //$("#txt_StatusFlag" + i).val("");
             debugger;
 
 

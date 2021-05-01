@@ -20,3 +20,12 @@ class Custom_AlertLog extends SecurityClass {
 
 }
 
+class MasterDetailsUserRoles extends SecurityClass {
+
+    public G_USERS: G_USERS;
+    public G_RoleUsers: Array<G_RoleUsers>;
+
+
+}
+
+

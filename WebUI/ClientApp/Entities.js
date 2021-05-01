@@ -163,9 +163,33 @@ var Settings_Report = (function () {
         this.Parameter_7 = "";
         this.Parameter_8 = "";
         this.Parameter_9 = "";
+        this.Type_Print = 1;
     }
     return Settings_Report;
 }());
+var G_Role = (function (_super) {
+    __extends(G_Role, _super);
+    function G_Role() {
+        var _this = _super.call(this) || this;
+        _this.RoleId = 0;
+        _this.DescA = "";
+        _this.DescE = "";
+        _this.Remarks = "";
+        return _this;
+    }
+    return G_Role;
+}(SecurityClass));
+var G_RoleUsers = (function (_super) {
+    __extends(G_RoleUsers, _super);
+    function G_RoleUsers() {
+        var _this = _super.call(this) || this;
+        _this.USER_CODE = "";
+        _this.RoleId = 0;
+        _this.ISActive = false;
+        return _this;
+    }
+    return G_RoleUsers;
+}(SecurityClass));
 var G_BRANCH = (function (_super) {
     __extends(G_BRANCH, _super);
     function G_BRANCH() {
@@ -812,15 +836,13 @@ var G_USERS = (function (_super) {
         _this.USER_CODE = "";
         _this.USER_PASSWORD = "";
         _this.USER_ACTIVE = false;
+        _this.USER_ACTIVE_Name = "";
         _this.USER_NAME = "";
         _this.CompCode = 0;
         _this.REGION_CODE = "";
         _this.GRP_CODE = 0;
         _this.USER_PASSWORD2 = "";
-        _this.USER_PASSWORD3 = "";
         _this.CHANGE_PASS_DATE = "";
-        _this.MANUAL_VC = "";
-        _this.MASTER_USER_CODE = "";
         _this.City = "";
         _this.Address = "";
         _this.Tel = "";
@@ -831,10 +853,17 @@ var G_USERS = (function (_super) {
         _this.JobTitle = "";
         _this.USER_TYPE = 0;
         _this.ManagedBy = "";
-        _this.SYSTEM_CODE = "";
-        _this.SUB_SYSTEM_CODE = "";
+        _this.LoginUrl = false;
         _this.Tokenid = "";
         _this.LastLogin = "";
+        _this.FirstLogin = "";
+        _this.Remarks = "";
+        _this.CreatedAt = "";
+        _this.CreatedBy = "";
+        _this.UpdatedAt = "";
+        _this.UpdatedBy = "";
+        _this.CashBoxID = 0;
+        _this.SalesManID = 0;
         return _this;
     }
     return G_USERS;

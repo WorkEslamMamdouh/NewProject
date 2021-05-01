@@ -48,12 +48,10 @@ var Income_expenses;
         btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
     }
     function IntializeEvents() {
-        //searchbutmemreport.onkeydown = _SearchBox_Change;
-        //searchbutmemreport.onkeyup = _SearchBox_Change;
-        btnPrint.onclick = function () { printreport(1); };
-        btnPrintTrview.onclick = function () { printreport(2); };
-        btnPrintTrPDF.onclick = function () { printreport(3); };
-        btnPrintTrEXEL.onclick = function () { printreport(4); };
+        btnPrint.onclick = function () { printreport(4); };
+        btnPrintTrview.onclick = function () { printreport(1); };
+        btnPrintTrPDF.onclick = function () { printreport(2); };
+        btnPrintTrEXEL.onclick = function () { printreport(3); };
     }
     function GetDate() {
         debugger;

@@ -136,6 +136,7 @@
                             <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <ul id=" ">
                                     <li class="liItem dropdown-item" id="btnSupplier" key="Supplier"><a id="btnSupplier">الموردين</a></li>
+                                    @*<li class="liItem dropdown-item" id="btnUSERS" key="USERS"><a id="btnUSERS">المستخدمين</a></li>*@
                                 </ul>
                             </div>
                         </li>
@@ -340,18 +341,19 @@
                                             </a>
                                             <ul role="menu" class="liItem dropdown-header-top author-log dropdown-menu animated flipInX">
                                                 @*<li>
-                                <a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
-                            </li>*@
+            <a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
+        </li>*@
 
                                                 <li>
                                                     <a class="liItem" href="#" id="LanguageButtonHome"> <span id="LanguageButtonHome" class="adminpro-icon adminpro-money author-log-ic"></span> </a>
                                                 </li>
+                                                <li  key="USERS">
+                                                    <a class="liItem" href="#" id="btnUSERS" data-toggle="modal" data-target="#user_setting">  الاعدادات  <span id="btn_G_User" class="  glyphicon glyphicon-cog"></span>  </a>
+                                                @*<li class="liItem dropdown-item" id="btnUSERS"><a id="btnUSERS">المستخدمين</a></li>*@
+</li>
                                                 <li>
-                                                    <a class="liItem" href="#" id="btnUsers" data-toggle="modal" data-target="#user_setting">    <span id="btn_G_User" class="adminpro-icon adminpro-locked author-log-ic"></span>  </a>
-                                                </li>
-                                                <li>
-                                                    @*<a href="@Url.Action("Logout", "Home")"> @SystemResource.l_Log_Out<span class="adminpro-icon adminpro-reload author-log-ic"></span></a>*@
-                                                    <a class="liItem" id="btn_loguotuser" href="#">  تسجيل الخروج @*@SystemResource.l_Log_Out*@<span class="adminpro-icon adminpro-reload author-log-ic"></span></a>
+                                                    
+                                                    <a class="liItem" id="btn_loguotuser" href="#">  تسجيل الخروج <span class="adminpro-icon adminpro-locked author-log-ic"></span></a>
                                                 </li>
                                             </ul>
                                         </li>

@@ -88,7 +88,7 @@ var familly_Cate;
         for (var i = 0; i < CountGrid; i++) {
             Model = new familly_Cat();
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            $("#txt_StatusFlag" + i).val("");
+            //$("#txt_StatusFlag" + i).val("");
             debugger;
             if (StatusFlag == "i") {
                 Model.StatusFlag = StatusFlag.toString();
