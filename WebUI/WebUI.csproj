@@ -1103,6 +1103,7 @@
     <Content Include="Views\Generalsetting\SupplierIndex.cshtml" />
     <Content Include="Views\Report\Salesinventory.cshtml" />
     <Content Include="Views\Stock\familly_Cat.cshtml" />
+    <Content Include="Views\Report\Income_expenses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1170,6 +1171,7 @@
     <TypeScriptCompile Include="ClientApp\Pages\LoginComponent.ts" />
     <TypeScriptCompile Include="ClientApp\Pages\Thesettings\Home.ts" />
     <TypeScriptCompile Include="ClientApp\Purchases\Purchases.ts" />
+    <TypeScriptCompile Include="ClientApp\Reports\Income_expenses.ts" />
     <TypeScriptCompile Include="ClientApp\Reports\Salesinventory.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSalesReturn.ts" />
     <TypeScriptCompile Include="ClientApp\Sales\SlsTrSales.ts" />
@@ -1193,6 +1195,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_AccAdjustListAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCExpensesAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCIncomeAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardDetailAr.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

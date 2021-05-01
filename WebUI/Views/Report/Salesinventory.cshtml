@@ -73,30 +73,51 @@
                         <input type="date" class="form-control input-sm addable editable" name="GosiJoinDate" id="txtToDate">
                     </div>
 
-                    <div class="col-md-1 col-sm-5 col-xs-10">
-                        <button id="btnShow" type="button" class="btn btn-info"><span class="glyphicon glyphicon-save"></span>العرض</button>
+                    <div class="col-md-2 col-sm-5 col-xs-10" style="width: 10%;">
+                        <div class="btn-group">
+                            <label type="button" class="btn btn-warning" style="background-color: #031665;">طباعة</label>
+                            <button type="button" class="btn btn-warning dropdown-toggle" style="background-color: #031665;" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-hand-down"></span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="border-radius:15px">
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrint" type="button" class="  btn btn-custon-four  primary-btn-cl">طباعة  <span class="adminpro-icon adminpro-paint-roller"></span></button>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrview" type="button" class="  btn btn-custon-four  primary-btn-cl">عرض تقرير  <span class="adminpro-icon adminpro-paint-roller"></span></button>
+                                </div>
 
-                    </div>
-                    <div class="col-md-1 col-sm-5 col-xs-10">
-                        @*<button id="btnadd" type="button" class="btn btn-success">
-                                <span class="glyphicon"></span> الاضافه
-                            </button>*@
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four  primary-btn-cl">تنزيل<span class="adminpro-icon adminpro-download-arrow"></span>   PDF  </button>
+                                </div>
 
+                                <div class="col-lg-12">
+                                    <button style="width:100%;background-color: #031665;color:white" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four  primary-btn-cl">تنزيل <span class="adminpro-icon adminpro-download-arrow"></span>  EXCEL  </button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
+                    
+                        
+                        <div class="col-lg-12">
+                            <label class="col-lg-3 col-xs-4   pading_2 textcentr_pading ">نوع التقرير</label>
+                            <div class="col-lg-3">
+                                <label class="col-lg-2" for="sammury" style="left: 24px;top: 10px;">ملخص</label>
+                                <input class="col-lg-1 form-control" type="radio" id="sammury" name="reprd" value="Sammury" style="width: 20px;" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-lg-2" for="Detail" style="left: 24px;top: 10px;">تفصيلي</label> 
+                                <input class="col-lg-1 form-control" type="radio" id="Detail" name="reprd" value="Detail"style="width: 20px;" >
+                            </div>
+                        </div>
+                      
+
+                  
                 </div> 
 
 
-                <div id="divMasterGridiv" class="col-lg-12  margingred  borderred  display_none   " style="width: 99%;">
-                    <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
-                        <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="بحث ">
-                    </div>
-                    <div class="col-lg-12 ">
-                        @*رقم الفاتورة	العميل	عدد الأصناف	عدد العبوات	الإجمالي	الضريبة	الصافي	العمولة	المطلوب سداده*@
-                        <table id="divMasterGrid"></table>
-                    </div>
                 </div>
-
-            </div>
 
 
 

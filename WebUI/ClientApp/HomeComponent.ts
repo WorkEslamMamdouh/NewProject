@@ -494,6 +494,7 @@ namespace HomeComponent {
         $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })
         $("#btnSalesinventory").click(() => { OpenPage(Modules.Salesinventory); })
         $("#btnfamilly_Cat").click(() => { OpenPage(Modules.familly_Cat); })
+        $("#btnIncome_expenses").click(() => { OpenPage(Modules.Income_expenses); })
 
 
         //$("#btnDashboard").click(() => { GetView(Modules.Dashboard); })
