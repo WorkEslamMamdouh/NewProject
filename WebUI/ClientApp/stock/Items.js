@@ -51,10 +51,14 @@ var Items;
         InitalizeEvents();
         Display_DrpPaymentType();
         Displayfamilly();
-        Display_All();
+        //Display_All();
     }
     Items.InitalizeComponent = InitalizeComponent;
     $('#btnedite').on('click', function () {
+        if ($('#drpPaymentType').val() == 'null' || $('#drpPaymentType').val() == 'Null') {
+            MessageBox.Show('يبجب اختيار الفئة اوالاً', '');
+            return;
+        }
         $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
@@ -213,6 +217,7 @@ var Items;
             $('#drpPaymentType').attr('disabled', 'disabled');
             $('#drpPaymentType').html('');
             $('#drpPaymentType').append('<option   value="null">اختر الفئه</option>');
+            $("#div_Data").html('');
         }
         else {
             Display_Type = Display_Filtr.filter(function (x) { return x.ID_familly_Cat == Number($('#drbfamilly_cat').val()); });
@@ -221,7 +226,12 @@ var Items;
         }
     });
     $('#drpPaymentType').on('change', function () {
-        Display();
+        if ($('#drpPaymentType').val() == 'null') {
+            $("#div_Data").html('');
+        }
+        else {
+            Display();
+        }
     });
     function Display_DrpPaymentType() {
         debugger;

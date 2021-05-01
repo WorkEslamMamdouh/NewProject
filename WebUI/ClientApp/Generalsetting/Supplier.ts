@@ -86,9 +86,7 @@ namespace AccDefVendor {
     }
 
     function InitalizeControls() {
-        ////debugger;
-
-
+        
         txt_ID_APP_Category = document.getElementById("txt_ID_APP_Category") as HTMLSelectElement;
 
           btnShow = document.getElementById("btnShow") as HTMLButtonElement;
@@ -102,48 +100,18 @@ namespace AccDefVendor {
           txt_phone = document.getElementById("txt_NAME") as HTMLInputElement;
           txt_Notes = document.getElementById("txt_NAME") as HTMLInputElement;
           txt_Type_Supplier = document.getElementById("txt_NAME") as HTMLInputElement;
+          searchbutmemreport = document.getElementById("searchbutmemreport") as HTMLInputElement;
+ 
 
-
-        //  //textBoxes
-        //  txt_CustomerCODE = document.getElementById("txt_CustomerCODE") as HTMLInputElement;
-        //  txt_Cust_Type = document.getElementById("txt_Cust_Type") as HTMLSelectElement;
-        //  txt_Category = document.getElementById("txt_Category") as HTMLSelectElement;
-        //  txt_ADDRESS = document.getElementById("txt_ADDRESS") as HTMLInputElement;
-        //  txt_MOBILE = document.getElementById("txt_MOBILE") as HTMLInputElement;
-        //  txt_TEL = document.getElementById("txt_TEL") as HTMLInputElement;
-        //  txt_IDNo = document.getElementById("txt_IDNo") as HTMLInputElement;
-        //  txt_WorkTel = document.getElementById("txt_WorkTel") as HTMLInputElement;
-        //  txt_note = document.getElementById("txt_note") as HTMLInputElement;
-        //  txt_tax = document.getElementById("txt_tax") as HTMLSelectElement;
-        //  txt_Grop = document.getElementById("txt_Grop") as HTMLSelectElement;
-        //  ddlNationality = document.getElementById("ddlNationality") as HTMLSelectElement;
-        //  txtVendorType_New = document.getElementById("txtVendorType_New") as HTMLSelectElement;
-
-
-        //  txt_VatNo = document.getElementById("txt_VatNo") as HTMLInputElement;
-        //  txt_Debit = document.getElementById("txt_Debit") as HTMLInputElement;
-        //  txt_DebitFC = document.getElementById("txt_DebitFC") as HTMLInputElement;
-        //  txt_Openbalance = document.getElementById("txt_Openbalance") as HTMLInputElement;
-        //  txt_CreditLimit = document.getElementById("txt_CreditLimit") as HTMLInputElement;
-        //  txt_balance = document.getElementById("txt_balance") as HTMLInputElement;
-        //txtResMobile = document.getElementById("txtResMobile") as HTMLInputElement;
-        //  txtResName = document.getElementById("txtResName") as HTMLInputElement;
-
-
-        //  searchbutmemreport = document.getElementById("searchbutmemreport") as HTMLInputElement;
     }
 
-    function InitalizeEvents() {
-        //debugger
-
-
+    function InitalizeEvents() { 
         btnShow.onclick = btnShow_onclick;
         btnAdd.onclick = btnAdd_onclick;
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         btnEdit.onclick = btnEdit_onclick;
-        //searchbutmemreport.onkeyup = _SearchBox_Change;
-
+        searchbutmemreport.onkeyup = _SearchBox_Change; 
     }
 
     function GetSupplier() {
@@ -185,14 +153,24 @@ namespace AccDefVendor {
         //debugger;
       
         var ID_Supplier = $('#txt_ID_APP_Category').val();
+        var Active = $('#txt_Active').val();
 
-        if (ID_Supplier != 'Null') {
+        if (ID_Supplier != 'Null' && Active == 2) {
 
             Display = Details.filter(s => s.ID_Supplier == ID_Supplier);
         }
-        else {
+        if (ID_Supplier != 'Null' && Active != 2) {
+
+            Display = Details.filter(s => s.ID_Supplier == ID_Supplier && s.IS_Active == Active);
+        }
+        if (ID_Supplier == 'Null' && Active != 2) {
+
+            Display = Details.filter(s => s.IS_Active == Active);
+        }
+        if (ID_Supplier == 'Null' && Active == 2) {
             Display = Details;
         }
+       
 
 
         for (var i = 0; i < Display.length; i++) {
@@ -207,13 +185,7 @@ namespace AccDefVendor {
 
 
     }
-
-
-
-
-
-
-
+     
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
@@ -300,10 +272,7 @@ namespace AccDefVendor {
         }
 
     }
-
-
-
-
+     
     function txt_disabled() {
         //debugger;
 
@@ -495,17 +464,17 @@ namespace AccDefVendor {
         //filter_balance();
     }
     function _SearchBox_Change() {
-        //////debugger;
+        debugger;
 
        if (searchbutmemreport.value != "") {
            let search: string = searchbutmemreport.value.toLowerCase();
-           SearchDetails = Details.filter(x => x.Name_Supplier.toLowerCase().search(search) >= 0 || x.ID_Supplier.toString().search(search) >= 0);
+           SearchDetails = Display.filter(x => x.Name_Supplier.toLowerCase().search(search) >= 0 || x.phone.toString().search(search) >= 0 || x.Type_Supplier.toString().search(search) >= 0);
 
 
            ReportGrid.DataSource = SearchDetails;
            ReportGrid.Bind();
        } else {
-           ReportGrid.DataSource = Details;
+           ReportGrid.DataSource = Display;
            ReportGrid.Bind();
        }
     }

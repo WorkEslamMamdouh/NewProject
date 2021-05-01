@@ -92,6 +92,7 @@ var SlsTrSales;
     var div_cutomr;
     var hid_div_Customr;
     var update_div_cust;
+    var Remove_cust;
     var cust_search_phone;
     var idCust;
     var fouse;
@@ -134,6 +135,7 @@ var SlsTrSales;
         btnminus_price = document.getElementById("btnminus_price");
         btnplus_price = document.getElementById("btnplus_price");
         btn_Approveprice = document.getElementById("btn_Approveprice");
+        Remove_cust = document.getElementById("Remove_cust");
         CChat = document.getElementById("CChat");
         Total_Basket = document.getElementById("Total_Basket");
         Basket = document.getElementById("Basket");
@@ -182,6 +184,7 @@ var SlsTrSales;
         But_Cutomr.onclick = show_Cutomr;
         hid_div_Customr.onclick = hide_Custm;
         update_div_cust.onclick = update_cust;
+        Remove_cust.onclick = Remove_cust_onclick;
     }
     function timer() {
         debugger;
@@ -1011,6 +1014,10 @@ var SlsTrSales;
                 document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #c12a2a; border - radius: 50px;');
                 document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr animated shake');
                 idCust.value = "";
+                CUST_NAME.value = "";
+                CUST_ADDRES.value = "";
+                CUST_ADDRES_2.value = "";
+                CUST_Phone.value = "";
             }
             else {
                 Details_Updata_Cust = new Array();
@@ -1121,6 +1128,16 @@ var SlsTrSales;
                 }
             }
         });
+    }
+    function Remove_cust_onclick() {
+        CUST_NAME.value = "";
+        CUST_ADDRES.value = "";
+        CUST_ADDRES_2.value = "";
+        CUST_Phone.value = "";
+        idCust.value = "";
+        cust_search_phone.value = "";
+        document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
+        document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
     }
 })(SlsTrSales || (SlsTrSales = {}));
 //# sourceMappingURL=SlsTrSales.js.map
