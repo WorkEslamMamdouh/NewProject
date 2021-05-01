@@ -15,6 +15,7 @@ namespace HomeComponent {
     var Close: HTMLButtonElement; 
     var btnDashboard: HTMLButtonElement;
     var btn_loguotuser: HTMLButtonElement;
+    var sidebarCollapse: HTMLButtonElement;
     var SysSession: SystemSession = GetSystemSession();
     var systemEnv: SystemEnvironment = SysSession.CurrentEnvironment;
     var Balance = 0;
@@ -147,11 +148,14 @@ namespace HomeComponent {
         But_Input = document.getElementById('But_Input') as HTMLButtonElement
         But_Outlet = document.getElementById('But_Outlet') as HTMLButtonElement
         Close = document.getElementById('Close') as HTMLButtonElement
+        sidebarCollapse = document.getElementById('sidebarCollapses') as HTMLButtonElement
         But_Input.onclick = Enter_Money;
         But_Outlet.onclick = Cash_Box;
         btnCash.onclick = Get_balance;
         Close.onclick = Close_Day;        
         Check_Close_Day();
+
+        sidebarCollapse.onclick = ON_Click_SidebarCollapse;
 
     }
 
@@ -203,6 +207,13 @@ namespace HomeComponent {
         }
     }
 
+    function ON_Click_SidebarCollapse() {
+
+        $('#cont').toggleClass('colapsdivcont');
+
+        $('#sidebar').toggleClass('active');
+
+    }
 
     function ApplyModules() {
         debugger

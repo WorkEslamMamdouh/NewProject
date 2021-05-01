@@ -9,7 +9,7 @@
               <Width>3.41842cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.41842cm</Width>
+              <Width>4.31799cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.41842cm</Width>
@@ -34,7 +34,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>نسبة البيع</Value>
+                              <Value> % نسبة البيع </Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -78,7 +78,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>اجمالى ربح وخسارة المنتج</Value>
+                              <Value>اجمالى زيادات علي سعر المنتج  </Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -260,9 +260,7 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Task.Value</Value>
-                              <Style>
-                                <Format>0.00 %</Format>
-                              </Style>
+                              <Style />
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -443,14 +441,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox52">
+                    <Textbox Name="Task1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>100 %</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -461,7 +459,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox52</rd:DefaultName>
+                      <rd:DefaultName>Task1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -493,7 +491,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>أجمالي النسبه</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -694,7 +692,7 @@
         <DataSetName>Rpt_GardDetailAr</DataSetName>
         <Top>0.14111cm</Top>
         <Height>1.87938cm</Height>
-        <Width>19.71146cm</Width>
+        <Width>20.61104cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -719,7 +717,7 @@
         </Paragraphs>
         <rd:DefaultName>The_total_amount</rd:DefaultName>
         <Top>2.19688cm</Top>
-        <Left>11.45117cm</Left>
+        <Left>12.40367cm</Left>
         <Height>0.6cm</Height>
         <Width>3.12208cm</Width>
         <ZIndex>1</ZIndex>
@@ -775,7 +773,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox22</rd:DefaultName>
         <Top>2.19688cm</Top>
-        <Left>14.60183cm</Left>
+        <Left>15.55433cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>2</ZIndex>
@@ -881,7 +879,7 @@
     <Height>1.10113in</Height>
     <Style />
   </Body>
-  <Width>7.76042in</Width>
+  <Width>8.23125in</Width>
   <Page>
     <PageHeader>
       <Height>2.63729cm</Height>
@@ -908,6 +906,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
+          <Left>0.25in</Left>
           <Height>0.97042cm</Height>
           <Width>19.71146cm</Width>
           <Style>
@@ -940,7 +939,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox22</rd:DefaultName>
           <Top>1.14681cm</Top>
-          <Left>16.82433cm</Left>
+          <Left>17.77683cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>1</ZIndex>
@@ -1008,7 +1007,7 @@
           </Paragraphs>
           <rd:DefaultName>FromDate</rd:DefaultName>
           <Top>1.14681cm</Top>
-          <Left>12.08948cm</Left>
+          <Left>13.04198cm</Left>
           <Height>0.6cm</Height>
           <Width>4.69604cm</Width>
           <ZIndex>3</ZIndex>
@@ -1076,7 +1075,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox22</rd:DefaultName>
           <Top>1.905cm</Top>
-          <Left>16.82433cm</Left>
+          <Left>17.77683cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>5</ZIndex>
@@ -1108,7 +1107,7 @@
           </Paragraphs>
           <rd:DefaultName>Shift_User</rd:DefaultName>
           <Top>1.90712cm</Top>
-          <Left>12.06915cm</Left>
+          <Left>13.02165cm</Left>
           <Height>0.6cm</Height>
           <Width>4.7266cm</Width>
           <ZIndex>6</ZIndex>

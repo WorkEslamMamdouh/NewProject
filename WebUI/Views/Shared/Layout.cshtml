@@ -9,7 +9,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="shortcut icon" href="~/images/logokids.png">
 
-    <title>Home</title>
+    <title>POS</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -102,7 +102,7 @@
                 <div class="left-custom-menu-adp-wrap">
                     <ul id="main_menu" name="main_menu" class="nav navbar-nav left-sidebar-menu-pro">
                         <li class="liItem nav-item">
-                            <a id="btnHome" href="#" data-toggle="dropdown" role="button" aria-expanded="false" class=" liItem nav-link dropdown-toggle">  <i id="btnHome" class="glyphicon glyphicon-home"></i>    <span id="btnHome" class="mini-dn">Home</span></a>
+                            <a id="btnHome" href="#" data-toggle="dropdown" role="button" aria-expanded="false" class=" liItem nav-link dropdown-toggle">  <i id="btnHome" class="glyphicon glyphicon-home"></i>    <span id="btnHome" class="mini-dn">الشاشه الرئيسيه</span></a>
                         </li>
 
 
@@ -119,11 +119,36 @@
                         </li>
 
                         <li class="liItem nav-item " id="btnPur">
-                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-transfer"></i> <span class="mini-dn">المشتريات</span></a>
+                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-shopping-cart"></i> <span class="mini-dn">المشتريات</span></a>
                             <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <ul id=" ">
                                     <li class="liItem dropdown-item" id="btnPurchases" key="Purchases"><a id="btnPurchases">المشتريات</a></li>
                                     @*<li class="liItem dropdown-item" id="btnSlsTrReturn" key="SlsTrReturn"><a id="btnSlsTrReturn">مرتجع الفواتير</a></li>*@
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="liItem nav-item " id="btnGeneralsetting">
+
+                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-briefcase"></i>  <span class="mini-dn">إعدادات عامة</span></a>
+                            <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                <ul id=" ">
+                                    <li class="liItem dropdown-item" id="btnSupplier" key="Supplier"><a id="btnSupplier">الموردين</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="liItem nav-item " id="btnReport">
+
+                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-stats"></i>  <span class="mini-dn">التقارير</span></a>
+                            <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                <ul id=" ">
+                                    <li class="liItem dropdown-item" id="btnSalesinventory" key="Salesinventory"><a id="btnSalesinventory">جرد  المبيعات</a></li>
+                                    <li class="liItem dropdown-item" id="btnIncome_expenses" key="Income_expenses"><a id="btnIncome_expenses">كشف حساب</a></li>
+
 
                                 </ul>
                             </div>
@@ -143,34 +168,10 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="liItem nav-item " id="btnReport">
-
-                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-cog"></i>  <span class="mini-dn">التقارير</span></a>
-                            <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <ul id=" ">
-                                    <li class="liItem dropdown-item" id="btnSalesinventory" key="Salesinventory"><a id="btnSalesinventory">جرد امبيعات</a></li>
-                                    <li class="liItem dropdown-item" id="btnIncome_expenses" key="Income_expenses"><a id="btnIncome_expenses">كشف حساب</a></li>
-                                   
-
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="liItem nav-item " id="btnGeneralsetting">
-
-                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-cog"></i>  <span class="mini-dn">إعدادات عامة</span></a>
-                            <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <ul id=" ">
-                                    <li class="liItem dropdown-item" id="btnSupplier" key="Supplier"><a id="btnSupplier">الموردين</a></li>
-                                </ul>
-                            </div>
-                        </li>
-
-
 
 
                         <li class="liItem nav-item " id="btnCash">
-                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-save-file"></i>  <span class="mini-dn">الصندوق</span></a>
+                            <a id=" " href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"> <i class="glyphicon glyphicon-inbox"></i>  <span class="mini-dn">الصندوق</span></a>
                             <div id=" " role="menu" class="dropdown-menu left-menu-dropdown animated flipInX" style=" background: linear-gradient(to right, rgb(0 0 0 / 0%) 0%, #054f5b9c 100%) !important; color:white; width: 131%;">
                                 <ul>
 
@@ -178,7 +179,7 @@
 
 
                                         <div class="col-lg-12">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
 
                                             </div>
                                             <label id="Balance" class="login2 pull-right pull-right-pro" style="color: #f50d0d;">المبلغ </label>
@@ -203,21 +204,25 @@
                                             <label class="login2 pull-right pull-right-pro" style="color: bisque;font-weight: bold;font-size: 21px;">السعـــر</label>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input id="id_pirce" class="form-control"style="background-color: #d7ff99;" type="number" placeholder="السعـــر">
+                                            <input id="id_pirce" class="form-control" style="background-color: #d7ff99;" type="number" placeholder="السعـــر">
                                         </div>
 
                                     </li>
 
                                     <li class="liItem dropdown-item" id=" " key=" ">
-                                        <div class="col-lg-4">
-                                            <input id="But_Outlet" type="button" class="btn btn-info" style="width: 154%; border-radius: 52px; background: linear-gradient(to right, #652f08 0%, #c80000 100%);" value=" Out ">
-                                        </div>
-
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-1" style="width: 0px;">
 
                                         </div>
-                                        <div class="col-lg-4">
-                                            <input id="But_Input" type="button"  class="btn btn-info"  style="width: 154%; border-radius: 52px;" value=" Enter ">
+                                        <div class="col-lg-5">
+                                            <input id="But_Outlet" type="button" class="btn btn-info" style=" width: 118%; background: linear-gradient(to right, #652f08 0%, #c80000 100%);" value=" Out ">
+                                        </div>
+
+
+                                        <div class="col-lg-5">
+                                            <input id="But_Input" type="button" class="btn btn-info" style="width: 118%; " value="Push">
+                                        </div>
+                                        <div class="col-lg-1">
+
                                         </div>
                                     </li>
 
@@ -241,7 +246,7 @@
 
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-6 col-xs-12 sidebarCollapse" style="margin-right:2%;">
-                                <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                <button type="button" id="sidebarCollapses" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                                     <i class="fa fa-bars"></i>
                                 </button>
 

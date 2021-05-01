@@ -12,7 +12,7 @@
 		
 		
 		$('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
+                     //$('#sidebar').toggleClass('active');
                      
                  });
  
@@ -25,7 +25,7 @@
 
 			
 		$('#sidebarCollapse').on('click', function () {
-			$("body").toggleClass("mini-navbar");
+			//$("body").toggleClass("mini-navbar");
 			//SmoothlyMenu();
 		});
       

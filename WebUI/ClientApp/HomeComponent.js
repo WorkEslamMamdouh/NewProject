@@ -12,6 +12,7 @@ var HomeComponent;
     var Close;
     var btnDashboard;
     var btn_loguotuser;
+    var sidebarCollapse;
     var SysSession = GetSystemSession();
     var systemEnv = SysSession.CurrentEnvironment;
     var Balance = 0;
@@ -130,11 +131,13 @@ var HomeComponent;
         But_Input = document.getElementById('But_Input');
         But_Outlet = document.getElementById('But_Outlet');
         Close = document.getElementById('Close');
+        sidebarCollapse = document.getElementById('sidebarCollapses');
         But_Input.onclick = Enter_Money;
         But_Outlet.onclick = Cash_Box;
         btnCash.onclick = Get_balance;
         Close.onclick = Close_Day;
         Check_Close_Day();
+        sidebarCollapse.onclick = ON_Click_SidebarCollapse;
     }
     HomeComponent.InitalizeComponent = InitalizeComponent;
     function Get_balance() {
@@ -177,6 +180,10 @@ var HomeComponent;
             btnDashboard = DocumentActions.GetElementById("btnDashboard");
             btnDashboard.style.display = "none";
         }
+    }
+    function ON_Click_SidebarCollapse() {
+        $('#cont').toggleClass('colapsdivcont');
+        $('#sidebar').toggleClass('active');
     }
     function ApplyModules() {
         debugger;
