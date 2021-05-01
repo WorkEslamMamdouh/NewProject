@@ -26,6 +26,7 @@ var Salesinventory;
         txtFromDate.value = GetDate();
         txtToDate.value = GetDate();
         IntializeEvents();
+        sammury.checked = true;
     }
     Salesinventory.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -42,8 +43,16 @@ var Salesinventory;
         txtFromDate = document.getElementById("txtFromDate");
         txtToDate = document.getElementById("txtToDate");
         ddlUserMaster = document.getElementById("ddlUserMaster");
+        btnPrint = document.getElementById("btnPrint");
+        btnPrintTrview = document.getElementById("btnPrintTrview");
+        btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
+        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
     }
     function IntializeEvents() {
+        btnPrint.onclick = function () { printreport(1); };
+        btnPrintTrview.onclick = function () { printreport(2); };
+        btnPrintTrPDF.onclick = function () { printreport(3); };
+        btnPrintTrEXEL.onclick = function () { printreport(4); };
     }
     function GetDate() {
         debugger;
@@ -83,14 +92,14 @@ var Salesinventory;
         var _StockList = new Array();
         var _Stock = new Settings_Report();
         if (Detail.checked == true) {
-            _Stock.ID_Button_Print = 'GardDetail';
-        }
-        else {
             _Stock.ID_Button_Print = 'GardSammury';
         }
-        _Stock.Parameter_1 = DateFormatDataBes(txtFromDate.value);
-        _Stock.Parameter_2 = DateFormatDataBes(txtToDate.value);
-        _Stock.Parameter_3 = UserVal;
+        else {
+            _Stock.ID_Button_Print = 'GardDetail';
+        }
+        _Stock.Parameter_1 = UserVal;
+        _Stock.Parameter_2 = DateFormatDataBes(txtFromDate.value);
+        _Stock.Parameter_3 = DateFormatDataBes(txtToDate.value);
         //_Stock.Parameter_4 = "";
         //_Stock.Parameter_5 = "";
         //_Stock.Parameter_6 = "";

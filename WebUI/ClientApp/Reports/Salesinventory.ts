@@ -30,7 +30,7 @@ namespace Salesinventory {
         txtFromDate.value = GetDate();
         txtToDate.value = GetDate();
         IntializeEvents();
-
+        sammury.checked = true;
     }
     function InitalizeControls() {  
 
@@ -48,9 +48,21 @@ namespace Salesinventory {
         txtFromDate = document.getElementById("txtFromDate") as HTMLInputElement;
         txtToDate = document.getElementById("txtToDate") as HTMLInputElement;
         ddlUserMaster = document.getElementById("ddlUserMaster") as HTMLSelectElement;
+        btnPrint = document.getElementById("btnPrint") as HTMLButtonElement;
+        btnPrintTrview = document.getElementById("btnPrintTrview") as HTMLButtonElement;
+        btnPrintTrPDF = document.getElementById("btnPrintTrPDF") as HTMLButtonElement;
+        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL") as HTMLButtonElement;
         
     }
     function IntializeEvents() {
+
+        btnPrint.onclick = () => { printreport(1) };
+        btnPrintTrview.onclick = () => { printreport(2) };
+        btnPrintTrPDF.onclick = () => { printreport(3) };
+        btnPrintTrEXEL.onclick = () => { printreport(4) };
+
+
+
 
         }
     function GetDate() {
@@ -99,14 +111,14 @@ namespace Salesinventory {
         let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
         let _Stock: Settings_Report = new Settings_Report();
         if (Detail.checked == true) {
-            _Stock.ID_Button_Print = 'GardDetail';
-        } else {
             _Stock.ID_Button_Print = 'GardSammury';
+        } else {
+            _Stock.ID_Button_Print = 'GardDetail';
         }
 
-        _Stock.Parameter_1 = DateFormatDataBes(txtFromDate.value);
-        _Stock.Parameter_2 = DateFormatDataBes(txtToDate.value);
-        _Stock.Parameter_3 = UserVal;
+        _Stock.Parameter_1 = UserVal;
+        _Stock.Parameter_2 = DateFormatDataBes(txtFromDate.value);
+        _Stock.Parameter_3 = DateFormatDataBes(txtToDate.value);
         //_Stock.Parameter_4 = "";
         //_Stock.Parameter_5 = "";
         //_Stock.Parameter_6 = "";
