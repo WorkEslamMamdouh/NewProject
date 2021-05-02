@@ -363,7 +363,7 @@ var SlsTrSales;
             ItemFamilyID = ItemList[i].PRODUCT_ID;
             Qty = ItemList[i].PRODUCT_QET;
             PRICE = ItemList[i].PRODUCT_PRICE;
-            MinUnitPrice = ItemList[i].PRODUCT_Purchasing_price;
+            MinUnitPrice = ItemList[i].MinUnitPrice;
             ItemID = ItemList[i].PRODUCT_ID;
             IDPlus = ItemID;
             AddBut();

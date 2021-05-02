@@ -43,6 +43,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\familly_Cate\familly_CatServices.cs" />
     <Compile Include="Services\familly_Cate\Ifamilly_CatServices.cs" />
+    <Compile Include="Services\GRoleUsers\GRoleUsersService.cs" />
+    <Compile Include="Services\GRoleUsers\IGRoleUsersService.cs" />
+    <Compile Include="Services\GRole\GRoleService.cs" />
+    <Compile Include="Services\GRole\IGRoleService.cs" />
     <Compile Include="Services\GUSERS\G_USERSService.cs" />
     <Compile Include="Services\GUSERS\IG_USERSService.cs" />
     <Compile Include="Services\Purchases\IPurchases_MasterServices.cs" />

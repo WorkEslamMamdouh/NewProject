@@ -47,6 +47,39 @@
     .panel-body {
         background-color: aliceblue;
     }
+
+    .Div_Uesr {
+        border: solid 5px black;
+        border-radius: 15px;
+        width: 37% !important;
+        height: 272px;
+        overflow-y: scroll; /* Add the ability to scroll */
+        background-color: goldenrod;
+    }
+
+        .Div_Uesr::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        /* Track */
+        .Div_Uesr::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            background-color: black;
+            /*border-radius: 16px;*/
+            border-top-left-radius: 24px;
+            border-bottom-left-radius: 24px;
+        }
+
+        /* Handle */
+        .Div_Uesr::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 16px;
+        }
+
+            /* Handle on hover */
+            .Div_Uesr::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
 </style>
 
 <script>
@@ -138,7 +171,7 @@
             <h4 id="Text_Massage" style=""> رساله </h4>
 
         </div>
-        <div id="Div_control" class="col-lg-12 margingred  borderred" style="height: 389px;margin-bottom: 19px;margin-top: 20px;display: none;">
+        <div id="Div_control" class="col-lg-12 margingred  borderred" style=" margin-bottom: 19px;margin-top: 20px;display: none;">
 
 
 
@@ -205,149 +238,143 @@
                     <div class="col-lg-7" style="width: 61%;">
 
                     </div>
-                    <div class="col-lg-4 " style="border: solid 5px black;border-radius:15px; margin-top: -8%;">
-                        <div class="col-lg-12 ">
-                            <label class="col-lg-3 col-xs-4      pading_2">   إسم المستخدم </label>
-                            <div class="col-lg-8 col-xs-8">
-                                <input id="txtUSER_CODE" name="USER_CODE" disabled type="text" class="form-control input-sm text_Display">
-                            </div>
 
 
-                        </div>
 
-                        <div class="col-lg-12 ">
-
-                            <label class="col-lg-3 col-xs-4      pading_2 LEPEL_padingright">كلمة السر </label>
-                            <div class="col-lg-8 col-xs-8">
-                                <input id="txtUSER_PASSWORD" name="USER_PASSWORD" disabled type="password" class="form-control input-sm text_Display">
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-12 ">
-
-                            <label class="col-lg-3 col-xs-4      pading_2 LEPEL_padingright">تأكيد كلمة السر </label>
-                            <div class="col-lg-8 col-xs-8">
-                                <input id="txtUSER_PASSWORD_confirm" name="USER_PASSWORD2" disabled type="password" class="form-control input-sm text_Display">
-                            </div>
-
-                        </div>
-
+                    <div class="col-lg-12">
+                       
                     </div>
 
 
+                </div>
 
 
-                        <div class="col-lg-12">
-                            <div class="col-lg-2 col-xs-8">
 
-                            </div>
-                            <div class="col-lg-2 col-xs-8">
-                                <button id="btnGive_assignments" disabled type="button" class=" btn btn-custon-four btn-success">  منح جميع الصلاحيات  <i class="glyphicon glyphicon-check"></i> </button>
 
-                            </div>
-                            <div class="col-lg-1 col-xs-8">
-                            </div>
-                            <div class="col-lg-2 col-xs-8">
-                                <button id="btnLoadRoles" type="button" disabled class=" btn btn-custon-four btn-primary "> تحميل جميع المهام  <i class="glyphicon glyphicon-download"></i> </button>
+            </div>
 
-                            </div>
-                            <div class="col-lg-1 col-xs-8">
-                            </div>
-                            <div class="col-lg-2 col-xs-8">
-                                <button id="btnBlock_permissions" disabled type="button" class="btn btn-custon-four btn-danger">  منع جميع الصلاحيات  <i class="glyphicon glyphicon-lock"></i> </button>
 
-                            </div>
-                        </div>
+
+            <div class="col-lg-5 Div_Uesr" style="">
+
+
+                <div class="col-lg-12">
+                    <label class="col-lg-4 col-xs-3 pading_2 LEPEL_padingright2" style="margin-right: 159px;">المهمة</label>
+
+
+                    <label class="col-lg-3 col-xs-4 pading_2 ">منح الصلاحية؟ </label>
+
+                </div>
+
+
+
+
+                <div class="col-lg-12 " id="div_Data">
+
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-2 ">
+                <div class="col-lg-12 col-xs-8">
+                    <br />
+                </div>
+                <div class="col-lg-12 col-xs-8">
+                    <br />
+                </div>
+                <div class="col-lg-12 col-xs-8">
+                    <button id="btnGive_assignments"   type="button" class=" btn btn-custon-four btn-success">  منح جميع الصلاحيات  <i class="glyphicon glyphicon-check"></i> </button>
+
+                </div>
+                <div class="col-lg-12 col-xs-8">
+                    <br />
+                </div>
+                <div class="col-lg-12 col-xs-8">
+                    <button id="btnBlock_permissions"   type="button" class="btn btn-custon-four btn-danger">  منع جميع الصلاحيات  <i class="glyphicon glyphicon-lock"></i> </button>
+
+                </div>
+
+                <div class="col-lg-12 col-xs-8">
+                    <br />
+                </div>
+
+                <div class="col-lg-12 col-xs-8">
+                    <button id="btnLoadRoles" type="button"   class=" btn btn-custon-four btn-primary " style="width: 92%;"> تحميل جميع المهام  <i class="glyphicon glyphicon-download"></i> </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 " style="border: solid 5px black;border-radius:15px; background-color: lightblue;bottom: -35px;">
+                <div class="col-lg-12 ">
+                    <label class="col-lg-3 col-xs-4      pading_2">   إسم المستخدم </label>
+                    <div class="col-lg-8 col-xs-8">
+                        <input id="txtUSER_CODE" name="USER_CODE" disabled type="text" class="form-control input-sm text_Display">
                     </div>
 
-                    <div class="col-lg-12 " id="div_rolegrid">
 
+                </div>
+
+                <div class="col-lg-12 ">
+
+                    <label class="col-lg-3 col-xs-4      pading_2 LEPEL_padingright">كلمة السر </label>
+                    <div class="col-lg-8 col-xs-8">
+                        <input id="txtUSER_PASSWORD" name="USER_PASSWORD" disabled type="password" class="form-control input-sm text_Display">
                     </div>
-                    <div class="col-lg-12" style="border: solid 5px black;border-radius:15px;width:100%!important;">
 
+                </div>
 
-                        <div class="col-lg-12">
-                            <label class="col-lg-3 col-xs-4 pading_2 LEPEL_padingright2">المهمة </label>
+                <div class="col-lg-12 ">
 
-                            <label class="col-lg-7 col-xs-4 pading_2 LEPEL_padingright2">الشرح</label>
-
-                            <label class="col-lg-2 col-xs-4 pading_2 " style="text-align:center">منح الصلاحية؟ </label>
-
-                        </div>
-
-
-
-                        <div class="row">
-                            <div class="col-lg-12 " id="div_Data">
-
-                            </div>
-                            <div class="col-lg-12 col-xs-12" style="right: 2%;" id="div_plassAddDetails">
-                                <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign  "></span>
-
-                                <div class="col-lg-3 col-xs-8">
-                                    <select id="drpRoles" class="form-control input-sm  ">
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-7 col-xs-8">
-
-                                    <input id="txtRoleRemarks" name="Remarks" type="text" disabled class="form-control input-sm text_Display  " placeholder="الشرح">
-
-                                </div>
-                                <div class="col-lg-2 col-xs-8">
-
-                                    <input id="Ch_RoleActive" name="IsActive" type="checkbox" class="form-control input-sm text_Display  ">
-
-                                </div>
-
-                            </div>
-
-
-
-
-
-                        </div>
-
-
+                    <label class="col-lg-3 col-xs-4      pading_2 LEPEL_padingright">تأكيد كلمة السر </label>
+                    <div class="col-lg-8 col-xs-8">
+                        <input id="txtUSER_PASSWORD_confirm" name="USER_PASSWORD2" disabled type="password" class="form-control input-sm text_Display">
                     </div>
+
+                </div>
+
+                <div class="col-lg-12 ">
+
+                </div>
                     <div class="col-lg-12 ">
 
-                    </div>
-                    <div class="col-lg-12 ">
-
-                        <label class="col-lg-1 col-xs-4      pading_2">تاريخ اول دخول </label>
-                        <div class="col-lg-3 col-xs-8">
+                        <label class="col-lg-3 col-xs-4      pading_2">تاريخ اول دخول </label>
+                        <div class="col-lg-8 col-xs-8">
                             <input id="txtFirstLogin" name="FirstLogin" disabled type="text" class="form-control input-sm text_Display">
                         </div>
+                    </div>
+                    <div class="col-lg-12 ">
 
-                        <div class="col-lg-3 col-xs-8">
-
-                        </div>
-
-                        <label class="col-lg-1 col-xs-4      pading_2">تاريخ اخر دخول  </label>
-                        <div class="col-lg-3 col-xs-8">
+                        <label class="col-lg-3 col-xs-4      pading_2">تاريخ اخر دخول  </label>
+                        <div class="col-lg-8 col-xs-8">
                             <input id="txtLastLogin" name="LastLogin" disabled type="text" class="form-control input-sm text_Display">
                         </div>
 
                     </div>
 
+
                 </div>
+
+
+                <div class="col-lg-12 col-xs-12" style="right: 2%;" id="div_plassAddDetails">
+
+                    <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none" style="font-size: 36px;"></span>
+
+                </div>
+                <div class="col-lg-12 ">
+
+                </div>
+
+
+
 
             </div>
 
 
     </div>
 </div>
-<script>
-    $('#lepnotifications').on('click', function () {
-        $('#divnotifications').toggleClass('showdiv');
-        $('#spanlepnotifications').toggleClass('fa-caret-left');
-        $('#spanlepnotifications').toggleClass('fa-caret-down');
 
-    });
-
-</script>
 @Scripts.Render("~/Bundles/ClientApp")
 <script src="~/ClientApp/JsGrid.js"></script>
 <script src="~/ClientApp/Generalsetting/USERS.js"></script>

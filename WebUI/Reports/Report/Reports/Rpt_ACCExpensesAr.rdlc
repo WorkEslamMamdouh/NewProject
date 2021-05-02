@@ -709,7 +709,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -830,7 +829,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>المصروفات</Value>
+                  <Value>الايرادات</Value>
                   <Style>
                     <FontSize>18pt</FontSize>
                     <FontWeight>Bold</FontWeight>

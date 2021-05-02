@@ -246,6 +246,8 @@
     <Compile Include="Controllers\Close_Day.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
     <Compile Include="Controllers\Shared\DatabaseChangeController.cs" />
+    <Compile Include="Controllers\Shared\G_RoleController.cs" />
+    <Compile Include="Controllers\Shared\G_RoleUsersController.cs" />
     <Compile Include="Controllers\Shared\G_USERSController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\Outletpirce.cs" />

@@ -16,6 +16,11 @@ namespace USERS {
     var Model: G_USERS = new G_USERS();
 
     var UserDetails: Array<G_USERS> = new Array<G_USERS>();
+    var List_RoleDetails: Array<G_Role> = new Array<G_Role>();
+    var List_Roles: Array<G_RoleUsers> = new Array<G_RoleUsers>();
+    
+
+     
 
     var ReportGrid: JsGrid = new JsGrid();
     var CashDetailsAr: Array<string> = new Array<string>();
@@ -31,12 +36,16 @@ namespace USERS {
     var btnAdd: HTMLButtonElement;
     var btnEdit: HTMLButtonElement;
     var btnsave: HTMLButtonElement;
+    var btnAddDetails: HTMLButtonElement;
+    var btnGive_assignments: HTMLButtonElement;
+    var btnBlock_permissions: HTMLButtonElement; 
+    var btnLoadRoles: HTMLButtonElement;
 
     var searchbutmemreport: HTMLInputElement;
     var txtUSER_CODE: HTMLInputElement;
 
     var chk_IsActive: HTMLInputElement;
-
+    var drpRoles: HTMLSelectElement;
 
     var compcode: Number;//SharedSession.CurrentEnvironment.CompCode;
     var IsNew = false;
@@ -45,7 +54,7 @@ namespace USERS {
     var CustomerIdUpdate: number = 0;
 
     var CustomerId;
-
+    var CountGrid = -1;
     var sum_balance;
 
     var Debit;
@@ -73,7 +82,7 @@ namespace USERS {
         InitalizeEvents();
         FillddlUserMaster();
         Display_All();
-
+        fillRoles();
 
     }
 
@@ -86,18 +95,21 @@ namespace USERS {
         btnEdit = document.getElementById("btnedite") as HTMLButtonElement;
         btnsave = document.getElementById("btnsave") as HTMLButtonElement;
         btnback = document.getElementById("btnback") as HTMLButtonElement;
+        btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
 
         ddlUserMaster = document.getElementById("ddlUserMaster") as HTMLSelectElement;
 
         searchbutmemreport = document.getElementById("searchbutmemreport") as HTMLInputElement;
         txtUSER_CODE = document.getElementById("txtUSER_CODE") as HTMLInputElement;
-
+        drpRoles = document.getElementById("drpRoles") as HTMLSelectElement;
 
         chk_IsActive = document.getElementById("chk_IsActive") as HTMLInputElement;
 
+        btnGive_assignments = document.getElementById("btnGive_assignments") as HTMLButtonElement;
+        btnBlock_permissions = document.getElementById("btnBlock_permissions") as HTMLButtonElement; 
+        btnLoadRoles = document.getElementById("btnLoadRoles") as HTMLButtonElement;
 
-    }
-
+    } 
     function InitalizeEvents() {
         btnShow.onclick = btnShow_onclick;
         btnAdd.onclick = btnAdd_onclick;
@@ -106,7 +118,16 @@ namespace USERS {
         btnEdit.onclick = btnEdit_onclick;
         searchbutmemreport.onkeyup = _SearchBox_Change;
         txtUSER_CODE.onchange = chack_USER;
-    }
+
+        btnAddDetails.onclick = AddNewRow;
+
+        btnGive_assignments.onclick = Give_assignments_onClick;
+        btnBlock_permissions.onclick = Block_permissions_onClick;
+        btnLoadRoles.onclick = btnLoadRoles_onClick;
+
+        //drpRoles.onchange = drpRoles_change;
+
+    } 
     function FillddlUserMaster() {
         debugger
         Ajax.Callsync({
@@ -177,52 +198,7 @@ namespace USERS {
             ReportGrid.Bind();
         }
     }
-    function InitializeGrid() {
-
-
-        let res: any = GetResourceList("");
-        $("#id_ReportGrid").attr("style", "");
-        ReportGrid.OnRowDoubleClicked = DriverDoubleClick;
-        ReportGrid.ElementName = "ReportGrid";
-        ReportGrid.PrimaryKey = "USER_CODE";
-        ReportGrid.Paging = true;
-        ReportGrid.PageSize = 10;
-        ReportGrid.Sorting = true;
-        ReportGrid.InsertionMode = JsGridInsertionMode.Binding;
-        ReportGrid.Editing = false;
-        ReportGrid.Inserting = false;
-        ReportGrid.SelectedIndex = 1;
-        ReportGrid.OnItemEditing = () => { };
-        ReportGrid.Columns = [
-            { title: "الرقم", name: "USER_CODE", type: "text", width: "100px", visible: false },
-            { title: "اسم الموظف", name: "USER_NAME", type: "text", width: "100px" },
-            { title: "رقم الجوال", name: "Mobile", type: "text", width: "100px" },
-            { title: "النوع", name: "JobTitle", type: "text", width: "100px" },
-            { title: "مفعل", name: "USER_ACTIVE_Name", type: "textdd", width: "100px" },
-
-
-        ];
-        ReportGrid.Bind();
-    }
-    function DriverDoubleClick() {
-
-        ////debugger
-        Selecteditem = Details.filter(s => s.USER_CODE == ReportGrid.SelectedKey);
-
-        DocumentActions.RenderFromModel(Selecteditem[0]);
-        $('#btnedite').removeClass("display_none");
-        $('#btnsave').addClass("display_none");
-        $('#btnback').addClass("display_none");
-        $('#btnedite').removeAttr("disabled");
-        if (Selecteditem[0].USER_ACTIVE == true)
-        { chk_IsActive.checked = true; }
-        else { chk_IsActive.checked = false; }
-
-
-        $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
-    }
-
-
+  
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
@@ -246,11 +222,11 @@ namespace USERS {
 
 
 
+        $("#txtUSER_CODE").attr("disabled", "disabled");
 
 
 
     }
-
     function btnAdd_onclick() {
         debugger
         IsNew = true;
@@ -266,15 +242,6 @@ namespace USERS {
         //reference_Page();
 
     }
-    function reference_Page() {
-
-        $('#btnedite').attr('class', 'btn btn-primary display_none');
-        $('#btnsave').attr('class', 'btn btn-success display_none');
-        $('#btnback').attr('class', 'btn btn-success display_none');
-        $('#btnAdd').attr('class', 'btn btn-primary display_none');
-
-    }
-
     function btnsave_onClick() {
         debugger
         if (IsNew == true) {
@@ -305,31 +272,28 @@ namespace USERS {
         }
 
     }
-
-
     function chack_USER() {
         if ($('#txtUSER_CODE').val() != "") {
 
-            
-                chack_USER_CODE = Details.filter(s => s.USER_CODE == $('#txtUSER_CODE').val());
 
-                if (Selecteditem[0].USER_CODE != chack_USER_CODE[0].USER_CODE) {
+            chack_USER_CODE = Details.filter(s => s.USER_CODE == $('#txtUSER_CODE').val());
 
-                    if (chack_USER_CODE.length > 0) {
-                        MessageBox.Show("لا يمكن تكرار أسم المستخدم", " ");
-                        $('#txtUSER_CODE').val('');
-                    }
+            if (Selecteditem[0].USER_CODE != chack_USER_CODE[0].USER_CODE) {
 
+                if (chack_USER_CODE.length > 0) {
+                    MessageBox.Show("لا يمكن تكرار أسم المستخدم", " ");
+                    $('#txtUSER_CODE').val('');
                 }
 
-             
+            }
 
-          
+
+
+
 
 
         }
     }
-     
     function Validation() {
 
 
@@ -374,12 +338,10 @@ namespace USERS {
 
         return Valid = 0;
     }
-
     function btnShow_onclick() {
 
         Display_All();
     }
-
     function btnback_onclick() {
 
         Selecteditem = Details.filter(x => x.USER_CODE == ReportGrid.SelectedKey);
@@ -396,7 +358,7 @@ namespace USERS {
             txt_disabled();
 
             if (Valid != 2) {
-                $("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+                $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
                 $("#id_div_Add").attr("disabled", "");
                 $("#id_div_Add").removeClass("disabledDiv");
             }
@@ -420,12 +382,10 @@ namespace USERS {
 
         }
     }
-
-
     function EnableControls() {
 
         debugger
-        $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
+        $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;");
 
         $('#btnsave').removeClass("display_none");
         $('#btnback').removeClass("display_none");
@@ -442,9 +402,10 @@ namespace USERS {
         $("#txtUSER_CODE").val("");
         $("#txtUSER_PASSWORD").val("");
         $("#txtUSER_PASSWORD_confirm").val("");
+        $("#txtFirstLogin").val("");
+        $("#txtLastLogin").val("");
 
     }
-
     function txt_disabled() {
 
         $("#txtUSER_NAME").attr("disabled", "disabled");
@@ -472,6 +433,311 @@ namespace USERS {
         $("#txtUSER_PASSWORD_confirm").removeAttr("disabled");
 
 
+
+    } 
+    function fillRoles() {
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("G_Role", "GetAll"),
+            data: {},
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    List_RoleDetails = result.Response as Array<G_Role>;
+
+                }
+            }
+        });
+    }
+
+    function InitializeGrid() {
+
+
+        let res: any = GetResourceList("");
+        $("#id_ReportGrid").attr("style", "");
+        ReportGrid.OnRowDoubleClicked = DriverDoubleClick;
+        ReportGrid.ElementName = "ReportGrid";
+        ReportGrid.PrimaryKey = "USER_CODE";
+        ReportGrid.Paging = true;
+        ReportGrid.PageSize = 10;
+        ReportGrid.Sorting = true;
+        ReportGrid.InsertionMode = JsGridInsertionMode.Binding;
+        ReportGrid.Editing = false;
+        ReportGrid.Inserting = false;
+        ReportGrid.SelectedIndex = 1;
+        ReportGrid.OnItemEditing = () => { };
+        ReportGrid.Columns = [
+            { title: "الرقم", name: "USER_CODE", type: "text", width: "100px", visible: false },
+            { title: "اسم الموظف", name: "USER_NAME", type: "text", width: "100px" },
+            { title: "رقم الجوال", name: "Mobile", type: "text", width: "100px" },
+            { title: "النوع", name: "JobTitle", type: "text", width: "100px" },
+            { title: "مفعل", name: "USER_ACTIVE_Name", type: "textdd", width: "100px" },
+
+
+        ];
+        ReportGrid.Bind();
+    }
+    function DriverDoubleClick() {
+
+        ////debugger
+        Selecteditem = Details.filter(s => s.USER_CODE == ReportGrid.SelectedKey);
+
+        DocumentActions.RenderFromModel(Selecteditem[0]);
+        $('#btnedite').removeClass("display_none");
+        $('#btnsave').addClass("display_none");
+        $('#btnback').addClass("display_none");
+        $('#btnedite').removeAttr("disabled");
+        if (Selecteditem[0].USER_ACTIVE == true)
+        { chk_IsActive.checked = true; }
+        else { chk_IsActive.checked = false; }
+
+        BindGetOperationItemsGridData(Selecteditem[0].USER_CODE)
+        $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;");
+    }
+    function BindGetOperationItemsGridData(USER_CODE: string) {
+        debugger
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("G_RoleUsers", "GetAll"),
+            data: { USER_CODE: USER_CODE },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    List_Roles = result.Response as Array<G_RoleUsers>;
+
+                    $("#div_Data").html('');
+                    for (var i = 0; i < List_Roles.length; i++) {
+
+                        BuildControls(i);
+                        Disbly_BuildControls(i, List_Roles);
+                        CountGrid = i;
+                    }
+
+                    $("#txtItemCount").val(CountGrid + 1);
+
+
+
+
+
+                }
+            }
+        });
+    }
+
+
+    function BuildControls(cnt: number) {
+        var html;
+        html = '<div id="No_Row' + cnt + '" class="col-lg-12" >' +
+            '<div class="col-lg-3" style="width: 9%;"><span id="btn_minus' + cnt + '" class="glyphicon glyphicon-remove-sign fontitm3  minus_btn display_none" style="font-size: 23px;"></span></div>' +
+           
+            '<div class="col-lg-8 style_pading"><select id="txtDescA' + cnt + '" disabled class="form-control"><option value="Null">اختر المهمه</option></select></div>' +
+            //'<div class="col-lg-7 style_pading"> <input id="txtRemarks' + cnt + '" type= "text" class="form-control " disabled="disabled"/></div>' +
+            '<div class="col-lg-2 style_pading"> <input id="CheckISActive' + cnt + '"  type= "checkbox"  class="form-control " disabled="disabled" /></div>' +
+            '<div class="col-lg-12"> <input id = "txt_StatusFlag' + cnt + '" name = " " type = "hidden"   class="form-control"/></div>' +
+            '<div class="col-lg-12"> <input id = "txtRoleId' + cnt + '" name = " " type = "hidden" class="form-control"/></div>' +
+            '</div>';
+        $("#div_Data").append(html);
+        $("#btn_minus" + cnt).on('click', function () {
+            WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
+                $("#No_Row" + cnt).attr("hidden", "true");
+                $("#txt_StatusFlag" + cnt).val("d");
+            });
+        });
+        $("#txtCode" + cnt).on('change', function () {
+            //Validate_code(cnt);
+        });
+        $("#CheckISActive" + cnt).on('change', function () {
+            if ($("#txt_StatusFlag" + cnt).val() != 'i') {
+                $("#txt_StatusFlag" + cnt).val('u');
+            }
+        });
+        if (SysSession.CurrentPrivileges.Remove) {
+            $("#btn_minus" + cnt).removeAttr("disabled")
+        }
+        else {
+            $("#btn_minus" + cnt).attr("disabled", "disabled")
+        }
+
+        for (var i = 0; i < List_RoleDetails.length; i++) {
+
+            $('#txtDescA' + cnt).append('<option value="' + List_RoleDetails[i].RoleId + '">' + List_RoleDetails[i].DescA + '</option>');
+
+        }
+        return;
+
+    }
+    function Disbly_BuildControls(cnt: number, AllGetStokItemInfo: Array<G_RoleUsers>) {
+        debugger
+        $("#btnAddDetails").addClass("display_none");
+        $("#btn_minus" + cnt).addClass("display_none");
+        $("#txt_StatusFlag" + cnt).val("");
+        $("#txtRoleId" + cnt).val(AllGetStokItemInfo[cnt].RoleId); 
+        $("#txtDescA" + cnt).prop("value", AllGetStokItemInfo[cnt].RoleId);
+        $('#CheckISActive' + cnt).prop('checked', 'checked');
+
+
+        $("#btn_minus" + cnt).on('click', function () {
+            DeleteRow(cnt);
+        });
+
+
+
+    }
+    function AddNewRow() {
+        debugger
+        //if (!SysSession.CurrentPrivileges.AddNew) return;
+        var CanAdd: boolean = true;
+        if (CountGrid > -1) {
+
+            for (var i = 0; i <= CountGrid; i++) {
+                CanAdd = Validation_Grid(i);
+                if (CanAdd == false) {
+                    break;
+                }
+            }
+        }
+        if (CanAdd) {
+            CountGrid += 1;
+            BuildControls(CountGrid);
+            $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
+            $("#txtDescA" + CountGrid).removeAttr("disabled");
+            $("#CheckISActive" + CountGrid).removeAttr("disabled");
+           
+
+
+            $("#btn_minus" + CountGrid).removeClass("display_none");
+            $("#btn_minus" + CountGrid).removeAttr("disabled");
+
+
+
+        }
+    }
+    function DeleteRow(RecNo: number) {
+        if (!SysSession.CurrentPrivileges.Remove) return;
+        WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", () => {
+            //////debugger;
+            let chack
+            $("#ddlfamilly_Cat" + RecNo).val("1");
+            $("#ddlFamily" + RecNo).val("1");
+            $("#ddlItem" + RecNo).val("2");
+            $("#txtQuantity" + RecNo).val("1");
+            $("#txtPrice" + RecNo).val("1");
+            $("#txtQuantityRetrun" + RecNo).val("0");
+            $("#txtAddons" + RecNo).val("0");
+            $("#txtTotAddons" + RecNo).val("0");
+            $("#txtTax" + RecNo).val("0");
+            $("#No_Row" + RecNo).attr("hidden", "true");
+            $("#txtCode" + RecNo).val("000");
+
+        });
+    }
+
+    
+
+
+    function Give_assignments_onClick() {
+        for (var i = 0; i < CountGrid + 1; i++) {
+            if ($("#txt_StatusFlag" + i).val() != 'i') {
+                $("#txt_StatusFlag" + i).val('u');
+            }
+            $('#CheckISActive' + i).prop('checked', 'checked');
+        }
+    }
+    function Block_permissions_onClick() {
+        for (var i = 0; i < CountGrid + 1; i++) {
+            if ($("#txt_StatusFlag" + i).val() != 'i') {
+                $("#txt_StatusFlag" + i).val('u');
+            }
+            $('#CheckISActive' + i).removeProp('checked');
+        }
+    }
+    function btnLoadRoles_onClick() {
+        $('#div_Data').html("");
+
+        btnEdit_onclick();
+        $("#div_grid").addClass("disabledDiv");
+        var Q = 0;
+        for (var i = List_Roles.length; i < Number(List_RoleDetails.length + List_Roles.length); i++) {
+
+            if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
+                WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "")
+            }
+            else {
+                let xx = List_Roles.filter(x => x.RoleId == List_RoleDetails[Q].RoleId);
+                if (xx.length > 0) {
+                    Q += 1;
+                    continue;
+                }
+                BuildControls(i);
+                $("#txt_StatusFlag" + i).val("i"); //In Insert mode         
+                $("#txtDescA" + i).prop('value', List_RoleDetails[Q].RoleId);
+                $("#txtDescA" + i).removeAttr("disabled");
+                $("#CheckISActive" + i).removeAttr("disabled");
+                //$("#btn_minus" + i).removeClass("display_none");
+                //$("#txtRoleId" + i).val(List_RoleDetails[Q].RoleId);
+                //$("#txtRemarks" + i).val(List_RoleDetails[Q].Remarks);
+                //$("#CheckISActive" + i).removeAttr("disabled");
+                //$("#txt_StatusFlag" + i).val("i");
+                //$("#drpRoles").addClass("display_none");
+                //$("#txtRoleRemarks").addClass("display_none");
+                //$("#Ch_RoleActive").addClass("display_none");
+                Q += 1;
+            }
+        }
+        CountGrid = Number(List_RoleDetails.length + List_Roles.length);
+    }
+
+
+
+    function Validation_Grid(rowcount: number) {
+        //else
+        debugger
+
+
+        if ($("#ddlfamilly_Cat" + rowcount).val() == "Null" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show(" برجاء أختيار نوع الفئة", "خطأ");
+
+            return false
+        }
+        else if ($("#Family" + rowcount).val() == "" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show(" برجاءادخال الفئة", "خطأ");
+
+            return false
+        }
+        else if (($("#Items" + rowcount).val() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show(" برجاءادخال الصنف", "خطأ");
+            return false
+        }
+        else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() <= 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show(" برجاءادخال الكمية", "خطأ");
+
+            return false
+        }
+        else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == "0.00" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show("  برجاءادخال السعر الشراء", "خطأ");
+
+            return false
+        }
+        else if (($("#Sales_Price" + rowcount).val() == "" || $("#Sales_Price" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show("  برجاءادخال السعر البيع ", "خطأ");
+
+            return false
+        }
+        else if (($("#MinUnitPrice" + rowcount).val() == "" || $("#MinUnitPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+            MessageBox.Show(" برجاءادخال السعر اقل سعر بيع", "خطأ");
+
+            return false
+        }
+
+
+        return true;
 
     }
 
@@ -541,7 +807,7 @@ namespace USERS {
 
 
 
-                    $("#Div_control").attr("style", "height: 389px;margin-bottom: 19px;margin-top: 20px;");
+                    $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;");
                     Valid = 2;
                 } else {
                     MessageBox.Show("خطأء", "Error");

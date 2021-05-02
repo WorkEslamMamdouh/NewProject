@@ -690,12 +690,12 @@ namespace Purchases {
                 $("#txtPrice" + cnt).val('0');
                 $("#txtTotal" + cnt).val('0');
 
-                $("#Items" + cnt).removeAttr("disabled");
+                //$("#Items" + cnt).removeAttr("disabled");
 
-                $("#txtQuantity" + cnt).removeAttr("disabled");
-                $("#txtPrice" + cnt).removeAttr("disabled");
-                $("#Sales_Price" + cnt).removeAttr("disabled");
-                $("#MinUnitPrice" + cnt).removeAttr("disabled");
+                //$("#txtQuantity" + cnt).removeAttr("disabled");
+                //$("#txtPrice" + cnt).removeAttr("disabled");
+                //$("#Sales_Price" + cnt).removeAttr("disabled");
+                //$("#MinUnitPrice" + cnt).removeAttr("disabled");
 
                 ComputeTotals();
             });
@@ -945,12 +945,12 @@ namespace Purchases {
             BuildControls(CountGrid);
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
             $("#ddlfamilly_Cat" + CountGrid).removeAttr("disabled");
-            //$("#Family" + CountGrid).removeAttr("disabled");
-            //$("#Items" + CountGrid).removeAttr("disabled");
-            //$("#txtQuantity" + CountGrid).removeAttr("disabled");
-            //$("#txtPrice" + CountGrid).removeAttr("disabled");
-            //$("#Sales_Price" + CountGrid).removeAttr("disabled");
-            //$("#MinUnitPrice" + CountGrid).removeAttr("disabled");
+            $("#Family" + CountGrid).removeAttr("disabled");
+            $("#Items" + CountGrid).removeAttr("disabled");
+            $("#txtQuantity" + CountGrid).removeAttr("disabled");
+            $("#txtPrice" + CountGrid).removeAttr("disabled");
+            $("#Sales_Price" + CountGrid).removeAttr("disabled");
+            $("#MinUnitPrice" + CountGrid).removeAttr("disabled");
 
 
 

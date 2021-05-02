@@ -15,6 +15,8 @@ using BLL.Services.Stok_ORDER;
 using BLL.Services.Vendor;
 using BLL.Services.Purchases;
 using BLL.Services.familly_Cate;
+using BLL.Services.GRole;
+using BLL.Services.GRoleUsers;
 using WebUl.DAL.Repository;
 
 namespace Infrastructure
@@ -36,6 +38,8 @@ namespace Infrastructure
             container.RegisterType<IVendorServices, VendorServices>();
             container.RegisterType<IPurchases_MasterServices, Purchases_MasterServices>();
             container.RegisterType<Ifamilly_CatServices, familly_CatServices>();
+            container.RegisterType<IGRoleService, GRoleService>();
+            container.RegisterType<IGRoleUsersService, GRoleUsersService>();
 
 
 
