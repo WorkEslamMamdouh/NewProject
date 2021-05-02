@@ -908,7 +908,7 @@ namespace SlsTrSales {
             //debugger
             Num_paragraph = $(this).attr('data-ID-Paragraph');
 
-
+             
             click_Edit($(this).attr('data-name'), Number($(this).attr('data-price_one')), Number($(this).attr('data-qet_product')), Number($(this).attr('data-onhandqty')), Number($(this).attr('data-minunitprice')));
 
         }
@@ -1003,19 +1003,51 @@ namespace SlsTrSales {
         OnhandQty = New_OnhandQty;
         MinUnitPrice = New_MinUnitPrice;
 
-        //$('#id_Labol').html('الكميه المتاحه (' + New_OnhandQty + ') من ( ' + New_Name + ' )');
 
 
-        //$('#id_Labol').html('الكميه المتاحه (' + New_OnhandQty + ') من ( ' + New_Name + ' ) ');
-        //$('#id_Labol').html(New_Name);
-        $('#id_Labol').html('متاح (' + New_OnhandQty + ') من  ' + New_Name + '');
-        $('#Men_popu').attr('style', 'display:block;');
-        $('#Men_popu').attr('class', 'popu animated zoomIn');
-        $('#txtQuantity').val(new_Qet);
-        $('#txtPrice').val(New_Pirce);
+        //OnhandQty = New_OnhandQty;
+        
 
-        $("#PopupDialog").modal("show");
-        Total();
+        for (var i = 0; i < Num_Add_List + 1; i++) {
+            var prgraph = document.getElementById("ppp" + i);
+            if (prgraph != null) {
+                let Name_Item = prgraph.getAttribute("data_name_p");
+                let Qty = Number(prgraph.getAttribute("data_qet_p"));
+
+                if (Name_Item == Name_Product) {
+                    New_OnhandQty -= Qty;
+                }
+            }
+        }
+
+        if (New_OnhandQty <= 0) {
+            //$(this).val('Finish');
+            $('#id_Labol').html('متاح (' + New_OnhandQty + ') من  ' + New_Name + '');
+            $('#Men_popu').attr('style', 'display:block;');
+            $('#Men_popu').attr('class', 'popu animated zoomIn');
+            $('#txtQuantity').val(new_Qet);
+            $('#txtPrice').val(New_Pirce);
+
+            $("#PopupDialog").modal("show");
+        } else {
+
+
+
+
+            //$('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
+            $('#id_Labol').html('متاح (' + New_OnhandQty + ') من  ' + New_Name + '');
+            $('#Men_popu').attr('style', 'display:block;');
+            $('#Men_popu').attr('class', 'popu animated zoomIn');
+            $('#txtQuantity').val(new_Qet);
+            $('#txtPrice').val(New_Pirce);
+
+            $("#PopupDialog").modal("show");
+            Total();
+        }
+
+
+
+       
     }
     ////------------------------------------------------------Assign_Get_Data------------------------      
     function Assign_Get_Data() {

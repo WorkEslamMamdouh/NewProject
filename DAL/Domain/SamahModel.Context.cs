@@ -49,7 +49,6 @@ namespace DAL.Domain
         public virtual DbSet<ORDER_SOFRA> ORDER_SOFRA { get; set; }
         public virtual DbSet<ORDER_TECAYE> ORDER_TECAYE { get; set; }
         public virtual DbSet<Outlet> Outlets { get; set; }
-        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
         public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
@@ -72,6 +71,7 @@ namespace DAL.Domain
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
         public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
         public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
@@ -1194,6 +1194,19 @@ namespace DAL.Domain
                 new ObjectParameter("ToDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<all_The_Gard_Details_Result>("all_The_Gard_Details", userNameParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual int insert_EMPLOYEE(string eMPLOYEE_NAME, string uSER_CODE)
+        {
+            var eMPLOYEE_NAMEParameter = eMPLOYEE_NAME != null ?
+                new ObjectParameter("EMPLOYEE_NAME", eMPLOYEE_NAME) :
+                new ObjectParameter("EMPLOYEE_NAME", typeof(string));
+    
+            var uSER_CODEParameter = uSER_CODE != null ?
+                new ObjectParameter("USER_CODE", uSER_CODE) :
+                new ObjectParameter("USER_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_EMPLOYEE", eMPLOYEE_NAMEParameter, uSER_CODEParameter);
         }
     }
 }

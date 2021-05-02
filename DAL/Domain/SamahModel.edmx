@@ -366,9 +366,9 @@
           <Property Name="PRODUCT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="PRODUCT_QET" Type="int" />
-          <Property Name="PRODUCT_Purchasing_price" Type="money" />
-          <Property Name="PRODUCT_PRICE" Type="money" />
-          <Property Name="MinUnitPrice" Type="money" />
+          <Property Name="PRODUCT_Purchasing_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PRODUCT_PRICE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MinUnitPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ID_CAT" Type="int" />
           <Property Name="serial" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -789,6 +789,10 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
         </Function>
         <Function Name="insert_Cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name_CAT" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="insert_EMPLOYEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EMPLOYEE_NAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="USER_CODE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Insert_Enter_Money" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Dasc_Name" Type="nvarchar" Mode="In" />
@@ -1458,7 +1462,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <EntitySet Name="ORDER_SOFRA" EntityType="SamahModel.ORDER_SOFRA" />
           <EntitySet Name="ORDER_TECAYE" EntityType="SamahModel.ORDER_TECAYE" />
           <EntitySet Name="Outlets" EntityType="SamahModel.Outlet" />
-          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
           <EntitySet Name="Purchases_Details" EntityType="SamahModel.Purchases_Details" />
           <EntitySet Name="Purchases_Master" EntityType="SamahModel.Purchases_Master" />
           <EntitySet Name="Report_Parameters" EntityType="SamahModel.Report_Parameters" />
@@ -1485,6 +1488,11 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="DateTime" />
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="PRODUCTs" EntityType="SamahModel.PRODUCT" />
+          <FunctionImport Name="insert_EMPLOYEE">
+            <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
+            <Parameter Name="USER_CODE" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
@@ -2078,19 +2086,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Tr_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="PRODUCT">
-          <Key>
-            <PropertyRef Name="PRODUCT_ID" />
-          </Key>
-          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PRODUCT_QET" Type="Int32" />
-          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_CAT" Type="Int32" />
-          <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Purchases_Details">
           <Key>
             <PropertyRef Name="ID" />
@@ -2367,6 +2362,19 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Type="String" Name="Day_Date" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Shift_User" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="PRODUCT">
+          <Key>
+            <PropertyRef Name="PRODUCT_ID" />
+          </Key>
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCT_QET" Type="Int32" />
+          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ID_CAT" Type="Int32" />
+          <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3083,20 +3091,6 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PRODUCTs">
-            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
-              <MappingFragment StoreEntitySet="PRODUCT">
-                <ScalarProperty Name="serial" ColumnName="serial" />
-                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
-                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
-                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
-                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
-                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
-                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
-                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Purchases_Details">
             <EntityTypeMapping TypeName="SamahModel.Purchases_Details">
               <MappingFragment StoreEntitySet="Purchases_Details">
@@ -3397,6 +3391,21 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="PRODUCTs">
+            <EntityTypeMapping TypeName="SamahModel.PRODUCT">
+              <MappingFragment StoreEntitySet="PRODUCT">
+                <ScalarProperty Name="serial" ColumnName="serial" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="PRODUCT_PRICE" ColumnName="PRODUCT_PRICE" />
+                <ScalarProperty Name="PRODUCT_Purchasing_price" ColumnName="PRODUCT_Purchasing_price" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insert_EMPLOYEE" FunctionName="SamahModel.Store.insert_EMPLOYEE" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

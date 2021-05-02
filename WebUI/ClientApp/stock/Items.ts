@@ -462,7 +462,7 @@ namespace Items {
 
     function Assign() {
 
-        //debugger;
+        debugger;
         BilldDetail = new Array<PRODUCT>();
         var StatusFlag: String;
         for (var i = 0; i < CountGrid; i++) {
@@ -479,10 +479,10 @@ namespace Items {
                 Model.PRODUCT_ID = 0;
                 Model.ID_CAT = $('#select_Type_Item' + i).val();
                 Model.PRODUCT_NAME = $("#txtDescA" + i).val();
-                Model.PRODUCT_QET = $("#txtOnhandQty" + i).val();
-                Model.PRODUCT_PRICE = $('#txtUnitPrice' + i).val();
-                Model.MinUnitPrice = $('#txtMinUnitPrice' + i).val();
-                Model.PRODUCT_Purchasing_price = $("#txtPurchasing_price" + i).val();
+                Model.PRODUCT_QET = Number($("#txtOnhandQty" + i).val());
+                Model.PRODUCT_PRICE = Number($('#txtUnitPrice' + i).val());
+                Model.MinUnitPrice = Number($('#txtMinUnitPrice' + i).val());
+                Model.PRODUCT_Purchasing_price = Number($("#txtPurchasing_price" + i).val());
                 Model.serial = $("#Serial" + i).val();
           
                 BilldDetail.push(Model);
@@ -491,15 +491,15 @@ namespace Items {
     
             }
             if (StatusFlag == "u") {
- 
+                debugger
                 Model.StatusFlag = StatusFlag.toString(); 
                 Model.PRODUCT_ID = $("#txtID" + i).val();
                 Model.ID_CAT = $('#select_Type_Item' + i).val();
                 Model.PRODUCT_NAME = $("#txtDescA" + i).val();
-                Model.PRODUCT_QET = $("#txtOnhandQty" + i).val();
-                Model.PRODUCT_PRICE = $('#txtUnitPrice' + i).val();
-                Model.MinUnitPrice = $('#txtMinUnitPrice' + i).val();
-                Model.PRODUCT_Purchasing_price = $("#txtPurchasing_price" + i).val();
+                Model.PRODUCT_QET = Number($("#txtOnhandQty" + i).val());
+                Model.PRODUCT_PRICE = Number($('#txtUnitPrice' + i).val());
+                Model.MinUnitPrice = Number($('#txtMinUnitPrice' + i).val());
+                Model.PRODUCT_Purchasing_price = Number($("#txtPurchasing_price" + i).val());
                 Model.serial = $("#Serial" + i).val();
 
                 BilldDetail.push(Model);

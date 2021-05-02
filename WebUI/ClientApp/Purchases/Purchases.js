@@ -842,10 +842,10 @@ var Purchases;
                 OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                 OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                 OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
-                OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
+                OperationItemSingleModel.Purchases_Quantity = Number($('#txtQuantity' + i).val());
                 OperationItemSingleModel.Purchases_Price = Number($("#txtPrice" + i).val());
-                OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
-                OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                OperationItemSingleModel.Sales_Price = Number($("#Sales_Price" + i).val());
+                OperationItemSingleModel.MinUnitPrice = Number($("#MinUnitPrice" + i).val());
                 PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
             }
             if (StatusFlag == "u") {
@@ -857,10 +857,10 @@ var Purchases;
                 OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                 OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                 OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
-                OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
+                OperationItemSingleModel.Purchases_Quantity = Number($('#txtQuantity' + i).val());
                 OperationItemSingleModel.Purchases_Price = Number($("#txtPrice" + i).val());
-                OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
-                OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                OperationItemSingleModel.Sales_Price = Number($("#Sales_Price" + i).val());
+                OperationItemSingleModel.MinUnitPrice = Number($("#MinUnitPrice" + i).val());
                 PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
             }
             if (StatusFlag == "d") {
@@ -872,22 +872,23 @@ var Purchases;
                     OperationItemSingleModel.ID_familly_Cat = $('#ddlfamilly_Cat' + i).val();
                     OperationItemSingleModel.Name_CAT = $("#Family" + i).val();
                     OperationItemSingleModel.PRODUCT_NAME = $("#Items" + i).val();
-                    OperationItemSingleModel.Purchases_Quantity = $('#txtQuantity' + i).val();
-                    OperationItemSingleModel.Purchases_Price = $("#txtPrice" + i).val();
-                    OperationItemSingleModel.Sales_Price = $("#Sales_Price" + i).val();
-                    OperationItemSingleModel.MinUnitPrice = $("#MinUnitPrice" + i).val();
+                    OperationItemSingleModel.Purchases_Quantity = Number($('#txtQuantity' + i).val());
+                    OperationItemSingleModel.Purchases_Price = Number($("#txtPrice" + i).val());
+                    OperationItemSingleModel.Sales_Price = Number($("#Sales_Price" + i).val());
+                    OperationItemSingleModel.MinUnitPrice = Number($("#MinUnitPrice" + i).val());
                     PurMasterDetails.Purchases_Details.push(OperationItemSingleModel);
                 }
             }
         }
+        debugger;
         DocumentActions.AssignToModel(PurMasterDetails.Purchases_Master);
-        PurMasterDetails.Purchases_Master.TrNo = $('#txtNumber').val();
+        PurMasterDetails.Purchases_Master.TrNo = Number($('#txtNumber').val());
         PurMasterDetails.Purchases_Master.Tr_Date = $('#txtDate').val();
-        PurMasterDetails.Purchases_Master.ID_Supplier = ID_Supp;
+        PurMasterDetails.Purchases_Master.ID_Supplier = Number(ID_Supp);
         PurMasterDetails.Purchases_Master.Type_Debit = Number(txtTo_be_Paid.value) == 0 ? true : false;
-        PurMasterDetails.Purchases_Master.Total_Amount = $('#txtTotal').val();
-        PurMasterDetails.Purchases_Master.Paid_Up = $('#txtPaid_Up').val();
-        PurMasterDetails.Purchases_Master.To_be_Paid = $('#txtTo_be_Paid').val();
+        PurMasterDetails.Purchases_Master.Total_Amount = Number($('#txtTotal').val());
+        PurMasterDetails.Purchases_Master.Paid_Up = Number($('#txtPaid_Up').val());
+        PurMasterDetails.Purchases_Master.To_be_Paid = Number($('#txtTo_be_Paid').val());
         PurMasterDetails.Purchases_Master.REMARKS = $('#txtRemarks').val();
         Bal = Number($('#txtPaid_Up').val());
     }

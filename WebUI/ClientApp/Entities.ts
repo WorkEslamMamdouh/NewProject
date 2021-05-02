@@ -474,9 +474,9 @@ class PRODUCT extends SecurityClass {
         this.PRODUCT_ID = 0;
         this.PRODUCT_NAME = "";
         this.PRODUCT_QET = 0;
-        this.PRODUCT_Purchasing_price
-        this.PRODUCT_PRICE
-        this.MinUnitPrice
+        this.PRODUCT_Purchasing_price = 0;
+        this.PRODUCT_PRICE = 0;
+        this.MinUnitPrice = 0;
         this.ID_CAT = 0;
         this.serial = "";
         this.StatusFlag = "";
@@ -484,9 +484,9 @@ class PRODUCT extends SecurityClass {
     public PRODUCT_ID: number;
     public PRODUCT_NAME: string;
     public PRODUCT_QET: number;
-    public PRODUCT_Purchasing_price: any;
-    public PRODUCT_PRICE: any;
-    public MinUnitPrice: any;
+    public PRODUCT_Purchasing_price: number;
+    public PRODUCT_PRICE: number;
+    public MinUnitPrice: number;
     public ID_CAT: number;
     public serial: string;
     public StatusFlag: string;
@@ -498,22 +498,22 @@ class ReviewSalesItemInfo extends SecurityClass {
         this.ID_DELIVERY = 0;
         this.Name_Product_sell = "";
         this.Quantity_sell = 0;
-        this.price_One_part
-        this.Total_Price_One_Part
+        this.price_One_part = 0;
+        this.Total_Price_One_Part = 0;
         this.Notes_Order = "";
         this.FK_ORDER_Delivery = 0;
-        this.MinUnitPrice
+        this.MinUnitPrice = 0;
         this.ID_CAT = 0;
         this.PRODUCT_ID = 0;
     }
     public ID_DELIVERY: number;
     public Name_Product_sell: string;
     public Quantity_sell: number;
-    public price_One_part: any;
-    public Total_Price_One_Part: any;
+    public price_One_part: number;
+    public Total_Price_One_Part: number;
     public Notes_Order: string;
     public FK_ORDER_Delivery: number;
-    public MinUnitPrice: any;
+    public MinUnitPrice: number;
     public ID_CAT: number;
     public PRODUCT_ID: number;
 }
@@ -528,7 +528,7 @@ class ReviewSalesMaster extends SecurityClass {
         this.CUSTOMER_ADDRES = "";
         this.PHONE = "";
         this.CUSTOMER_ADDRES_2 = "";
-        this.Total_All
+        this.Total_All = 0;
         this.EMPLOYEE_NAME = "";
         this.Date = "";
         this.EMPLOYEE_ID = 0;
@@ -543,7 +543,7 @@ class ReviewSalesMaster extends SecurityClass {
     public CUSTOMER_ADDRES: string;
     public PHONE: string;
     public CUSTOMER_ADDRES_2: string;
-    public Total_All: any;
+    public Total_All: number;
     public EMPLOYEE_NAME: string;
     public Date: string;
     public EMPLOYEE_ID: number;
@@ -1064,8 +1064,8 @@ class The_Gard extends SecurityClass {
         super();
         this.id_Num = 0;
         this.PRODUCT_NAME = "";
-        this.PRODUCT_Purchasing_price
-        this.PRODUCT_PRICE
+        this.PRODUCT_Purchasing_price = 0;
+        this.PRODUCT_PRICE = 0;
         this.PRODUCT_Qut = 0;
         this.Total_Price_One_Part = 0;
         this.Shortage = 0;

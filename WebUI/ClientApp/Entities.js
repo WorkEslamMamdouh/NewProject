@@ -334,9 +334,9 @@ var PRODUCT = (function (_super) {
         _this.PRODUCT_ID = 0;
         _this.PRODUCT_NAME = "";
         _this.PRODUCT_QET = 0;
-        _this.PRODUCT_Purchasing_price;
-        _this.PRODUCT_PRICE;
-        _this.MinUnitPrice;
+        _this.PRODUCT_Purchasing_price = 0;
+        _this.PRODUCT_PRICE = 0;
+        _this.MinUnitPrice = 0;
         _this.ID_CAT = 0;
         _this.serial = "";
         _this.StatusFlag = "";
@@ -351,11 +351,11 @@ var ReviewSalesItemInfo = (function (_super) {
         _this.ID_DELIVERY = 0;
         _this.Name_Product_sell = "";
         _this.Quantity_sell = 0;
-        _this.price_One_part;
-        _this.Total_Price_One_Part;
+        _this.price_One_part = 0;
+        _this.Total_Price_One_Part = 0;
         _this.Notes_Order = "";
         _this.FK_ORDER_Delivery = 0;
-        _this.MinUnitPrice;
+        _this.MinUnitPrice = 0;
         _this.ID_CAT = 0;
         _this.PRODUCT_ID = 0;
         return _this;
@@ -372,7 +372,7 @@ var ReviewSalesMaster = (function (_super) {
         _this.CUSTOMER_ADDRES = "";
         _this.PHONE = "";
         _this.CUSTOMER_ADDRES_2 = "";
-        _this.Total_All;
+        _this.Total_All = 0;
         _this.EMPLOYEE_NAME = "";
         _this.Date = "";
         _this.EMPLOYEE_ID = 0;
@@ -747,8 +747,8 @@ var The_Gard = (function (_super) {
         var _this = _super.call(this) || this;
         _this.id_Num = 0;
         _this.PRODUCT_NAME = "";
-        _this.PRODUCT_Purchasing_price;
-        _this.PRODUCT_PRICE;
+        _this.PRODUCT_Purchasing_price = 0;
+        _this.PRODUCT_PRICE = 0;
         _this.PRODUCT_Qut = 0;
         _this.Total_Price_One_Part = 0;
         _this.Shortage = 0;
