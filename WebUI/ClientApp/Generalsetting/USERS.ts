@@ -18,8 +18,12 @@ namespace USERS {
     var UserDetails: Array<G_USERS> = new Array<G_USERS>();
     var List_RoleDetails: Array<G_Role> = new Array<G_Role>();
     var List_Roles: Array<G_RoleUsers> = new Array<G_RoleUsers>();
-    
+    var List_Singl_Roles: G_RoleUsers = new G_RoleUsers();
 
+
+    var OperationSingleModel: G_RoleUsers = new G_RoleUsers();
+    var OperationModel_dital: Array<G_RoleUsers> = new Array<G_RoleUsers>();
+     
      
 
     var ReportGrid: JsGrid = new JsGrid();
@@ -65,7 +69,7 @@ namespace USERS {
 
     var txt_ID_APP_Category: HTMLSelectElement;
 
-
+    var StatusFlag;
 
     export function InitalizeComponent() {
 
@@ -202,7 +206,7 @@ namespace USERS {
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
-
+        remove_disabled_Grid_Controls();
         $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
@@ -215,7 +219,7 @@ namespace USERS {
         (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
 
         $(".btnAddDetails").removeAttr("disabled");
-        $('#btnAddDetails').toggleClass("display_none");
+        //$('#btnAddDetails').toggleClass("display_none");
         $(".fa-minus-circle").removeClass("display_none");
 
 
@@ -244,32 +248,33 @@ namespace USERS {
     }
     function btnsave_onClick() {
         debugger
-        if (IsNew == true) {
+        Assign_Grid();
+        //if (IsNew == true) {
 
-            Validation();
-            if (Valid == 1) {
+        //    Validation();
+        //    if (Valid == 1) {
 
-            }
-            else {
-                Insert();
+        //    }
+        //    else {
+        //        Insert();
 
-                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-            }
-        }
-        else {
+        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+        //    }
+        //}
+        //else {
 
 
-            Validation();
-            if (Valid == 1) {
+        //    Validation();
+        //    if (Valid == 1) {
 
-            }
-            else {
-                Update();
+        //    }
+        //    else {
+        //        Update();
 
-                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-            }
+        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+        //    }
 
-        }
+        //}
 
     }
     function chack_USER() {
@@ -349,7 +354,7 @@ namespace USERS {
             IsNew = true;
         }
         if (IsNew == true) {
-            $('#btnAddDetails').toggleClass("display_none");
+            //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
@@ -362,12 +367,12 @@ namespace USERS {
                 $("#id_div_Add").attr("disabled", "");
                 $("#id_div_Add").removeClass("disabledDiv");
             }
-
+            disabled_Grid_Controls();
         }
         else {
 
 
-            $('#btnAddDetails').toggleClass("display_none");
+            //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
@@ -379,7 +384,7 @@ namespace USERS {
             $("#id_div_Add").attr("disabled", "");
             $("#id_div_Add").removeClass("disabledDiv");
             DriverDoubleClick();
-
+            disabled_Grid_Controls();
         }
     }
     function EnableControls() {
@@ -417,6 +422,9 @@ namespace USERS {
         $("#txtUSER_CODE").attr("disabled", "disabled");
         $("#txtUSER_PASSWORD").attr("disabled", "disabled");
         $("#txtUSER_PASSWORD_confirm").attr("disabled", "disabled");
+        $("#btnGive_assignments").attr("disabled", "disabled");
+        $("#btnBlock_permissions").attr("disabled", "disabled");
+        $("#btnLoadRoles").attr("disabled", "disabled");
 
     }
     function removedisabled() {
@@ -431,10 +439,39 @@ namespace USERS {
         $("#txtUSER_CODE").removeAttr("disabled");
         $("#txtUSER_PASSWORD").removeAttr("disabled");
         $("#txtUSER_PASSWORD_confirm").removeAttr("disabled");
+        $("#btnGive_assignments").removeAttr("disabled");
+        $("#btnBlock_permissions").removeAttr("disabled");
+        $("#btnLoadRoles").removeAttr("disabled");
 
 
 
     } 
+    function remove_disabled_Grid_Controls() {
+
+        //$(".fontitm3").removeClass("display_none");
+
+
+        for (var i = 0; i < CountGrid + 1; i++) {
+            //$("#txtDescA" + i).removeAttr("disabled");
+            $("#CheckISActive" + i).removeAttr("disabled");
+            $("#txt_StatusFlag" + i).val("");
+
+        }
+    }
+    function disabled_Grid_Controls() {
+
+        //$(".fontitm3").addClass("display_none");
+
+        for (var i = 0; i < CountGrid + 1; i++) {
+
+            $("#txtDescA" + i).attr("disabled", "disabled");
+            $("#CheckISActive" + i).attr("disabled", "disabled");
+            $("#txt_StatusFlag" + i).val("");
+        }
+    }
+
+
+
     function fillRoles() {
         Ajax.Callsync({
             type: "Get",
@@ -632,8 +669,7 @@ namespace USERS {
         });
     }
 
-    
-
+  
 
     function Give_assignments_onClick() {
         for (var i = 0; i < CountGrid + 1; i++) {
@@ -652,12 +688,15 @@ namespace USERS {
         }
     }
     function btnLoadRoles_onClick() {
-        $('#div_Data').html("");
+        //$('#div_Data').html("");
 
-        btnEdit_onclick();
-        $("#div_grid").addClass("disabledDiv");
+
+        debugger
         var Q = 0;
-        for (var i = List_Roles.length; i < Number(List_RoleDetails.length + List_Roles.length); i++) {
+
+        var le = Number(List_RoleDetails.length + List_Roles.length) - 1;
+
+        for (var i = List_Roles.length - 1; i < le ; i++) {
 
             if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
                 WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "")
@@ -671,7 +710,7 @@ namespace USERS {
                 BuildControls(i);
                 $("#txt_StatusFlag" + i).val("i"); //In Insert mode         
                 $("#txtDescA" + i).prop('value', List_RoleDetails[Q].RoleId);
-                $("#txtDescA" + i).removeAttr("disabled");
+                //$("#txtDescA" + i).removeAttr("disabled");
                 $("#CheckISActive" + i).removeAttr("disabled");
                 //$("#btn_minus" + i).removeClass("display_none");
                 //$("#txtRoleId" + i).val(List_RoleDetails[Q].RoleId);
@@ -681,10 +720,13 @@ namespace USERS {
                 //$("#drpRoles").addClass("display_none");
                 //$("#txtRoleRemarks").addClass("display_none");
                 //$("#Ch_RoleActive").addClass("display_none");
+                List_Singl_Roles.RoleId = List_RoleDetails[Q].RoleId;
+                List_Singl_Roles.USER_CODE = txtUSER_CODE.value;
+                    List_Roles.push(List_Singl_Roles);
                 Q += 1;
             }
         }
-        CountGrid = Number(List_RoleDetails.length + List_Roles.length);
+        CountGrid = Number(List_RoleDetails.length + List_Roles.length)-1;
     }
 
 
@@ -763,6 +805,44 @@ namespace USERS {
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }
 
+    }
+
+    function Assign_Grid() {
+
+        OperationModel_dital = new Array<G_RoleUsers>();
+        for (var i = 0; i <= CountGrid + 1; i++) {
+            OperationSingleModel = new G_RoleUsers();
+            StatusFlag = $("#txt_StatusFlag" + i).val();
+
+            if (StatusFlag == "i") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+                OperationModel_dital.push(OperationSingleModel);
+            }
+            if (StatusFlag == "u") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked'); 
+                OperationModel_dital.push(OperationSingleModel);
+
+            }
+            if (StatusFlag == "d") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+                OperationModel_dital.push(OperationSingleModel);
+            }
+
+
+        }
+
+        OperationModel_dital = OperationModel_dital.filter(x => x.ISActive == true);
+
+        console.log(OperationModel_dital);
     }
 
     function Insert() {

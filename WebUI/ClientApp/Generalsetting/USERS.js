@@ -15,6 +15,9 @@ var USERS;
     var UserDetails = new Array();
     var List_RoleDetails = new Array();
     var List_Roles = new Array();
+    var List_Singl_Roles = new G_RoleUsers();
+    var OperationSingleModel = new G_RoleUsers();
+    var OperationModel_dital = new Array();
     var ReportGrid = new JsGrid();
     var CashDetailsAr = new Array();
     var CashDetailsEn = new Array();
@@ -47,6 +50,7 @@ var USERS;
     var Valid = 0;
     var Update_claenData = 0;
     var txt_ID_APP_Category;
+    var StatusFlag;
     function InitalizeComponent() {
         if (SysSession.CurrentEnvironment.ScreenLanguage = "ar") {
             document.getElementById('Screen_name').innerHTML = "الاعدادات";
@@ -147,6 +151,7 @@ var USERS;
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
+        remove_disabled_Grid_Controls();
         $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
@@ -156,7 +161,7 @@ var USERS;
         var x1 = $("#id_div_Add").hasClass("disabledDiv");
         (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
         $(".btnAddDetails").removeAttr("disabled");
-        $('#btnAddDetails').toggleClass("display_none");
+        //$('#btnAddDetails').toggleClass("display_none");
         $(".fa-minus-circle").removeClass("display_none");
         $("#txtUSER_CODE").attr("disabled", "disabled");
     }
@@ -172,22 +177,25 @@ var USERS;
     }
     function btnsave_onClick() {
         debugger;
-        if (IsNew == true) {
-            Validation();
-            if (Valid == 1) {
-            }
-            else {
-                Insert();
-            }
-        }
-        else {
-            Validation();
-            if (Valid == 1) {
-            }
-            else {
-                Update();
-            }
-        }
+        Assign_Grid();
+        //if (IsNew == true) {
+        //    Validation();
+        //    if (Valid == 1) {
+        //    }
+        //    else {
+        //        Insert();
+        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+        //    }
+        //}
+        //else {
+        //    Validation();
+        //    if (Valid == 1) {
+        //    }
+        //    else {
+        //        Update();
+        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+        //    }
+        //}
     }
     function chack_USER() {
         if ($('#txtUSER_CODE').val() != "") {
@@ -236,7 +244,7 @@ var USERS;
             IsNew = true;
         }
         if (IsNew == true) {
-            $('#btnAddDetails').toggleClass("display_none");
+            //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
@@ -248,9 +256,10 @@ var USERS;
                 $("#id_div_Add").attr("disabled", "");
                 $("#id_div_Add").removeClass("disabledDiv");
             }
+            disabled_Grid_Controls();
         }
         else {
-            $('#btnAddDetails').toggleClass("display_none");
+            //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
@@ -261,6 +270,7 @@ var USERS;
             $("#id_div_Add").attr("disabled", "");
             $("#id_div_Add").removeClass("disabledDiv");
             DriverDoubleClick();
+            disabled_Grid_Controls();
         }
     }
     function EnableControls() {
@@ -291,6 +301,9 @@ var USERS;
         $("#txtUSER_CODE").attr("disabled", "disabled");
         $("#txtUSER_PASSWORD").attr("disabled", "disabled");
         $("#txtUSER_PASSWORD_confirm").attr("disabled", "disabled");
+        $("#btnGive_assignments").attr("disabled", "disabled");
+        $("#btnBlock_permissions").attr("disabled", "disabled");
+        $("#btnLoadRoles").attr("disabled", "disabled");
     }
     function removedisabled() {
         //debugger;
@@ -303,6 +316,25 @@ var USERS;
         $("#txtUSER_CODE").removeAttr("disabled");
         $("#txtUSER_PASSWORD").removeAttr("disabled");
         $("#txtUSER_PASSWORD_confirm").removeAttr("disabled");
+        $("#btnGive_assignments").removeAttr("disabled");
+        $("#btnBlock_permissions").removeAttr("disabled");
+        $("#btnLoadRoles").removeAttr("disabled");
+    }
+    function remove_disabled_Grid_Controls() {
+        //$(".fontitm3").removeClass("display_none");
+        for (var i = 0; i < CountGrid + 1; i++) {
+            //$("#txtDescA" + i).removeAttr("disabled");
+            $("#CheckISActive" + i).removeAttr("disabled");
+            $("#txt_StatusFlag" + i).val("");
+        }
+    }
+    function disabled_Grid_Controls() {
+        //$(".fontitm3").addClass("display_none");
+        for (var i = 0; i < CountGrid + 1; i++) {
+            $("#txtDescA" + i).attr("disabled", "disabled");
+            $("#CheckISActive" + i).attr("disabled", "disabled");
+            $("#txt_StatusFlag" + i).val("");
+        }
     }
     function fillRoles() {
         Ajax.Callsync({
@@ -484,11 +516,11 @@ var USERS;
         }
     }
     function btnLoadRoles_onClick() {
-        $('#div_Data').html("");
-        btnEdit_onclick();
-        $("#div_grid").addClass("disabledDiv");
+        //$('#div_Data').html("");
+        debugger;
         var Q = 0;
-        for (var i = List_Roles.length; i < Number(List_RoleDetails.length + List_Roles.length); i++) {
+        var le = Number(List_RoleDetails.length + List_Roles.length) - 1;
+        for (var i = List_Roles.length - 1; i < le; i++) {
             if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
                 WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "");
             }
@@ -501,7 +533,7 @@ var USERS;
                 BuildControls(i);
                 $("#txt_StatusFlag" + i).val("i"); //In Insert mode         
                 $("#txtDescA" + i).prop('value', List_RoleDetails[Q].RoleId);
-                $("#txtDescA" + i).removeAttr("disabled");
+                //$("#txtDescA" + i).removeAttr("disabled");
                 $("#CheckISActive" + i).removeAttr("disabled");
                 //$("#btn_minus" + i).removeClass("display_none");
                 //$("#txtRoleId" + i).val(List_RoleDetails[Q].RoleId);
@@ -511,10 +543,13 @@ var USERS;
                 //$("#drpRoles").addClass("display_none");
                 //$("#txtRoleRemarks").addClass("display_none");
                 //$("#Ch_RoleActive").addClass("display_none");
+                List_Singl_Roles.RoleId = List_RoleDetails[Q].RoleId;
+                List_Singl_Roles.USER_CODE = txtUSER_CODE.value;
+                List_Roles.push(List_Singl_Roles);
                 Q += 1;
             }
         }
-        CountGrid = Number(List_RoleDetails.length + List_Roles.length);
+        CountGrid = Number(List_RoleDetails.length + List_Roles.length) - 1;
     }
     function Validation_Grid(rowcount) {
         //else
@@ -575,6 +610,36 @@ var USERS;
             Model.CompCode = 1;
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }
+    }
+    function Assign_Grid() {
+        OperationModel_dital = new Array();
+        for (var i = 0; i <= CountGrid + 1; i++) {
+            OperationSingleModel = new G_RoleUsers();
+            StatusFlag = $("#txt_StatusFlag" + i).val();
+            if (StatusFlag == "i") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+                OperationModel_dital.push(OperationSingleModel);
+            }
+            if (StatusFlag == "u") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+                OperationModel_dital.push(OperationSingleModel);
+            }
+            if (StatusFlag == "d") {
+                OperationSingleModel.StatusFlag = StatusFlag.toString();
+                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+                OperationModel_dital.push(OperationSingleModel);
+            }
+        }
+        OperationModel_dital = OperationModel_dital.filter(function (x) { return x.ISActive == true; });
+        console.log(OperationModel_dital);
     }
     function Insert() {
         Assign();

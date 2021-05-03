@@ -233,10 +233,15 @@ class G_RoleUsers extends SecurityClass {
         this.USER_CODE = "";
         this.RoleId = 0;
         this.ISActive = false;
+        this.StatusFlag = "";
+
     }
     public USER_CODE: string;
     public RoleId: number;
     public ISActive: boolean;
+    public StatusFlag: string;
+        
+
 }
 
 
@@ -974,7 +979,7 @@ class IQ_Purchases_Details extends SecurityClass {
         this.PRODUCT_ID = 0;
         this.ID_CAT = 0;
         this.ID_familly_Cat = 0;
-        this.PRODUCT_QET = 0; 
+        this.PRODUCT_QET = 0;
         this.StatusFlag = "";
     }
     public ID: number;

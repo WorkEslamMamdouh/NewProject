@@ -186,6 +186,7 @@ var G_RoleUsers = (function (_super) {
         _this.USER_CODE = "";
         _this.RoleId = 0;
         _this.ISActive = false;
+        _this.StatusFlag = "";
         return _this;
     }
     return G_RoleUsers;
