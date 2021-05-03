@@ -23,6 +23,7 @@ namespace USERS {
 
     var OperationSingleModel: G_RoleUsers = new G_RoleUsers();
     var OperationModel_dital: Array<G_RoleUsers> = new Array<G_RoleUsers>();
+    var CustomG_USERS_Model: CustomG_USERS = new CustomG_USERS();
      
      
 
@@ -39,6 +40,7 @@ namespace USERS {
     var btnShow: HTMLButtonElement;
     var btnAdd: HTMLButtonElement;
     var btnEdit: HTMLButtonElement;
+    var btnDelet: HTMLButtonElement;
     var btnsave: HTMLButtonElement;
     var btnAddDetails: HTMLButtonElement;
     var btnGive_assignments: HTMLButtonElement;
@@ -58,7 +60,7 @@ namespace USERS {
     var CustomerIdUpdate: number = 0;
 
     var CustomerId;
-    var CountGrid = -1;
+    var CountGrid = 0;
     var sum_balance;
 
     var Debit;
@@ -97,6 +99,7 @@ namespace USERS {
         btnShow = document.getElementById("btnShow") as HTMLButtonElement;
         btnAdd = document.getElementById("btnAdd") as HTMLButtonElement;
         btnEdit = document.getElementById("btnedite") as HTMLButtonElement;
+        btnDelet = document.getElementById("btnDelet") as HTMLButtonElement;
         btnsave = document.getElementById("btnsave") as HTMLButtonElement;
         btnback = document.getElementById("btnback") as HTMLButtonElement;
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
@@ -120,6 +123,7 @@ namespace USERS {
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         btnEdit.onclick = btnEdit_onclick;
+        btnDelet.onclick = btnDelet_onclick;
         searchbutmemreport.onkeyup = _SearchBox_Change;
         txtUSER_CODE.onchange = chack_USER;
 
@@ -143,7 +147,7 @@ namespace USERS {
                 if (result.IsSuccess) {
                     Details = result.Response as Array<G_USERS>;
                     debugger
-
+ 
                     DocumentActions.FillCombowithdefult(Details, ddlUserMaster, "USER_CODE", "USER_CODE", "اختار المستخدم");
 
 
@@ -192,7 +196,7 @@ namespace USERS {
 
         if (searchbutmemreport.value != "") {
             let search: string = searchbutmemreport.value.toLowerCase();
-            SearchDetails = Display.filter(x => x.USER_CODE.toLowerCase().search(search) >= 0);
+            SearchDetails = Display.filter(x => x.USER_NAME.toLowerCase().search(search) >= 0);
 
 
             ReportGrid.DataSource = SearchDetails;
@@ -202,13 +206,25 @@ namespace USERS {
             ReportGrid.Bind();
         }
     }
-  
+    function btnDelet_onclick() {
+
+        WorningMessage(" هل تريد الحذف؟ (" + $('#txtUSER_NAME').val()+")", "Do you want to delete?", "تحذير", "worning", () => {
+
+          
+
+            Delete();
+
+
+        });
+
+    }
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
         remove_disabled_Grid_Controls();
         $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
+        $('#btnDelet').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
         $("#btnedite").toggleClass("display_none");
         $("#txt_ID_Supplier").attr("disabled", "disabled");
@@ -243,38 +259,39 @@ namespace USERS {
 
         (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
 
+        $('#div_Data').html("");
+        CountGrid = 0;
         //reference_Page();
-
+        Valid = 0;
     }
     function btnsave_onClick() {
         debugger
-        Assign_Grid();
-        //if (IsNew == true) {
+        if (IsNew == true) {
 
-        //    Validation();
-        //    if (Valid == 1) {
+            Validation();
+            if (Valid == 1) {
 
-        //    }
-        //    else {
-        //        Insert();
+            }
+            else {
+                Insert();
 
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
-        //}
-        //else {
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+            }
+        }
+        else {
 
 
-        //    Validation();
-        //    if (Valid == 1) {
+            Validation();
+            if (Valid == 1) {
 
-        //    }
-        //    else {
-        //        Update();
+            }
+            else {
+                Update();
 
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
+            }
 
-        //}
+        }
 
     }
     function chack_USER() {
@@ -334,6 +351,11 @@ namespace USERS {
             MessageBox.Show("يجب ادخال كلمة السر   ", "Contact Email Is Not Valid");
             return Valid = 1;
         }
+        if ($('#txtUSER_PASSWORD_confirm').val() != $('#txtUSER_PASSWORD').val() ) {
+
+            MessageBox.Show("كلمتى السر غير متوافقين", "Contact Email Is Not Valid");
+            return Valid = 1;
+        }
 
 
 
@@ -357,6 +379,7 @@ namespace USERS {
             //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
+            $('#btnDelet').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             $("#btnedite").removeAttr("disabled");
@@ -364,9 +387,10 @@ namespace USERS {
 
             if (Valid != 2) {
                 $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
-                $("#id_div_Add").attr("disabled", "");
-                $("#id_div_Add").removeClass("disabledDiv");
+            
             }
+            $("#id_div_Add").attr("disabled", "");
+            $("#id_div_Add").removeClass("disabledDiv");
             disabled_Grid_Controls();
         }
         else {
@@ -375,6 +399,7 @@ namespace USERS {
             //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
+            $('#btnDelet').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             $("#btnedite").removeAttr("disabled");
@@ -386,6 +411,8 @@ namespace USERS {
             DriverDoubleClick();
             disabled_Grid_Controls();
         }
+        $('#btnDelet').addClass("display_none");
+
     }
     function EnableControls() {
 
@@ -451,7 +478,7 @@ namespace USERS {
         //$(".fontitm3").removeClass("display_none");
 
 
-        for (var i = 0; i < CountGrid + 1; i++) {
+        for (var i = 0; i < CountGrid+1 ; i++) {
             //$("#txtDescA" + i).removeAttr("disabled");
             $("#CheckISActive" + i).removeAttr("disabled");
             $("#txt_StatusFlag" + i).val("");
@@ -462,7 +489,7 @@ namespace USERS {
 
         //$(".fontitm3").addClass("display_none");
 
-        for (var i = 0; i < CountGrid + 1; i++) {
+        for (var i = 0; i < CountGrid +1 ; i++) {
 
             $("#txtDescA" + i).attr("disabled", "disabled");
             $("#CheckISActive" + i).attr("disabled", "disabled");
@@ -482,9 +509,36 @@ namespace USERS {
                 if (result.IsSuccess) {
                     List_RoleDetails = result.Response as Array<G_Role>;
 
+                    var DetLst = List_RoleDetails.filter(x => x.DescA == 'admin');
+
+                     var index = List_RoleDetails.indexOf(DetLst[0]);
+                     Delete_Rows(index, List_RoleDetails );
+                  
+
                 }
             }
         });
+    }
+    function reindexArray(array) {
+        debugger
+        var index = 0;                          // The index where the element should be
+        for (var key in array)                 // Iterate the array
+        {
+            //if (parseInt(key) !== index)     // If the element is out of sequence
+            //{
+            array[index] = array[key];      // Move it to the correct, earlier position in the array
+            ++index;                        // Update the index
+            //}
+        }
+
+        array.splice(index);  // Remove any remaining elements (These will be duplicates of earlier items)
+    };
+
+    function Delete_Rows(ind: number, array: any) {
+         
+        delete array[ind];
+
+        reindexArray(array); 
     }
 
     function InitializeGrid() {
@@ -550,7 +604,7 @@ namespace USERS {
                         CountGrid = i;
                     }
 
-                    $("#txtItemCount").val(CountGrid + 1);
+                    $("#txtItemCount").val(CountGrid );
 
 
 
@@ -624,7 +678,7 @@ namespace USERS {
         debugger
         //if (!SysSession.CurrentPrivileges.AddNew) return;
         var CanAdd: boolean = true;
-        if (CountGrid > -1) {
+        if (CountGrid > 0) {
 
             for (var i = 0; i <= CountGrid; i++) {
                 CanAdd = Validation_Grid(i);
@@ -634,7 +688,6 @@ namespace USERS {
             }
         }
         if (CanAdd) {
-            CountGrid += 1;
             BuildControls(CountGrid);
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
             $("#txtDescA" + CountGrid).removeAttr("disabled");
@@ -645,6 +698,7 @@ namespace USERS {
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
 
+            CountGrid += 1;
 
 
         }
@@ -672,7 +726,7 @@ namespace USERS {
   
 
     function Give_assignments_onClick() {
-        for (var i = 0; i < CountGrid + 1; i++) {
+        for (var i = 0; i < CountGrid +1 ; i++) {
             if ($("#txt_StatusFlag" + i).val() != 'i') {
                 $("#txt_StatusFlag" + i).val('u');
             }
@@ -680,7 +734,7 @@ namespace USERS {
         }
     }
     function Block_permissions_onClick() {
-        for (var i = 0; i < CountGrid + 1; i++) {
+        for (var i = 0; i < CountGrid+1 ; i++) {
             if ($("#txt_StatusFlag" + i).val() != 'i') {
                 $("#txt_StatusFlag" + i).val('u');
             }
@@ -694,9 +748,9 @@ namespace USERS {
         debugger
         var Q = 0;
 
-        var le = Number(List_RoleDetails.length + List_Roles.length) - 1;
+        var le = Number(List_RoleDetails.length + List_Roles.length) ;
 
-        for (var i = List_Roles.length - 1; i < le ; i++) {
+        for (var i = List_Roles.length; i < le ; i++) {
 
             if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
                 WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "")
@@ -726,7 +780,7 @@ namespace USERS {
                 Q += 1;
             }
         }
-        CountGrid = Number(List_RoleDetails.length + List_Roles.length)-1;
+        CountGrid = Number(List_RoleDetails.length + List_Roles.length);
     }
 
 
@@ -805,53 +859,64 @@ namespace USERS {
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }
 
+        CustomG_USERS_Model.G_USERS = Model; 
+
     }
 
     function Assign_Grid() {
-
+        debugger
         OperationModel_dital = new Array<G_RoleUsers>();
-        for (var i = 0; i <= CountGrid + 1; i++) {
+        for (var i = 0; i <= CountGrid +1 ; i++) {
             OperationSingleModel = new G_RoleUsers();
             StatusFlag = $("#txt_StatusFlag" + i).val();
 
-            if (StatusFlag == "i") {
+            //if (StatusFlag == "i") {
+          
+            //}
+            //if (StatusFlag == "u") {
+            //    OperationSingleModel.StatusFlag = StatusFlag.toString();
+            //    OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+            //    OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+            //    OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked'); 
+            //    OperationModel_dital.push(OperationSingleModel);
+
+            //}
+            //if (StatusFlag == "d") {
+            //    OperationSingleModel.StatusFlag = StatusFlag.toString();
+            //    OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+            //    OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+            //    OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+            //    OperationModel_dital.push(OperationSingleModel);
+            //}
+
+            if ($('#txtDescA' + i).val() != null) {
+
                 OperationSingleModel.StatusFlag = StatusFlag.toString();
                 OperationSingleModel.RoleId = $('#txtDescA' + i).val();
                 OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
                 OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
-                OperationModel_dital.push(OperationSingleModel);
-            }
-            if (StatusFlag == "u") {
-                OperationSingleModel.StatusFlag = StatusFlag.toString();
-                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
-                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
-                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked'); 
                 OperationModel_dital.push(OperationSingleModel);
 
             }
-            if (StatusFlag == "d") {
-                OperationSingleModel.StatusFlag = StatusFlag.toString();
-                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
-                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
-                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
-                OperationModel_dital.push(OperationSingleModel);
-            }
+          
 
 
         }
-
+        debugger
         OperationModel_dital = OperationModel_dital.filter(x => x.ISActive == true);
 
-        console.log(OperationModel_dital);
+        CustomG_USERS_Model.G_RoleUsers = OperationModel_dital; 
     }
 
     function Insert() {
+        CustomG_USERS_Model = new CustomG_USERS();
         Assign();
+        Assign_Grid();
         debugger
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("G_USERS", "Insert_USER"),
-            data: JSON.stringify(Model),
+            data: JSON.stringify(CustomG_USERS_Model),
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -871,11 +936,14 @@ namespace USERS {
     }
 
     function Update() {
+        CustomG_USERS_Model = new CustomG_USERS();
         Assign();
+        Assign_Grid();
+
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("G_USERS", "Update_USER"),
-            data: JSON.stringify(Model),
+            data: JSON.stringify(CustomG_USERS_Model),
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
@@ -897,5 +965,33 @@ namespace USERS {
 
     }
 
+    function Delete() {
 
+        var  USERS = $('#txtUSER_CODE').val();
+        debugger
+
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("G_USERS", "Delete_USER"),
+            data: { USERS: USERS },
+            success: (d) => {
+                let result = d as BaseResponse;
+                if (result.IsSuccess) {
+                    //MessageBox.Show("تم الحذف", "Success");
+                    alert("تم الحذف");
+                    Update_claenData = 1;
+                    FillddlUserMaster();
+                    Display_All();
+                    $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
+                    $("#id_div_Add").attr("disabled", "");
+                    $("#id_div_Add").removeClass("disabledDiv");
+                    Valid = 2;
+                }
+            }
+        });
+
+
+       
+
+    }
 }

@@ -883,6 +883,20 @@ class PurchasesMasterDetails extends SecurityClass {
 
 }
 
+
+
+class CustomG_USERS extends SecurityClass {
+    constructor() {
+        super();
+        this.G_USERS = new G_USERS();
+        this.G_RoleUsers = new Array<G_RoleUsers>();
+    }
+    public G_USERS: G_USERS;
+    public G_RoleUsers: Array<G_RoleUsers>;
+
+
+}
+
 class CUSTOMER extends SecurityClass {
     constructor() {
         super();

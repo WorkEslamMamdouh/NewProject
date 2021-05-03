@@ -620,6 +620,16 @@ var PurchasesMasterDetails = (function (_super) {
     }
     return PurchasesMasterDetails;
 }(SecurityClass));
+var CustomG_USERS = (function (_super) {
+    __extends(CustomG_USERS, _super);
+    function CustomG_USERS() {
+        var _this = _super.call(this) || this;
+        _this.G_USERS = new G_USERS();
+        _this.G_RoleUsers = new Array();
+        return _this;
+    }
+    return CustomG_USERS;
+}(SecurityClass));
 var CUSTOMER = (function (_super) {
     __extends(CUSTOMER, _super);
     function CUSTOMER() {

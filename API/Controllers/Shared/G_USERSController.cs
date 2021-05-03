@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebUl.API.Tools;
+using API.Models.CustomModel;
 
 namespace API.Controllers
 {
@@ -41,7 +42,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Login = G_USERSService.GetAll().ToList();
+                var Login = G_USERSService.GetAll(x => x.USER_CODE != "islam").ToList();
 
                 return Ok(new BaseResponse(Login));
 
@@ -189,15 +190,31 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert_USER([FromBody]G_USERS USER)
+        public IHttpActionResult Insert_USER([FromBody]CustomG_USERS USER)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    string EMPLOY = " insert_EMPLOYEE '"+ USER.USER_NAME + "','"+ USER.USER_CODE + "'";
+                    string EMPLOY = " insert_EMPLOYEE '"+ USER.G_USERS.USER_NAME + "','"+ USER.G_USERS.USER_CODE + "'";
                     var EMPL = db.Database.ExecuteSqlCommand(EMPLOY);
-                    var USERrr = G_USERSService.Insert(USER);
+                    var USERrr = G_USERSService.Insert(USER.G_USERS);
+
+
+
+                    string delete_Role = " delete G_RoleUsers where  USER_CODE = '" + USER.G_USERS.USER_CODE + "'";
+                    var delRole = db.Database.ExecuteSqlCommand(delete_Role);
+
+                    foreach (var item in USER.G_RoleUsers)
+                    {
+
+                        string Pro_qury = "insert into G_RoleUsers VALUES ('" + USER.G_USERS.USER_CODE + "'," + item.RoleId + ",1)";
+                        db.Database.ExecuteSqlCommand(Pro_qury);
+
+                    }
+
+
+
                     return Ok(new BaseResponse(USERrr));
                 }
                 catch (Exception ex)
@@ -209,14 +226,58 @@ namespace API.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Update_USER([FromBody] G_USERS USER)
+        public IHttpActionResult Update_USER([FromBody] CustomG_USERS USER)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var USERrr = G_USERSService.Update(USER);
+                     
+                    var USERrr = G_USERSService.Update(USER.G_USERS);
+
+
+                    string delete_Role = " delete G_RoleUsers where  USER_CODE = '" + USER.G_USERS.USER_CODE + "'";
+                    var delRole = db.Database.ExecuteSqlCommand(delete_Role);
+
+                    foreach (var item in USER.G_RoleUsers)
+                    {
+                         
+                        string Pro_qury = "insert into G_RoleUsers VALUES ('" + USER.G_USERS.USER_CODE + "'," + item.RoleId + ",1)";
+                        db.Database.ExecuteSqlCommand(Pro_qury);
+
+                    }
+
+
                     return Ok(new BaseResponse(USERrr));
+                }
+                catch (Exception ex)
+                {
+                    return Ok(new BaseResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+                }
+            }
+            return BadRequest(ModelState);
+        }
+
+
+        [HttpGet, AllowAnonymous]
+        public IHttpActionResult Delete_USER(string USERS)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+               
+                    string Pro_qury = " delete G_USERS where  USER_CODE = '" + USERS + "'";
+                    db.Database.ExecuteSqlCommand(Pro_qury);
+
+
+                    string delete_Role = " delete G_RoleUsers where  USER_CODE = '" + USERS + "'";
+                    db.Database.ExecuteSqlCommand(delete_Role);
+
+                
+
+                    return Ok(new BaseResponse(100));
                 }
                 catch (Exception ex)
                 {

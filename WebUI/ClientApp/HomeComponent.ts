@@ -271,6 +271,7 @@ namespace HomeComponent {
                 alert("wrong code  " + singleUserModule.MODULE_CODE)
             }
         }
+        $('.MED').removeClass('display_none');
     }
 
     //By Muhammad Rajab 

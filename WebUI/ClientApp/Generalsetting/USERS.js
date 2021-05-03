@@ -2,7 +2,7 @@ $(document).ready(function () {
     USERS.InitalizeComponent();
 });
 var USERS;
-(function (USERS) {
+(function (USERS_1) {
     // Arrays
     var AccountType = 2;
     var MSG_ID;
@@ -18,6 +18,7 @@ var USERS;
     var List_Singl_Roles = new G_RoleUsers();
     var OperationSingleModel = new G_RoleUsers();
     var OperationModel_dital = new Array();
+    var CustomG_USERS_Model = new CustomG_USERS();
     var ReportGrid = new JsGrid();
     var CashDetailsAr = new Array();
     var CashDetailsEn = new Array();
@@ -28,6 +29,7 @@ var USERS;
     var btnShow;
     var btnAdd;
     var btnEdit;
+    var btnDelet;
     var btnsave;
     var btnAddDetails;
     var btnGive_assignments;
@@ -43,7 +45,7 @@ var USERS;
     var Selecteditem = new Array();
     var CustomerIdUpdate = 0;
     var CustomerId;
-    var CountGrid = -1;
+    var CountGrid = 0;
     var sum_balance;
     var Debit;
     var Credit;
@@ -65,11 +67,12 @@ var USERS;
         Display_All();
         fillRoles();
     }
-    USERS.InitalizeComponent = InitalizeComponent;
+    USERS_1.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
         btnShow = document.getElementById("btnShow");
         btnAdd = document.getElementById("btnAdd");
         btnEdit = document.getElementById("btnedite");
+        btnDelet = document.getElementById("btnDelet");
         btnsave = document.getElementById("btnsave");
         btnback = document.getElementById("btnback");
         btnAddDetails = document.getElementById("btnAddDetails");
@@ -88,6 +91,7 @@ var USERS;
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         btnEdit.onclick = btnEdit_onclick;
+        btnDelet.onclick = btnDelet_onclick;
         searchbutmemreport.onkeyup = _SearchBox_Change;
         txtUSER_CODE.onchange = chack_USER;
         btnAddDetails.onclick = AddNewRow;
@@ -139,7 +143,7 @@ var USERS;
         debugger;
         if (searchbutmemreport.value != "") {
             var search_1 = searchbutmemreport.value.toLowerCase();
-            SearchDetails = Display.filter(function (x) { return x.USER_CODE.toLowerCase().search(search_1) >= 0; });
+            SearchDetails = Display.filter(function (x) { return x.USER_NAME.toLowerCase().search(search_1) >= 0; });
             ReportGrid.DataSource = SearchDetails;
             ReportGrid.Bind();
         }
@@ -148,12 +152,18 @@ var USERS;
             ReportGrid.Bind();
         }
     }
+    function btnDelet_onclick() {
+        WorningMessage(" هل تريد الحذف؟ (" + $('#txtUSER_NAME').val() + ")", "Do you want to delete?", "تحذير", "worning", function () {
+            Delete();
+        });
+    }
     function btnEdit_onclick() {
         IsNew = false;
         removedisabled();
         remove_disabled_Grid_Controls();
         $('#btnsave').toggleClass("display_none");
         $('#btnback').toggleClass("display_none");
+        $('#btnDelet').toggleClass("display_none");
         $("#div_ContentData :input").removeAttr("disabled");
         $("#btnedite").toggleClass("display_none");
         $("#txt_ID_Supplier").attr("disabled", "disabled");
@@ -173,29 +183,29 @@ var USERS;
         $("#id_div_Add").attr("disabled", "disabled").off('click');
         var x1 = $("#id_div_Add").hasClass("disabledDiv");
         (x1 == true) ? $("#id_div_Add").removeClass("disabledDiv") : $("#id_div_Add").addClass("disabledDiv");
+        $('#div_Data').html("");
+        CountGrid = 0;
         //reference_Page();
+        Valid = 0;
     }
     function btnsave_onClick() {
         debugger;
-        Assign_Grid();
-        //if (IsNew == true) {
-        //    Validation();
-        //    if (Valid == 1) {
-        //    }
-        //    else {
-        //        Insert();
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
-        //}
-        //else {
-        //    Validation();
-        //    if (Valid == 1) {
-        //    }
-        //    else {
-        //        Update();
-        //        //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
-        //    }
-        //}
+        if (IsNew == true) {
+            Validation();
+            if (Valid == 1) {
+            }
+            else {
+                Insert();
+            }
+        }
+        else {
+            Validation();
+            if (Valid == 1) {
+            }
+            else {
+                Update();
+            }
+        }
     }
     function chack_USER() {
         if ($('#txtUSER_CODE').val() != "") {
@@ -233,6 +243,10 @@ var USERS;
             MessageBox.Show("يجب ادخال كلمة السر   ", "Contact Email Is Not Valid");
             return Valid = 1;
         }
+        if ($('#txtUSER_PASSWORD_confirm').val() != $('#txtUSER_PASSWORD').val()) {
+            MessageBox.Show("كلمتى السر غير متوافقين", "Contact Email Is Not Valid");
+            return Valid = 1;
+        }
         return Valid = 0;
     }
     function btnShow_onclick() {
@@ -247,21 +261,23 @@ var USERS;
             //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
+            $('#btnDelet').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             $("#btnedite").removeAttr("disabled");
             txt_disabled();
             if (Valid != 2) {
                 $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
-                $("#id_div_Add").attr("disabled", "");
-                $("#id_div_Add").removeClass("disabledDiv");
             }
+            $("#id_div_Add").attr("disabled", "");
+            $("#id_div_Add").removeClass("disabledDiv");
             disabled_Grid_Controls();
         }
         else {
             //$('#btnAddDetails').toggleClass("display_none");
             $('#btnsave').toggleClass("display_none");
             $('#btnback').toggleClass("display_none");
+            $('#btnDelet').toggleClass("display_none");
             $(".fa-minus-circle").addClass("display_none");
             $("#btnedite").removeClass("display_none");
             $("#btnedite").removeAttr("disabled");
@@ -272,6 +288,7 @@ var USERS;
             DriverDoubleClick();
             disabled_Grid_Controls();
         }
+        $('#btnDelet').addClass("display_none");
     }
     function EnableControls() {
         debugger;
@@ -345,9 +362,28 @@ var USERS;
                 var result = d;
                 if (result.IsSuccess) {
                     List_RoleDetails = result.Response;
+                    var DetLst = List_RoleDetails.filter(function (x) { return x.DescA == 'admin'; });
+                    var index = List_RoleDetails.indexOf(DetLst[0]);
+                    Delete_Rows(index, List_RoleDetails);
                 }
             }
         });
+    }
+    function reindexArray(array) {
+        debugger;
+        var index = 0; // The index where the element should be
+        for (var key in array) {
+            //if (parseInt(key) !== index)     // If the element is out of sequence
+            //{
+            array[index] = array[key]; // Move it to the correct, earlier position in the array
+            ++index; // Update the index
+        }
+        array.splice(index); // Remove any remaining elements (These will be duplicates of earlier items)
+    }
+    ;
+    function Delete_Rows(ind, array) {
+        delete array[ind];
+        reindexArray(array);
     }
     function InitializeGrid() {
         var res = GetResourceList("");
@@ -405,7 +441,7 @@ var USERS;
                         Disbly_BuildControls(i, List_Roles);
                         CountGrid = i;
                     }
-                    $("#txtItemCount").val(CountGrid + 1);
+                    $("#txtItemCount").val(CountGrid);
                 }
             }
         });
@@ -462,7 +498,7 @@ var USERS;
         debugger;
         //if (!SysSession.CurrentPrivileges.AddNew) return;
         var CanAdd = true;
-        if (CountGrid > -1) {
+        if (CountGrid > 0) {
             for (var i = 0; i <= CountGrid; i++) {
                 CanAdd = Validation_Grid(i);
                 if (CanAdd == false) {
@@ -471,13 +507,13 @@ var USERS;
             }
         }
         if (CanAdd) {
-            CountGrid += 1;
             BuildControls(CountGrid);
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode         
             $("#txtDescA" + CountGrid).removeAttr("disabled");
             $("#CheckISActive" + CountGrid).removeAttr("disabled");
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
+            CountGrid += 1;
         }
     }
     function DeleteRow(RecNo) {
@@ -519,8 +555,8 @@ var USERS;
         //$('#div_Data').html("");
         debugger;
         var Q = 0;
-        var le = Number(List_RoleDetails.length + List_Roles.length) - 1;
-        for (var i = List_Roles.length - 1; i < le; i++) {
+        var le = Number(List_RoleDetails.length + List_Roles.length);
+        for (var i = List_Roles.length; i < le; i++) {
             if ($("#txtUSER_NAME").val() == "" || txtUSER_CODE.value == "" || $("#txtUSER_PASSWORD").val() == "") {
                 WorningMessageDailog("من فضلك تاكد من ادخال جميع البيانات", "");
             }
@@ -549,7 +585,7 @@ var USERS;
                 Q += 1;
             }
         }
-        CountGrid = Number(List_RoleDetails.length + List_Roles.length) - 1;
+        CountGrid = Number(List_RoleDetails.length + List_Roles.length);
     }
     function Validation_Grid(rowcount) {
         //else
@@ -610,27 +646,31 @@ var USERS;
             Model.CompCode = 1;
             Model.Tokenid = 'HGFD-EV+xyuNsKkkH9SJrgL6XgROioRT8GfXE48AZcSVHN+256IG5apvYig==';
         }
+        CustomG_USERS_Model.G_USERS = Model;
     }
     function Assign_Grid() {
+        debugger;
         OperationModel_dital = new Array();
         for (var i = 0; i <= CountGrid + 1; i++) {
             OperationSingleModel = new G_RoleUsers();
             StatusFlag = $("#txt_StatusFlag" + i).val();
-            if (StatusFlag == "i") {
-                OperationSingleModel.StatusFlag = StatusFlag.toString();
-                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
-                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
-                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
-                OperationModel_dital.push(OperationSingleModel);
-            }
-            if (StatusFlag == "u") {
-                OperationSingleModel.StatusFlag = StatusFlag.toString();
-                OperationSingleModel.RoleId = $('#txtDescA' + i).val();
-                OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
-                OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
-                OperationModel_dital.push(OperationSingleModel);
-            }
-            if (StatusFlag == "d") {
+            //if (StatusFlag == "i") {
+            //}
+            //if (StatusFlag == "u") {
+            //    OperationSingleModel.StatusFlag = StatusFlag.toString();
+            //    OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+            //    OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+            //    OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked'); 
+            //    OperationModel_dital.push(OperationSingleModel);
+            //}
+            //if (StatusFlag == "d") {
+            //    OperationSingleModel.StatusFlag = StatusFlag.toString();
+            //    OperationSingleModel.RoleId = $('#txtDescA' + i).val();
+            //    OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
+            //    OperationSingleModel.ISActive = $('#CheckISActive' + i).prop('checked');
+            //    OperationModel_dital.push(OperationSingleModel);
+            //}
+            if ($('#txtDescA' + i).val() != null) {
                 OperationSingleModel.StatusFlag = StatusFlag.toString();
                 OperationSingleModel.RoleId = $('#txtDescA' + i).val();
                 OperationSingleModel.USER_CODE = $('#txtUSER_CODE').val();
@@ -638,16 +678,19 @@ var USERS;
                 OperationModel_dital.push(OperationSingleModel);
             }
         }
+        debugger;
         OperationModel_dital = OperationModel_dital.filter(function (x) { return x.ISActive == true; });
-        console.log(OperationModel_dital);
+        CustomG_USERS_Model.G_RoleUsers = OperationModel_dital;
     }
     function Insert() {
+        CustomG_USERS_Model = new CustomG_USERS();
         Assign();
+        Assign_Grid();
         debugger;
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("G_USERS", "Insert_USER"),
-            data: JSON.stringify(Model),
+            data: JSON.stringify(CustomG_USERS_Model),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -665,11 +708,13 @@ var USERS;
         });
     }
     function Update() {
+        CustomG_USERS_Model = new CustomG_USERS();
         Assign();
+        Assign_Grid();
         Ajax.Callsync({
             type: "POST",
             url: sys.apiUrl("G_USERS", "Update_USER"),
-            data: JSON.stringify(Model),
+            data: JSON.stringify(CustomG_USERS_Model),
             success: function (d) {
                 var result = d;
                 if (result.IsSuccess) {
@@ -683,6 +728,29 @@ var USERS;
                 }
                 else {
                     MessageBox.Show("خطأء", "Error");
+                }
+            }
+        });
+    }
+    function Delete() {
+        var USERS = $('#txtUSER_CODE').val();
+        debugger;
+        Ajax.Callsync({
+            type: "Get",
+            url: sys.apiUrl("G_USERS", "Delete_USER"),
+            data: { USERS: USERS },
+            success: function (d) {
+                var result = d;
+                if (result.IsSuccess) {
+                    //MessageBox.Show("تم الحذف", "Success");
+                    alert("تم الحذف");
+                    Update_claenData = 1;
+                    FillddlUserMaster();
+                    Display_All();
+                    $("#Div_control").attr("style", " margin-bottom: 19px;margin-top: 20px;display: none;");
+                    $("#id_div_Add").attr("disabled", "");
+                    $("#id_div_Add").removeClass("disabledDiv");
+                    Valid = 2;
                 }
             }
         });
