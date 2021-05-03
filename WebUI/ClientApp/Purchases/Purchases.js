@@ -51,6 +51,7 @@ var Purchases;
     var btnExpenses;
     var btnShow;
     var btnadd;
+    var btnprint;
     var btnUpdate;
     var btnSave;
     var btnBack;
@@ -70,6 +71,9 @@ var Purchases;
     var txtPaid_Up;
     var txtTo_be_Paid;
     var btnPrint;
+    var btnPrintTrview;
+    var btnPrintTrPDF;
+    var btnPrintTrEXEL;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
@@ -115,8 +119,12 @@ var Purchases;
         btnSave = document.getElementById("btnSave");
         btnSupplierSearch = document.getElementById("btnSupplierSearch");
         btnPaid_Up = document.getElementById("btnPaid_Up");
+        btnprint = document.getElementById("btnprint");
         btnAddDetails = document.getElementById("btnAddDetails");
         btnPrint = document.getElementById("btnPrint");
+        btnPrintTrview = document.getElementById("btnPrintTrview");
+        btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
+        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
     }
     function IntializeEvents() {
         searchbutmemreport.onkeydown = _SearchBox_Change;
@@ -130,7 +138,10 @@ var Purchases;
         btnSupplierSearch.onclick = Search;
         txtPaid_Up.onkeyup = txtPaid_Up_onchange;
         btnPaid_Up.onclick = btnExecute_onclick;
-        btnPrint.onclick = PrintReport;
+        btnPrint.onclick = function () { printreport(4); };
+        btnPrintTrview.onclick = function () { printreport(1); };
+        btnPrintTrPDF.onclick = function () { printreport(2); };
+        btnPrintTrEXEL.onclick = function () { printreport(3); };
     }
     function txtPaid_Up_onchange() {
         ComputeTotals();
@@ -1191,12 +1202,13 @@ var Purchases;
             $("#txt_StatusFlag" + i).val("");
         }
     }
-    function PrintReport() {
+    function printreport(type) {
         debugger;
         var _StockList = new Array();
         var _Stock = new Settings_Report();
-        _Stock.ID_Button_Print = 'Receipt_dlev_in';
-        _Stock.Parameter_1 = "2242";
+        _Stock.Type_Print = type;
+        _Stock.ID_Button_Print = 'Purchases';
+        _Stock.Parameter_1 = $('#txtNumber').val();
         //_Stock.Parameter_2 = "";
         //_Stock.Parameter_3 = "";
         //_Stock.Parameter_4 = "";
@@ -1208,6 +1220,7 @@ var Purchases;
         _StockList.push(_Stock);
         var rp = new ReportParameters();
         rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        debugger;
         Ajax.Callsync({
             url: Url.Action("Data_Report_Open", "GeneralReports"),
             data: rp,

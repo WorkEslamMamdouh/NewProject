@@ -1208,5 +1208,23 @@ namespace DAL.Domain
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insert_EMPLOYEE", eMPLOYEE_NAMEParameter, uSER_CODEParameter);
         }
+    
+        public virtual ObjectResult<Original_Purchases_receipt_Result> Original_Purchases_receipt(Nullable<int> trNo)
+        {
+            var trNoParameter = trNo.HasValue ?
+                new ObjectParameter("TrNo", trNo) :
+                new ObjectParameter("TrNo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Original_Purchases_receipt_Result>("Original_Purchases_receipt", trNoParameter);
+        }
+    
+        public virtual ObjectResult<Original_sales_receipt_Result> Original_sales_receipt(Nullable<int> trNo)
+        {
+            var trNoParameter = trNo.HasValue ?
+                new ObjectParameter("TrNo", trNo) :
+                new ObjectParameter("TrNo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Original_sales_receipt_Result>("Original_sales_receipt", trNoParameter);
+        }
     }
 }

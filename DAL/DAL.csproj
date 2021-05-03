@@ -172,6 +172,12 @@
     <Compile Include="Domain\ORDER_TECAYE.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Original_Purchases_receipt_Result.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Original_sales_receipt_Result.cs">
+      <DependentUpon>SamahModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Outlet.cs">
       <DependentUpon>SamahModel.tt</DependentUpon>
     </Compile>

@@ -366,9 +366,9 @@
           <Property Name="PRODUCT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PRODUCT_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="PRODUCT_QET" Type="int" />
-          <Property Name="PRODUCT_Purchasing_price" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="PRODUCT_PRICE" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="MinUnitPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PRODUCT_Purchasing_price" Type="money" />
+          <Property Name="PRODUCT_PRICE" Type="money" />
+          <Property Name="MinUnitPrice" Type="money" />
           <Property Name="ID_CAT" Type="int" />
           <Property Name="serial" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -869,6 +869,12 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
           <Parameter Name="Open_Login" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Original_Purchases_receipt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrNo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Original_sales_receipt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrNo" Type="int" Mode="In" />
         </Function>
         <Function Name="Processes_Purchases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PRODUCT_NAME" Type="nvarchar" Mode="In" />
@@ -1493,6 +1499,12 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <FunctionImport Name="insert_EMPLOYEE">
             <Parameter Name="EMPLOYEE_NAME" Mode="In" Type="String" />
             <Parameter Name="USER_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Original_Purchases_receipt" ReturnType="Collection(SamahModel.Original_Purchases_receipt_Result)">
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Original_sales_receipt" ReturnType="Collection(SamahModel.Original_sales_receipt_Result)">
+            <Parameter Name="TrNo" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="insert_Table_Result">
@@ -2369,12 +2381,64 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
           <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PRODUCT_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PRODUCT_QET" Type="Int32" />
-          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="MinUnitPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PRODUCT_Purchasing_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRODUCT_PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinUnitPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ID_CAT" Type="Int32" />
           <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="Original_Purchases_receipt_Result">
+          <Property Type="Int32" Name="TrNo" Nullable="true" />
+          <Property Type="String" Name="Tr_Date" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ID_Supplier" Nullable="true" />
+          <Property Type="String" Name="Name_Supplier" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Type_Debit" Nullable="true" />
+          <Property Type="Decimal" Name="Total_Amount" Nullable="true" Precision="19" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Type_Supplier" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Notes" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="IS_Active" Nullable="true" />
+          <Property Type="Decimal" Name="Paid_Up" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="To_be_Paid" Nullable="true" Precision="19" />
+          <Property Type="String" Name="REMARKS" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="ID" Nullable="true" />
+          <Property Type="Int32" Name="TrNo1" Nullable="true" />
+          <Property Type="String" Name="Name_CAT" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Purchases_Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="Purchases_Price" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Sales_Price" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="MinUnitPrice" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PRODUCT_ID" Nullable="true" />
+          <Property Type="Int32" Name="ID_CAT" Nullable="true" />
+          <Property Type="Int32" Name="ID_familly_Cat" Nullable="true" />
+          <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Original_sales_receipt_Result">
+          <Property Type="Int32" Name="ID_ORDER_Delivery" Nullable="true" />
+          <Property Type="String" Name="Date_Order_Delivery" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_ADDRES" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CUSTOMER_ADDRES_2" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Total_All" Nullable="true" Precision="19" />
+          <Property Type="String" Name="EMPLOYEE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="Double" Name="Tax" Nullable="true" />
+          <Property Type="Boolean" Name="Confirmation" Nullable="true" />
+          <Property Type="String" Name="USER_CODE" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ID_DELIVERY" Nullable="true" />
+          <Property Type="Double" Name="Quantity_sell" Nullable="true" />
+          <Property Type="Decimal" Name="price_One_part" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Total_Price_One_Part" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Notes_Order" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FK_ORDER_Delivery" Nullable="true" />
+          <Property Type="Decimal" Name="MinUnitPrice" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="ID_CAT" Nullable="true" />
+          <Property Type="String" Name="PRODUCT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PRODUCT_QET" Nullable="true" />
+          <Property Type="Int32" Name="PRODUCT_ID" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3406,6 +3470,66 @@ warning 6002: The table/view 'ElWassem.dbo.ReviewSalesMaster' does not have a pr
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="insert_EMPLOYEE" FunctionName="SamahModel.Store.insert_EMPLOYEE" />
+          <FunctionImportMapping FunctionImportName="Original_Purchases_receipt" FunctionName="SamahModel.Store.Original_Purchases_receipt">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.Original_Purchases_receipt_Result">
+                <ScalarProperty Name="TrNo" ColumnName="TrNo" />
+                <ScalarProperty Name="Tr_Date" ColumnName="Tr_Date" />
+                <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+                <ScalarProperty Name="Name_Supplier" ColumnName="Name_Supplier" />
+                <ScalarProperty Name="Type_Debit" ColumnName="Type_Debit" />
+                <ScalarProperty Name="Total_Amount" ColumnName="Total_Amount" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Type_Supplier" ColumnName="Type_Supplier" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IS_Active" ColumnName="IS_Active" />
+                <ScalarProperty Name="Paid_Up" ColumnName="Paid_Up" />
+                <ScalarProperty Name="To_be_Paid" ColumnName="To_be_Paid" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TrNo1" ColumnName="TrNo1" />
+                <ScalarProperty Name="Name_CAT" ColumnName="Name_CAT" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="Purchases_Quantity" ColumnName="Purchases_Quantity" />
+                <ScalarProperty Name="Purchases_Price" ColumnName="Purchases_Price" />
+                <ScalarProperty Name="Sales_Price" ColumnName="Sales_Price" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="ID_familly_Cat" ColumnName="ID_familly_Cat" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Original_sales_receipt" FunctionName="SamahModel.Store.Original_sales_receipt">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SamahModel.Original_sales_receipt_Result">
+                <ScalarProperty Name="ID_ORDER_Delivery" ColumnName="ID_ORDER_Delivery" />
+                <ScalarProperty Name="Date_Order_Delivery" ColumnName="Date_Order_Delivery" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_ADDRES" ColumnName="CUSTOMER_ADDRES" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="CUSTOMER_ADDRES_2" ColumnName="CUSTOMER_ADDRES_2" />
+                <ScalarProperty Name="Total_All" ColumnName="Total_All" />
+                <ScalarProperty Name="EMPLOYEE_NAME" ColumnName="EMPLOYEE_NAME" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Confirmation" ColumnName="Confirmation" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="ID_DELIVERY" ColumnName="ID_DELIVERY" />
+                <ScalarProperty Name="Quantity_sell" ColumnName="Quantity_sell" />
+                <ScalarProperty Name="price_One_part" ColumnName="price_One_part" />
+                <ScalarProperty Name="Total_Price_One_Part" ColumnName="Total_Price_One_Part" />
+                <ScalarProperty Name="Notes_Order" ColumnName="Notes_Order" />
+                <ScalarProperty Name="FK_ORDER_Delivery" ColumnName="FK_ORDER_Delivery" />
+                <ScalarProperty Name="MinUnitPrice" ColumnName="MinUnitPrice" />
+                <ScalarProperty Name="ID_CAT" ColumnName="ID_CAT" />
+                <ScalarProperty Name="PRODUCT_NAME" ColumnName="PRODUCT_NAME" />
+                <ScalarProperty Name="PRODUCT_QET" ColumnName="PRODUCT_QET" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

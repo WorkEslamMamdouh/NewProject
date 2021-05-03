@@ -65,6 +65,7 @@ namespace Purchases {
     var btnExpenses: HTMLButtonElement;
     var btnShow: HTMLButtonElement;
     var btnadd: HTMLButtonElement;
+    var btnprint: HTMLButtonElement;
 
     var btnUpdate: HTMLButtonElement;
     var btnSave: HTMLButtonElement;
@@ -87,6 +88,9 @@ namespace Purchases {
     var txtPaid_Up: HTMLInputElement;
     var txtTo_be_Paid: HTMLInputElement;
     var btnPrint: HTMLButtonElement;
+    var btnPrintTrview: HTMLButtonElement;
+    var btnPrintTrPDF: HTMLButtonElement;
+    var btnPrintTrEXEL: HTMLButtonElement;
     //flags 
     var CountGrid = -1;
     var CountItems = 0;
@@ -146,10 +150,13 @@ namespace Purchases {
         btnSave = document.getElementById("btnSave") as HTMLButtonElement;
         btnSupplierSearch = document.getElementById("btnSupplierSearch") as HTMLButtonElement;
         btnPaid_Up = document.getElementById("btnPaid_Up") as HTMLButtonElement;
+        btnprint = document.getElementById("btnprint") as HTMLButtonElement;
 
         btnAddDetails = document.getElementById("btnAddDetails") as HTMLButtonElement;
         btnPrint = document.getElementById("btnPrint") as HTMLButtonElement;
-
+        btnPrintTrview = document.getElementById("btnPrintTrview") as HTMLButtonElement;
+        btnPrintTrPDF = document.getElementById("btnPrintTrPDF") as HTMLButtonElement;
+        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL") as HTMLButtonElement;
 
     }
     function IntializeEvents() {
@@ -163,7 +170,7 @@ namespace Purchases {
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
         btnadd.onclick = btnAdd_onclick;
-
+        
         btnAddDetails.onclick = AddNewRow;
 
         btnSupplierSearch.onclick = Search;
@@ -172,7 +179,11 @@ namespace Purchases {
         txtPaid_Up.onkeyup = txtPaid_Up_onchange;
 
         btnPaid_Up.onclick = btnExecute_onclick;
-        btnPrint.onclick = PrintReport;
+        btnPrint.onclick = () => { printreport(4) };
+        btnPrintTrview.onclick = () => { printreport(1) };
+        btnPrintTrPDF.onclick = () => { printreport(2) };
+        btnPrintTrEXEL.onclick = () => { printreport(3) };
+
 
     }
 
@@ -1574,14 +1585,15 @@ namespace Purchases {
             //$("#txtScrapQty" + i).attr("disabled", "disabled");
         }
     }
-    function PrintReport() {
-        debugger
+    
 
+    function printreport(type: number) {
+        debugger;
         let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
         let _Stock: Settings_Report = new Settings_Report();
-
-        _Stock.ID_Button_Print = 'Receipt_dlev_in';
-        _Stock.Parameter_1 = "2242";
+        _Stock.Type_Print = type;
+        _Stock.ID_Button_Print = 'Purchases';
+        _Stock.Parameter_1 = $('#txtNumber').val();
         //_Stock.Parameter_2 = "";
         //_Stock.Parameter_3 = "";
         //_Stock.Parameter_4 = "";
@@ -1598,7 +1610,7 @@ namespace Purchases {
 
         rp.Data_Report = JSON.stringify(_StockList);//output report as View
 
-
+        debugger
         Ajax.Callsync({
             url: Url.Action("Data_Report_Open", "GeneralReports"),
             data: rp,
@@ -1610,9 +1622,14 @@ namespace Purchases {
                 window.open(result, "_blank");
             }
         })
+
+
+
+
+
+
+
+
     }
-
-
-
 
 }

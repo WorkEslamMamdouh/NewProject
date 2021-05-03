@@ -104,6 +104,8 @@ namespace SlsTrSales {
     var flag_Cust = false;
     var id_Family;
     var id_Category;
+
+    var res: any;
     export function InitalizeComponent() {
         debugger
         $('#cont').toggleClass('colapsdivcont');
@@ -1160,7 +1162,54 @@ namespace SlsTrSales {
 
             MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
         }
+        debugger;   
+        printreport();
+
     }
+    function printreport() {
+        debugger;
+       let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
+        let _Stock: Settings_Report = new Settings_Report();
+        _Stock.ID_Button_Print = 'saless';
+        _Stock.Parameter_1 = res;
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+
+
+        _StockList.push(_Stock);
+
+        let rp: ReportParameters = new ReportParameters();
+
+        rp.Data_Report = JSON.stringify(_StockList);//output report as View
+
+        debugger
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: (d) => {
+                debugger
+                let result = d.result as string;
+
+
+                window.open(result, "_blank");
+            }
+        })
+
+
+
+
+
+
+
+
+    }
+
     function Insert_Basket() {
         if (InvoiceModel.CUSTOMER_ID == null || InvoiceModel.CUSTOMER_ID == 0) {
             InvoiceModel.CUSTOMER_ID = 24;
@@ -1172,7 +1221,7 @@ namespace SlsTrSales {
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
-                    let res = result.Response
+                     res = result.Response
                     MessageBox.Show(" تم اصدار  فاتورة رقم  " + res + " ", "تم");
 
                     Success = true;
@@ -1520,4 +1569,7 @@ namespace SlsTrSales {
         document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
         document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
     }
+
+
+
 }

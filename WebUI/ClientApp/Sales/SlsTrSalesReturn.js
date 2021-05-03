@@ -49,6 +49,10 @@ var SlsTrSalesReturn;
     var btnUpdate;
     var btnSave;
     var btnBack;
+    var btnPrint;
+    var btnPrintTrview;
+    var btnPrintTrPDF;
+    var btnPrintTrEXEL;
     //new
     var txtClose_Adjustment;
     var txtClose_SalesManCommition;
@@ -96,6 +100,10 @@ var SlsTrSalesReturn;
         btnUpdate = document.getElementById("btnUpdate");
         btnBack = document.getElementById("btnBack");
         btnSave = document.getElementById("btnSave");
+        btnPrint = document.getElementById("btnPrint");
+        btnPrintTrview = document.getElementById("btnPrintTrview");
+        btnPrintTrPDF = document.getElementById("btnPrintTrPDF");
+        btnPrintTrEXEL = document.getElementById("btnPrintTrEXEL");
         //ddlStateType = document.getElementById("ddlStateType") as HTMLSelectElement;
         //ddlSalesman = document.getElementById("ddlSalesman") as HTMLSelectElement;
         //ddlVendor = document.getElementById("ddlVendor") as HTMLSelectElement;
@@ -139,6 +147,10 @@ var SlsTrSalesReturn;
         btnUpdate.onclick = Update_onclick;
         btnBack.onclick = btnBack_onclick;
         btnSave.onclick = btnSave_onclick;
+        btnPrint.onclick = function () { printreport(4); };
+        btnPrintTrview.onclick = function () { printreport(1); };
+        btnPrintTrPDF.onclick = function () { printreport(2); };
+        btnPrintTrEXEL.onclick = function () { printreport(3); };
     }
     function GetDate() {
         debugger;
@@ -999,6 +1011,35 @@ var SlsTrSalesReturn;
             $("#txtMinPrice" + i).attr("disabled", "disabled");
             $("#txtScrapQty" + i).attr("disabled", "disabled");
         }
+    }
+    function printreport(type) {
+        debugger;
+        var _StockList = new Array();
+        var _Stock = new Settings_Report();
+        _Stock.Type_Print = type;
+        _Stock.ID_Button_Print = 'saless_ret';
+        _Stock.Parameter_1 = $('#txtNumber').val();
+        //_Stock.Parameter_2 = "";
+        //_Stock.Parameter_3 = "";
+        //_Stock.Parameter_4 = "";
+        //_Stock.Parameter_5 = "";
+        //_Stock.Parameter_6 = "";
+        //_Stock.Parameter_7 = "";
+        //_Stock.Parameter_8 = "";
+        //_Stock.Parameter_9 = "";
+        _StockList.push(_Stock);
+        var rp = new ReportParameters();
+        rp.Data_Report = JSON.stringify(_StockList); //output report as View
+        debugger;
+        Ajax.Callsync({
+            url: Url.Action("Data_Report_Open", "GeneralReports"),
+            data: rp,
+            success: function (d) {
+                debugger;
+                var result = d.result;
+                window.open(result, "_blank");
+            }
+        });
     }
 })(SlsTrSalesReturn || (SlsTrSalesReturn = {}));
 //# sourceMappingURL=SlsTrSalesReturn.js.map
