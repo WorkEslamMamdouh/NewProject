@@ -29,6 +29,7 @@ namespace DAL.Domain
     
         public virtual DbSet<CATEGRE> CATEGRES { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMERs { get; set; }
+        public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
         public virtual DbSet<Enter_Money> Enter_Money { get; set; }
         public virtual DbSet<familly_Cat> familly_Cat { get; set; }
         public virtual DbSet<G_MODULES> G_MODULES { get; set; }
@@ -49,6 +50,7 @@ namespace DAL.Domain
         public virtual DbSet<ORDER_SOFRA> ORDER_SOFRA { get; set; }
         public virtual DbSet<ORDER_TECAYE> ORDER_TECAYE { get; set; }
         public virtual DbSet<Outlet> Outlets { get; set; }
+        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
         public virtual DbSet<Purchases_Details> Purchases_Details { get; set; }
         public virtual DbSet<Purchases_Master> Purchases_Master { get; set; }
         public virtual DbSet<Report_Parameters> Report_Parameters { get; set; }
@@ -70,8 +72,6 @@ namespace DAL.Domain
         public virtual DbSet<IQ_Purchases_Master> IQ_Purchases_Master { get; set; }
         public virtual DbSet<ReviewSalesItemInfo> ReviewSalesItemInfoes { get; set; }
         public virtual DbSet<ReviewSalesMaster> ReviewSalesMasters { get; set; }
-        public virtual DbSet<EMPLOYEE> EMPLOYEEs { get; set; }
-        public virtual DbSet<PRODUCT> PRODUCTs { get; set; }
     
         public virtual ObjectResult<insert_Table_Result> insert_Table(string name, string phone, string type, string message, string tR_Type)
         {
