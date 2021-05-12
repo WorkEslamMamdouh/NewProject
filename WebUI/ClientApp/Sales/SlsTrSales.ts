@@ -40,6 +40,7 @@ namespace SlsTrSales {
     var btnplus_price: HTMLButtonElement;
     var All_item: HTMLButtonElement;
     var Finsh_Order: HTMLButtonElement;
+    var Finsh_Order_Print: HTMLButtonElement;
     var txt_ApprovePass: HTMLInputElement;
     var btn_Add_Basket: HTMLButtonElement;
     var btn_Edit_Basket: HTMLButtonElement;
@@ -104,7 +105,7 @@ namespace SlsTrSales {
     var flag_Cust = false;
     var id_Family;
     var id_Category;
-
+    var type_Save_Print = false;
     var res: any;
     export function InitalizeComponent() {
         debugger
@@ -139,6 +140,7 @@ namespace SlsTrSales {
         btn_Edit_Basket = document.getElementById("btn_Edit_Basket") as HTMLButtonElement;
         btn_cancel_Popu = document.getElementById("btn_cancel_Popu") as HTMLButtonElement;
         Finsh_Order = document.getElementById("Finsh_Order") as HTMLButtonElement;
+        Finsh_Order_Print = document.getElementById("Finsh_Order_Print") as HTMLButtonElement;
         btn_Exit_Approveprice = document.getElementById("btn_Exit_Approveprice") as HTMLButtonElement;
 
         btnminus_Quantity = document.getElementById("btnminus_Quantity") as HTMLButtonElement;
@@ -184,6 +186,7 @@ namespace SlsTrSales {
 
         btn_cancel_Popu.onclick = cancel_Popu_onclick;
         Finsh_Order.onclick = Finsh_Order_onclick;
+        Finsh_Order_Print.onclick = Finsh_Order_Print_onclick;
 
         btn_Approveprice.onclick = btn_Approveprice_onclick;
         btn_Exit_Approveprice.onclick = btn_Exit_Approveprice_onclick;
@@ -1150,6 +1153,7 @@ namespace SlsTrSales {
 
             }
             else {
+                type_Save_Print = false; 
                 Open_poup_Pass();
 
             }
@@ -1162,14 +1166,65 @@ namespace SlsTrSales {
 
             MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
         }
-        debugger;   
-        printreport();
+   
+      
 
     }
+
+    function Finsh_Order_Print_onclick() {
+
+
+
+        if (P != 0) {
+            debugger
+            //if (!SysSession.CurrentPrivileges.AddNew) return;
+            //if (!ValidationHeader_On_Chanege()) return;
+            if (flag_Cust == false) {
+                show_Cutomr();
+                flag_Cust = true;
+                return;
+            }
+            ValidationMinUnitPrice = 1;
+            Assign_Get_Data();
+
+            if (Validation_Insert != 1) {
+
+                Insert_Basket();
+                if (Success == true) {
+                    Remove_Item_in_Basket();
+
+                    $('#uul').html('');
+                    Display_But();
+                    printreport();
+
+                }
+
+
+            }
+            else {
+                type_Save_Print = true;
+                Open_poup_Pass();
+
+            }
+
+
+
+
+        }
+        else {
+
+            MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
+        }
+
+
+
+    }
+
     function printreport() {
         debugger;
        let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
-        let _Stock: Settings_Report = new Settings_Report();
+       let _Stock: Settings_Report = new Settings_Report();
+       _Stock.Type_Print = 4;
         _Stock.ID_Button_Print = 'saless';
         _Stock.Parameter_1 = res;
         //_Stock.Parameter_2 = "";
@@ -1226,7 +1281,6 @@ namespace SlsTrSales {
 
                     Success = true;
                     Hide_Basket();
-
                 } else {
                     Success = false;
                     MessageBox.Show("هناك خطـأ ", "خطاء");
@@ -1284,6 +1338,10 @@ namespace SlsTrSales {
                 idCust.value = "";
                 hide_Custm();
                 flag_Cust = false;
+                if (type_Save_Print == true)
+                {
+                    printreport();
+                }
             }
 
         }

@@ -38,6 +38,7 @@ var SlsTrSales;
     var btnplus_price;
     var All_item;
     var Finsh_Order;
+    var Finsh_Order_Print;
     var txt_ApprovePass;
     var btn_Add_Basket;
     var btn_Edit_Basket;
@@ -101,6 +102,7 @@ var SlsTrSales;
     var flag_Cust = false;
     var id_Family;
     var id_Category;
+    var type_Save_Print = false;
     var res;
     function InitalizeComponent() {
         debugger;
@@ -130,6 +132,7 @@ var SlsTrSales;
         btn_Edit_Basket = document.getElementById("btn_Edit_Basket");
         btn_cancel_Popu = document.getElementById("btn_cancel_Popu");
         Finsh_Order = document.getElementById("Finsh_Order");
+        Finsh_Order_Print = document.getElementById("Finsh_Order_Print");
         btn_Exit_Approveprice = document.getElementById("btn_Exit_Approveprice");
         btnminus_Quantity = document.getElementById("btnminus_Quantity");
         btnplus_Quantity = document.getElementById("btnplus_Quantity");
@@ -168,6 +171,7 @@ var SlsTrSales;
         All_item.onclick = GetAll_item_onclick;
         btn_cancel_Popu.onclick = cancel_Popu_onclick;
         Finsh_Order.onclick = Finsh_Order_onclick;
+        Finsh_Order_Print.onclick = Finsh_Order_Print_onclick;
         btn_Approveprice.onclick = btn_Approveprice_onclick;
         btn_Exit_Approveprice.onclick = btn_Exit_Approveprice_onclick;
         btnminus_Quantity.onclick = btnminus_Quantity_onclick;
@@ -888,19 +892,49 @@ var SlsTrSales;
                 }
             }
             else {
+                type_Save_Print = false;
                 Open_poup_Pass();
             }
         }
         else {
             MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
         }
-        debugger;
-        printreport();
+    }
+    function Finsh_Order_Print_onclick() {
+        if (P != 0) {
+            debugger;
+            //if (!SysSession.CurrentPrivileges.AddNew) return;
+            //if (!ValidationHeader_On_Chanege()) return;
+            if (flag_Cust == false) {
+                show_Cutomr();
+                flag_Cust = true;
+                return;
+            }
+            ValidationMinUnitPrice = 1;
+            Assign_Get_Data();
+            if (Validation_Insert != 1) {
+                Insert_Basket();
+                if (Success == true) {
+                    Remove_Item_in_Basket();
+                    $('#uul').html('');
+                    Display_But();
+                    printreport();
+                }
+            }
+            else {
+                type_Save_Print = true;
+                Open_poup_Pass();
+            }
+        }
+        else {
+            MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
+        }
     }
     function printreport() {
         debugger;
         var _StockList = new Array();
         var _Stock = new Settings_Report();
+        _Stock.Type_Print = 4;
         _Stock.ID_Button_Print = 'saless';
         _Stock.Parameter_1 = res;
         //_Stock.Parameter_2 = "";
@@ -984,6 +1018,9 @@ var SlsTrSales;
                 idCust.value = "";
                 hide_Custm();
                 flag_Cust = false;
+                if (type_Save_Print == true) {
+                    printreport();
+                }
             }
         }
         else {

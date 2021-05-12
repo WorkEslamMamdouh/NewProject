@@ -669,6 +669,7 @@
     <Content Include="Data\Data_POS" />
     <Content Include="Data\POS_waseem" />
     <Content Include="Data\databes" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.js" />
