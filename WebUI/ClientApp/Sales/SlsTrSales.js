@@ -211,14 +211,35 @@ var SlsTrSales;
         debugger;
         var itembar = FamilyDetails.filter(function (x) { return x.serial == txt_search.value; });
         $("#txtPrice").val(itembar[0].PRODUCT_PRICE);
+        $("#txtTotal_Popu").val(itembar[0].PRODUCT_PRICE);
         txtQuantity.value = "1";
+        Name_Product = itembar[0].PRODUCT_NAME;
+        OnhandQty = itembar[0].PRODUCT_QET;
+        MinUnitPrice = itembar[0].MinUnitPrice;
         price_One_Product = parseFloat($("#txtPrice").val());
         price_Product = parseFloat($("#txtPrice").val());
         PRODUCT_price = parseFloat($("#txtPrice").val());
         Qet_Product = Number(txtQuantity.value);
-        Add_ROW_IN_Basket();
-        $("#PopupDialog").modal("hide");
-        $('#Men_popu').attr('class', 'popu animated zoomOutRight');
+        for (var i = 0; i < Num_Add_List + 1; i++) {
+            var prgraph = document.getElementById("ppp" + i);
+            if (prgraph != null) {
+                var Name_Item = prgraph.getAttribute("data_name_p");
+                var Qty_1 = Number(prgraph.getAttribute("data_qet_p"));
+                if (Name_Item == Name_Product) {
+                    OnhandQty = OnhandQty - Qty_1;
+                }
+            }
+        }
+        if (OnhandQty <= 0) {
+            alert('Finish');
+        }
+        else {
+            Add_ROW_IN_Basket();
+            Total();
+            $("#PopupDialog").modal("hide");
+            $('#Men_popu').attr('class', 'popu animated zoomOutRight');
+            $("#txt_search").val("");
+        }
     }
     //--------------------------------------------------Display_familly_Cate--------------------------------
     function Display_familly_Cate() {
@@ -444,6 +465,7 @@ var SlsTrSales;
             //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
             //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
             this.setAttribute('value', 'Finish');
+            //div.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #ff000094;');
         }
         //this.focus();
     }
@@ -460,9 +482,9 @@ var SlsTrSales;
             var prgraph = document.getElementById("ppp" + i);
             if (prgraph != null) {
                 var Name_Item = prgraph.getAttribute("data_name_p");
-                var Qty_1 = Number(prgraph.getAttribute("data_qet_p"));
+                var Qty_2 = Number(prgraph.getAttribute("data_qet_p"));
                 if (Name_Item == Name_Product) {
-                    OnhandQty = OnhandQty - Qty_1;
+                    OnhandQty = OnhandQty - Qty_2;
                 }
             }
         }
@@ -726,8 +748,7 @@ var SlsTrSales;
         flag_Cust = false;
     }
     function click_Remove_Item_in_Basket() {
-        var coment = document.getElementById($(this).attr('id'));
-        var Edit_Id = coment.getAttribute('class');
+        var Edit_Id = $('#' + $(this).attr('id') + '').attr('class');
         //debugger
         if (Edit_Id == "chat-box-wrap shadow-reset animated zoomInLeft fa big-icon fa-edit") {
             //debugger
@@ -743,7 +764,7 @@ var SlsTrSales;
                 //Num_Item.innerHTML = "عدد الاصناف ( " + P + " )";
                 Num_Item.setAttribute('data_New_QET', Num_Qty);
                 x.innerHTML = '<i id="remo" class="fa" style="margin-top: 0px;font-size: 21px;">' + Num_Qty + '</i>';
-                if (P == 0) {
+                if (Num_Qty == 0) {
                     CChat.setAttribute('style', 'display: none;');
                     Total_Basket.setAttribute('style', 'display: none;');
                 }
@@ -754,7 +775,7 @@ var SlsTrSales;
         }
     }
     function Total_Price() {
-        ////debugger
+        debugger;
         var New_Total = 0;
         for (var i = 1; i <= P + 1; i++) {
             ////debugger
@@ -808,9 +829,9 @@ var SlsTrSales;
             var prgraph = document.getElementById("ppp" + i);
             if (prgraph != null) {
                 var Name_Item = prgraph.getAttribute("data_name_p");
-                var Qty_2 = Number(prgraph.getAttribute("data_qet_p"));
+                var Qty_3 = Number(prgraph.getAttribute("data_qet_p"));
                 if (Name_Item == Name_Product) {
-                    New_OnhandQty -= Qty_2;
+                    New_OnhandQty -= Qty_3;
                 }
             }
         }
@@ -853,7 +874,7 @@ var SlsTrSales;
                 var Name_Item = prgraph.getAttribute("data_name_p");
                 var Item_ID = Number(prgraph.getAttribute("data_itemid"));
                 var ItemFamily_ID = Number(prgraph.getAttribute("data_itemfamilyid"));
-                var Qty_3 = Number(prgraph.getAttribute("data_qet_p"));
+                var Qty_4 = Number(prgraph.getAttribute("data_qet_p"));
                 var Price_Item = Number(prgraph.getAttribute("data_price_p"));
                 var Total_Price_1 = Number(prgraph.getAttribute("data_total_price"));
                 var MinPrice = prgraph.getAttribute("data-minunitprice");
@@ -862,7 +883,7 @@ var SlsTrSales;
                 Model.ID_DELIVERY = 0;
                 Model.PRODUCT_ID = Item_ID;
                 Model.Name_Product_sell = Name_Item;
-                Model.Quantity_sell = Number(Qty_3);
+                Model.Quantity_sell = Number(Qty_4);
                 Model.price_One_part = Number(Price_Item);
                 Model.Total_Price_One_Part = Number(Total_Price_1);
                 Model.Notes_Order = MinPrice;
