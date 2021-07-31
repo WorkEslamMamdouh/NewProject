@@ -538,7 +538,6 @@
     <Content Include="login\fonts\codropsicons\codropsicons.svg" />
     <Content Include="login\fonts\codropsicons\license.txt" />
     <Content Include="login\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="login\images\circle.png" />
     <Content Include="login\images\header_login.png" />
     <Content Include="login\images\header_login1.png" />
     <Content Include="login\images\pass.png" />
@@ -871,7 +870,6 @@
     <Content Include="Style_design\fonts\fontawesome-webfont.svg" />
     <Content Include="Style_design\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Style_design\Home_Style.css" />
-    <Content Include="Style_design\img\619.png" />
     <Content Include="Style_design\img\chairs-chandelier-design-1579739.jpg" />
     <Content Include="Style_design\img\clear.png" />
     <Content Include="Style_design\img\cropper\1.jpg" />
