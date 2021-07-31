@@ -96,6 +96,7 @@ var SlsTrSales;
     var Remove_cust;
     var cust_search_phone;
     var idCust;
+    var txt_search;
     var fouse;
     var Num_Order;
     var Success;
@@ -118,6 +119,7 @@ var SlsTrSales;
         var Ul_Div = document.createElement('ul');
         Ul_Div.setAttribute('id', 'Ul_Div');
         document.getElementById("mCSB_3_container").appendChild(Ul_Div);
+        txt_search.focus();
     }
     SlsTrSales.InitalizeComponent = InitalizeComponent;
     function InitalizeControls() {
@@ -152,6 +154,7 @@ var SlsTrSales;
         txtTotal_Price = document.getElementById('txtTotal_Popu');
         txtTotAfterTax_Popu = document.getElementById('txtTotAfterTax_Popu');
         txt_ApprovePass = document.getElementById('txt_ApprovePass');
+        txt_search = document.getElementById('txt_search');
         //-------------------------------------------------------Customr-----------------------
         Insert_But_Cust = document.getElementById("Insert_But_Cust");
         CUST_NAME = document.getElementById("CUST_NAME");
@@ -190,6 +193,7 @@ var SlsTrSales;
         hid_div_Customr.onclick = hide_Custm;
         update_div_cust.onclick = update_cust;
         Remove_cust.onclick = Remove_cust_onclick;
+        txt_search.onchange = searcdisplay;
     }
     function timer() {
         debugger;
@@ -202,6 +206,19 @@ var SlsTrSales;
         minutes = minutes < 10 ? (0 + minutes) : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
+    }
+    function searcdisplay() {
+        debugger;
+        var itembar = FamilyDetails.filter(function (x) { return x.serial == txt_search.value; });
+        $("#txtPrice").val(itembar[0].PRODUCT_PRICE);
+        txtQuantity.value = "1";
+        price_One_Product = parseFloat($("#txtPrice").val());
+        price_Product = parseFloat($("#txtPrice").val());
+        PRODUCT_price = parseFloat($("#txtPrice").val());
+        Qet_Product = Number(txtQuantity.value);
+        Add_ROW_IN_Basket();
+        $("#PopupDialog").modal("hide");
+        $('#Men_popu').attr('class', 'popu animated zoomOutRight');
     }
     //--------------------------------------------------Display_familly_Cate--------------------------------
     function Display_familly_Cate() {
@@ -236,7 +253,6 @@ var SlsTrSales;
         $('#id_familly' + famillyPlus + '').click(Selecte_familly_Cate);
     }
     function Selecte_familly_Cate() {
-        blur_but();
         try {
             id_Family.attr('style', '');
         }
@@ -247,7 +263,6 @@ var SlsTrSales;
         Category = CategoryDetails.filter(function (x) { return x.ID_familly_Cat == Number(famillyID); });
         document.getElementById("div_Category").innerHTML = "";
         document.getElementById("uul").innerHTML = '';
-        blur_but();
         for (var i = 0; i < Category.length; i++) {
             Category_NAME = Category[i].Name_CAT;
             CatID = Category[i].ID_CAT;
@@ -298,7 +313,6 @@ var SlsTrSales;
         catch (e) {
         }
         document.getElementById("uul").innerHTML = '';
-        blur_but();
         //DisplayItems(FamilyDetails);
         for (var i = 0; i < Category.length; i++) {
             var Family = FamilyDetails.filter(function (x) { return x.ID_CAT == Number(Category[i].ID_CAT); });
@@ -311,7 +325,6 @@ var SlsTrSales;
         }
         catch (e) {
         }
-        blur_but();
         CatID = $(this).attr('data-CatID');
         var Category = FamilyDetails.filter(function (x) { return x.ID_CAT == Number(CatID); });
         document.getElementById("uul").innerHTML = '';
@@ -333,7 +346,6 @@ var SlsTrSales;
                     Category = CategoryDetails.filter(function (x) { return x.ID_familly_Cat == Number(12); });
                     document.getElementById("div_Category").innerHTML = "";
                     document.getElementById("uul").innerHTML = '';
-                    blur_but();
                     for (var i = 0; i < Category.length; i++) {
                         Category_NAME = Category[i].Name_CAT;
                         CatID = Category[i].ID_CAT;
@@ -418,12 +430,9 @@ var SlsTrSales;
             document.getElementById("li_input" + IDPlus + "").appendChild(div);
         }
         $('#input' + IDPlus).click(click_but);
-        $('#input' + IDPlus).blur(blur_but);
         $('#input' + IDPlus).keyup(mousemove_but);
         $('#input' + IDPlus).mousemove(mousemove_but);
         $('#input' + IDPlus).mouseleave(mouseleave_but);
-    }
-    function blur_but() {
     }
     function mousemove_but() {
         if (this.getAttribute('data-Qty') > 0) {
@@ -469,7 +478,6 @@ var SlsTrSales;
             ItemID = $(this).attr('data-itemid');
             PRODUCT_price = $(this).attr('data-pirce');
             $("#PopupDialog").modal("show");
-            blur_but();
             Total();
         }
     }
