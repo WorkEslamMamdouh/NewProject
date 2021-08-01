@@ -48,6 +48,8 @@ var LoginComponent;
         }
         else {
             txtYear.value = "2019";
+            //txtYear.value = SharedWork.Session.CurrentYear;
+            //cmbLanguage.value = SharedWork.Session.Language;
         }
     }
     LoginComponent.InitalizeComponent = InitalizeComponent;
@@ -167,13 +169,14 @@ var LoginComponent;
                         SystemEnv.UserCode = txtUserName.value;
                         document.cookie = "Inv1_systemProperties=" + JSON.stringify(SystemEnv).toString() + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
                         OnLogged();
+                        //GoToCompanySelect();
                     }
-                    else {
+                    else { // Error in user or pass or active 
                         txtUserName.style.borderColor = "red";
                         txtUserPassword.style.borderColor = "red";
                     }
                 }
-                else {
+                else { // Error in API 
                     alert(res.ErrorMessage);
                     return;
                 }
@@ -346,5 +349,5 @@ var LoginComponent;
         });
     }
 })(LoginComponent || (LoginComponent = {}));
-//# sourceMappingURL=LoginComponent.js.map 
+//# sourceMappingURL=LoginComponent.js.map
 //# sourceMappingURL=LoginComponent.js.map

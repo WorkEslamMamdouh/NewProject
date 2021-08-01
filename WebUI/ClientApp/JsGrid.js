@@ -13,7 +13,7 @@ var normalizePromise = function (promise) {
     }
     return d.promise();
 };
-var JsGrid = (function () {
+var JsGrid = /** @class */ (function () {
     function JsGrid() {
         this.SysSession = GetSystemSession();
         this.autosearch = true;
@@ -352,23 +352,23 @@ var JsGrid = (function () {
     };
     return JsGrid;
 }());
-var JsGridInsertEventArgs = (function () {
+var JsGridInsertEventArgs = /** @class */ (function () {
     function JsGridInsertEventArgs() {
     }
     return JsGridInsertEventArgs;
 }());
-var JsGridDeleteEventArgs = (function () {
+var JsGridDeleteEventArgs = /** @class */ (function () {
     function JsGridDeleteEventArgs() {
         this.Cancel = false;
     }
     return JsGridDeleteEventArgs;
 }());
-var JsGridUpdateEventArgs = (function () {
+var JsGridUpdateEventArgs = /** @class */ (function () {
     function JsGridUpdateEventArgs() {
     }
     return JsGridUpdateEventArgs;
 }());
-var JsGridEditEventArgs = (function () {
+var JsGridEditEventArgs = /** @class */ (function () {
     function JsGridEditEventArgs() {
     }
     return JsGridEditEventArgs;

@@ -196,6 +196,7 @@ var USERS;
             }
             else {
                 Insert();
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
         else {
@@ -204,6 +205,7 @@ var USERS;
             }
             else {
                 Update();
+                //$("#Div_control").attr("style", "height: 281px;margin-bottom: 19px;margin-top: 20px;display: none;");
             }
         }
     }
@@ -372,11 +374,13 @@ var USERS;
     function reindexArray(array) {
         debugger;
         var index = 0; // The index where the element should be
-        for (var key in array) {
+        for (var key in array) // Iterate the array
+         {
             //if (parseInt(key) !== index)     // If the element is out of sequence
             //{
             array[index] = array[key]; // Move it to the correct, earlier position in the array
             ++index; // Update the index
+            //}
         }
         array.splice(index); // Remove any remaining elements (These will be duplicates of earlier items)
     }

@@ -1,5 +1,5 @@
 /// <reference path="../scripts/typings/jquery/jquery.d.ts" />
-var IgGrid = (function () {
+var IgGrid = /** @class */ (function () {
     function IgGrid() {
         this.Features = new Array();
         this.DataSource = new Array();

@@ -27,6 +27,7 @@ var Modules = {
     familly_Cat: "familly_Cat",
     Income_expenses: "Income_expenses",
     USERS: "USERS"
+    //Nationality: "Nationality",
 };
 var Keys = {
     Enter: "Enter"
@@ -176,9 +177,15 @@ var App;
         var SysSession = GetSystemSession();
         if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             SysSession.CurrentEnvironment.ScreenLanguage = "en";
+            //SysSession.CurrentEnvironment.ScreenLanguage = "en";
+            //SysSession.CurrentEnvironment.CompanyNameAr = "";
+            //SysSession.CurrentEnvironment.CompanyName = "";
         }
-        else {
+        else { // Arabic Mode other mohaamed ragab
             SysSession.CurrentEnvironment.ScreenLanguage = "ar";
+            //SysSession.CurrentEnvironment.ScreenLanguage = "ar";
+            //SysSession.CurrentEnvironment.CompanyNameAr = "";
+            //SysSession.CurrentEnvironment.CompanyName = "";
         }
         document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         //Ajax.CallAsync({
@@ -219,7 +226,7 @@ function GetBranchs() {
         }
     });
 }
-var GQ_GetUserBranch = (function () {
+var GQ_GetUserBranch = /** @class */ (function () {
     function GQ_GetUserBranch() {
         this.USER_CODE = "";
         this.COMP_CODE = 0;
@@ -606,6 +613,7 @@ var DocumentActions = {
                 //}
                 //let test = 
                 combo.add(new Option(name_4, code));
+                //
             }
         }
     },
@@ -867,7 +875,7 @@ function HeaderTemplate_ThreeElements(headerTitle, element_1, element_2) {
     tbl.appendChild(cellTr);
     return tbl;
 }
-var Resources = (function () {
+var Resources = /** @class */ (function () {
     function Resources() {
     }
     return Resources;
@@ -894,7 +902,7 @@ function CreateLabelElement(defaultValue, id) {
 function SetSearchControlName(id) {
     $("#SearchControlName").val(id);
 }
-var CodeDesciptionModel = (function () {
+var CodeDesciptionModel = /** @class */ (function () {
     function CodeDesciptionModel() {
     }
     return CodeDesciptionModel;
@@ -972,22 +980,22 @@ function AddDate(prd, Sdate, count) {
     var Tdate;
     Tdate = Sdate; //new Date();
     switch (prd) {
-        case 1:
+        case 1: //hours
             Tdate.setHours(Sdate.getHours() + count);
             break;
-        case 2:
+        case 2: //Days
             Tdate.setDate(Sdate.getDate() + (count - 1));
             break;
-        case 3:
+        case 3: //week
             Tdate.setDate(Sdate.getDate() + ((7 * count) - 1));
             break;
-        case 4:
+        case 4: //month
             // Loop from cur month with Qty * Prd times 
             Tdate = Sdate;
             Tdate.setMonth(Tdate.getMonth() + count);
             Tdate.setDate(Tdate.getDate() + -1);
             break;
-        case 5:
+        case 5: //year
             // add 365 or 366 days 
             Tdate = Sdate;
             Tdate.setFullYear(Tdate.getFullYear() + count);
