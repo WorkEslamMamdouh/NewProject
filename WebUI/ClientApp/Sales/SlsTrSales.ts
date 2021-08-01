@@ -181,7 +181,7 @@ namespace SlsTrSales {
         fouse = document.getElementById("fouse");
 
     }
-    function InitializeEvents() {
+    function InitializeEvents() {   
         Basket.onclick = Basket_onclick;
 
         All_item.onclick = GetAll_item_onclick;
