@@ -181,7 +181,7 @@ namespace SlsTrSales {
         fouse = document.getElementById("fouse");
 
     }
-    function InitializeEvents() {   
+    function InitializeEvents() {
         Basket.onclick = Basket_onclick;
 
         All_item.onclick = GetAll_item_onclick;
@@ -230,61 +230,64 @@ namespace SlsTrSales {
         minutes = minutes < 10 ? (0 + minutes) : minutes;
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
-         
+
     }
     function searcdisplay() {
         debugger
-        var itembar = FamilyDetails.filter(x => x.serial == txt_search.value);  
+        var itembar = FamilyDetails.filter(x => x.serial == txt_search.value);
 
-        $("#txtPrice").val(itembar[0].PRODUCT_PRICE);
-        $("#txtTotal_Popu").val(itembar[0].PRODUCT_PRICE);
-        txtQuantity.value = "1";
+        if (itembar.length > 0) {
 
-
-
-        Name_Product = itembar[0].PRODUCT_NAME;
-        OnhandQty = itembar[0].PRODUCT_QET;
-        MinUnitPrice = itembar[0].MinUnitPrice;
+            $("#txtPrice").val(itembar[0].PRODUCT_PRICE);
+            $("#txtTotal_Popu").val(itembar[0].PRODUCT_PRICE);
+            txtQuantity.value = "1";
 
 
-        price_One_Product = parseFloat($("#txtPrice").val());
-        price_Product = parseFloat($("#txtPrice").val());
-        PRODUCT_price = parseFloat($("#txtPrice").val());
-        Qet_Product = Number(txtQuantity.value);
-     
 
-        for (var i = 0; i < Num_Add_List + 1; i++) {
-            var prgraph = document.getElementById("ppp" + i);
-            if (prgraph != null) {
-                let Name_Item = prgraph.getAttribute("data_name_p");
-                let Qty = Number(prgraph.getAttribute("data_qet_p"));
+            Name_Product = itembar[0].PRODUCT_NAME;
+            OnhandQty = itembar[0].PRODUCT_QET;
+            MinUnitPrice = itembar[0].MinUnitPrice;
 
-                if (Name_Item == Name_Product) {
-                    OnhandQty = OnhandQty - Qty;
+
+            price_One_Product = parseFloat($("#txtPrice").val());
+            price_Product = parseFloat($("#txtPrice").val());
+            PRODUCT_price = parseFloat($("#txtPrice").val());
+            Qet_Product = Number(txtQuantity.value);
+
+
+            for (var i = 0; i < Num_Add_List + 1; i++) {
+                var prgraph = document.getElementById("ppp" + i);
+                if (prgraph != null) {
+                    let Name_Item = prgraph.getAttribute("data_name_p");
+                    let Qty = Number(prgraph.getAttribute("data_qet_p"));
+
+                    if (Name_Item == Name_Product) {
+                        OnhandQty = OnhandQty - Qty;
+                    }
                 }
             }
+
+            if (OnhandQty <= 0) {
+                alert('Finish');
+            } else {
+
+                Add_ROW_IN_Basket();
+
+
+                Total();
+
+                $("#PopupDialog").modal("hide");
+
+                $('#Men_popu').attr('class', 'popu animated zoomOutRight');
+
+                $("#txt_search").val("");
+
+
+            }
+
+
         }
 
-        if (OnhandQty <= 0) {         
-            alert('Finish');
-        } else {
-
-            Add_ROW_IN_Basket();
-         
-
-            Total();
-
-            $("#PopupDialog").modal("hide");
-
-            $('#Men_popu').attr('class', 'popu animated zoomOutRight');
-
-            $("#txt_search").val("");
-
-
-        }
-
-
-        
 
 
     }
@@ -313,24 +316,24 @@ namespace SlsTrSales {
     }
     function Create_familly_Cate() {
 
-   
-            var button_Category = document.createElement('button');
-            button_Category.setAttribute('id', 'id_familly' + famillyPlus);
-            button_Category.setAttribute('type', 'button');
-            button_Category.setAttribute('data-famillyID', famillyID);
-            button_Category.setAttribute('class', 'btn btn-info Style_familly');
-            button_Category.setAttribute('value', familly_NAME);
-            document.getElementById("div_familly").appendChild(button_Category);
-            document.getElementById('id_familly' + famillyPlus + '').innerHTML = familly_NAME;
-            $('#id_familly' + famillyPlus + '').click(Selecte_familly_Cate);
 
-       
+        var button_Category = document.createElement('button');
+        button_Category.setAttribute('id', 'id_familly' + famillyPlus);
+        button_Category.setAttribute('type', 'button');
+        button_Category.setAttribute('data-famillyID', famillyID);
+        button_Category.setAttribute('class', 'btn btn-info Style_familly');
+        button_Category.setAttribute('value', familly_NAME);
+        document.getElementById("div_familly").appendChild(button_Category);
+        document.getElementById('id_familly' + famillyPlus + '').innerHTML = familly_NAME;
+        $('#id_familly' + famillyPlus + '').click(Selecte_familly_Cate);
 
 
-    } 
+
+
+    }
     function Selecte_familly_Cate() {
 
-        
+
 
         try {
             id_Family.attr('style', '');
@@ -338,7 +341,7 @@ namespace SlsTrSales {
         } catch (e) {
 
         }
-          Category = new Array<CATEGRES>();
+        Category = new Array<CATEGRES>();
 
 
 
@@ -346,11 +349,11 @@ namespace SlsTrSales {
         Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(famillyID));
         document.getElementById("div_Category").innerHTML = "";
         document.getElementById("uul").innerHTML = '';
-        
-         for (var i = 0; i < Category.length; i++) {
 
-             Category_NAME = Category[i].Name_CAT;
-             CatID = Category[i].ID_CAT;
+        for (var i = 0; i < Category.length; i++) {
+
+            Category_NAME = Category[i].Name_CAT;
+            CatID = Category[i].ID_CAT;
             CatPlus = i;
             Create_Category();
 
@@ -360,9 +363,9 @@ namespace SlsTrSales {
         }
         //document.getElementById("uul").innerHTML = '';
 
-         $(this).attr('style', 'background: #e58828;');
+        $(this).attr('style', 'background: #e58828;');
 
-         id_Family = $(this);
+        id_Family = $(this);
 
     }
     //--------------------------------------------------Display_Category--------------------------------
@@ -376,7 +379,7 @@ namespace SlsTrSales {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     CategoryDetails = result.Response as Array<CATEGRES>;
-              
+
 
                 }
             }
@@ -411,13 +414,13 @@ namespace SlsTrSales {
 
         document.getElementById("uul").innerHTML = '';
 
-        
-        
+
+
         //DisplayItems(FamilyDetails);
 
 
         for (var i = 0; i < Category.length; i++) {
-             
+
             var Family = FamilyDetails.filter(x => x.ID_CAT == Number(Category[i].ID_CAT));
             DisplayItems(Family);
 
@@ -432,7 +435,7 @@ namespace SlsTrSales {
         } catch (e) {
 
         }
-        
+
         CatID = $(this).attr('data-CatID');
         var Category = FamilyDetails.filter(x => x.ID_CAT == Number(CatID));
         document.getElementById("uul").innerHTML = '';
@@ -457,11 +460,11 @@ namespace SlsTrSales {
                 let result = d as BaseResponse;
                 if (result.IsSuccess) {
                     FamilyDetails = result.Response as Array<PRODUCT>;
-                  
+
                     Category = CategoryDetails.filter(x => x.ID_familly_Cat == Number(12));
                     document.getElementById("div_Category").innerHTML = "";
                     document.getElementById("uul").innerHTML = '';
-                    
+
                     for (var i = 0; i < Category.length; i++) {
 
                         Category_NAME = Category[i].Name_CAT;
@@ -507,7 +510,7 @@ namespace SlsTrSales {
             PRICE = ItemList[i].PRODUCT_PRICE;
             MinUnitPrice = ItemList[i].MinUnitPrice;
             ItemID = ItemList[i].PRODUCT_ID;
-            IDPlus = ItemID ;
+            IDPlus = ItemID;
             AddBut();
         }
     }
@@ -553,7 +556,7 @@ namespace SlsTrSales {
             div.setAttribute('data-div_menu', 'div_menu' + IDPlus);
             div.setAttribute('data-Name', PRODUCT_NAME);
             div.setAttribute('data-Qty', Qty.toString());
-            div.setAttribute('title', 'الكمية (' + Qty.toString()+')');
+            div.setAttribute('title', 'الكمية (' + Qty.toString() + ')');
             div.setAttribute('data-pirce', PRICE.toString());
             div.setAttribute('data-MinUnitPrice', MinUnitPrice);
 
@@ -566,13 +569,13 @@ namespace SlsTrSales {
 
         $('#input' + IDPlus).click(click_but);
 
-        
+
         $('#input' + IDPlus).keyup(mousemove_but);
         $('#input' + IDPlus).mousemove(mousemove_but);
         $('#input' + IDPlus).mouseleave(mouseleave_but);
 
     }
-  
+
     function mousemove_but() {
 
         if (this.getAttribute('data-Qty') > 0) {
@@ -623,7 +626,7 @@ namespace SlsTrSales {
 
         if (OnhandQty <= 0) {
             $(this).val('Finish');
-        } else {    
+        } else {
 
             $('#id_Labol').html('متاح (' + OnhandQty + ') من  ' + Name_Product + '');
             $('#Men_popu').attr('style', 'display:block;');
@@ -638,7 +641,7 @@ namespace SlsTrSales {
 
             $("#PopupDialog").modal("show");
 
-            
+
             Total();
         }
 
@@ -926,7 +929,7 @@ namespace SlsTrSales {
     }
 
     function Remove_Item_in_Basket() {
-      
+
         $('#Ul_Div').html('');
 
 
@@ -946,9 +949,9 @@ namespace SlsTrSales {
         ValidationMinUnitPrice = 0;
         Validation_Insert = 0;
 
- 
+
         //FamilyDetails = new Array<PRODUCT>();
-   
+
         ID_Customer = null;
         idCust.value = "";
         hide_Custm();
@@ -957,7 +960,7 @@ namespace SlsTrSales {
     }
     function click_Remove_Item_in_Basket() {
 
-        
+
 
         var Edit_Id = $('#' + $(this).attr('id') + '').attr('class');
 
@@ -966,7 +969,7 @@ namespace SlsTrSales {
             //debugger
             Num_paragraph = $(this).attr('data-ID-Paragraph');
 
-             
+
             click_Edit($(this).attr('data-name'), Number($(this).attr('data-price_one')), Number($(this).attr('data-qet_product')), Number($(this).attr('data-onhandqty')), Number($(this).attr('data-minunitprice')));
 
         }
@@ -992,7 +995,7 @@ namespace SlsTrSales {
                 document.getElementById("Ul_Div").removeChild(id_ul);
 
                 Total_Price();
-                       
+
 
             }
 
@@ -1065,7 +1068,7 @@ namespace SlsTrSales {
 
 
         //OnhandQty = New_OnhandQty;
-        
+
 
         for (var i = 0; i < Num_Add_List + 1; i++) {
             var prgraph = document.getElementById("ppp" + i);
@@ -1106,7 +1109,7 @@ namespace SlsTrSales {
 
 
 
-       
+
     }
     ////------------------------------------------------------Assign_Get_Data------------------------      
     function Assign_Get_Data() {
@@ -1178,9 +1181,9 @@ namespace SlsTrSales {
 
     }
     function Finsh_Order_onclick() {
-        
-    
-      
+
+
+
         if (P != 0) {
             debugger
             //if (!SysSession.CurrentPrivileges.AddNew) return;
@@ -1198,16 +1201,16 @@ namespace SlsTrSales {
                 Insert_Basket();
                 if (Success == true) {
                     Remove_Item_in_Basket();
-               
+
                     $('#uul').html('');
                     Display_But();
-              
+
                 }
 
 
             }
             else {
-                type_Save_Print = false; 
+                type_Save_Print = false;
                 Open_poup_Pass();
 
             }
@@ -1220,8 +1223,8 @@ namespace SlsTrSales {
 
             MessageBox.Show(" برجاء اختيار الاصناف", "خطأ");
         }
-   
-      
+
+
 
     }
 
@@ -1276,9 +1279,9 @@ namespace SlsTrSales {
 
     function printreport() {
         debugger;
-       let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
-       let _Stock: Settings_Report = new Settings_Report();
-       _Stock.Type_Print = 4;
+        let _StockList: Array<Settings_Report> = new Array<Settings_Report>();
+        let _Stock: Settings_Report = new Settings_Report();
+        _Stock.Type_Print = 4;
         _Stock.ID_Button_Print = 'saless';
         _Stock.Parameter_1 = res;
         //_Stock.Parameter_2 = "";
@@ -1330,7 +1333,7 @@ namespace SlsTrSales {
             success: (d) => {
                 let result = d as BaseResponse;
                 if (result.IsSuccess == true) {
-                     res = result.Response
+                    res = result.Response
                     MessageBox.Show(" تم اصدار  فاتورة رقم  " + res + " ", "تم");
 
                     Success = true;
@@ -1392,8 +1395,7 @@ namespace SlsTrSales {
                 idCust.value = "";
                 hide_Custm();
                 flag_Cust = false;
-                if (type_Save_Print == true)
-                {
+                if (type_Save_Print == true) {
                     printreport();
                 }
             }
@@ -1438,7 +1440,7 @@ namespace SlsTrSales {
     function show_Cutomr() {
 
 
-     
+
         $("#Popup_Custmor").modal("show");
 
 
@@ -1455,7 +1457,7 @@ namespace SlsTrSales {
         //ElWassem.Reservation_CUSTOMER();
         if (idCust.value == "0" || idCust.value == "") {
 
-       
+
             $("#Popup_Custmor").modal("hide");
 
             document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #4386da; border - radius: 50px;');
@@ -1476,7 +1478,7 @@ namespace SlsTrSales {
         else {
             debugger
 
-                      
+
             $("#Popup_Custmor").modal("hide");
 
             document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset animated zoomOut collapse  castmr ');
@@ -1528,7 +1530,7 @@ namespace SlsTrSales {
                 CUST_ADDRES.value = "";
                 CUST_ADDRES_2.value = "";
                 CUST_Phone.value = "";
-                
+
             }
             else {
 
@@ -1568,26 +1570,26 @@ namespace SlsTrSales {
             idCust.value = "";
         }
         else {
-          
-                Details_Updata_Cust = new Array<CUSTOMER>();
-                Det_Single_Cust = new CUSTOMER();
-                Det_Single_Cust.CUSTOMER_ID = Number(idCust.value);
-                Det_Single_Cust.CUSTOMER_NAME = CUST_NAME.value;
-                Det_Single_Cust.PHONE = CUST_Phone.value;
-                Det_Single_Cust.CUSTOMER_ADDRES = CUST_ADDRES.value;
-                Det_Single_Cust.CUSTOMER_ADDRES_2 = CUST_ADDRES_2.value;
-                Det_Single_Cust.StatusFlag = "u";
 
-                Details_Updata_Cust.push(Det_Single_Cust);
-                updateList_Customer();
-                if (Success == true) {
+            Details_Updata_Cust = new Array<CUSTOMER>();
+            Det_Single_Cust = new CUSTOMER();
+            Det_Single_Cust.CUSTOMER_ID = Number(idCust.value);
+            Det_Single_Cust.CUSTOMER_NAME = CUST_NAME.value;
+            Det_Single_Cust.PHONE = CUST_Phone.value;
+            Det_Single_Cust.CUSTOMER_ADDRES = CUST_ADDRES.value;
+            Det_Single_Cust.CUSTOMER_ADDRES_2 = CUST_ADDRES_2.value;
+            Det_Single_Cust.StatusFlag = "u";
 
-                    document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #acac01; border - radius: 50px;');
-                    document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
-                    Success = false
-                }
-                
-            
+            Details_Updata_Cust.push(Det_Single_Cust);
+            updateList_Customer();
+            if (Success == true) {
+
+                document.getElementById("div_cutomr").setAttribute('style', 'position: fixed;height: 414px;width: 689px;background: linear - gradient(to right, rgb(22, 58, 71) 0%, #457198 100%);bottom: 90px;right: -59px;top: 91px;transition: all .4s ease 0s;z - index: 999;border: 23px solid #acac01; border - radius: 50px;');
+                document.getElementById("div_cutomr").setAttribute('class', 'chat-box-wrap shadow-reset collapse in castmr');
+                Success = false
+            }
+
+
         }
         flag_Cust = true;
 
@@ -1641,7 +1643,7 @@ namespace SlsTrSales {
 
 
 
-    } 
+    }
     function updateList_Customer() {
         debugger;
         Ajax.Callsync({
@@ -1656,7 +1658,7 @@ namespace SlsTrSales {
                     MessageBox.Show("تم الحفظ", "الحفظ");
                     idCust.value = ID_Customer;
                     Success = true;
-                    
+
                     GetAllCustomer();
                 }
                 else {
