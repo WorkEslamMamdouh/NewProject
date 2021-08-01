@@ -277,8 +277,14 @@ namespace familly_Cate {
             debugger;
 
 
+            if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                $("#txt_StatusFlag" + RecNo).val("m");
+            }
+            else {
+                $("#txt_StatusFlag" + RecNo).val("d");
+
+            }
             $("#No_Row" + RecNo).attr("hidden", "true");
-            $("#txt_StatusFlag" + RecNo).val("d");
             $("#txtDescA" + RecNo).val("00000");
             $("#txtCode" + RecNo).val("000");
         });
@@ -325,16 +331,28 @@ namespace familly_Cate {
     }
     function Validation_Grid(rowcount: number) {
 
-                           
-     
-        
 
-        if (
-            ($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
-            return false;
+        if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
+            return true;
+
+        }
+        else {
+                
+            if ($("#txtCode" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الكود", "خطأ");
+                Errorinput($("#txtCode" + rowcount));
+                return false;
+            }
+
+            if ($("#txtDescA" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
+                Errorinput($("#txtDescA" + rowcount));
+                return false;
+            }
+
         }
         return true;
+
     }
    
 

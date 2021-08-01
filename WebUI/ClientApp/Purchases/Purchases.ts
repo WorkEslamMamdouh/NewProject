@@ -194,6 +194,8 @@ namespace Purchases {
         if (Number(txtTo_be_Paid.value) < 0) {
 
             MessageBox.Show("يجب ان يكون المبلغ المدفوع بيساوي الاجمالي", "خطأ");
+            Errorinput($("#txtPaid_Up"));      
+            Errorinput($("#txtTo_be_Paid"));
             txtTo_be_Paid.value = '0';
             txtPaid_Up.value = $('#txtTotal').val();
 
@@ -386,7 +388,7 @@ namespace Purchases {
                     //  $("#btnExecute").attr("disabled", "disabled");
 
                     MessageBox.Show('يجب ان يكون المبلغ المطلوب سداده مساوي للسداد  للفاتورة رقم   ( ' + FilteredModel[i].TrNo + "  )", "تم");
-
+                    
                     ValidDataFlag = false;
                     break;
                 }
@@ -822,10 +824,14 @@ namespace Purchases {
             debugger
             if ($("#Sales_Price" + cnt).val() == "" || $("#Sales_Price" + cnt).val() == 0) {
                 MessageBox.Show('يجب أدخال سعر الصنف اوالاً', 'خطأ');
+                Errorinput($("#Sales_Price" + cnt));
+
                 $("#MinUnitPrice" + cnt).val(0)
             }
             else if (Number($("#MinUnitPrice" + cnt).val()) > Number($("#Sales_Price" + cnt).val())) {
                 MessageBox.Show('يجب ان يكون أقل سعر اصغر من سعر الصنف', 'خطأ');
+                Errorinput($("#MinUnitPrice" + cnt));
+
                 $("#MinUnitPrice" + cnt).val($("#Sales_Price" + cnt).val() - 1)
             }
             if (Number($("#txtMinPrice" + cnt).val()) < 0) {
@@ -982,7 +988,13 @@ namespace Purchases {
             if (Number($("#txtQuantity" + RecNo).attr('data-qet')) <= Number($("#txtQuantityRetrun" + RecNo).attr('data-product_qet_stock'))) {
                 chack = Number($("#txtQuantity" + RecNo).attr('data-qet'));
 
-                $("#txt_StatusFlag" + RecNo).val("d");
+                if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                    $("#txt_StatusFlag" + RecNo).val("m");
+                }
+                else {
+                    $("#txt_StatusFlag" + RecNo).val("d");
+
+                }
                 CountItems = CountItems - 1;
                 ComputeTotals();
 
@@ -1047,51 +1059,69 @@ namespace Purchases {
     function Validation_Grid(rowcount: number) {
         //else
         debugger
+        if (($("#txt_StatusFlag" + rowcount).val() == 'd') || ($("#txt_StatusFlag" + rowcount).val() == 'm')) {
+            return true;
 
-
-        if ($("#ddlfamilly_Cat" + rowcount).val() == "Null" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show(" برجاء أختيار نوع الفئة", "خطأ");
-
-            return false
         }
-        else if ($("#Family" + rowcount).val() == "" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+        else {
 
-            MessageBox.Show(" برجاءادخال الفئة", "خطأ");
+            if ($("#ddlfamilly_Cat" + rowcount).val() == "Null" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
 
-            return false
+                MessageBox.Show(" برجاء أختيار نوع الفئة", "خطأ");
+                Errorinput($("#ddlfamilly_Cat" + rowcount));
+
+
+                return false
+            }
+            else if ($("#Family" + rowcount).val() == "" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show(" برجاءادخال الفئة", "خطأ");
+                Errorinput($("#Family" + rowcount));
+
+
+                return false
+            }
+            else if (($("#Items" + rowcount).val() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show(" برجاءادخال الصنف", "خطأ");
+                Errorinput($("#Items" + rowcount));
+                Errorinput($("#ddlItem" + rowcount));
+
+                return false
+            }
+            else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() <= 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show(" برجاءادخال الكمية", "خطأ");
+                Errorinput($("#txtQuantity" + rowcount));
+
+
+                return false
+            }
+            else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == "0.00" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show("  برجاءادخال السعر الشراء", "خطأ");
+                Errorinput($("#txtPrice" + rowcount));
+
+                return false
+            }
+            else if (($("#Sales_Price" + rowcount).val() == "" || $("#Sales_Price" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show("  برجاءادخال السعر البيع ", "خطأ");
+                Errorinput($("#Sales_Price" + rowcount));
+
+
+                return false
+            }
+            else if (($("#MinUnitPrice" + rowcount).val() == "" || $("#MinUnitPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
+
+                MessageBox.Show(" برجاءادخال السعر اقل سعر بيع", "خطأ");
+                Errorinput($("#MinUnitPrice" + rowcount));
+
+
+                return false
+            }
+
         }
-        else if (($("#Items" + rowcount).val() == "" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show(" برجاءادخال الصنف", "خطأ");
-            return false
-        }
-        else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() <= 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show(" برجاءادخال الكمية", "خطأ");
-
-            return false
-        }
-        else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == "0.00" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show("  برجاءادخال السعر الشراء", "خطأ");
-
-            return false
-        }
-        else if (($("#Sales_Price" + rowcount).val() == "" || $("#Sales_Price" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show("  برجاءادخال السعر البيع ", "خطأ");
-
-            return false
-        }
-        else if (($("#MinUnitPrice" + rowcount).val() == "" || $("#MinUnitPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
-
-            MessageBox.Show(" برجاءادخال السعر اقل سعر بيع", "خطأ");
-
-            return false
-        }
-
-
         return true;
 
     }
@@ -1429,18 +1459,24 @@ namespace Purchases {
         if (ID_Supp == 0) {
 
             MessageBox.Show(" برجاءادخال المورد ", "خطأ");
+            Errorinput($("#btnSupplierSearch"));
+            Errorinput($("#txtName_Supplier"));   
 
             return false
         }
         if (CountGrid < 0) {
 
             MessageBox.Show(" برجاءادخال الاصناف ", "خطأ");
+            Errorinput($("#btnAddDetails"));
+
 
             return false
         }
         if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
 
             MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+            Errorinput($("#txtPaid_Up"));
+
 
             return false
         }

@@ -1220,6 +1220,22 @@ function AddDate(prd: Number, Sdate: Date, count: number): Date {
     return Tdate;
 }
 
+function Errorinput(input: any) {
+
+    if (input.selector != null) {
+
+        $('' + input.selector + '').addClass('text_Mandatory');
+        $('' + input.selector + '').focus();
+        setTimeout(function () { $('' + input.selector + '').removeClass('text_Mandatory'); }, 5000);
+    }
+    else {
+        input.classList.add('text_Mandatory');
+        input.focus();
+        setTimeout(function () { input.classList.remove('text_Mandatory'); }, 5000);
+    }
+
+}
+
 
 function GetResourceByName(Sourcekey: string): string {
     var result: string = "";

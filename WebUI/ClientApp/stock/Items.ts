@@ -57,8 +57,8 @@ namespace Items {
 
         compcode = Number(SysSession.CurrentEnvironment.CompCode);
         InitalizeControls();
-        InitalizeEvents(); 
-        Display_DrpPaymentType(); 
+        InitalizeEvents();
+        Display_DrpPaymentType();
         Displayfamilly();
         //Display_All();
     }
@@ -96,7 +96,7 @@ namespace Items {
 
         $("#drbfamilly_cat").attr("disabled", "disabled");
 
-        
+
 
     });
 
@@ -108,24 +108,24 @@ namespace Items {
         btnback = document.getElementById("btnback") as HTMLButtonElement;
         //btnShow = document.getElementById("btnShow") as HTMLButtonElement;
 
-       
+
     }
 
 
 
     function InitalizeEvents() {
-      
-        btnAddDetails.onclick = AddNewRow; 
+
+        btnAddDetails.onclick = AddNewRow;
         btnsave.onclick = btnsave_onClick;
         btnback.onclick = btnback_onclick;
         //btnShow.onclick = btnShow_onclick;
-       
+
     }
 
 
     function btnShow_onclick() {
 
-      
+
 
         btnback_onclick();
     }
@@ -143,21 +143,21 @@ namespace Items {
 
 
             $("#txtDescA" + CountGrid).removeAttr("disabled");
-            $("#txtOnhandQty" + CountGrid).removeAttr("disabled");            
+            $("#txtOnhandQty" + CountGrid).removeAttr("disabled");
             $("#select_Type_Item" + CountGrid).removeAttr("disabled");
             $("#txtPurchasing_price" + CountGrid).removeAttr("disabled");
-            $("#txtUnitPrice" + CountGrid).removeAttr("disabled"); 
+            $("#txtUnitPrice" + CountGrid).removeAttr("disabled");
             $("#txtMinUnitPrice" + CountGrid).removeAttr("disabled");
             $("#Serial" + CountGrid).removeAttr("disabled");
 
- 
-           
- 
-            $("#txtCode" + CountGrid).val(CountGrid +1);
+
+
+
+            $("#txtCode" + CountGrid).val(CountGrid + 1);
 
             $("#select_Type_Item" + CountGrid).prop('value', $("#drpPaymentType").val() == 'Null' ? '10101' : Number($("#drpPaymentType").val()));
-            
-         
+
+
             $("#txt_StatusFlag" + CountGrid).val("i"); //In Insert mode
 
             $("#btn_minus" + CountGrid).removeClass("display_none");
@@ -201,7 +201,7 @@ namespace Items {
             '</div> ';
         $("#div_Data").append(html);
 
-        
+
         //Display_Type = Display_Filtr;
 
         $('#select_Type_Item' + cnt).append('<option value="10101">أختر الفئه</option>');
@@ -214,7 +214,7 @@ namespace Items {
             DeleteRow(cnt);
         });
         $("#txtCode" + cnt).on('change', function () {
-      
+
         });
         $("#txtDescA" + cnt).on('change', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
@@ -229,11 +229,11 @@ namespace Items {
 
             $('#select_ItemFamily' + cnt).html("");
 
-  
+
 
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
-        });       
+        });
         $("#txtPurchasing_price" + cnt).on('keyup', function () {
             if ($("#txt_StatusFlag" + cnt).val() != "i")
                 $("#txt_StatusFlag" + cnt).val("u");
@@ -308,7 +308,7 @@ namespace Items {
             DisplayStkDefCategory();
             $('#drpPaymentType').removeAttr('disabled');
         }
-        
+
     });
 
     $('#drpPaymentType').on('change', function () {
@@ -322,12 +322,12 @@ namespace Items {
         }
 
     });
-    
+
     function Display_DrpPaymentType() {
         debugger;
         //var StkDefCategory: Array<CATEGRES> = new Array<CATEGRES>();
         Ajax.Callsync({
-            type: "Get" ,
+            type: "Get",
             url: sys.apiUrl("Category", "GetAll"),
             data: { CompCode: compcode },
             success: (d) => {
@@ -335,7 +335,7 @@ namespace Items {
                 if (result.IsSuccess) {
                     Display_Filtr = result.Response as Array<CATEGRES>;
 
-                   
+
                 }
             }
         });
@@ -382,7 +382,7 @@ namespace Items {
 
 
     }
-    
+
 
     function refresh() {
 
@@ -405,7 +405,7 @@ namespace Items {
 
         console.log(BilldDetail);
 
-        if (BilldDetail.filter(x => x.PRODUCT_NAME == "" || x.PRODUCT_NAME == " " || x.PRODUCT_NAME == "  " || x.PRODUCT_NAME == "   " || x.PRODUCT_NAME == "    " ).length > 0) {
+        if (BilldDetail.filter(x => x.PRODUCT_NAME == "" || x.PRODUCT_NAME == " " || x.PRODUCT_NAME == "  " || x.PRODUCT_NAME == "   " || x.PRODUCT_NAME == "    ").length > 0) {
             MessageBox.Show(" يجب ادخال الوصف باعربي", "خطأ");
             return;
         }
@@ -430,7 +430,7 @@ namespace Items {
             MessageBox.Show(" يجب ادخال اقل سعر", "خطأ");
             return;
         }
-       
+
 
         //BilldDetail[0].Token = "HGFD-" + SysSession.CurrentEnvironment.Token;
         //BilldDetail[0].UserCode = SysSession.CurrentEnvironment.UserCode;
@@ -484,15 +484,15 @@ namespace Items {
                 Model.MinUnitPrice = Number($('#txtMinUnitPrice' + i).val());
                 Model.PRODUCT_Purchasing_price = Number($("#txtPurchasing_price" + i).val());
                 Model.serial = $("#Serial" + i).val();
-          
+
                 BilldDetail.push(Model);
 
                 flag_Assign = 1;
-    
+
             }
             if (StatusFlag == "u") {
                 debugger
-                Model.StatusFlag = StatusFlag.toString(); 
+                Model.StatusFlag = StatusFlag.toString();
                 Model.PRODUCT_ID = $("#txtID" + i).val();
                 Model.ID_CAT = $('#select_Type_Item' + i).val();
                 Model.PRODUCT_NAME = $("#txtDescA" + i).val();
@@ -504,17 +504,17 @@ namespace Items {
 
                 BilldDetail.push(Model);
                 flag_Assign = 1;
- 
+
 
             }
             if (StatusFlag == "d") {
                 //debugger
 
                 if ($("#txtID" + i).val() != "") {
-                     
+
                     Model.StatusFlag = StatusFlag.toString();
-                    Model.PRODUCT_ID = $("#txtID" + i).val(); 
-                    BilldDetail.push(Model); 
+                    Model.PRODUCT_ID = $("#txtID" + i).val();
+                    BilldDetail.push(Model);
                     flag_Assign = 1;
                 }
 
@@ -526,7 +526,7 @@ namespace Items {
     }
 
     function Display_All() {
- 
+
         ItemFamilyID = 0;
         Ajax.Callsync({
             type: "Get",
@@ -539,7 +539,7 @@ namespace Items {
                     //debugger
                     Details = result.Response as Array<PRODUCT>;
 
-             
+
                     Details_All();
                 }
             }
@@ -564,8 +564,8 @@ namespace Items {
 
 
             $("#txtID" + i).val(Details[i].PRODUCT_ID);
-            $("#txtCode" + i).val(i+1);
-            $("#txtDescA" + i).val(Details[i].PRODUCT_NAME);            
+            $("#txtCode" + i).val(i + 1);
+            $("#txtDescA" + i).val(Details[i].PRODUCT_NAME);
             $("#txtOnhandQty" + i).val(Details[i].PRODUCT_QET);
             $("#txtPurchasing_price" + i).val(Details[i].PRODUCT_Purchasing_price);
             $("#txtUnitPrice" + i).val(Details[i].PRODUCT_PRICE);
@@ -576,7 +576,7 @@ namespace Items {
             $("#txt_StatusFlag" + i).val("");
 
 
- 
+
 
             CountGrid++;
 
@@ -607,7 +607,7 @@ namespace Items {
                     Details = result.Response as Array<PRODUCT>;
 
 
-                 
+
                     DisplayGetItemStore();
                 }
             }
@@ -629,7 +629,7 @@ namespace Items {
 
 
             $("#txtID" + i).val(Details[i].PRODUCT_ID);
-            $("#txtCode" + i).val(i+1);
+            $("#txtCode" + i).val(i + 1);
             $("#txtDescA" + i).val(Details[i].PRODUCT_NAME);
             $("#txtOnhandQty" + i).val(Details[i].PRODUCT_QET);
             $("#txtPurchasing_price" + i).val(Details[i].PRODUCT_Purchasing_price);
@@ -670,7 +670,13 @@ namespace Items {
 
             }
 
-            $("#txt_StatusFlag" + RecNo).val("d");
+            if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                $("#txt_StatusFlag" + RecNo).val("m");
+            }
+            else {
+                $("#txt_StatusFlag" + RecNo).val("d");
+
+            }
             //$("#txtCode" + RecNo).val("");
             $("#txtCode" + RecNo).val("000");
             $("#txtDescA" + RecNo).val("000");
@@ -739,33 +745,50 @@ namespace Items {
     }
 
     function Validation_Grid(rowcount: number) {
-         
-        if (
-            (  $("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("  برجاء ادخل الوصف العربي ", "خطأ");
-            return false;
-        }
-        if (($("#select_Type_Item" + rowcount).val() == "10101" ) && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("برجاء اختار الفئة  ", "خطأ");
-            return false;
-        }
-        if ($("#txtOnhandQty" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
-            return false;
-        }
-        if ($("#txtPurchasing_price" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
-            return false;
-        }
-        if ($("#txtUnitPrice" + rowcount).val() == "") {
-            MessageBox.Show(" برجاء ادخل السعر البيع", "خطأ");
-            return false;
-        }
-        if ($("#txtMinUnitPrice" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل اقل سعر", "خطأ");
-            return false;
-        }
 
+        if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
+            return true;
+
+        }
+        else {
+
+            if (
+                ($("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
+                MessageBox.Show("  برجاء ادخل الوصف العربي ", "خطأ");
+                Errorinput($("#txtDescA" + rowcount));
+                return false;
+            }
+            if (($("#select_Type_Item" + rowcount).val() == "10101") && $("#txt_StatusFlag" + rowcount).val() != "d") {
+                MessageBox.Show("برجاء اختار الفئة  ", "خطأ");
+                Errorinput($("#select_Type_Item" + rowcount));
+
+                return false;
+            }
+            if ($("#txtOnhandQty" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
+                Errorinput($("#txtOnhandQty" + rowcount));
+
+                return false;
+            }
+            if ($("#txtPurchasing_price" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
+                Errorinput($("#txtPurchasing_price" + rowcount));
+
+                return false;
+            }
+            if ($("#txtUnitPrice" + rowcount).val() == "") {
+                MessageBox.Show(" برجاء ادخل السعر البيع", "خطأ");
+                Errorinput($("#txtUnitPrice" + rowcount));
+
+                return false;
+            }
+            if ($("#txtMinUnitPrice" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل اقل سعر", "خطأ");
+                Errorinput($("#txtMinUnitPrice" + rowcount));
+
+                return false;
+            }
+        }
 
         return true;
     }
@@ -775,7 +798,7 @@ namespace Items {
         for (var i = 0; i < CountGrid; i++) {
             if (i != rowno) {
 
-                if ($("#txt_StatusFlag" + i).val() == "d") {
+                if ($("#txt_StatusFlag" + i).val() == "d" || $("#txt_StatusFlag" + i).val() == "d" ) {
                     return true;
 
                 }
