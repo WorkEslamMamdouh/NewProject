@@ -139,7 +139,7 @@ margin-top:20px;
 	margin: 0 auto;
 }
 #back_circle{
-	background-image:url(../images/circle.png);
+	/*background-image:url(../images/circle.png);*/
 	    width: 225px;
     height: 225px;
 	float:left;
@@ -178,10 +178,10 @@ padding-bottom:20px;
 	padding-right:20px;
 }
 #img_title {
-	background-color: #1a3a58;
-	height: 44px;
-	border-top-right-radius: 8px;
-	background-size: 100% 100%;
+    background-color: #bd853e;
+    height: 44px;
+    border-top-right-radius: 8px;
+    background-size: 100% 100%;
 }
 .clear{
 	clear:both;

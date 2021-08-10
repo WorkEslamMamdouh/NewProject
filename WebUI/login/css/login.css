@@ -185,7 +185,7 @@ first-child .main_hr
 	z-index: 9999;
 }
 #back_circle {
-    background-image: url(../images/circle.png);
+    /*background-image: url(../images/circle.png);*/
     width: 225px;
     height: 225px;
     float: left;
@@ -232,10 +232,11 @@ first-child .main_hr
 	padding-right: 20px;
 }
 #img_title {
-	background-color: #1a3a58;
-	height: 37px;
-	border-top-right-radius: 14px;
-	background-size: 100% 100%;
+    background-color: #60341d;
+    height: 37px;
+    margin-top: -2px;
+    border-top-right-radius: 14px;
+    background-size: 100% 100%;
 }
 .clear
 {
