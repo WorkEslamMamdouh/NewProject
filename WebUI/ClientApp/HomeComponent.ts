@@ -1,7 +1,12 @@
 ﻿
 $(document).ready(() => {
     //HomeComponent.Language();
-    HomeComponent.InitalizeComponent();
+    try {
+
+        HomeComponent.InitalizeComponent();
+    } catch (e) {
+        window.open(Url.Action("LoginIndex", "Login"), "_self");
+    }
 
 });
 
@@ -192,6 +197,18 @@ namespace HomeComponent {
                 // //debugger;
                 if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
+
+                    SysSession = new SystemSession;
+                    systemEnv = new SystemEnvironment;
+
+                    deleteAllCookies();
+
+                    document.cookie = "Inv1_systemProperties=" + new SystemEnvironment + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+                    document.cookie = "Inv1_Privilage=" + new UserPrivilege + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+
+
+
+                    SysSession.CurrentEnvironment.UserCode = "Ahmed";
                     return;
                 }
             }

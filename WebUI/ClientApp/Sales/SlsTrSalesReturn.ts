@@ -747,6 +747,8 @@ namespace SlsTrSalesReturn {
                         $("#ddlItem" + cnt).val("null");
                         $("#txtPrice" + cnt).val("1");
                         MessageBox.Show('( لايمكن تكرار نفس الاصناف علي الفاتورة )', '(Error)');
+                        Errorinput($("#ddlItem" + cnt));
+
 
                     } else {
                         let Price = $('option:selected', $("#ddlItem" + cnt)).attr('data-PRODUCT_PRICE');
@@ -1016,28 +1018,35 @@ namespace SlsTrSalesReturn {
     }
 
     function Validation_Grid(rowcount: number) {
-        //else
+ 
         debugger
         if ($("#ddlFamily" + rowcount).val() == "النوع" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
 
             MessageBox.Show(" برجاءادخال النوع", "خطأ");
+            Errorinput($("#ddlFamily" + rowcount));
 
             return false
         }
         else if (($("#ddlItem" + rowcount).val() == "null" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
 
             MessageBox.Show(" برجاءادخال الصنف", "خطأ");
+            Errorinput($("#ddlItem" + rowcount));
+
             return false
         }
         else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
 
             MessageBox.Show(" برجاءادخال الكمية", "خطأ");
+            Errorinput($("#txtQuantity" + rowcount));
+
 
             return false
         }
         else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
 
             MessageBox.Show(" برجاءادخال السعر", "خطأ");
+            Errorinput($("#txtPrice" + rowcount));
+
 
             return false
         }

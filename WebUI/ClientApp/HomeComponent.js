@@ -1,6 +1,11 @@
 $(document).ready(function () {
     //HomeComponent.Language();
-    HomeComponent.InitalizeComponent();
+    try {
+        HomeComponent.InitalizeComponent();
+    }
+    catch (e) {
+        window.open(Url.Action("LoginIndex", "Login"), "_self");
+    }
 });
 var HomeComponent;
 (function (HomeComponent) {
@@ -167,6 +172,12 @@ var HomeComponent;
                 // //debugger;
                 if (d !== undefined) {
                     window.open(Url.Action("LoginIndex", "Login"), "_self");
+                    SysSession = new SystemSession;
+                    systemEnv = new SystemEnvironment;
+                    deleteAllCookies();
+                    document.cookie = "Inv1_systemProperties=" + new SystemEnvironment + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+                    document.cookie = "Inv1_Privilage=" + new UserPrivilege + "; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+                    SysSession.CurrentEnvironment.UserCode = "Ahmed";
                     return;
                 }
             }
@@ -241,7 +252,7 @@ var HomeComponent;
     }
     //By Muhammad Rajab 
     $("#LanguageButtonHome").click(function () {
-        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
+        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") { // English Mode  
             RemoveStyleSheet("bootstrap-rtl");
             RemoveStyleSheet("mainAR");
             RemoveStyleSheet("Style_Arabic");
@@ -256,7 +267,7 @@ var HomeComponent;
             $('#LanguageButtonHome').text(" تغير اللغة  ");
             document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         }
-        else {
+        else { // Arabic Mode
             RemoveStyleSheet("StyleEn");
             RemoveStyleSheet("bootstrap.min");
             RemoveStyleSheet("main");
@@ -660,6 +671,7 @@ var HomeComponent;
                 });
                 return false;
             });
+            //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
         }
     }
     function Check_Close_Day() {

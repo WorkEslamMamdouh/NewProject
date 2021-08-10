@@ -225,8 +225,12 @@ var Categories;
         WorningMessage("هل تريد الحذف؟", "Do you want to delete?", "تحذير", "worning", function () {
             debugger;
             $("#No_Row" + RecNo).attr("hidden", "true");
-            $("#txt_StatusFlag" + RecNo).val("d");
-            //$("#txtCode" + RecNo).val("");
+            if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                $("#txt_StatusFlag" + RecNo).val("m");
+            }
+            else {
+                $("#txt_StatusFlag" + RecNo).val("d");
+            }
             $("#txtCode" + RecNo).val("000");
         });
     }
@@ -261,16 +265,20 @@ var Categories;
         }
     }
     function Validation_Grid(rowcount) {
-        if ($("#txtDescA" + rowcount).val() == "") {
-            $("#txtDescA" + rowcount).val($("#txtDescL" + rowcount).val());
+        if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
+            return true;
         }
-        if ($("#txtDescL" + rowcount).val() == "") {
-            $("#txtDescL" + rowcount).val($("#txtDescL" + rowcount).val());
-        }
-        if (($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "")
-            && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
-            return false;
+        else {
+            if ($("#txtCode" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الكود", "خطأ");
+                Errorinput($("#txtCode" + rowcount));
+                return false;
+            }
+            if ($("#txtDescA" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
+                Errorinput($("#txtDescA" + rowcount));
+                return false;
+            }
         }
         return true;
     }

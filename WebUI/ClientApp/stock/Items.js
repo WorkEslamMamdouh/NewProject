@@ -462,7 +462,12 @@ var Items;
             else {
                 $("#No_Row" + RecNo).attr("hidden", "true");
             }
-            $("#txt_StatusFlag" + RecNo).val("d");
+            if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                $("#txt_StatusFlag" + RecNo).val("m");
+            }
+            else {
+                $("#txt_StatusFlag" + RecNo).val("d");
+            }
             //$("#txtCode" + RecNo).val("");
             $("#txtCode" + RecNo).val("000");
             $("#txtDescA" + RecNo).val("000");
@@ -512,36 +517,47 @@ var Items;
         $("#drbfamilly_cat").removeAttr("disabled");
     }
     function Validation_Grid(rowcount) {
-        if (($("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("  برجاء ادخل الوصف العربي ", "خطأ");
-            return false;
+        if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
+            return true;
         }
-        if (($("#select_Type_Item" + rowcount).val() == "10101") && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("برجاء اختار الفئة  ", "خطأ");
-            return false;
-        }
-        if ($("#txtOnhandQty" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
-            return false;
-        }
-        if ($("#txtPurchasing_price" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
-            return false;
-        }
-        if ($("#txtUnitPrice" + rowcount).val() == "") {
-            MessageBox.Show(" برجاء ادخل السعر البيع", "خطأ");
-            return false;
-        }
-        if ($("#txtMinUnitPrice" + rowcount).val() == "") {
-            MessageBox.Show("برجاء ادخل اقل سعر", "خطأ");
-            return false;
+        else {
+            if (($("#txtDescA" + rowcount).val() == "") && $("#txt_StatusFlag" + rowcount).val() != "d") {
+                MessageBox.Show("  برجاء ادخل الوصف العربي ", "خطأ");
+                Errorinput($("#txtDescA" + rowcount));
+                return false;
+            }
+            if (($("#select_Type_Item" + rowcount).val() == "10101") && $("#txt_StatusFlag" + rowcount).val() != "d") {
+                MessageBox.Show("برجاء اختار الفئة  ", "خطأ");
+                Errorinput($("#select_Type_Item" + rowcount));
+                return false;
+            }
+            if ($("#txtOnhandQty" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل الكميه المتاحه", "خطأ");
+                Errorinput($("#txtOnhandQty" + rowcount));
+                return false;
+            }
+            if ($("#txtPurchasing_price" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل سعر الشراء", "خطأ");
+                Errorinput($("#txtPurchasing_price" + rowcount));
+                return false;
+            }
+            if ($("#txtUnitPrice" + rowcount).val() == "") {
+                MessageBox.Show(" برجاء ادخل السعر البيع", "خطأ");
+                Errorinput($("#txtUnitPrice" + rowcount));
+                return false;
+            }
+            if ($("#txtMinUnitPrice" + rowcount).val() == "") {
+                MessageBox.Show("برجاء ادخل اقل سعر", "خطأ");
+                Errorinput($("#txtMinUnitPrice" + rowcount));
+                return false;
+            }
         }
         return true;
     }
     function Validate_code(rowno) {
         for (var i = 0; i < CountGrid; i++) {
             if (i != rowno) {
-                if ($("#txt_StatusFlag" + i).val() == "d") {
+                if ($("#txt_StatusFlag" + i).val() == "d" || $("#txt_StatusFlag" + i).val() == "d") {
                     return true;
                 }
                 else {

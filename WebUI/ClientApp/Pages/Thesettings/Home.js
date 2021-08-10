@@ -175,6 +175,10 @@ var Home;
                         if (BilldIData[0].Type == TR_Type) {
                             Details_Insert(BilldIData);
                         }
+                        //for (var i = 0; i < Details.length; i++)
+                        //{
+                        //    Details[i].Num = 0;
+                        //}
                     }
                 }
             });
@@ -277,11 +281,13 @@ var Home;
     function reindexArray(array) {
         debugger;
         var index = 0; // The index where the element should be
-        for (var key in array) {
+        for (var key in array) // Iterate the array
+         {
             //if (parseInt(key) !== index)     // If the element is out of sequence
             //{
             array[index] = array[key]; // Move it to the correct, earlier position in the array
             ++index; // Update the index
+            //}
         }
         array.splice(index); // Remove any remaining elements (These will be duplicates of earlier items)
     }
@@ -302,6 +308,7 @@ var Home;
         if (validation_cheak.length < 4) {
             debugger;
             Enter_Customer(Selecteditem[0].ID);
+            //Enter_Rows(Selecteditem[0].Num);
         }
         else {
             alert("العدد مكتمل يجب اخراج احد");
@@ -388,6 +395,7 @@ var Home;
                     InitializeGrid();
                     ReportGrid.DataSource = Details;
                     ReportGrid.Bind();
+                    //alert(ID);
                 }
             }
         });

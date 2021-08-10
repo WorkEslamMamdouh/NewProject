@@ -324,8 +324,13 @@ namespace Categories {
 
 
             $("#No_Row" + RecNo).attr("hidden", "true");
-            $("#txt_StatusFlag" + RecNo).val("d");
-            //$("#txtCode" + RecNo).val("");
+            if ($("#txt_StatusFlag" + RecNo).val() == 'i') {
+                $("#txt_StatusFlag" + RecNo).val("m");
+            }
+            else {
+                $("#txt_StatusFlag" + RecNo).val("d");
+
+            }
 
             $("#txtCode" + RecNo).val("000");
         });
@@ -370,18 +375,26 @@ namespace Categories {
     }
     function Validation_Grid(rowcount: number) {
 
-        if ($("#txtDescA" + rowcount).val() == "") {
-            $("#txtDescA" + rowcount).val($("#txtDescL" + rowcount).val());
-        }
-        if ($("#txtDescL" + rowcount).val() == "") {
-            $("#txtDescL" + rowcount).val($("#txtDescL" + rowcount).val());
-        }
+        if ($("#txt_StatusFlag" + rowcount).val() == "d" || $("#txt_StatusFlag" + rowcount).val() == "m") {
+            return true;
 
-        if (
-            ($("#txtCode" + rowcount).val() == "" || $("#txtDescA" + rowcount).val() == "")
-            && $("#txt_StatusFlag" + rowcount).val() != "d") {
-            MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
-            return false;
+        }
+        else {
+
+
+
+            if ($("#txtCode" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الكود", "خطأ");
+                Errorinput($("#txtCode" + rowcount));
+                return false;
+            }
+
+            if ($("#txtDescA" + rowcount).val() == "") {
+                MessageBox.Show("ادخل الوصف بالعربي", "خطأ");
+                Errorinput($("#txtDescA" + rowcount));
+                return false;
+            }
+
         }
         return true;
     }

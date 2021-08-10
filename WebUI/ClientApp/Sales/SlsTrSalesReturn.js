@@ -613,6 +613,7 @@ var SlsTrSalesReturn;
                     $("#ddlItem" + cnt).val("null");
                     $("#txtPrice" + cnt).val("1");
                     MessageBox.Show('( لايمكن تكرار نفس الاصناف علي الفاتورة )', '(Error)');
+                    Errorinput($("#ddlItem" + cnt));
                 }
                 else {
                     var Price = $('option:selected', $("#ddlItem" + cnt)).attr('data-PRODUCT_PRICE');
@@ -783,6 +784,9 @@ var SlsTrSalesReturn;
             // can delete new inserted record  without need for delete privilage
             $("#btn_minus" + CountGrid).removeClass("display_none");
             $("#btn_minus" + CountGrid).removeAttr("disabled");
+            //CountGrid++;
+            //eslam
+            //bind statistics data
         }
     }
     function DeleteRow(RecNo) {
@@ -829,22 +833,25 @@ var SlsTrSalesReturn;
         $("#txtTotal").val(CountTotal);
     }
     function Validation_Grid(rowcount) {
-        //else
         debugger;
         if ($("#ddlFamily" + rowcount).val() == "النوع" && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال النوع", "خطأ");
+            Errorinput($("#ddlFamily" + rowcount));
             return false;
         }
         else if (($("#ddlItem" + rowcount).val() == "null" || $("#ddlItem" + rowcount).val() == "الصنف") && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال الصنف", "خطأ");
+            Errorinput($("#ddlItem" + rowcount));
             return false;
         }
         else if (($("#txtQuantity" + rowcount).val() == "" || $("#txtQuantity" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال الكمية", "خطأ");
+            Errorinput($("#txtQuantity" + rowcount));
             return false;
         }
         else if (($("#txtPrice" + rowcount).val() == "" || $("#txtPrice" + rowcount).val() == 0) && ($("#txt_StatusFlag" + rowcount).val() != 'd')) {
             MessageBox.Show(" برجاءادخال السعر", "خطأ");
+            Errorinput($("#txtPrice" + rowcount));
             return false;
         }
         return true;
@@ -863,6 +870,16 @@ var SlsTrSalesReturn;
             StatusFlag = $("#txt_StatusFlag" + i).val();
             $("#txt_StatusFlag" + i).val("");
             if (StatusFlag == "i") {
+                //OperationItemSingleModel.StatusFlag = StatusFlag.toString();
+                //OperationItemSingleModel.OperationItemID = 0;
+                //OperationItemSingleModel.OperationID = OperationID;
+                //OperationItemSingleModel.ItemID = $("#ddlItem" + i).val();
+                //OperationItemSingleModel.ReceivedQty = $('#txtQuantity' + i).val();
+                //OperationItemSingleModel.Est_SalesPrice = $("#txtPrice" + i).val();
+                //OperationItemSingleModel.Min_SalesPrice = $("#txtMinPrice" + i).val();
+                //OperationItemSingleModel.SoldQty = $('#txtSoldQty' + i).val();//
+                //OperationItemSingleModel.ScrapQty = $("#txtScrapQty" + i).val();
+                //OperationItemModel.push(OperationItemSingleModel);
             }
             if (StatusFlag == "u") {
                 var OperationItemID = $("#txt_ID" + i).val();
@@ -1000,6 +1017,7 @@ var SlsTrSalesReturn;
             //$("#txtQuantity" + i).removeAttr("disabled");
             //$("#txtPrice" + i).removeAttr("disabled");
             $("#txtReturn" + i).removeAttr("disabled");
+            //$("#txtScrapQty" + i).removeAttr("disabled");
         }
     }
     function disabled_Grid_Controls() {
