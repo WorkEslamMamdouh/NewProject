@@ -150,26 +150,25 @@ margin-top:20px;
 	text-align:center;
 
 }
-#content_login{
-	width:430px;
-	float:right;
-	margin-left:-175px;
-	border-radius:10px;
-    box-shadow: 1px 1px 7px #fff;
-		background-color:#fff;
-	text-align:right;
-/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+39,f3f3f3+97 */
-background: rgb(255,255,255); /* Old browsers */
-background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 39%, rgba(243,243,243,1) 97%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, right bottom, color-stop(39%,rgba(255,255,255,1)), color-stop(97%,rgba(243,243,243,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 39%,rgba(243,243,243,1) 97%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(-45deg,  rgba(255,255,255,1) 39%,rgba(243,243,243,1) 97%); /* Opera 11.10+ */
-background: -ms-linear-gradient(-45deg,  rgba(255,255,255,1) 39%,rgba(243,243,243,1) 97%); /* IE10+ */
-background: linear-gradient(135deg,  rgba(255,255,255,1) 39%,rgba(243,243,243,1) 97%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-padding-bottom:20px;
-
-	
+#content_login {
+	width: 430px;
+	float: right;
+	margin-left: -175px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 7px #fff;
+	/* background-color: #f00; */
+	text-align: right;
+	/* background: rgb(255, 255, 255); */
+	background: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 1) 39%, rgba(243, 243, 243, 1) 97%);
+	/* background: -webkit-gradient(linear, left top, right bottom, color-stop(39%,rgba(255,255,255,1)), color-stop(97%,rgba(243,243,243,1))); */
+	/* background: -webkit-linear-gradient(
+-45deg
+, rgba(255, 255, 255, 1) 39%, rgba(243, 243, 243, 1) 97%); */
+	background: -o-linear-gradient(-45deg, rgba(255, 255, 255, 1) 39%, rgba(243, 243, 243, 1) 97%);
+	background: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 1) 39%, rgba(243, 243, 243, 1) 97%);
+	background: linear-gradient( 135deg, rgb(178 133 123 / 0%) 39%, rgba(243, 243, 243, 1) 97%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=1 );
+	padding-bottom: 20px;
 }
 .div_input{
 	position:relative;
@@ -178,10 +177,10 @@ padding-bottom:20px;
 	padding-right:20px;
 }
 #img_title {
-    background-color: #bd853e;
-    height: 44px;
-    border-top-right-radius: 8px;
-    background-size: 100% 100%;
+	background-color: #000000;
+	height: 44px;
+	border-top-right-radius: 8px;
+	background-size: 100% 100%;
 }
 .clear{
 	clear:both;

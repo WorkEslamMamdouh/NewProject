@@ -893,7 +893,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>ملخص جرد مبيعات </Value>
+                  <Value>تفصيلي جرد مبيعات </Value>
                   <Style>
                     <FontSize>18pt</FontSize>
                     <FontWeight>Bold</FontWeight>

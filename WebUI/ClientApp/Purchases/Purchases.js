@@ -1116,11 +1116,11 @@ var Purchases;
             Errorinput($("#btnAddDetails"));
             return false;
         }
-        if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
-            MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
-            Errorinput($("#txtPaid_Up"));
-            return false;
-        }
+        //if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
+        //    MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+        //    Errorinput($("#txtPaid_Up"));
+        //    return false
+        //}
         else {
             var CanAdd = true;
             if (CountGrid > -1) {

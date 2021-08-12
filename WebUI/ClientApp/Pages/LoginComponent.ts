@@ -117,6 +117,8 @@ var LoginComponent;
 
         debugger
 
+
+
         Ajax.Callsync({
             type: "GET",
             url: sys.apiUrl("G_USERS", "UserLogin"),

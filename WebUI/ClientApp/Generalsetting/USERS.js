@@ -557,6 +557,7 @@ var USERS;
     }
     function btnLoadRoles_onClick() {
         //$('#div_Data').html("");
+        btnLoadRoles.disabled = true;
         debugger;
         var Q = 0;
         var le = Number(List_RoleDetails.length + List_Roles.length);

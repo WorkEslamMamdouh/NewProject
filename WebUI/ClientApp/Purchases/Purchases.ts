@@ -1472,14 +1472,14 @@ namespace Purchases {
 
             return false
         }
-        if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
+        //if (Number($("#txtPaid_Up").val()) <= 0 || $("#txtPaid_Up").val() == null || $("#txtPaid_Up").val() == "" || $("#txtPaid_Up").val() == " ") {
 
-            MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
-            Errorinput($("#txtPaid_Up"));
+        //    MessageBox.Show(" برجاءادخال المبلغ المدفوع", "خطأ");
+        //    Errorinput($("#txtPaid_Up"));
 
 
-            return false
-        }
+        //    return false
+        //}
 
         else {
 

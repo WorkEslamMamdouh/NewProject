@@ -347,11 +347,11 @@
             <a href="#"><span class="adminpro-icon adminpro-home-admin author-log-ic"></span>My Account</a>
         </li>*@
 
-                                                <li>
+                                                @*<li>
                                                     <a class="liItem" href="#" id="LanguageButtonHome"> <span id="LanguageButtonHome" class="adminpro-icon adminpro-money author-log-ic"></span> </a>
-                                                </li>
+                                                </li>*@
                                                 <li  key="USERS">
-                                                    <a class="liItem" href="#" id="btnUSERS" data-toggle="modal" data-target="#user_setting">  الاعدادات  <span id="btn_G_User" class="  glyphicon glyphicon-cog"></span>  </a>
+                                                    <a class="liItem" href="#" id="btnUSERS"   data-target="#user_setting">  الاعدادات  <span id="btn_G_User" class="  glyphicon glyphicon-cog"></span>  </a>
                                                 @*<li class="liItem dropdown-item" id="btnUSERS"><a id="btnUSERS">المستخدمين</a></li>*@
 </li>
                                                 <li>
@@ -650,9 +650,9 @@
 
     @Scripts.Render("~/Bundles/AppScript2")
     @Scripts.Render("~/Bundles/AppScript3")
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        @Scripts.Render("~/Bundles/AppScript4")
-
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    @Scripts.Render("~/Bundles/AppScript4")
+    @*<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
 
     <style>
         .mCS_no_scrollbar {

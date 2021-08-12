@@ -324,36 +324,49 @@ namespace USERS {
         if ($('#txtUSER_NAME').val() == "") {
 
             MessageBox.Show("يجب ادخال اسم الموظف ", "Contact Email Is Not Valid");
+            Errorinput($('#txtUSER_NAME'));
             return Valid = 1;
         }
         if ($('#txtDepartmentName').val() == "") {
 
             MessageBox.Show("يجب ادخال القسم ", "Contact Email Is Not Valid");
+            Errorinput($('#txtDepartmentName'));
+
             return Valid = 1;
         }
         if ($('#txtJobTitle').val() == "") {
 
             MessageBox.Show("يجب ادخال  الوظيفة ", "Contact Email Is Not Valid");
+            Errorinput($('#txtJobTitle'));
+
             return Valid = 1;
         }
         if ($('#txtMobile').val() == "") {
 
             MessageBox.Show("يجب ادخال الموبيل ", "Contact Email Is Not Valid");
+            Errorinput($('#txtMobile'));
+
             return Valid = 1;
         }
 
         if ($('#txtUSER_CODE').val() == "") {
 
             MessageBox.Show("يجب ادخال  إسم المستخدم   ", "Contact Email Is Not Valid");
+            Errorinput($('#txtUSER_CODE'));
+
             return Valid = 1;
         } if ($('#txtUSER_PASSWORD').val() == "") {
 
             MessageBox.Show("يجب ادخال كلمة السر   ", "Contact Email Is Not Valid");
+            Errorinput($('#txtUSER_PASSWORD'));
+
             return Valid = 1;
         }
         if ($('#txtUSER_PASSWORD_confirm').val() != $('#txtUSER_PASSWORD').val() ) {
 
             MessageBox.Show("كلمتى السر غير متوافقين", "Contact Email Is Not Valid");
+            Errorinput($('#txtUSER_PASSWORD_confirm'));
+
             return Valid = 1;
         }
 
@@ -744,6 +757,7 @@ namespace USERS {
     function btnLoadRoles_onClick() {
         //$('#div_Data').html("");
 
+        btnLoadRoles.disabled = true;
 
         debugger
         var Q = 0;
@@ -781,6 +795,7 @@ namespace USERS {
             }
         }
         CountGrid = Number(List_RoleDetails.length + List_Roles.length);
+
     }
 
 

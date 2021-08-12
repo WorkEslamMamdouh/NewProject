@@ -959,7 +959,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>جرد مبيعات مفصل </Value>
+                  <Value> ملخص جرد المبيعات </Value>
                   <Style>
                     <FontSize>18pt</FontSize>
                     <FontWeight>Bold</FontWeight>
