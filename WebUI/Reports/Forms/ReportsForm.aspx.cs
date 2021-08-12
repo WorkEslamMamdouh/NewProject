@@ -41,6 +41,10 @@ namespace RS.WebUI.Reports.Forms
         protected SamahEntities db = UnitOfWork.context(BuildConnectionString());
         //private SamahEntities _db = new SamahEntities();
         //string cs = ConfigurationManager.ConnectionStrings["SamahEntities"].ConnectionString;
+
+
+
+        //string cs = "Data Source= SQL5061.site4now.net ; database = db_a7881c_tawhedcenter ; user id = db_a7881c_tawhedcenter_admin ; Password= 619619Ss619619 ;";
         string cs = "Data Source= . ; database = ElWassem ; user id = sa ; Password= 619619 ;";
 
         string Par;
