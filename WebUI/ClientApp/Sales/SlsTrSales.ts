@@ -247,7 +247,7 @@ namespace SlsTrSales {
             Name_Product = itembar[0].PRODUCT_NAME;
             OnhandQty = itembar[0].PRODUCT_QET;
             MinUnitPrice = itembar[0].MinUnitPrice;
-
+            ItemID = itembar[0].PRODUCT_ID;
 
             price_One_Product = parseFloat($("#txtPrice").val());
             price_Product = parseFloat($("#txtPrice").val());
@@ -861,6 +861,7 @@ namespace SlsTrSales {
             ppp.setAttribute('data_Name_P', Name_Product);
             ppp.setAttribute('data_price_P', PRODUCT_price.toString());
             ppp.setAttribute('data_ItemId', ItemID.toString());
+            alert(ItemID);
             //ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
             ppp.setAttribute('data_QET_P', Qet_Product.toString());
             ppp.setAttribute('data_total_price', price_Product.toString());

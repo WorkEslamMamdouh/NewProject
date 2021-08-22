@@ -22,7 +22,7 @@ using WebUl.DAL.Repository;
 using DAL.Domain;
 using Microsoft.Reporting.WebForms;
 using System.Data;
-
+using System.Configuration;
 
 namespace RS.WebUI.Reports.Forms
 {//eslam 1 dec 2020
@@ -44,15 +44,16 @@ namespace RS.WebUI.Reports.Forms
 
 
 
-        //string cs = "Data Source= SQL5061.site4now.net ; database = db_a7881c_tawhedcenter ; user id = db_a7881c_tawhedcenter_admin ; Password= 619619Ss619619 ;";
-        string cs = "Data Source= . ; database = ElWassem ; user id = sa ; Password= 619619 ;";
+        //string cs = "Data Source=SQL5061.site4now.net;Initial Catalog=db_a7882d_apieltawhed;User Id=db_a7882d_apieltawhed_admin;Password=619619Ss619619";
+        string cs = "Data Source=SQL5061.site4now.net; database =db_a7882d_apieltawhed; user id =db_a7882d_apieltawhed_admin; Password=619619Ss619619";
+        //string cs = "Data Source= . ; database = ElWassem ; user id = sa ; Password= 619619 ;";
 
         string Par;
 
         public static string BuildConnectionString()
         {
             var httpClient = new HttpClient();
-            var res = httpClient.GetStringAsync(WebConfigurationManager.AppSettings["ServiceUrl"] + "SystemTools/BuildConnection").Result;
+            var res = httpClient.GetStringAsync(WebConfigurationManager.AppSettings["ServiceUrl"] + "SystemTools/BuildConnection").Result;           
             return res;
         }
 
@@ -61,6 +62,7 @@ namespace RS.WebUI.Reports.Forms
         {
             if (!IsPostBack)
             {
+ 
 
                 string x = Request["rpt"];
                 string y = Request["par"];
@@ -114,6 +116,8 @@ namespace RS.WebUI.Reports.Forms
             reportViewer1.LocalReport.DataSources.Clear();
             foreach (var model in models)
             {
+                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + model + "');", true);
+
                 ReportDataSource source = new ReportDataSource(reportName, model);
 
                 reportViewer1.LocalReport.DataSources.Add(source);
@@ -154,19 +158,19 @@ namespace RS.WebUI.Reports.Forms
 
 
         }
-        private void BindReport(string reportName, List<DataSourceStruct> models)
-        {
-            reportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/" + reportName + ".rdlc");
-            reportViewer1.LocalReport.DataSources.Clear();
-            foreach (var model in models)
-            {
-                ReportDataSource source = new ReportDataSource(model.Name, model.DataSource);
-                reportViewer1.LocalReport.DataSources.Add(source);
-            }
+        //private void BindReport(string reportName, List<DataSourceStruct> models)
+        //{
+        //    reportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/" + reportName + ".rdlc");
+        //    reportViewer1.LocalReport.DataSources.Clear();
+        //    foreach (var model in models)
+        //    {
+        //        ReportDataSource source = new ReportDataSource(model.Name, model.DataSource);
+        //        reportViewer1.LocalReport.DataSources.Add(source);
+        //    }
 
-            reportViewer1.DataBind();
+        //    reportViewer1.DataBind();
 
-        }
+        //}
         private void BindSSRS(string reportName, List<DataSourceStruct> models)
         {
             reportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/" + reportName + ".rdlc");
@@ -367,6 +371,7 @@ namespace RS.WebUI.Reports.Forms
 
         public void Get_Name_Report_toParameter()
         {
+            //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + 11 + "');", true);
 
             string PO;
             RepFinancials RepPar = JsonConvert.DeserializeObject<RepFinancials>(Par);
@@ -423,8 +428,9 @@ namespace RS.WebUI.Reports.Forms
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(cs))
             {
+                
+                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + con.WorkstationId + "');", true);
 
-                 
                 SqlCommand cmd = new SqlCommand("" + Repor.Name_Stored_Report + "", con);
                 cmd.CommandType = CommandType.StoredProcedure;
 
