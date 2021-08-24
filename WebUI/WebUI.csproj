@@ -26,7 +26,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp> 
+    </NuGetPackageImportStamp>
     <Use64BitIISExpress />
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -195,6 +195,7 @@
   <ItemGroup>
     <Content Include="ClientApp\open_more.js" />
     <Content Include="ClientApp\Open_more_Style.css" />
+    <Content Include="ClientApp\Sales\SlsTrSales.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
@@ -669,6 +670,7 @@
     <Content Include="Data\Data_POS" />
     <Content Include="Data\POS_waseem" />
     <Content Include="Data\databes" />
+    <Content Include="ClientApp\Sales\SlsTrSales.js.map" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />

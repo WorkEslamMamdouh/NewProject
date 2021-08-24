@@ -915,7 +915,7 @@ namespace SlsTrSales {
 
         Qet_X = P;
 
-
+                            
 
         CChat.setAttribute('style', 'display: block;');
         Total_Basket.setAttribute('style', 'display: block;');
