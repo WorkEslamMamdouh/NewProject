@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebUI</RootNamespace>
     <AssemblyName>WebUI</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -70,9 +70,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -1107,6 +1107,7 @@
     <Content Include="Views\Stock\familly_Cat.cshtml" />
     <Content Include="Views\Report\Income_expenses.cshtml" />
     <Content Include="Views\Generalsetting\USERSIndex.cshtml" />
+    <Content Include="Views\Generalsetting\CustomerIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1114,6 +1115,7 @@
     <Folder Include="ClientApp\Partial\" />
     <Folder Include="Reports\Report\Print\" />
     <Folder Include="Reports\Report\Slip\" />
+    <Folder Include="Scripts\typings\jquery\" />
     <Folder Include="Style_design\.vs\config\" />
     <Folder Include="Style_design\.vs\Style_design\v15\" />
   </ItemGroup>
@@ -1166,6 +1168,7 @@
     <TypeScriptCompile Include="ClientApp\CustomEntities.ts" />
     <TypeScriptCompile Include="ClientApp\DataTable.ts" />
     <TypeScriptCompile Include="ClientApp\Entities.ts" />
+    <TypeScriptCompile Include="ClientApp\Generalsetting\AccDefCustomer.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\USERS.ts" />
     <TypeScriptCompile Include="ClientApp\Generalsetting\Supplier.ts" />
     <TypeScriptCompile Include="ClientApp\HomeComponent.ts" />
@@ -1185,8 +1188,6 @@
     <TypeScriptCompile Include="ClientApp\stock\Items.ts" />
     <TypeScriptCompile Include="ClientApp\SystemTools.ts" />
     <TypeScriptCompile Include="ClientApp\teamwork\TEAMWORK.ts" />
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -1203,6 +1204,8 @@
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_ACCIncomeAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardSammuryAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_GardDetailAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_Prnt_SlsInvoiceStdAr.rdlc" />
+    <EmbeddedResource Include="Reports\Report\Reports\Rpt_Prnt_SlsInvoiceStdEn.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_PurchasesAr.rdlc" />
     <EmbeddedResource Include="Reports\Report\Reports\Rpt_salessAr.rdlc" />
   </ItemGroup>

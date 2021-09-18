@@ -1,0 +1,513 @@
+﻿
+@{
+    ViewBag.Title = "العملاء";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<style>
+    .class_btn_drop {
+        background-color: #c8c8c8;
+        padding: 6px 10px 2px 10px;
+    }
+
+    .dropdown-item:hover {
+        cursor: pointer !important;
+        background-color: #c8c8c8 !important;
+    }
+
+    .pading_3 {
+        padding: 0px 50px 0px !important
+    }
+
+    .display_none {
+        display: none !important;
+    }
+
+    .textalign {
+        text-align: center
+    }
+
+
+
+    .src-btn {
+        border-radius: 18px !important;
+    }
+
+    .dropdown-menu {
+        border-radius: 11px;
+    }
+
+    .disabledDiv {
+        pointer-events: none;
+        opacity: 0.4;
+    }
+
+    .fontitm7Processes {
+        float: right;
+        margin: 5px -21px 0px 0px !important;
+        font-size: 25px !important;
+        position: absolute;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        // Initialize select2
+        $("#txt_ID_APP_Category").select2();
+
+        $("#txt_ID_APP_Group").select2();
+
+        $("#txt_ID_APP_Type").select2();
+
+        //$("#ddlSalesman").select2();
+
+
+        // Read selected option
+        $('#but_read').click(function () {
+            //var username = $('#ddlSalesman option:selected').text();
+            //var userid = $('#ddlSalesman').val();
+
+            var username = $('#txt_ID_APP_Category option:selected').text();
+            var userid = $('#txt_ID_APP_Category').val();
+
+            var username = $('#txt_ID_APP_Group option:selected').text();
+            var userid = $('#txt_ID_APP_Group').val();
+
+            var username = $('#txt_ID_APP_Type option:selected').text();
+            var userid = $('#txt_ID_APP_Type').val();
+
+
+            $('#result').html("id : " + userid + ", name : " + username);
+        });
+    });
+</script>
+
+
+
+<div class="col-lg-12 margingred  borderred">
+    @*<label id="lepReserved" class="col-lg-12 labeltitel "><span id="spanlepReserved" class="ifontowsam fa fa-caret-left"></span>     </label>*@
+    <div class="container-fluid">
+        <div class="row">
+            <div id="informtionReserved" class="col-lg-12 margingred" style="margin-bottom: 15px;">
+
+
+                <div id="id_div_Add">
+                    <div class="col-lg-12">
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">الفئة </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_ID_APP_Category" name="" class="form-control  text_Display">
+                                <option value="Null"> الفئة </option>
+                            </select>
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading"> المجموعة</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_ID_APP_Group" name="" class="form-control  text_Display">
+                                <option value="Null">  المجموعة </option>
+                            </select>
+                        </div>
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">النوع</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_ID_APP_Type" name="" class="form-control  text_Display">
+                                <option value="Null">  النوع </option>
+                                <option value="1">اجل</option>
+                                <option value="0">نقدي</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-xs-8">
+                            <button type="button" class="btn btn-info" id="btnShow">
+                               عرض   <span class="glyphicon glyphicon-save "></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btnAdd">
+                                اضافه <span class="glyphicon glyphicon-plus-sign"></span>
+                            </button>
+
+                            <div class="btn-group">
+                                <label type="button" class="btn btn-warning">طباعة</label>
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-hand-down"></span>
+                                </button>
+                                <div class="dropdown-menu" role="menu" style="border-radius:15px">
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrint" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>                     طباعة      </button>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrview" type="button" class="  btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-paint-roller"></span>   عرض التقرير         </button>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrPDF" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span>      تنزيل PDF         </button>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button style="width:100%" id="btnPrintTrEXEL" type="button" class="marginbtn btn btn-custon-four btndefolt primary-btn-cl"><span class="adminpro-icon adminpro-download-arrow"></span> تنزيل Excel     </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">المناديب </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="ddlSalesman" name="" class="form-control  text_Display">
+                                <option value="Null">اختر المناديب</option>
+                            </select>
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer textcentr_pading">مديونية</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_indebtedness" name="" class="form-control  text_Display">
+                                <option value="All">الجميع</option>
+                                <option value=">">عليه مديونية </option>
+                                <option value="<">له مديونية</option>
+                                <option value="=">صفري </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="id_ReportGrid" class="col-lg-12  margingred  borderred " style="display: none;">
+                        <div class="col-lg-3 col-xs-8" style="margin-bottom: 4px;margin-right: 27px;margin-top: 9px;">
+                            <input id="searchbutmemreport" name="" type="text" class="form-control  text_Display" placeholder="بحث">
+                        </div>
+                        <div class="col-lg-15 ">
+                            <table id="ReportGrid"></table>
+
+                        </div>
+                        <h4 style="text-align: center;font-weight: bold;color: #0088c7;"><i class="glyphicon glyphicon-hand-up"></i>أنقر مرتين لعرض البيان المطلوب<i class="glyphicon glyphicon-hand-up"></i></h4>
+                    </div>
+                </div>
+                <div id="DivMassage" class="col-lg-12  margingred  borderred display_none">
+
+                    <h4 id="Text_Massage" style=""> رساله </h4>
+
+                </div>
+                <div id="Div_control" class="col-lg-12 margingred  borderred" style="margin-bottom: 19px;margin-top: 20px;display: none;">
+
+
+
+                    <div class="col-lg-12 " style="padding-top: 3px;margin-top: 13px;">
+
+                        <div class="col-lg-12 " style="margin-bottom: -37px">
+
+                            <div class="col-lg-9 col-xs-8">
+                            </div>
+                            <div class="col-lg-2">
+
+                                <button type="button" class="btn btn-warning display_none" id="btnback">
+                                    <span class="glyphicon glyphicon-backward"></span> تراجع
+                                </button>
+
+                                <button id="btnsave" type="button" class="btn btn-success display_none">
+                                  حفظ  <span class="glyphicon glyphicon-floppy-saved"></span>
+                                </button>
+
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" class="btn btn-primary" id="btnedite">
+                                    <span class="glyphicon glyphicon-edit"></span> تعديل
+                                </button>
+                            </div>
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">رقم العميل</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_CustomerCODE" disabled name="CustomerCODE" type="number" class="form-control  text_Display" placeholder="رقم العميل">
+                        </div>
+                        <div class="col-lg-1 col-xs-8">
+                        </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer2 ">النوع</label>
+
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_Cust_Type" disabled name="" class="form-control  text_Display">
+                                <option value="Null">  النوع </option>
+                                <option value="1">اجل</option>
+                                <option value="0">نقدي</option>
+                            </select>
+                        </div>
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-end">معتمد</label>
+
+                        <div class="col-xs-1">
+                            <input type="checkbox" class="checkbox" id="id_chkcustom6" disabled name="" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">الاسم بالعربي </label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_NAME" disabled name="NAMEA" type="text" class="form-control  text_Display" placeholder="الاسم بالعربي">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer2">الاسم بالانجليزي</label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_NAMEE" disabled name="NAMEE" type="text" class="form-control  text_Display" placeholder="الاسم بالانجليزي">
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-12 ">
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer  "> الفئة  </label>
+
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_Category" disabled name="" class="form-control  text_Display">
+                                <option value="null">الفئة </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-1 col-xs-8">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep   pading_2AccDefCustomer">  المجموعة  </label>
+
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_Grop" disabled name="" class="form-control  text_Display">
+                                <option value="null">  المجموعة </option>
+                            </select>
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer2 ">المناديب</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="ddlSalesman_New" name="" class="form-control  text_Display">
+                                <option value="0">المناديب</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12 ">
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer ">رقم الجوال </label>
+
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_MOBILE" disabled name="MOBILE" type="number" class="form-control  text_Display" placeholder="رقم الجوال">
+                        </div>
+
+                        <div class="col-lg-1 col-xs-8">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer"> رقم التليفون</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_TEL" disabled name="TEL" type="number" class="form-control  text_Display" placeholder="رقم التليفون ">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer2">رقم هاتف العمل</label>
+
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_WorkTel" disabled name="WorkTel" type="number" class="form-control  text_Display" placeholder="رقم هاتف العمل">
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">   الملاحظات </label>
+                        <div class="col-lg-6 col-xs-8">
+                            <textarea id="txt_note" disabled name="REMARKS" type="text" class="form-control   " placeholder="الملاحظات"></textarea>
+                        </div>
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer2"> الايميل </label>
+                        <div class="col-lg-4 col-xs-8">
+                            <input id="txt_Email" name="EMAIL" disabled type="email" class="form-control  text_Display" placeholder="الايميل ">
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">نوع الضريبة</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_tax" name="" disabled class="form-control  text_Display">
+                                <option value="null"> نوع الضريبة </option>
+                            </select>
+                        </div>
+
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-end">الرقم الضريبة </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_VatNo" disabled name="VatNo" type="number" class="form-control  text_Display" placeholder="الرقم الضريبي">
+                        </div>
+
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-end">العمله </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_Currency" name="" disabled class="form-control  text_Display">
+                                <option value="null">العمله </option>
+                            </select>
+                        </div>
+
+
+
+                    </div>
+                    <div id="div_Balance" class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer "> الرصيد الافتتاحى </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_Openbalance" disabled name="Openbalance" type="number" class="form-control  text_Display " placeholder=" الرصيد الافتتاحى">
+                        </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-center"> مدين  </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_Debit" disabled name="Debit" type="number" class="form-control  text_Display" placeholder="مدين">
+                        </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-end">دائن</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_DebitFC" disabled name="Credit" type="number" class="form-control  text_Display" placeholder="  دائن">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer text-end">الرصيد</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_balance" disabled name="" type="number" class="form-control  text_Display " placeholder="الرصيد">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer ">الحد الائتماني</label>
+                        <div class="col-lg-2 col-xs-8">
+                            <input id="txt_CreditLimit" disabled name="CreditLimit" type="number" class="form-control  text_Display" placeholder=" الحد الائتماني">
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+                <div class="col-lg-12 margingred  borderred display_none" id="Div_ADDRESS">
+
+                    <div class="col-lg-12 ">
+                        <div class="col-lg-5">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer" style="font-size: 23px;text-align: center;"> العنوان </label>
+
+                    </div>
+
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer"> الدوله </label>
+                        <div class="col-lg-2 col-xs-8">
+                            <select id="txt_Country" disabled name="" class="form-control  text_Display">
+                                <option value="null"> الدوله </option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">  المنطقة</label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_District" disabled name="Address_District" type="text" class="form-control  text_Display" placeholder="  المنطقة ">
+                        </div>
+
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer"> المدينه </label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_City" disabled name="Address_City" type="text" class="form-control  text_Display" placeholder="  المدينه ">
+                        </div>
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">  المحافظه </label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_Province" disabled name="Address_Province" type="text" class="form-control  text_Display" placeholder=" المحافظه">
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">  صندوق البريد </label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_postal" disabled name="Address_postal" type="text" class="form-control  text_Display" placeholder="  صندوق البريد ">
+                        </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">  رقم المبني 1 </label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_BuildingNo" disabled name="Address_BuildingNo" type="text" class="form-control  text_Display" placeholder="رقم المبني 1 ">
+                        </div>
+
+
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer"> رقم المبني 2</label>
+                        <div class="col-lg-3 col-xs-8">
+                            <input id="txt_Address_Build_Additional" disabled name="Address_Build_Additional" type="text" class="form-control  text_Display" placeholder="رقم المبني 2 ">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 ">
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer"> شارع 1 </label>
+                        <div class="col-lg-5 col-xs-8">
+                            <input id="txt_Address_Street" disabled name="Address_Street" type="text" class="form-control  text_Display" placeholder=" شارع 1  ">
+                        </div>
+                        <label class="col-lg-1 col-xs-4  marginstenig pading_lep  pading_2AccDefCustomer">شارع 2</label>
+                        <div class="col-lg-5 col-xs-8">
+                            <input id="txt_Address_Str_Additional" disabled name="Address_Str_Additional" type="text" class="form-control  text_Display" placeholder=" شارع 2">
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12 ">
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-12 margingred  borderred display_none" id="Div_DOC">
+
+
+                    <div class="col-lg-12">
+                        <br />
+                    </div>
+
+                    <div id=" " class="col-lg-12 font_header" style="bottom: 5px;font-weight:bold">
+                        <br />
+
+                        <div class="col-lg-1  text-center" style="width: 3%;"><span class="">   </span></div>
+                        <div class="col-lg-1  text-center" style="width: 10%;"><span class="">نوع الهويه </span></div>
+                        <div class="col-lg-2  text-center" style=""><span class="">رقم البطاقه </span></div>
+                        <div class="col-lg-2  text-center" style=""><span class="">مكان إصدار الهوية</span></div>
+                        <div class="col-lg-1  text-center" style="width: 9%;"><span class="">تاريخ إصدار الهوية</span></div>
+                        <div class="col-lg-2  text-center" style="width: 18%;"><span class="">تاريخ هـ إصدار الهوية</span></div>
+                        <div class="col-lg-2  text-center" style="width: 9%;"><span class="">تاريخ انتهاء الهوية</span></div>
+                        <div class="col-lg-2  text-center" style=""><span class="">تاريخ هـ انتهاء الهوية</span></div>
+
+                    </div>
+                    <div id="data_lebel" class="col-lg-12">
+
+
+                    </div>
+
+                    <span id="btnAddDetails" class="glyphicon glyphicon-plus-sign display_none" style="font-size: 33px;"></span>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#lepnotifications').on('click', function () {
+        $('#divnotifications').toggleClass('showdiv');
+        $('#spanlepnotifications').toggleClass('fa-caret-left');
+        $('#spanlepnotifications').toggleClass('fa-caret-down');
+
+    });
+
+</script>
+ @Scripts.Render("~/Bundles/ClientApp")
+<script src="~/ClientApp/JsGrid.js"></script> 
+<script src="~/ClientApp/Generalsetting/AccDefCustomer.js"></script>

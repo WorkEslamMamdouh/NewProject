@@ -521,6 +521,7 @@ namespace HomeComponent {
         $("#btnCategories").click(() => { OpenPage(Modules.Categories); })
         $("#btnItems").click(() => { OpenPage(Modules.Items); })
         $("#btnSupplier").click(() => { OpenPage(Modules.Supplier); })
+        $("#btnCustomer").click(() => { OpenPage(Modules.Customer); }) 
         $("#btnSalesinventory").click(() => { OpenPage(Modules.Salesinventory); })
         $("#btnfamilly_Cat").click(() => { OpenPage(Modules.familly_Cat); })
         $("#btnIncome_expenses").click(() => { OpenPage(Modules.Income_expenses); })

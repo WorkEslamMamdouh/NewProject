@@ -468,7 +468,6 @@ var SlsTrSales;
             //this.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #c80202db;');
             //this.setAttribute('class', 'Css_but chat-box-wrap shadow-reset  animated pulse');
             this.setAttribute('value', 'Finish');
-            //div.setAttribute('style', 'zoom:' + zoom_select + ';background-color: #ff000094;');
         }
         //this.focus();
     }
@@ -672,7 +671,7 @@ var SlsTrSales;
             ppp.setAttribute('style', 'width: 96%;');
             ppp.setAttribute('data_Name_P', Name_Product);
             ppp.setAttribute('data_price_P', PRODUCT_price.toString());
-            ppp.setAttribute('data_ItemId', ItemID.toString());    
+            ppp.setAttribute('data_ItemId', ItemID.toString());
             //ppp.setAttribute('data_ItemFamilyID', New_ItemFamilyID.toString());
             ppp.setAttribute('data_QET_P', Qet_Product.toString());
             ppp.setAttribute('data_total_price', price_Product.toString());

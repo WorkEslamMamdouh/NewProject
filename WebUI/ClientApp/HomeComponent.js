@@ -252,7 +252,7 @@ var HomeComponent;
     }
     //By Muhammad Rajab 
     $("#LanguageButtonHome").click(function () {
-        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") { // English Mode  
+        if (SysSession.CurrentEnvironment.ScreenLanguage == "ar") {
             RemoveStyleSheet("bootstrap-rtl");
             RemoveStyleSheet("mainAR");
             RemoveStyleSheet("Style_Arabic");
@@ -267,7 +267,7 @@ var HomeComponent;
             $('#LanguageButtonHome').text(" تغير اللغة  ");
             document.cookie = "Inv1_systemProperties=" + JSON.stringify(SysSession.CurrentEnvironment) + ";expires=Fri, 31 Dec 2030 23:59:59 GMT;path=/";
         }
-        else { // Arabic Mode
+        else {
             RemoveStyleSheet("StyleEn");
             RemoveStyleSheet("bootstrap.min");
             RemoveStyleSheet("main");
@@ -457,6 +457,7 @@ var HomeComponent;
         $("#btnCategories").click(function () { OpenPage(Modules.Categories); });
         $("#btnItems").click(function () { OpenPage(Modules.Items); });
         $("#btnSupplier").click(function () { OpenPage(Modules.Supplier); });
+        $("#btnCustomer").click(function () { OpenPage(Modules.Customer); });
         $("#btnSalesinventory").click(function () { OpenPage(Modules.Salesinventory); });
         $("#btnfamilly_Cat").click(function () { OpenPage(Modules.familly_Cat); });
         $("#btnIncome_expenses").click(function () { OpenPage(Modules.Income_expenses); });
@@ -671,7 +672,6 @@ var HomeComponent;
                 });
                 return false;
             });
-            //$('#Close').attr('style', 'margin-top: -18%;background-color: #4df109;border-radius: 11px;');
         }
     }
     function Check_Close_Day() {

@@ -125,7 +125,13 @@ namespace WebUI.Controllers
         {
             return View("~/Views/Generalsetting/SupplierIndex.cshtml");
         }
-          public ActionResult SalesinventoryIndex()
+
+        public ActionResult CustomerIndex()
+        {
+            return View("~/Views/Generalsetting/CustomerIndex.cshtml");
+        }
+
+        public ActionResult SalesinventoryIndex()
         { 
 
             return View("~/Views/Report/Salesinventory.cshtml");

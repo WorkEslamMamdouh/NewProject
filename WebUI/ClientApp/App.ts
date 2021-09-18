@@ -22,12 +22,19 @@ var Modules = {
     Salesinventory: "Salesinventory" ,
     familly_Cat: "familly_Cat" ,
     Income_expenses: "Income_expenses",
+    Customer: "Customer", 
     USERS: "USERS"
 
+    
     //Nationality: "Nationality",
     
 };
 
+var MessageType = {
+    Error: '2',
+    Succeed: '1',
+    Worning: '3',
+}
 
 var Keys = {
     Enter: "Enter"
@@ -1319,6 +1326,61 @@ function CreateDropdownListWithDefaultValue<T>(arr: Array<T>, Name_Ar: string, N
     return element;
 }
 
+function DisplayMassage(msg_Ar: string, msg_En: string, msg_type: string, OnOk?: () => void) {
+    var Env = GetSystemEnvironment();
+    // msgtype : 1 : Sucess , 2: Fetal Error , 3: Data Entry Error 
+    if (Env.ScreenLanguage == "en")
+        $('#Text_Massage').html(msg_En);
+    else
+        $('#Text_Massage').html(msg_Ar);
+
+    if (msg_type == '1') {
+
+        //$('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        //$('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; background-color : #4612128f !important	');
+        //$('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #5cb702;margin-top: 14px; font-size: 24px; margin-left: 10%; margin-right: 6%;');
+
+        //setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; display: none; '); }, 6000);
+
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; background-color : #009605 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #ffffff;margin-top: 14px; font-size: 24px; margin-left: 10%; margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; display: none; '); }, 6000);
+
+    }
+    else if (msg_type == '2') {
+
+        //$('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        //$('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; background-color : #4612128f !important	');
+        //$('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #e41b1b;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        //setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 6000);
+
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; background-color : #de0000 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #ffffff;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 6000);
+    }
+    else if (msg_type == '3') {
+
+        //$('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        //$('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #f0ad4e; background-color : #123a468f !important	');
+        //$('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #f0ad4e;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        //setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 6000);
+
+
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #f0ad4e; background-color : #FF7900 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #ffffff;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 6000);
+
+    }
+}
+
 
 //function CreateListMaleFemale(): HTMLSelectElement {
 //    var offDay = [
@@ -1349,6 +1411,58 @@ function CreateDropdownListWithDefaultValue<T>(arr: Array<T>, Name_Ar: string, N
 //    }
 //    return element;
 //}
+
+
+function DisplayMassage_Processes(msg_Ar: string, msg_En: string, msg_type: string, OnOk?: () => void) {
+    var Env = GetSystemEnvironment();
+    // msgtype : 1 : Sucess , 2: Fetal Error , 3: Data Entry Error 
+    if (Env.ScreenLanguage == "en")
+        $('#Text_Massage').html(msg_En);
+    else
+        $('#Text_Massage').html(msg_Ar);
+
+    if (msg_type == '1') {
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; background-color : #000000 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #5cb702;margin-top: 14px; font-size: 24px; margin-left: 10%; margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #5cb702; display: none; '); }, 7000);
+
+
+    }
+    else if (msg_type == '2') {
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; background-color : #000000 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #e41b1b;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 7000);
+    }
+    else if (msg_type == '3') {
+        $('#DivMassage').attr('class', 'col-lg-12  margingred  borderred');
+        $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #f0ad4e; background-color : #000000 !important	');
+        $('#Text_Massage').attr('style', 'text-align: center;font-weight: bold;color: #f0ad4e;margin-top: 14px; font-size: 24px; margin-left: 10%;  margin-right: 6%;');
+
+        setTimeout(function () { $('#DivMassage').attr('style', ' border-style: solid;border: solid;border-color: #e41b1b; display: none; '); }, 7000);
+
+    }
+}
+
+function GetDate() {
+    var today: Date = new Date();
+    var dd: string = today.getDate().toString();
+    var ReturnedDate: string;
+    var mm: string = (today.getMonth() + 1).toString();
+    var yyyy = today.getFullYear();
+    if (Number(dd) < 10) {
+        dd = ('0' + dd);
+    }
+    if (Number(mm) < 10) {
+        mm = ('0' + mm);
+    }
+    ReturnedDate = yyyy + '-' + mm + '-' + dd;
+    return ReturnedDate;
+}
+
 
 function OpenPopUp(moduleCode: string, PopupBody: string, PopupDialog: string) {
       

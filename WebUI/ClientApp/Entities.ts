@@ -1597,6 +1597,469 @@ class NoteificationsModel extends SecurityClass {
     public MODULE_DESCA: string;
     public NoteCount: number;
 }
+class Rec_D_CustomerDetail extends SecurityClass {
+    constructor() {
+        super();
+        this.A_Rec_D_Customer = new A_Rec_D_Customer();
+        this.A_Rec_D_CustomerDoc = new Array<A_Rec_D_CustomerDoc>();
+    }
+    public A_Rec_D_Customer: A_Rec_D_Customer;
+    public A_Rec_D_CustomerDoc: Array<A_Rec_D_CustomerDoc>;
+
+}
+
+
+class A_D_VAT_TYPE extends SecurityClass {
+    constructor() {
+        super();
+        this.COMP_CODE = 0;
+        this.TYPE = 0;
+        this.CODE = 0;
+        this.DESCRIPTION = "";
+        this.VatType = 0;
+        this.VatPerc = 0;
+    }
+    public COMP_CODE: number;
+    public TYPE: number;
+    public CODE: number;
+    public DESCRIPTION: string;
+    public VatType: number;
+    public VatPerc: number;
+}
+
+
+class A_Rec_D_Customer extends SecurityClass {
+    constructor() {
+        super();
+        this.CustomerId = 0;
+        this.CustomerCODE = "";
+        this.CatID = 0;
+        this.GroupId = 0;
+        this.NAMEA = "";
+        this.NAMEE = "";
+        this.SHORTNAME = "";
+        this.TEL = "";
+        this.FAX = "";
+        this.EMAIL = "";
+        this.CURCODE = "";
+        this.REMARKS = "";
+        this.STATUS = false;
+        this.MOBILE = "";
+        this.Bank = "";
+        this.AccountNo = "";
+        this.ManagerName = "";
+        this.NationalityID = 0;
+        this.BranchCode = 0;
+        this.CompCode = 0;
+        this.CREATED_BY = "";
+        this.CREATED_AT = "";
+        this.UPDATED_AT = "";
+        this.UPDATED_BY = "";
+        this.Employer = "";
+        this.JobName = "";
+        this.WorkTel = "";
+        this.WorkAddress = "";
+        this.VATType = 0;
+        this.AddDedType = 0;
+        this.AddDedNo = "";
+        this.VatNo = "";
+        this.Isactive = false;
+        this.IsAuthorized = false;
+        this.CreditLimit = 0;
+        this.CreditLimitFC = 0;
+        this.CreditPeriod = 0;
+        this.OpenBalanceFC = 0;
+        this.Openbalance = 0;
+        this.Debit = 0;
+        this.DebitFC = 0;
+        this.Credit = 0;
+        this.CreditFC = 0;
+        this.PaymentType = 0;
+        this.FCRate = 0;
+        this.CreditExpiryDate = "";
+        this.RefCode2 = "";
+        this.RefCode1 = "";
+        this.IsCreditCustomer = false;
+        this.DiscountplanID = 0;
+        this.SalesmanId = 0;
+        this.Address_postal = "";
+        this.Address_Province = "";
+        this.GroupVatNo = "";
+        this.Address_Street = "";
+        this.Address_Str_Additional = "";
+        this.Address_BuildingNo = "";
+        this.Address_Build_Additional = "";
+        this.Address_City = "";
+        this.Address_District = "";
+    }
+    public CustomerId: number;
+    public CustomerCODE: string;
+    public CatID: number;
+    public GroupId: number;
+    public NAMEA: string;
+    public NAMEE: string;
+    public SHORTNAME: string;
+    public TEL: string;
+    public FAX: string;
+    public EMAIL: string;
+    public CURCODE: string;
+    public REMARKS: string;
+    public STATUS: boolean;
+    public MOBILE: string;
+    public Bank: string;
+    public AccountNo: string;
+    public ManagerName: string;
+    public NationalityID: number;
+    public BranchCode: number;
+    public CompCode: number;
+    public CREATED_BY: string;
+    public CREATED_AT: string;
+    public UPDATED_AT: string;
+    public UPDATED_BY: string;
+    public Employer: string;
+    public JobName: string;
+    public WorkTel: string;
+    public WorkAddress: string;
+    public VATType: number;
+    public AddDedType: number;
+    public AddDedNo: string;
+    public VatNo: string;
+    public Isactive: boolean;
+    public IsAuthorized: boolean;
+    public CreditLimit: number;
+    public CreditLimitFC: number;
+    public CreditPeriod: number;
+    public OpenBalanceFC: number;
+    public Openbalance: number;
+    public Debit: number;
+    public DebitFC: number;
+    public Credit: number;
+    public CreditFC: number;
+    public PaymentType: number;
+    public FCRate: number;
+    public CreditExpiryDate: string;
+    public RefCode2: string;
+    public RefCode1: string;
+    public IsCreditCustomer: boolean;
+    public DiscountplanID: number;
+    public SalesmanId: number;
+    public Address_postal: string;
+    public Address_Province: string;
+    public GroupVatNo: string;
+    public Address_Street: string;
+    public Address_Str_Additional: string;
+    public Address_BuildingNo: string;
+    public Address_Build_Additional: string;
+    public Address_City: string;
+    public Address_District: string;
+}
+
+class G_Nationality extends SecurityClass {
+    constructor() {
+        super();
+        this.NationalityID = 0;
+        this.NationalityCode = "";
+        this.DescA = "";
+        this.DescL = "";
+        this.Remarks = "";
+        this.StatusFlag = "";
+    }
+    public NationalityID: number;
+    public NationalityCode: string;
+    public DescA: string;
+    public DescL: string;
+    public Remarks: string;
+    public StatusFlag: string;
+}
+
+class G_Currency extends SecurityClass {
+    constructor() {
+        super();
+        this.CurrencyID = 0;
+        this.CurrencyCode = "";
+        this.DescA = "";
+        this.DescL = "";
+        this.Remarks = "";
+    }
+    public CurrencyID: number;
+    public CurrencyCode: string;
+    public DescA: string;
+    public DescL: string;
+    public Remarks: string;
+}
+
+
+
+class A_RecPay_D_Group extends SecurityClass {
+    constructor() {
+        super();
+        this.GroupID = 0;
+        this.AccountType = 0;
+        this.CompCode = 0;
+        this.GroupCode = "";
+        this.Group_DescA = "";
+        this.Group_DescE = "";
+        this.Remarks = "";
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+        this.StatusFlag = "";
+    }
+    public GroupID: number;
+    public AccountType: number;
+    public CompCode: number;
+    public GroupCode: string;
+    public Group_DescA: string;
+    public Group_DescE: string;
+    public Remarks: string;
+    public CreatedAt: string;
+    public CreatedBy: string;
+    public UpdatedAt: string;
+    public UpdatedBy: string;
+    public StatusFlag: string;
+}
+
+class A_RecPay_D_Category extends SecurityClass {
+    constructor() {
+        super();
+        this.CatID = 0;
+        this.AccountType = 0;
+        this.CatCode = "";
+        this.Cat_DescA = "";
+        this.Cat_DescE = "";
+        this.REMARKS = "";
+        this.AccountCode = "";
+        this.CompCode = 0;
+        this.CreatedAt = "";
+        this.CreatedBy = "";
+        this.UpdatedAt = "";
+        this.UpdatedBy = "";
+        this.StatusFlag = "";
+
+
+    }
+    public CatID: number;
+    public AccountType: number;
+    public CatCode: string;
+    public Cat_DescA: string;
+    public Cat_DescE: string;
+    public REMARKS: string;
+    public AccountCode: string;
+    public CompCode: number;
+    public CreatedAt: string;
+    public CreatedBy: string;
+    public UpdatedAt: string;
+    public UpdatedBy: string;
+    public StatusFlag: string;
+}
+
+
+
+
+class IQ_GetCustomer extends SecurityClass {
+    constructor() {
+        super();
+        this.CustomerId = 0;
+        this.CustomerCODE = "";
+        this.CatID = 0;
+        this.GroupId = 0;
+        this.NAMEA = "";
+        this.NAMEE = "";
+        this.SHORTNAME = "";
+        this.TEL = "";
+        this.FAX = "";
+        this.EMAIL = "";
+        this.CURCODE = "";
+        this.REMARKS = "";
+        this.STATUS = false;
+        this.MOBILE = "";
+        this.Bank = "";
+        this.AccountNo = "";
+        this.ManagerName = "";
+        this.NationalityID = 0;
+        this.BranchCode = 0;
+        this.CompCode = 0;
+        this.CREATED_BY = "";
+        this.CREATED_AT = "";
+        this.UPDATED_AT = "";
+        this.UPDATED_BY = "";
+        this.Employer = "";
+        this.JobName = "";
+        this.WorkTel = "";
+        this.WorkAddress = "";
+        this.VATType = 0;
+        this.AddDedType = 0;
+        this.AddDedNo = "";
+        this.VatNo = "";
+        this.Isactive = false;
+        this.IsAuthorized = false;
+        this.CreditLimit = 0;
+        this.CreditLimitFC = 0;
+        this.CreditPeriod = 0;
+        this.OpenBalanceFC = 0;
+        this.Openbalance = 0;
+        this.Debit = 0;
+        this.DebitFC = 0;
+        this.Credit = 0;
+        this.CreditFC = 0;
+        this.PaymentType = 0;
+        this.FCRate = 0;
+        this.CreditExpiryDate = "";
+        this.RefCode2 = "";
+        this.RefCode1 = "";
+        this.IsCreditCustomer = false;
+        this.DiscountplanID = 0;
+        this.SalesmanId = 0;
+        this.SalesmanCode = "";
+        this.Sls_NameA = "";
+        this.Sls_NameE = "";
+        this.CatCode = "";
+        this.Cat_DescA = "";
+        this.Cat_DescE = "";
+        this.GroupCode = "";
+        this.Group_DescA = "";
+        this.Group_DescE = "";
+        this.Balance = 0;
+        this.Address_postal = "";
+        this.Address_Province = "";
+        this.GroupVatNo = "";
+        this.Address_Street = "";
+        this.Address_Str_Additional = "";
+        this.Address_BuildingNo = "";
+        this.Address_Build_Additional = "";
+        this.Address_City = "";
+        this.Address_District = "";
+    }
+    public CustomerId: number;
+    public CustomerCODE: string;
+    public CatID: number;
+    public GroupId: number;
+    public NAMEA: string;
+    public NAMEE: string;
+    public SHORTNAME: string;
+    public TEL: string;
+    public FAX: string;
+    public EMAIL: string;
+    public CURCODE: string;
+    public REMARKS: string;
+    public STATUS: boolean;
+    public MOBILE: string;
+    public Bank: string;
+    public AccountNo: string;
+    public ManagerName: string;
+    public NationalityID: number;
+    public BranchCode: number;
+    public CompCode: number;
+    public CREATED_BY: string;
+    public CREATED_AT: string;
+    public UPDATED_AT: string;
+    public UPDATED_BY: string;
+    public Employer: string;
+    public JobName: string;
+    public WorkTel: string;
+    public WorkAddress: string;
+    public VATType: number;
+    public AddDedType: number;
+    public AddDedNo: string;
+    public VatNo: string;
+    public Isactive: boolean;
+    public IsAuthorized: boolean;
+    public CreditLimit: number;
+    public CreditLimitFC: number;
+    public CreditPeriod: number;
+    public OpenBalanceFC: number;
+    public Openbalance: number;
+    public Debit: number;
+    public DebitFC: number;
+    public Credit: number;
+    public CreditFC: number;
+    public PaymentType: number;
+    public FCRate: number;
+    public CreditExpiryDate: string;
+    public RefCode2: string;
+    public RefCode1: string;
+    public IsCreditCustomer: boolean;
+    public DiscountplanID: number;
+    public SalesmanId: number;
+    public SalesmanCode: string;
+    public Sls_NameA: string;
+    public Sls_NameE: string;
+    public CatCode: string;
+    public Cat_DescA: string;
+    public Cat_DescE: string;
+    public GroupCode: string;
+    public Group_DescA: string;
+    public Group_DescE: string;
+    public Balance: number;
+    public Address_postal: string;
+    public Address_Province: string;
+    public GroupVatNo: string;
+    public Address_Street: string;
+    public Address_Str_Additional: string;
+    public Address_BuildingNo: string;
+    public Address_Build_Additional: string;
+    public Address_City: string;
+    public Address_District: string;
+}
+
+class A_Rec_D_CustomerDoc extends SecurityClass {
+    constructor() {
+        super();
+        this.CustomerDocID = 0;
+        this.CustomerId = 0;
+        this.CusIDTypeCode = 0;
+        this.IDNo = "";
+        this.IDIssuePlace = "";
+        this.IDIssueDate = "";
+        this.IDIssueDateH = "";
+        this.IDExpireDate = "";
+        this.IDExpireDateH = "";
+        this.StatusFlag = "";
+    }
+    public CustomerDocID: number;
+    public CustomerId: number;
+    public CusIDTypeCode: number;
+    public IDNo: string;
+    public IDIssuePlace: string;
+    public IDIssueDate: string;
+    public IDIssueDateH: string;
+    public IDExpireDate: string;
+    public IDExpireDateH: string;
+    public StatusFlag: string;
+}
+
+class AQ_GetCustomerDoc extends SecurityClass {
+    constructor() {
+        super();
+        this.CustomerDocID = 0;
+        this.CustomerId = 0;
+        this.CusIDTypeCode = 0;
+        this.IDNo = "";
+        this.IDIssuePlace = "";
+        this.IDIssueDateH = "";
+        this.IDIssueDate = "";
+        this.IDExpireDate = "";
+        this.IDExpireDateH = "";
+        this.Doc_DescA = "";
+        this.Doc_DescE = "";
+        this.Doc_StdCode = "";
+    }
+    public CustomerDocID: number;
+    public CustomerId: number;
+    public CusIDTypeCode: number;
+    public IDNo: string;
+    public IDIssuePlace: string;
+    public IDIssueDateH: string;
+    public IDIssueDate: string;
+    public IDExpireDate: string;
+    public IDExpireDateH: string;
+    public Doc_DescA: string;
+    public Doc_DescE: string;
+    public Doc_StdCode: string;
+}
+
+
 
 
 class G_Codes extends SecurityClass {
